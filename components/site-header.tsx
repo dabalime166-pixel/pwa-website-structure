@@ -108,6 +108,23 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
             {t.games}
           </Link>
 
+          <Link
+            href={`/${lang}/guides`}
+            style={{
+              fontSize: '0.875rem',
+              fontWeight: 500,
+              color: 'var(--color-text-secondary)',
+              padding: '0.375rem 0.75rem',
+              borderRadius: '0.375rem',
+              minHeight: '36px',
+              display: 'flex',
+              alignItems: 'center',
+              transition: 'color 0.15s',
+            }}
+          >
+            {lang === 'en' ? 'Guides' : 'Гайды'}
+          </Link>
+
           {/* Divider */}
           <span
             aria-hidden="true"
