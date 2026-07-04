@@ -12,69 +12,74 @@ export function HomePage({ lang }: HomePageProps) {
   const t = i18n[lang]
   const isEn = lang === 'en'
 
-  const metaTitle = t.metaTitleHome
-  const canonicalBase = `https://crashgames.demo/${lang}`
-
   return (
     <>
-      {/* hreflang in <head> is handled by generateMetadata in each route */}
       <SiteHeader lang={lang} />
 
       <main id="main-content" role="main">
+
         {/* ── Hero ── */}
         <section
           aria-label={t.heroTitle}
           style={{
-            background:
-              'linear-gradient(180deg, #0d0e12 0%, #12141c 60%, #0d0e12 100%)',
-            padding: '3.5rem 1rem 2.5rem',
+            padding: 'clamp(3rem, 8vw, 5rem) 1rem clamp(2.5rem, 6vw, 4rem)',
             textAlign: 'center',
             position: 'relative',
             overflow: 'hidden',
           }}
         >
-          {/* Subtle neon glow blob */}
+          {/* Radial gold glow */}
           <div
             aria-hidden="true"
             style={{
               position: 'absolute',
-              top: '-20%',
+              top: '-30%',
               left: '50%',
               transform: 'translateX(-50%)',
-              width: '600px',
-              height: '400px',
+              width: '700px',
+              height: '500px',
               borderRadius: '50%',
               background:
-                'radial-gradient(ellipse, rgba(0,229,255,0.07) 0%, transparent 70%)',
+                'radial-gradient(ellipse, rgba(201,162,39,0.09) 0%, rgba(201,162,39,0.03) 45%, transparent 70%)',
               pointerEvents: 'none',
             }}
           />
 
-          <div style={{ position: 'relative', maxWidth: '720px', margin: '0 auto' }}>
-            <span className="badge-neon" style={{ marginBottom: '1rem', display: 'inline-block' }}>
-              {isEn ? 'Free to Play' : 'Бесплатно'}
+          <div style={{ position: 'relative', maxWidth: '680px', margin: '0 auto' }}>
+            <span className="badge-gold" style={{ marginBottom: '1.25rem', display: 'inline-block' }}>
+              {isEn ? 'Free to Play — No Registration' : 'Бесплатно — Без регистрации'}
             </span>
+
             <h1
               style={{
-                color: 'var(--color-text-primary)',
-                marginBottom: '0.75rem',
+                marginBottom: '0.875rem',
                 textWrap: 'balance',
               }}
             >
-              {t.heroTitle}{' '}
-              <span style={{ color: 'var(--color-neon)' }}>
+              <span style={{ color: 'var(--color-text-primary)' }}>{t.heroTitle}{' '}</span>
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 50%, #c17f15 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
                 {isEn ? 'Online' : 'Онлайн'}
               </span>
             </h1>
+
             <p
               style={{
                 color: 'var(--color-text-secondary)',
                 fontSize: '1rem',
-                marginBottom: '1.75rem',
+                marginBottom: '2rem',
+                lineHeight: 1.7,
               }}
             >
               {t.heroSub}
             </p>
+
             <a
               href={CTA_URL}
               rel="noopener noreferrer sponsored"
@@ -82,28 +87,42 @@ export function HomePage({ lang }: HomePageProps) {
               className="btn-cta"
               aria-label={t.playReal}
             >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
               {t.playReal}
             </a>
+
+            <p style={{ marginTop: '0.875rem', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+              {isEn ? '18+ · Gamble responsibly · T&C apply' : '18+ · Играйте ответственно · Применяются условия'}
+            </p>
           </div>
         </section>
+
+        {/* Gold divider */}
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+          <hr className="gold-line" />
+        </div>
 
         {/* ── Games Grid ── */}
         <section
           aria-label={isEn ? 'Game catalog' : 'Каталог игр'}
           style={{ maxWidth: '1280px', margin: '0 auto', padding: '2.5rem 1rem 4rem' }}
         >
-          <h2
-            style={{
-              color: 'var(--color-text-primary)',
-              marginBottom: '1.5rem',
-              fontSize: 'clamp(1.125rem, 2.5vw, 1.375rem)',
-            }}
-          >
-            {isEn ? 'All Games' : 'Все игры'}{' '}
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 400, fontSize: '0.9em' }}>
-              ({games.length})
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.5rem' }}>
+            <h2 style={{ color: 'var(--color-text-primary)' }}>
+              {isEn ? 'All Games' : 'Все игры'}
+            </h2>
+            <span
+              style={{
+                color: 'var(--color-gold-dim)',
+                fontWeight: 500,
+                fontSize: '0.9375rem',
+              }}
+            >
+              {games.length}
             </span>
-          </h2>
+          </div>
 
           <div className="games-grid" role="list" aria-label={isEn ? 'Games list' : 'Список игр'}>
             {games.map((game) => (
@@ -113,18 +132,25 @@ export function HomePage({ lang }: HomePageProps) {
             ))}
           </div>
 
-          {/* LSI keyword paragraph — hidden visually but read by crawlers */}
+          {/* SEO section */}
           <div
             style={{
               marginTop: '3rem',
-              padding: '1.5rem',
+              padding: 'clamp(1.25rem, 3vw, 2rem)',
               background: 'var(--color-bg-surface)',
               borderRadius: 'var(--radius-card)',
-              border: '1px solid var(--color-border)',
+              border: '1px solid var(--color-border-gold)',
             }}
           >
-            <h2 style={{ color: 'var(--color-text-primary)', marginBottom: '0.75rem' }}>
-              {isEn ? 'Play Free Demo Games — No Registration' : 'Играть в демо-игры бесплатно — без регистрации'}
+            <h2
+              style={{
+                color: 'var(--color-text-primary)',
+                marginBottom: '0.875rem',
+              }}
+            >
+              {isEn
+                ? 'Play Free Demo Games — No Registration'
+                : 'Играть в демо-игры бесплатно — без регистрации'}
             </h2>
             <p className="seo-body" style={{ marginBottom: 0 }}>
               {isEn

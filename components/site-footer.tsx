@@ -11,12 +11,25 @@ export function SiteFooter({ lang }: SiteFooterProps) {
     <footer
       role="contentinfo"
       style={{
-        borderTop: '1px solid var(--color-border)',
+        borderTop: '1px solid var(--color-border-gold)',
         background: 'var(--color-bg-surface)',
-        padding: '2rem 1rem',
+        padding: '2rem 1rem 1.5rem',
         marginTop: '4rem',
+        position: 'relative',
       }}
     >
+      {/* Gold top line */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent, var(--color-gold-dim) 30%, var(--color-gold) 50%, var(--color-gold-dim) 70%, transparent)',
+        }}
+      />
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         <div
           style={{
@@ -29,13 +42,30 @@ export function SiteFooter({ lang }: SiteFooterProps) {
           }}
         >
           <div>
-            <p style={{ fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>
-              Crash<span style={{ color: 'var(--color-neon)' }}>Games</span>
+            <p
+              style={{
+                fontWeight: 800,
+                fontSize: '1.0625rem',
+                letterSpacing: '-0.01em',
+                marginBottom: '0.5rem',
+              }}
+            >
+              <span style={{ color: 'var(--color-text-primary)' }}>Crash</span>
+              <span
+                style={{
+                  background: 'linear-gradient(90deg, var(--color-gold-light), var(--color-gold))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                Games
+              </span>
             </p>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', maxWidth: '28rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', maxWidth: '30rem', lineHeight: 1.6 }}>
               {isEn
-                ? 'Free demo versions of crash games and slots. No real money involved. For entertainment purposes only. 18+ only.'
-                : 'Бесплатные демо-версии краш игр и слотов. Без реальных денег. Только для развлечения. 18+.'}
+                ? 'Free demo versions of crash games and slots. No real money involved. For entertainment only. 18+ only.'
+                : 'Бесплатные демо-версии краш-игр и слотов. Без реальных денег. Только для развлечения. 18+.'}
             </p>
           </div>
           <nav aria-label="Footer navigation">
@@ -49,18 +79,46 @@ export function SiteFooter({ lang }: SiteFooterProps) {
               }}
             >
               <li>
-                <Link href="/en" style={{ color: 'var(--color-text-secondary)' }}>
+                <Link
+                  href="/en"
+                  style={{
+                    color: lang === 'en' ? 'var(--color-gold)' : 'var(--color-text-muted)',
+                    fontWeight: 600,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    fontSize: '0.8125rem',
+                  }}
+                >
                   EN
                 </Link>
               </li>
               <li>
-                <Link href="/ru" style={{ color: 'var(--color-text-secondary)' }}>
+                <Link
+                  href="/ru"
+                  style={{
+                    color: lang === 'ru' ? 'var(--color-gold)' : 'var(--color-text-muted)',
+                    fontWeight: 600,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    fontSize: '0.8125rem',
+                  }}
+                >
                   RU
                 </Link>
               </li>
             </ul>
           </nav>
         </div>
+
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent, var(--color-border-gold), transparent)',
+            marginBottom: '1.25rem',
+          }}
+        />
+
         <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
           &copy; {new Date().getFullYear()} CrashGames Demo.{' '}
           {isEn ? 'All rights reserved.' : 'Все права защищены.'}
