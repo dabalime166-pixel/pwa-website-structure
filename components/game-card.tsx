@@ -23,6 +23,8 @@ export function GameCard({ game, lang }: GameCardProps) {
             fill
             sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 25vw"
             loading="lazy"
+            unoptimized
+            crossOrigin="anonymous"
           />
           {/* Gold corner accents */}
           <span

@@ -115,6 +115,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
               height={68}
               style={{ objectFit: 'contain', width: '100%', height: '100%' }}
               priority
+              unoptimized
+              crossOrigin="anonymous"
             />
           </div>
           <div style={{ minWidth: 0 }}>
