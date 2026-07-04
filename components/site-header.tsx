@@ -12,49 +12,23 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
 
   const enHref = gameSlug ? `/en/${gameSlug}` : '/en'
   const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
+  const enGuidesHref = '/en/guides'
+  const ruGuidesHref = '/ru/guides'
 
   return (
     <header className="site-header" role="banner">
-      <div
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0 1rem',
-          height: '58px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-        }}
-      >
+      <div className="site-header__inner">
         {/* Logo */}
         <Link
           href={`/${lang}`}
           aria-label="CrashGames Demo — Home"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexShrink: 0 }}
+          className="site-header__logo"
         >
-          {/* Gold coin icon */}
           <span
             aria-hidden="true"
-            style={{
-              width: 34,
-              height: 34,
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 55%, #8a6d14 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 12px rgba(201,162,39,0.45)',
-              flexShrink: 0,
-            }}
+            className="site-header__logo-icon"
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
                 stroke="#0a0a0b"
@@ -64,14 +38,7 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
               />
             </svg>
           </span>
-          <span
-            style={{
-              fontWeight: 800,
-              fontSize: '1.0625rem',
-              letterSpacing: '-0.01em',
-              lineHeight: 1,
-            }}
-          >
+          <span className="site-header__logo-text">
             <span style={{ color: 'var(--color-text-primary)' }}>Crash</span>
             <span
               style={{
@@ -86,56 +53,29 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
           </span>
         </Link>
 
-        {/* Nav + Lang switcher */}
-        <nav
-          aria-label="Primary navigation"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}
-        >
-          <Link
-            href={`/${lang}`}
-            style={{
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              color: 'var(--color-text-secondary)',
-              padding: '0.375rem 0.75rem',
-              borderRadius: '0.375rem',
-              minHeight: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'color 0.15s',
-            }}
-          >
-            {t.games}
-          </Link>
+        {/* Right side: nav + lang switcher */}
+        <div className="site-header__right">
+          {/* Nav links */}
+          <nav aria-label="Primary navigation" className="site-header__nav">
+            <Link href={`/${lang}`} className="site-header__nav-link">
+              {t.games}
+            </Link>
+            <Link
+              href={lang === 'en' ? enGuidesHref : ruGuidesHref}
+              className="site-header__nav-link"
+            >
+              {lang === 'en' ? 'Guides' : 'Гайды'}
+            </Link>
+          </nav>
 
-          <Link
-            href={`/${lang}/guides`}
-            style={{
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              color: 'var(--color-text-secondary)',
-              padding: '0.375rem 0.75rem',
-              borderRadius: '0.375rem',
-              minHeight: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'color 0.15s',
-            }}
-          >
-            {lang === 'en' ? 'Guides' : 'Гайды'}
-          </Link>
-
-          {/* Divider */}
-          <span
-            aria-hidden="true"
-            style={{ width: 1, height: 20, background: 'var(--color-border-gold)', opacity: 0.6 }}
-          />
+          {/* Divider — hidden on small screens */}
+          <span aria-hidden="true" className="site-header__divider" />
 
           {/* Language switcher */}
           <div
             role="navigation"
             aria-label="Language switcher"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+            className="site-header__lang"
           >
             <Link
               href={enHref}
@@ -156,7 +96,7 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
               RU
             </Link>
           </div>
-        </nav>
+        </div>
       </div>
 
       {/* Gold bottom line */}
@@ -164,7 +104,8 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
         aria-hidden="true"
         style={{
           height: '1px',
-          background: 'linear-gradient(90deg, transparent, var(--color-gold-dim) 30%, var(--color-gold) 50%, var(--color-gold-dim) 70%, transparent)',
+          background:
+            'linear-gradient(90deg, transparent, var(--color-gold-dim) 30%, var(--color-gold) 50%, var(--color-gold-dim) 70%, transparent)',
           opacity: 0.6,
         }}
       />
