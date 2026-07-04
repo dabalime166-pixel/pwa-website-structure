@@ -82,7 +82,7 @@ export function HomePage({ lang }: HomePageProps) {
 
             <a
               href={CTA_URL}
-              rel="noopener noreferrer sponsored"
+              rel="noopener noreferrer nofollow sponsored"
               target="_blank"
               className="btn-cta"
               aria-label={t.playReal}
