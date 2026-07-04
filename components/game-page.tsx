@@ -149,13 +149,50 @@ export function GamePage({ slug, lang }: GamePageProps) {
         </div>
 
         {/* ── Game iframe with fullscreen button ── */}
-        <GameViewer
-          iframeUrl={game.iframeUrl}
-          gameName={game.name}
-          demoBadge={t.demo}
-          fullscreenLabel={isEn ? 'Full Screen' : 'На весь экран'}
-          closeLabel={isEn ? 'Exit' : 'Выйти'}
-        />
+        {game.iframeUrl ? (
+          <GameViewer
+            iframeUrl={game.iframeUrl}
+            gameName={game.name}
+            demoBadge={t.demo}
+            fullscreenLabel={isEn ? 'Full Screen' : 'На весь экран'}
+            closeLabel={isEn ? 'Exit' : 'Выйти'}
+          />
+        ) : (
+          <div
+            style={{
+              textAlign: 'center',
+              padding: 'clamp(2rem, 5vw, 3rem) 1rem',
+              background: 'var(--color-bg-surface)',
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--color-border-gold)',
+              marginBottom: '2rem',
+            }}
+          >
+            <p
+              style={{
+                color: 'var(--color-text-secondary)',
+                fontSize: '1rem',
+                marginBottom: '1.25rem',
+              }}
+            >
+              {isEn
+                ? `${game.name} demo is coming soon. Play now for real prizes!`
+                : `Демо ${game.name} появится скоро. Играйте прямо сейчас!`}
+            </p>
+            <a
+              href={CTA_URL}
+              rel="noopener noreferrer sponsored"
+              target="_blank"
+              className="btn-cta"
+              aria-label={t.playReal}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              {t.playReal}
+            </a>
+          </div>
+        )}
 
         {/* ── CTA block ── */}
         <div
