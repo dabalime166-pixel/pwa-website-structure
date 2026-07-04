@@ -196,58 +196,59 @@ export function GamePage({ slug, lang }: GamePageProps) {
           </div>
         )}
 
-        {/* ── CTA block ── */}
-        <div
-          style={{
-            textAlign: 'center',
-            margin: '2rem 0',
-            padding: 'clamp(1.5rem, 4vw, 2.5rem) 1rem',
-            background: 'var(--color-bg-surface)',
-            borderRadius: 'var(--radius-card)',
-            border: '1px solid var(--color-border-gold)',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          {/* gold glow accent */}
+        {/* ── CTA block — only shown when a demo iframe is present ── */}
+        {game.iframeUrl && (
           <div
-            aria-hidden="true"
             style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'radial-gradient(ellipse at 50% 100%, rgba(201,162,39,0.07) 0%, transparent 70%)',
-              pointerEvents: 'none',
-            }}
-          />
-          <p
-            style={{
-              color: 'var(--color-text-secondary)',
-              marginBottom: '1.25rem',
-              fontSize: '1rem',
+              textAlign: 'center',
+              margin: '2rem 0',
+              padding: 'clamp(1.5rem, 4vw, 2.5rem) 1rem',
+              background: 'var(--color-bg-surface)',
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--color-border-gold)',
               position: 'relative',
+              overflow: 'hidden',
             }}
           >
-            {isEn
-              ? 'Ready to win real prizes? Join now!'
-              : 'Готовы выиграть настоящие призы? Присоединяйтесь!'}
-          </p>
-          <a
-            href={CTA_URL}
-            rel="noopener noreferrer sponsored"
-            target="_blank"
-            className="btn-cta"
-            aria-label={t.playReal}
-            style={{ position: 'relative' }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3" />
-            </svg>
-            {t.playReal}
-          </a>
-          <p style={{ marginTop: '0.875rem', fontSize: '0.75rem', color: 'var(--color-text-muted)', position: 'relative' }}>
-            {isEn ? '18+ · Gamble responsibly · T&C apply' : '18+ · Играйте ответственно · Применяются условия'}
-          </p>
-        </div>
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'radial-gradient(ellipse at 50% 100%, rgba(201,162,39,0.07) 0%, transparent 70%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <p
+              style={{
+                color: 'var(--color-text-secondary)',
+                marginBottom: '1.25rem',
+                fontSize: '1rem',
+                position: 'relative',
+              }}
+            >
+              {isEn
+                ? 'Ready to win real prizes? Join now!'
+                : 'Готовы выиграть настоящие призы? Присоединяйтесь!'}
+            </p>
+            <a
+              href={CTA_URL}
+              rel="noopener noreferrer sponsored"
+              target="_blank"
+              className="btn-cta"
+              aria-label={t.playReal}
+              style={{ position: 'relative' }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              {t.playReal}
+            </a>
+            <p style={{ marginTop: '0.875rem', fontSize: '0.75rem', color: 'var(--color-text-muted)', position: 'relative' }}>
+              {isEn ? '18+ · Gamble responsibly · T&C apply' : '18+ · Играйте ответственно · Применяются условия'}
+            </p>
+          </div>
+        )}
 
         {/* ── Keyword tags ── */}
         {keywords.length > 0 && (
