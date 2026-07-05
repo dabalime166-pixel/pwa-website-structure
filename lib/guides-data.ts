@@ -1,381 +1,1003 @@
-export interface Guide {
-  id: string;
-  titleRu: string;
-  titleEn: string;
-  descriptionRu: string;
-  descriptionEn: string;
-  contentRu: string;
-  contentEn: string;
+/* ─── Types ─── */
+export interface Section {
+  heading: string;
+  body?: string;
+  body2?: string;
+  formula?: string;
+  bullets?: string[];
+  callout?: string;
+  strategies?: { title: string; bullets: string[] }[];
 }
 
-export const guides: Guide[] = [
+export interface GuideData {
+  id: string;
+  slug: string;
+  icon: string;
+  titleRu: string;
+  titleEn: string;
+  subtitleRu: string;
+  subtitleEn: string;
+  tagRu: string;
+  tagEn: string;
+  /** SEO meta description (RU) */
+  descriptionRu: string;
+  /** SEO meta description (EN) */
+  descriptionEn: string;
+  sections: { ru: Section[]; en: Section[] };
+}
+
+/* ─── Data ─── */
+export const GUIDES: GuideData[] = [
+  /* ── PLINKO ── */
   {
     id: 'plinko',
+    slug: 'plinko',
+    icon: '◉',
     titleRu: 'Механика Plinko',
     titleEn: 'Plinko Mechanics',
-    descriptionRu: 'Анализ распределения вероятностей в доске Гальтона',
-    descriptionEn: 'Analyzing probability distribution in the Galton board',
-    contentRu: `
-## МЕХАНИКА PLINKO И ДОСКА ГАЛЬТОНА: АНАЛИЗ РАСПРЕДЕЛЕНИЯ ВЕРОЯТНОСТЕЙ В СОВРЕМЕННОМ IGAMING
-
-### Введение: Как Физический Эксперимент Стал Хитом iGaming
-
-Индустрия современных аркадных игр часто черпает вдохновение в классических физических и математических моделях. Ярчайшим примером этой тенденции стала интеграция механики Plinko (Плинко). Базирующаяся на классическом изобретении сэра Фрэнсиса Гальтона (Доска Гальтона), эта игра демонстрирует наглядное биномиальное распределение вероятностей. В условиях онлайн-платформ традиционная математическая модель получила цифровую надстройку, позволяющую пользователям динамически управлять математическим ожиданием, количеством рядов и уровнем риска.
-
-### 1. Математический Базис: Биномиальное Распределение и Испытания Бернулли
-
-В процессе игры шарик падает сверху вниз через пирамидальную матрицу препятствий (колышков). На каждом уровне, сталкиваясь с колышком, шарик с равной вероятностью отклоняется либо влево, либо вправо. Этот процесс представляет собой классическую последовательность независимых испытаний Бернулли.
-
-Если пирамида содержит n рядов колышков, то количество возможных траекторий шарика и вероятность его попадания в определенную лунку на дне пирамиды рассчитывается по формуле биномиальных коэффициентов (треугольник Паскаля):
-
-**P(k) = C(n, k) × p^k × (1-p)^(n-k)**
-
-где k — порядковый номер лунки от края, n — количество рядов колышков, а p = 0.5 — вероятность отклонения в каждую сторону. В силу этой математической закономерности вероятность падения шарика в центральные лунки максимальна, а коэффициенты выплат там минимальны (часто < 1.00x). Напротив, крайние лунки обладают минимальной вероятностью попадания, но предлагают экстремальные множители (до 1000x и выше).
-
-### Кастомизация волатильности в реальном времени
-
-Современные версии Plinko позволяют настраивать два параметра:
-
-- **Количество рядов колышков (Lines)**: Обычно от 8 до 16. Увеличение количества рядов расширяет основание пирамиды, экспоненциально увеличивая максимальный коэффициент на краях и снижая вероятность его достижения.
-
-- **Уровень риска (Risk Level)**: Низкий (Low), Средний (Medium), Высокий (High). Этот параметр изменяет веса коэффициентов в лунках при неизменной геометрии доски. На высоком риске центр пирамиды становится глубоко убыточным, но края предлагают максимальный профит.
-
-### 2. Психология Падения: Почему Визуализация Формирует Доверие
-
-Успех Plinko во многом связан со спецификой визуального восприятия траектории движения.
-
-- **Эффект «Почти у цели» (Near-Miss)**: Шарик может на протяжении 12 рядов двигаться к максимальному множителю 1000x, но на последних двух колышках отклониться в центр. Пользователь видит физическую (симулированную) траекторию и воспринимает это как случайность, а не как строгий математический закон, что стимулирует запуск следующего шара.
-
-- **Непрерывный поток (Пакетные запуски)**: Возможность запускать десятки шаров один за другим с высокой частотой сглаживает восприятие единичных потерь, превращая игру в непрерывное медитативное наблюдение за траекториями.
-
-### 3. Аналитические Стратегии и Управление Дисперсией
-
-Удержание теоретического RTP в диапазоне 97% - 99% требует четкого понимания того, как выбранные настройки соотносятся с размером банкролла.
-
-**Стратегия «Центральный накопитель» (Низкая волатильность)**
-- Настройки: 8-10 рядов, низкий или средний риск
-- Центральные лунки возвращают от 0.5x до 0.9x от суммы ставки
-- Края ограничены скромными 5x - 10x
-- Минимизирует просадку баланса
-
-**Стратегия «Крайний пик» (Экстремальная дисперсия)**
-- Настройки: 14-16 рядов, высокий риск
-- Вероятность попадания в крайнюю лунку составляет менее 0.003%
-- Банкролл должен быть рассчитан минимум на 500–1000 эквивалентных ставок
-- Одно попадание в угол окупает длительную сессию отрицательной дисперсии
-
-### 4. Законы Безопасного Мани-Менеджмента в Plinko
-
-- **Дробление объема**: Никогда не ставьте более 0.5% от банка на один шар, особенно при пакетных запусках.
-
-- **Смена режимов при фиксации просадки**: Если при агрессивных настройках за 200 циклов не было получено множителя выше 20x, рекомендуется временно снизить количество линий для стабилизации математического ожидания.
-
-- **Контроль автоматического режима**: При использовании авто-игры обязательно выставляйте лимит на максимальный суммарный убыток (Stop Loss) и фиксацию прибыли (Take Profit).
-    `,
-    contentEn: `
-## PLINKO MECHANICS AND THE GALTON BOARD: ANALYZING PROBABILITY DISTRIBUTION IN MODERN IGAMING
-
-### Introduction: How a Physics Experiment Became an iGaming Phenomenon
-
-The modern arcade gaming industry frequently derives inspiration from classical physics and mathematical templates. The most prominent implementation of this trend is the integration of Plinko mechanics. Rooted in the classic invention of Sir Francis Galton (The Galton Board), this gameplay loop visually demonstrates the binomial distribution of probabilities. Within online platforms, this traditional mathematical engine received a digital layer allowing users to dynamically configure their mathematical expectation, row layout, and baseline risk indexes.
-
-### 1. Mathematical Foundation: Binomial Distribution and Bernoulli Trials
-
-During a game cycle, a ball descends from the top apex through a pyramidal matrix of obstacles (pegs). At each individual row intercept, the ball collides with a peg and possesses an equal probability to deflect either left or right. This process constitutes a textbook sequence of independent Bernoulli trials.
-
-If the pyramid incorporates n rows of pegs, the cumulative number of potential trajectories and the definitive probability of landing in a specific terminal pocket at the base is governed by the binomial coefficient formula (Pascal's Triangle):
-
-**P(k) = C(n, k) × p^k × (1-p)^(n-k)**
-
-where k represents the index of the bucket relative to the margins, n indicates the total volume of peg rows, and p = 0.5 defines the probability of deflection to either side. Due to this mathematical law, the probability of intercepting central pockets is maximized, while payout coefficients there are compressed (frequently < 1.00x). Conversely, outer boundary pockets possess minimal probability vectors but yield extreme multipliers (up to 1000x or higher).
-
-### Real-Time Volatility Customization
-
-Modern adaptations of Plinko empower the user to manipulate two structural variables:
-
-- **Row Density (Lines)**: Generally scalable from 8 to 16. Expanding the row layout widens the base of the pyramid, exponentially scaling outer boundary multipliers while drastically compressing the mathematical probability of reaching them.
-
-- **Risk Parameters**: Low, Medium, High. This toggle reallocates the coefficient weight mapping across the terminal buckets without modifying the physical geometry of the board. Under high risk, central buckets become deeply negative, while outer brackets unlock maximal returns.
-
-### 2. The Psychology of Descent: Why Spatial Visualization Solidifies Trust
-
-The global traction behind Plinko is intensely linked to the visual parameters of trajectory tracking.
-
-- **The Near-Miss Phenomenon**: A ball can spend 12 consecutive rows accelerating directly toward a maximum 1000x vector, only to deflect into a central bracket on the final two pins. The player witnesses a simulated physical trajectory and processes the result as an unlucky anomaly rather than a rigid mathematical certainty, incentivizing the deployment of subsequent balls.
-
-- **Continuous Batch Processing**: The utility to drop dozens of balls in rapid succession blurs individual loss cycles, transitioning the engagement into a meditative observation of overlapping trajectories, which diminishes objective assessment of bankroll decay.
-
-### 3. Analytical Strategic Architectures and Variance Management
-
-Maintaining long-term performance metrics within the native 97% to 99% RTP threshold demands strict harmonization between board variables and asset depth.
-
-**The Conservative Central Strategy (Low Volatility)**
-- Configuration: 8-10 lines, low or medium risk profile
-- Central buckets return anywhere from 0.5x to 0.9x of the initial capital
-- Margins are bounded by modest 5x to 10x yields
-- Limits aggressive drawdowns
-
-**The Outlier Peak Model (High Variance)**
-- Configuration: 14-16 lines, high risk profile
-- Mathematical probability of landing in a terminal edge bucket on a 16-row layout is underneath a 0.003% threshold
-- Bankroll must structurally sustain a minimum sequence of 500 to 1000 equivalent wagers
-- Singular margin strike completely reclaims historical variance debt
-
-### 4. Rigid Asset Allocation Protocols in Plinko
-
-- **Fractional Scaling**: Given the elevated velocity of ball execution, never assign more than 0.5% of total capital to an individual drop, especially during mass batch deployments.
-
-- **Dynamic Parameter Re-indexing**: If an aggressive matrix yields no multipliers exceeding a 20x threshold across 200 cycles, compress the line allocation to stabilize variance metrics.
-
-- **Automated Safety Boundaries**: When exploiting automated script execution features, always define strict aggregate Stop-Loss and Take-Profit caps to insulate the bankroll.
-    `,
+    subtitleRu: 'Анализ распределения вероятностей в доске Гальтона',
+    subtitleEn: 'Analyzing probability distribution in the Galton board',
+    tagRu: 'RTP 97–99%',
+    tagEn: 'RTP 97–99%',
+    descriptionRu:
+      'Полный гайд по механике Plinko: биномиальное распределение, уровни риска, стратегии мани-менеджмента и RTP 97–99%. Узнайте, как работает доска Гальтона в онлайн-казино.',
+    descriptionEn:
+      'Complete Plinko strategy guide: binomial distribution, risk levels, bankroll management and RTP 97–99%. Learn how the Galton board works in online casinos.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение: Как физический эксперимент стал хитом iGaming',
+          body: 'Индустрия современных аркадных игр часто черпает вдохновение в классических физических и математических моделях. Ярчайшим примером стала интеграция механики Plinko — игры, основанной на Доске Гальтона. В условиях онлайн-платформ традиционная математическая модель получила цифровую надстройку, позволяющую динамически управлять математическим ожиданием, количеством рядов и уровнем риска.',
+        },
+        {
+          heading: '1. Математический базис: биномиальное распределение',
+          body: 'Шарик падает через пирамидальную матрицу колышков. На каждом уровне он с равной вероятностью отклоняется влево или вправо — классическая последовательность независимых испытаний Бернулли. Вероятность попадания в определённую лунку:',
+          formula: 'P(k) = C(n, k) × p^k × (1 − p)^(n − k)',
+          body2:
+            'Центральные лунки имеют максимальную вероятность (коэффициент < 1.00x), крайние — минимальную вероятность, но экстремальные множители до 1000x и выше.',
+          bullets: [
+            'Количество рядов (Lines): от 8 до 16. Больше рядов — выше крайние множители, ниже их вероятность.',
+            'Уровень риска: Низкий / Средний / Высокий — меняет веса коэффициентов без изменения геометрии доски.',
+          ],
+        },
+        {
+          heading: '2. Психология падения: почему визуализация формирует доверие',
+          body: 'Успех Plinko во многом связан со спецификой визуального восприятия траектории.',
+          bullets: [
+            'Эффект «Почти у цели» (Near-Miss): шарик 12 рядов движется к 1000x, но на последних колышках уходит в центр. Пользователь воспринимает это как случайность, а не математический закон.',
+            'Пакетные запуски: возможность запускать десятки шаров подряд превращает игру в медитативное наблюдение за траекториями и снижает критичность оценки общего баланса.',
+          ],
+        },
+        {
+          heading: '3. Аналитические стратегии и управление дисперсией',
+          body: 'Удержание RTP 97–99% требует понимания соотношения настроек и размера банкролла.',
+          strategies: [
+            {
+              title: 'Стратегия «Центральный накопитель» — низкая волатильность',
+              bullets: [
+                '8–10 рядов, низкий или средний риск',
+                'Центр возвращает 0.5x – 0.9x ставки, края ограничены 5x – 10x',
+                'Минимизирует просадку, идеально для вейджера',
+              ],
+            },
+            {
+              title: 'Стратегия «Крайний пик» — экстремальная дисперсия',
+              bullets: [
+                '14–16 рядов, высокий риск',
+                'Вероятность крайней лунки < 0.003%',
+                'Банкролл должен выдержать 500–1000 ставок до одного попадания в угол',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '4. Законы безопасного мани-менеджмента',
+          callout:
+            'Никогда не ставьте более 0.5% от банка на один шар, особенно при пакетных запусках.',
+          bullets: [
+            'Смена режима при просадке: 200 циклов без множителя >20x — снизьте количество линий.',
+            'Авто-игра: обязательно выставляйте Stop Loss и Take Profit.',
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction: How a Physics Experiment Became an iGaming Phenomenon',
+          body: "The modern arcade gaming industry frequently derives inspiration from classical physics. The most prominent implementation is Plinko — rooted in Sir Francis Galton's invention. Within online platforms, this mathematical engine received a digital layer allowing users to dynamically configure expectation, row layout, and baseline risk indexes.",
+        },
+        {
+          heading: '1. Mathematical Foundation: Binomial Distribution and Bernoulli Trials',
+          body: "A ball descends through a pyramidal peg matrix. At each row it deflects left or right with equal probability — a textbook sequence of Bernoulli trials. Landing probability follows Pascal's Triangle:",
+          formula: 'P(k) = C(n, k) × p^k × (1 − p)^(n − k)',
+          body2:
+            'Central pockets have maximum probability (coefficients < 1.00x); outer pockets have minimal probability but extreme multipliers up to 1000x+.',
+          bullets: [
+            'Row Density (Lines): scalable 8–16. More rows = higher outer multipliers, lower probability of reaching them.',
+            'Risk Level: Low / Medium / High — reallocates coefficient weights without altering board geometry.',
+          ],
+        },
+        {
+          heading: '2. The Psychology of Descent: Why Visualization Solidifies Trust',
+          body: "Plinko's global traction is tied to trajectory visualization.",
+          bullets: [
+            'Near-Miss Phenomenon: a ball accelerates toward 1000x for 12 rows, deflects on the last two pins. Players process this as bad luck, not mathematical law.',
+            'Continuous Batch Processing: dropping dozens of balls blurs individual losses, creating a meditative engagement that diminishes objective bankroll assessment.',
+          ],
+        },
+        {
+          heading: '3. Strategic Architectures and Variance Management',
+          body: 'Sustaining the 97–99% RTP threshold demands strict harmonization between board variables and asset depth.',
+          strategies: [
+            {
+              title: 'Conservative Central Strategy — Low Volatility',
+              bullets: [
+                '8–10 lines, low or medium risk profile',
+                'Central buckets return 0.5x–0.9x; margins bounded by 5x–10x',
+                'Limits aggressive drawdowns, optimal for wagering',
+              ],
+            },
+            {
+              title: 'Outlier Peak Model — High Variance',
+              bullets: [
+                '14–16 lines, high risk profile',
+                'Terminal edge probability < 0.003% on 16 rows',
+                'Bankroll must sustain 500–1000 wagers before a margin strike',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '4. Rigid Asset Allocation Protocols',
+          callout:
+            'Never assign more than 0.5% of total capital to an individual drop, especially during mass batch deployments.',
+          bullets: [
+            'Dynamic Re-indexing: no multipliers >20x across 200 cycles — compress line allocation.',
+            'Automated Safety: always define strict Stop-Loss and Take-Profit caps.',
+          ],
+        },
+      ],
+    },
   },
+
+  /* ── MINES ── */
   {
     id: 'mines',
+    slug: 'mines',
+    icon: '◆',
     titleRu: 'Стратегия Mines',
     titleEn: 'Mines Strategy',
-    descriptionRu: 'Управление волатильностью в играх на основе вероятностей',
-    descriptionEn: 'Volatility management in probability-based games',
-    contentRu: `
-## МАТЕМАТИКА И СТРАТЕГИЯ MINES-ИГР: КАК УПРАВЛЯТЬ ВОЛАТИЛЬНОСТЬЮ В КАСТОМНЫХ СМАРТ-КОНТРАКТАХ
-
-### Введение: Новая Эра Гибкого Настраиваемого Риска
-
-Современные Instant-игры предлагают пользователю то, чего никогда не было в классической индустрии — возможность самостоятельно определять уровень волатильности и математического преимущества каждого отдельного раунда. Ярким представителем этого направления является игра Мины (Mines). Исторически восходящая к культовому компьютерному симулятору Сапёр, эта механика в рамках iGaming трансформировалась в глубокий аналитический инструмент, где знание комбинаторики и распределения вероятностей способно кардинально изменить исходы игровых сессий.
-
-### 1. Архитектура Процесса: Комбинаторика Квадратного Поля
-
-Игровое пространство стандартно представляет собой матрицу 5x5, состоящую из 25 закрытых ячеек. Перед стартом раунда пользователь самостоятельно задает два ключевых параметра: сумму ставки и количество скрытых мин (обычно от 1 до 24). Каждое успешное открытие ячейки со звездой увеличивает текущий множитель. Открытие ячейки с миной мгновенно завершает раунд потерей ставки.
-
-Математическая уникальность игры Мины заключается в том, что с каждым успешным шагом вероятность совершить ошибку возрастает, но пропорционально этому увеличивается и ценность следующего шага. Формула расчета вероятности успеха на первом шаге выглядит как:
-
-**P(1) = (25 - M) / 25**
-
-где M — выбранное количество мин. Однако на каждом последующем шаге знаменатель уменьшается на единицу, создавая динамическую прогрессию риска.
-
-### Криптографическая верификация исходов
-
-Честность генерации сетки расположения мин обеспечивается сквозным шифрованием. В момент инициализации раунда генерируется уникальная строка данных, которая хэшируется по алгоритму SHA-256. Игрок получает публичный хэш до начала выбора ячеек. После завершения раунда открывается исходный ключ (соль), что позволяет проверить, что расположение ловушек было статичным и не корректировалось в зависимости от действий пользователя.
-
-### 2. Психология Дискретного Выбора и Когнитивные Ловушки
-
-Игры типа «Мины» создают уникальное когнитивное давление на игрока, отличающееся от механики классических игровых автоматов.
-
-- **Эвристика доступности и «Паттерны удачи»**: Игроки склонны верить, что определенные геометрические фигуры (диагонали, змейки, углы) обладают меньшей вероятностью содержать мины. С точки зрения теории вероятностей, каждая генерация абсолютно независима, и любые паттерны являются когнитивной иллюзией.
-
-- **Проблема невозвратных затрат (Sunk Cost Fallacy)**: Открыв 4 ячейки из 5 запланированных и столкнувшись с резким ростом внутреннего напряжения, игрок часто совершает неоправданный пятый шаг просто потому, что «уже зашел слишком далеко», вместо математически обоснованного кэшаута.
-
-- **Главный психологический барьер**: В Mines отсутствует внешний таймер. Игра не торопит пользователя, заставляя его самостоятельно вести диалог с собственным чувством жадности и страхом перед потерей накопленного множителя.
-
-### 3. Математические Стратегии и Кастомизация Волатильности
-
-Для оптимизации игровой сессии и удержания теоретического RTP на уровне 97%, опытные аналитики используют дифференцированные подходы в зависимости от стиля игры.
-
-**Тактика «Низкий риск — Длинная дистанция»**
-- Устанавливается минимальное количество мин (от 1 до 3)
-- Цель — открывать от 3 до 5 ячеек за раунд
-- Вероятность успеха на каждой ячейке остается крайне высокой (>80%)
-- Множители растут плавно, что позволяет использовать умеренное прогрессивное увеличение ставок
-- Идеально подходит для длительного удержания банкролля и отыгрыша вейджеров
-
-**Тактика «Охота за Экстремальными Множителями»**
-- Выбирается от 10 до 15 мин
-- Лимит шагов жестко ограничивается 1-2 кликами
-- Всего два успешных клика при 10 минах способны увеличить первоначальную ставку более чем в 3 раза
-- Характеризуется высокой точечной волатильностью
-- Требует значительного запаса прочности банкролла
-
-### 4. Алгоритм Правильного Мани-Менеджмента
-
-Для минимизации риска быстрой потери депозита рекомендуется внедрить жесткий протокол контроля:
-
-- **Правило фиксированной сетки**: Определите конфигурацию (например, 3 мины, 4 клика) до начала сессии и не меняйте её импульсивно в процессе.
-
-- **Масштабирование от капитала**: Базовая ставка при агрессивных настройках (более 7 мин) не должна превышать 1% от текущего баланса.
-
-- **Фиксация сессионного профита**: При увеличении стартового баланса на 30-50% сессия должна закрываться, чтобы избежать эффекта накопленной усталости.
-    `,
-    contentEn: `
-## THE MATHEMATICS AND STRATEGY OF MINES GAMES: CONTROLLING VOLATILITY IN CUSTOMIZED SMART CONTRACTS
-
-### Introduction: A New Era of Fully Customizable Risk
-
-Modern instant games offer players an unprecedented utility never before seen in traditional casino architectures — the capacity to independently calibrate the volatility index and mathematical house edge of each discrete round. The prominent pioneer of this paradigm shift is the Mines game. Rooted historically in the classic desktop Minesweeper, this core loop has been re-engineered within iGaming into a high-utility analytical environment where knowledge of combinatorics can heavily dictate outcomes.
-
-### 1. Process Architecture: The Combinatorics of the Square Grid
-
-The interactive environment consists of a standard 5x5 matrix containing 25 concealed tiles. Before initiating a betting sequence, the operator defines two primary variables: the stake size and the volume of hidden mines (ranging from 1 to 24). Every successive tile containing a star increments the global multiplier. Exposing a mine immediately terminates the round, resulting in total loss of capital.
-
-The core mathematical appeal of Mines resides in its dynamic risk acceleration: with each subsequent selection, the margin for error narrows while the potential yield scales proportionally. The mathematical probability of success on the initial selection is expressed as:
-
-**P(1) = (25 - M) / 25**
-
-where M represents the total volume of designated mines. Crucially, the denominator diminishes by exactly 1 unit on every successive step, generating a compounding risk curve.
-
-### Cryptographic Settlement Verification
-
-The systemic integrity of the grid matrix configuration is enforced via end-to-end cryptographic hashing. Upon round initialization, a unique string sequence is generated and wrapped inside a SHA-256 hash function. The player is provided with the public hash string prior to interacting with the grid. Upon voluntary cashout or detonation, the server seed and salt are unveiled, enabling instant validation that the state of the board remained completely static throughout the turn.
-
-### 2. The Psychology of Discrete Decisions and Cognitive Traps
-
-Mines-style gameplay mechanics generate unique cognitive stressors that contrast sharply with automated, spin-based formats.
-
-- **Availability Heuristics and Visual Patterns**: Human brains naturally assign non-existent probabilities to spatial layouts (diagonal lines, borders, patterns). In pure probability theory, each computational state is isolated, rendering all geometric patterns purely illusory.
-
-- **The Sunk Cost Fallacy**: Having successfully cleared 4 out of 5 predefined target tiles, players facing severe cognitive tension frequently execute an unwarranted fifth click simply due to perceived emotional investment, rather than assessing the drop in safe probability.
-
-- **The definitive behavioral variable**: In Mines is the complete absence of an automated round countdown timer. The user dictates the tempo, forcing an unmediated psychological dialogue with individual risk tolerance.
-
-### 3. Mathematical Paradigms and Volatility Customization
-
-To sustain optimized performance metrics near the native 97% RTP index, professional practitioners implement highly structured tactical blueprints tailored to specific risk constraints.
-
-**The Conservative Long-Tail Paradigm**
-- Configuring a minimal baseline density (1 to 3 mines)
-- Systematic extraction window of 3 to 5 tile exposures per cycle
-- Singular mathematical probability of safe exposure remains exceptionally elevated (>80%)
-- Multipliers scale steadily, allowing managed progressive compounding
-- Optimized for maximum bankroll retention and wagering requirements
-
-**The High-Amplitude Velocity Strategy**
-- Parameters pivoted toward extreme density thresholds: 10 to 15 mines
-- Aggressively limiting the operational window to 1-2 tile selections
-- Successfully registering two clicks against a 10-mine layout scales principal investment by over 300%
-- Triggers massive instantaneous volatility
-- Demands substantial structural asset depth from the operating bankroll
-
-### 4. Rigid Protocols for Asset Management
-
-To systematically insulate capital from exponential variance, players must implement strict risk parameter controls:
-
-- **The Static Grid Mandate**: Establish an immutable matrix profile (e.g., 3 mines, 4 clicks) before starting a session; eradicate all impulse modifications mid-cycle.
-
-- **Proportional Scale**: Base entry stakes under high-density profiles (exceeding 7 mines) must strictly remain underneath a 1% threshold of the aggregate bankroll.
-
-- **Voluntary Session Disconnection**: Upon achieving a realized appreciation of 30-50% relative to starting capital, the operating session must be concluded to mitigate cognitive fatigue.
-    `,
+    subtitleRu: 'Управление волатильностью в кастомных смарт-контрактах',
+    subtitleEn: 'Volatility control in customizable smart contracts',
+    tagRu: 'RTP 97%',
+    tagEn: 'RTP 97%',
+    descriptionRu:
+      'Гайд по игре Mines: комбинаторика матрицы 5×5, стратегии управления волатильностью, кэшаут и мани-менеджмент. RTP 97%, Provably Fair.',
+    descriptionEn:
+      'Mines strategy guide: 5×5 grid combinatorics, volatility control, cashout timing and bankroll management. RTP 97%, Provably Fair mechanics explained.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение: новая эра гибкого настраиваемого риска',
+          body: 'Современные Instant-игры дают пользователю возможность самостоятельно определять уровень волатильности каждого раунда. Игра Мины (Mines) исторически восходит к Сапёру, но в iGaming превратилась в аналитический инструмент, где знание комбинаторики способно кардинально изменить результаты.',
+        },
+        {
+          heading: '1. Архитектура: комбинаторика квадратного поля',
+          body: 'Игровое пространство — матрица 5×5 из 25 закрытых ячеек. Игрок задаёт количество мин (от 1 до 24). С каждым успешным кликом множитель растёт, но и вероятность ошибки увеличивается. Вероятность успеха на первом шаге:',
+          formula: 'P(1) = (25 − M) / 25',
+          body2:
+            'На каждом следующем шаге знаменатель уменьшается на 1 — формируется динамическая прогрессия риска.',
+          callout:
+            'Честность подтверждается SHA-256: хэш расположения мин передаётся игроку до начала раунда.',
+        },
+        {
+          heading: '2. Психология дискретного выбора и когнитивные ловушки',
+          body: 'Mines создаёт уникальное когнитивное давление — без внешнего таймера игрок сам управляет темпом.',
+          bullets: [
+            'Паттерны удачи: диагонали и углы не снижают вероятность мины — каждая генерация независима.',
+            'Sunk Cost Fallacy: открыв 4 из 5 ячеек, игроки делают пятый шаг вместо математически обоснованного кэшаута.',
+          ],
+          callout:
+            'Главный барьер в Mines — отсутствие таймера. Игра заставляет вести диалог с собственной жадностью.',
+        },
+        {
+          heading: '3. Математические стратегии и кастомизация волатильности',
+          body: 'Для удержания RTP ≈ 97% опытные аналитики используют два полярных подхода.',
+          strategies: [
+            {
+              title: 'Тактика «Низкий риск — Длинная дистанция»',
+              bullets: [
+                '1–3 мины; открывать 3–5 ячеек за раунд',
+                'Вероятность безопасного шага >80%',
+                'Плавный рост множителей; идеально для вейджера',
+              ],
+            },
+            {
+              title: 'Тактика «Охота за экстремальными множителями»',
+              bullets: [
+                '10–15 мин; жёсткий лимит 1–2 клика',
+                'Два успешных клика при 10 минах — ставка растёт более чем в 3 раза',
+                'Требует значительного запаса прочности банкролла',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '4. Алгоритм правильного мани-менеджмента',
+          callout:
+            'Определите конфигурацию (например: 3 мины, 4 клика) ДО начала сессии — не меняйте её импульсивно.',
+          bullets: [
+            'Масштабирование: базовая ставка при >7 минах — не более 1% от баланса.',
+            'Фиксация профита: при росте баланса на 30–50% закрывайте сессию.',
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction: A New Era of Fully Customizable Risk',
+          body: 'Modern instant games offer unprecedented utility: independently calibrating the volatility index and house edge of each round. The Mines game, rooted in classic Minesweeper, has been re-engineered into a high-utility analytical environment where combinatorics knowledge can heavily dictate outcomes.',
+        },
+        {
+          heading: '1. Process Architecture: Combinatorics of the Square Grid',
+          body: 'A 5×5 matrix of 25 concealed tiles. Before each round, define stake and mine count (1–24). Each star tile increments the multiplier; a mine ends the round. Success probability on the first selection:',
+          formula: 'P(1) = (25 − M) / 25',
+          body2: 'The denominator shrinks by 1 on every step, creating a compounding risk curve.',
+          callout:
+            'Fairness is enforced via SHA-256: the hash of mine positions is provided before tile selection.',
+        },
+        {
+          heading: '2. Psychology of Discrete Decisions and Cognitive Traps',
+          body: 'Mines generates unique cognitive stress — no countdown timer means the player controls the tempo alone.',
+          bullets: [
+            'Availability Heuristics: diagonal or corner patterns do not lower mine probability. Every grid state is isolated.',
+            'Sunk Cost Fallacy: having cleared 4 of 5 tiles, players click a 5th due to perceived investment rather than assessing the probability drop.',
+          ],
+          callout:
+            'The definitive variable in Mines is the absence of a countdown timer — forcing an unmediated dialogue with individual risk tolerance.',
+        },
+        {
+          heading: '3. Mathematical Paradigms and Volatility Customization',
+          body: 'To sustain near-97% RTP performance, practitioners implement two polar tactical blueprints.',
+          strategies: [
+            {
+              title: 'Conservative Long-Tail Paradigm',
+              bullets: [
+                '1–3 mines; 3–5 tile exposures per cycle',
+                'Safe exposure probability remains >80%',
+                'Optimal for bankroll retention and wagering requirements',
+              ],
+            },
+            {
+              title: 'High-Amplitude Velocity Strategy',
+              bullets: [
+                '10–15 mines; 1–2 tile operational window',
+                'Two clicks against 10 mines scales principal by 300%+',
+                'Demands substantial structural asset depth',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '4. Rigid Asset Management Protocols',
+          callout:
+            'Establish an immutable matrix profile (e.g., 3 mines, 4 clicks) before starting; eradicate all impulse modifications mid-cycle.',
+          bullets: [
+            'Proportional Scale: under high-density profiles (7+ mines), stake ≤ 1% of aggregate bankroll.',
+            'Voluntary Disconnect: upon 30–50% appreciation, conclude the session to mitigate cognitive fatigue.',
+          ],
+        },
+      ],
+    },
   },
+
+  /* ── CRASH ── */
   {
     id: 'crash',
+    slug: 'crash',
+    icon: '▲',
     titleRu: 'Crash-игры',
     titleEn: 'Crash Games',
-    descriptionRu: 'Психология быстрых выигрышей и управление рисками',
-    descriptionEn: 'Psychology of instant wins and risk management',
-    contentRu: `
-## ПСИХОЛОГИЯ CRASH-ИГР И БЫСТРЫХ ВЫИГРЫШЕЙ: ПОЛНЫЙ ГАЙД ПО СОВРЕМЕННОЙ МЕХАНИКЕ IGAMING
+    subtitleRu: 'Психология быстрых выигрышей и управление рисками',
+    subtitleEn: 'Psychology of instant wins and risk management',
+    tagRu: 'RTP 96–97%',
+    tagEn: 'RTP 96–97%',
+    descriptionRu:
+      'Гайд по Crash-играм: механика, психология азарта, стратегии авто-кэшаута, двойного покрытия и Анти-Мартингейл. RTP 96–97%, Provably Fair.',
+    descriptionEn:
+      'Crash game strategy guide: how mechanics work, psychology of risk, auto-cashout strategies, dual coverage and anti-Martingale. RTP 96–97%, Provably Fair.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение: эволюция iGaming',
+          body: 'Индустрия онлайн-развлечений переживает фундаментальный сдвиг. Классические барабанные слоты уступают место интерактивным форматам. Crash-механики радикально меняют опыт: вместо пассивного наблюдения игрок становится активным участником.',
+        },
+        {
+          heading: '1. Анатомия Crash-механики: как это работает',
+          body: 'Игрок делает ставку, после чего множитель начинает расти с 1.00x. Задача — нажать «Кэшаут» до случайного краша. Если успел — ставка умножается. Если нет — ставка сгорает полностью.',
+          callout:
+            'Технология Provably Fair: хэш исхода раунда генерируется заранее из серверного хэша и клиентских сидов.',
+        },
+        {
+          heading: '2. Психология азарта: почему быстрые игры вызывают зависимость',
+          body: 'Crash-игры активируют систему вознаграждения мозга интенсивнее, чем стандартные автоматы.',
+          bullets: [
+            'Иллюзия контроля: игрок сам выбирает момент кэшаута, и мозг интерпретирует успех как личный навык.',
+            'FOMO: наблюдая множители >50x у других игроков, пользователь дольше держит ставку — и рискует всем.',
+            'Эффект «Почти выигрыша»: краш на 1.98x при авто-кэшауте на 2.00x воспринимается как досадная случайность.',
+          ],
+          callout:
+            'Дофаминовый отклик генерируется в процессе ожидания роста множителя — именно тогда напряжение достигает пика.',
+        },
+        {
+          heading: '3. Стратегии риск-менеджмента',
+          body: 'Средний RTP качественных Crash-игр: 96.0–97.0%. Краткосрочные сессии могут быть высокодоходными при правильном подходе.',
+          strategies: [
+            {
+              title: 'Стратегия фиксированного авто-кэшаута',
+              bullets: [
+                'Авто-вывод на 1.20x – 1.50x',
+                'Частота выигрышных раундов до 85%',
+                'Требует серию побед для перекрытия одного раннего краша',
+              ],
+            },
+            {
+              title: 'Двойное покрытие',
+              bullets: [
+                'Ставка 1: авто-кэшаут на 2.00x — окупает затраты раунда',
+                'Ставка 2: держится для сверхприбыли на высоких множителях',
+              ],
+            },
+            {
+              title: 'Анти-Мартингейл',
+              bullets: [
+                'Увеличивать ставку только после выигрышных раундов',
+                'Максимизирует профит в апстрики, минимизирует потери в даунстрики',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '4. Контроль банкролла',
+          callout:
+            'Никогда не превышайте 2–5% от банка за один раунд. При потере 20% за сессию — немедленно остановитесь.',
+          bullets: [
+            'Не пытайтесь отыграться после серии ранних крашей.',
+            'Устанавливайте жёсткий Stop-Loss перед каждой сессией.',
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction: The Evolution of iGaming',
+          body: 'The online entertainment industry is undergoing a fundamental paradigm shift. Traditional reel-based slots are losing ground to interactive formats. Crash mechanics radically transform the user experience: instead of passively watching reels, the player becomes an active agent.',
+        },
+        {
+          heading: '1. The Anatomy of Crash Mechanics',
+          body: 'A player places a wager; a multiplier curve initiates from 1.00x. The objective: click Cash Out before an unpredictable crash. If executed in time — the stake is multiplied. If the graph crashes first — the wager is completely forfeited.',
+          callout:
+            'Provably Fair Technology: the round outcome hash is generated from server seed + client seeds before the round starts.',
+        },
+        {
+          heading: '2. The Psychology of Risk: Why Instant Games Captivate',
+          body: "Crash formats stimulate the brain's reward system far more intensely than standard slot machines.",
+          bullets: [
+            'Illusion of Control: the user determines the cashout moment — the subconscious interprets success as personal skill.',
+            'FOMO: witnessing others secure >50x multipliers in the live feed triggers the urge to hold longer.',
+            'Near-Miss Effect: a crash at 1.98x while auto-cashout was set at 2.00x is processed as a minor near-success rather than a total loss.',
+          ],
+          callout:
+            'The dopamine response is generated during the tense anticipation of the rising multiplier — not upon credit distribution.',
+        },
+        {
+          heading: '3. Risk Management Strategies',
+          body: 'Average RTP of quality Crash games: 96.0–97.0%.',
+          strategies: [
+            {
+              title: 'Fixed Auto-Cashout Strategy',
+              bullets: [
+                'Auto-withdraw at 1.20x – 1.50x',
+                'Win frequency up to 85%',
+                'Requires a streak of wins to offset one early crash',
+              ],
+            },
+            {
+              title: 'Dual Coverage',
+              bullets: [
+                'Bet 1: auto-cashout at 2.00x — covers round costs',
+                'Bet 2: held for super-profit on high multipliers',
+              ],
+            },
+            {
+              title: 'Anti-Martingale',
+              bullets: [
+                'Increase stake only after winning rounds',
+                'Maximizes profit in upstreaks, minimizes losses in downstreaks',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '4. Bankroll Control',
+          callout:
+            'Never exceed 2–5% of bankroll per round. If you lose 20% in a session — stop immediately.',
+          bullets: [
+            'Never chase losses after a series of early crashes.',
+            'Set a strict Stop-Loss before every session.',
+          ],
+        },
+      ],
+    },
+  },
 
-### Введение: Эволюция iGaming от Слотов к Мгновенным Решениям
+  /* ── MISTAKES ── */
+  {
+    id: 'mistakes',
+    slug: 'mistakes',
+    icon: '✕',
+    titleRu: 'Ошибки игроков',
+    titleEn: 'Player Mistakes',
+    subtitleRu: 'Самые распространённые ошибки и как их избежать',
+    subtitleEn: 'The most common mistakes and how to avoid them',
+    tagRu: 'Советы',
+    tagEn: 'Tips',
+    descriptionRu:
+      'Топ ошибок игроков в онлайн-казино: игра без бюджета, погоня за потерями, большие ставки, игнорирование RTP и мифы. Как избежать типичных проблем.',
+    descriptionEn:
+      'Top online casino player mistakes: playing without a budget, chasing losses, oversized bets, ignoring RTP and gambling myths. How to avoid them.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Успех в онлайн-казино зависит не только от удачи, но и от подхода к игре. Многие игроки совершают одинаковые ошибки, которые приводят к быстрой потере игрового банка, эмоциональным решениям и разочарованию. Большинство подобных ситуаций можно избежать, если заранее понимать основные принципы ответственной игры.',
+        },
+        {
+          heading: '1. Игра без заранее установленного бюджета',
+          body: 'Одной из самых распространённых ошибок является отсутствие игрового бюджета. Некоторые пользователи начинают игру, не определив сумму, которую готовы потратить на развлечение.',
+          callout:
+            'Перед началом сессии определите сумму, потеря которой не повлияет на личный бюджет. После достижения лимита — завершите игру.',
+        },
+        {
+          heading: '2. Погоня за потерями',
+          body: 'Желание быстро вернуть потерянные деньги известно как погоня за потерями (chasing losses). Это одна из главных причин чрезмерных расходов. Результат каждого раунда определяется случайным образом, поэтому увеличение ставок не повышает вероятность выигрыша.',
+        },
+        {
+          heading: '3. Слишком большие ставки и игра на эмоциях',
+          body: 'Большие ставки позволяют выиграть больше, однако одновременно ускоряют расходование банкролла. Опытные игроки рекомендуют использовать на одну ставку не более 1–3% от общего игрового бюджета.',
+          bullets: [
+            'После крупного выигрыша избегайте чрезмерной уверенности.',
+            'После серии проигрышей не поддавайтесь желанию немедленно отыграться.',
+            'Делайте регулярные перерывы и сохраняйте спокойствие.',
+          ],
+        },
+        {
+          heading: '4. Игнорирование RTP, волатильности и бонусных условий',
+          body: 'Перед запуском игрового автомата важно учитывать RTP, уровень волатильности, максимальный выигрыш и бонусные функции. Также многие игроки забывают читать условия бонусов.',
+          bullets: [
+            'Требования по вейджеру могут существенно влиять на реальную ценность бонуса.',
+            'Максимальный размер ставки во время отыгрыша — важный параметр.',
+            'Срок действия бонуса ограничен — не допускайте его истечения.',
+          ],
+        },
+        {
+          heading: '5. Вера в мифы и «секретные стратегии»',
+          body: 'Лицензированные игровые автоматы работают на основе генератора случайных чисел (RNG), а каждый спин является полностью независимым событием. Не существует стратегии, которая могла бы гарантировать выигрыш.',
+          callout:
+            'Азартные игры — это развлечение. Не воспринимайте их как способ заработка или решения финансовых проблем.',
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Online casino games are designed to provide entertainment. However, many players make avoidable mistakes that negatively affect their gaming experience and quickly deplete their bankroll. In most cases, these mistakes are not related to bad luck but to poor money management, emotional decision-making, or unrealistic expectations.',
+        },
+        {
+          heading: '1. Playing Without a Budget',
+          body: 'One of the biggest mistakes players make is starting a gaming session without setting a clear spending limit. Without a predetermined bankroll, it becomes much easier to overspend and make emotional decisions during gameplay.',
+          callout:
+            'Before placing your first bet, decide how much money you are willing to spend purely for entertainment. Once your gambling budget has been reached, end the session.',
+        },
+        {
+          heading: '2. Chasing Losses',
+          body: "Trying to recover losses immediately is one of the most common and costly gambling mistakes. This behavior, known as chasing losses, often results in even greater financial losses. Every spin is independent — previous outcomes have absolutely no influence on future results.",
+        },
+        {
+          heading: '3. Betting Too Much and Letting Emotions Control Decisions',
+          body: 'Higher wagers increase the value of potential payouts, but they also drain your bankroll much faster. Many experienced players recommend risking no more than 1% to 3% of your total bankroll on a single spin.',
+          bullets: [
+            'After a big win, avoid becoming overconfident and increasing bets unnecessarily.',
+            'After losses, resist the urge to make impulsive decisions.',
+            'Taking regular breaks helps maintain better discipline throughout a session.',
+          ],
+        },
+        {
+          heading: '4. Ignoring RTP, Volatility and Bonus Terms',
+          body: 'Before selecting a slot, check RTP, volatility, maximum win potential, and bonus features. Many players also activate promotions without reading the rules.',
+          bullets: [
+            'Wagering requirements determine how many times you must wager before withdrawing.',
+            'Maximum bet limits during wagering are often overlooked.',
+            'Bonus validity periods expire — always check the deadline.',
+          ],
+        },
+        {
+          heading: '5. Believing Gambling Myths',
+          body: 'Modern online slots operate using certified Random Number Generators (RNGs), meaning every spin is completely random and independent. No betting system or secret strategy can change the mathematical probability of a winning combination.',
+          callout:
+            'Treat gambling as entertainment rather than guaranteed income. Most mistakes stem from poor financial planning, not bad luck.',
+        },
+      ],
+    },
+  },
 
-Индустрия онлайн-развлечений переживает фундаментальный сдвиг. Классические барабанные слоты с фиксированными линиями выплат постепенно уступают позиции интерактивным форматам. Наиболее динамично развивающимся трендом стали так называемые быстрые игры (Instant Games) и Crash-механики. Этот формат радикально меняет пользовательский опыт: вместо пассивного наблюдения за вращением барабанов игрок становится активным участником процесса принятия решений, где каждая секунда промедления или спешки напрямую влияет на финансовый результат.
+  /* ── RTP ── */
+  {
+    id: 'rtp',
+    slug: 'rtp',
+    icon: '%',
+    titleRu: 'RTP и волатильность',
+    titleEn: 'RTP & Volatility',
+    subtitleRu: 'Ключевые параметры современных слотов',
+    subtitleEn: 'Key statistics of modern slot machines',
+    tagRu: 'Механика',
+    tagEn: 'Mechanics',
+    descriptionRu:
+      'Что такое RTP и волатильность слота? Как они влияют на игру, какой RTP считается хорошим, мифы и реальность. Полный разбор ключевых параметров онлайн-казино.',
+    descriptionEn:
+      'What is RTP and slot volatility? How they affect gameplay, what RTP is considered good, myths vs facts. Complete breakdown of key online slot parameters.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'При выборе игрового автомата многие пользователи обращают внимание не только на оформление, количество бонусных функций или максимальный выигрыш. Не менее важными характеристиками считаются RTP, волатильность и дисперсия — именно эти показатели помогают лучше понять особенности конкретного слота.',
+        },
+        {
+          heading: '1. Что такое RTP',
+          body: 'RTP (Return to Player) — это показатель теоретического возврата игроку, выраженный в процентах. Он демонстрирует, какая часть всех сделанных ставок в долгосрочной перспективе возвращается участникам игры в виде выигрышей.',
+          formula: 'RTP 96% → на каждые $100 ставок теоретически возвращается $96',
+          bullets: [
+            'До 94% — относительно низкий показатель',
+            '95–96% — средний уровень',
+            '96–97% — хороший RTP',
+            'Выше 97% — высокий показатель возврата',
+          ],
+          callout:
+            'RTP рассчитывается на миллионы игровых раундов. Он не гарантирует конкретный результат отдельной сессии.',
+        },
+        {
+          heading: '2. Что такое волатильность',
+          body: 'Волатильность показывает уровень риска игрового автомата. Именно этот параметр определяет, насколько часто выпадают выигрыши и какого размера они могут быть.',
+          strategies: [
+            {
+              title: 'Низкая волатильность',
+              bullets: [
+                'Частые выплаты небольшого размера',
+                'Небольшие просадки; комфортная игра при ограниченном банкролле',
+                'Подходит для длительных сессий',
+              ],
+            },
+            {
+              title: 'Высокая волатильность',
+              bullets: [
+                'Редкие выигрыши, но высокий потенциал',
+                'Длинные серии без значительных выплат',
+                'Требует большего банкролла и терпения',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. Как RTP и волатильность работают вместе',
+          body: 'Одной из самых распространённых ошибок считается мнение, что высокий RTP автоматически означает частые выигрыши. Два автомата с одинаковым RTP 96.5% могут иметь совершенно разный игровой процесс из-за разной волатильности.',
+          callout:
+            'Для игроков с небольшим банкроллом — низкая или средняя волатильность. Для охотников за крупными выигрышами — высокая волатильность.',
+        },
+        {
+          heading: '4. Распространённые мифы о RTP',
+          bullets: [
+            'Миф: после серии проигрышей автомат обязательно выплатит крупный выигрыш. Факт: каждый спин независим.',
+            'Миф: высокий RTP гарантирует прибыль. Факт: RTP — математическая характеристика, а не обещание выигрыша.',
+            'Миф: казино может менять RTP во время игры. Факт: параметры задаются производителем и проходят независимую сертификацию.',
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'When choosing an online slot, most players pay attention to graphics, bonus features and jackpot size. However, the most important characteristics of any slot machine are often hidden in its technical specifications: RTP, volatility, and variance.',
+        },
+        {
+          heading: '1. What Is RTP?',
+          body: "RTP (Return to Player) represents the theoretical percentage of all wagered money that a slot returns to players over a very long period of time. For example, if a slot has an RTP of 96%, it theoretically pays back $96 for every $100 wagered across millions of spins.",
+          formula: 'RTP 96% → $96 returned per $100 wagered over millions of spins',
+          bullets: [
+            'Below 94% — relatively low RTP',
+            '95%–96% — average RTP',
+            '96%–97% — good RTP',
+            'Above 97% — very high RTP',
+          ],
+          callout:
+            'RTP is calculated over millions of game rounds. It does not predict the outcome of a single gaming session.',
+        },
+        {
+          heading: '2. What Is Volatility?',
+          body: 'Volatility describes how frequently a slot pays and how large those payouts are likely to be. A high-volatility slot produces fewer winning combinations but offers the potential for much larger payouts.',
+          strategies: [
+            {
+              title: 'Low Volatility',
+              bullets: [
+                'Frequent small payouts',
+                'Lower balance fluctuations; suitable for smaller bankrolls',
+                'Best for longer gaming sessions',
+              ],
+            },
+            {
+              title: 'High Volatility',
+              bullets: [
+                'Rare wins but high potential',
+                'Longer losing streaks before significant payouts',
+                'Requires a larger bankroll and patience',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. How RTP and Volatility Work Together',
+          body: 'One of the biggest misconceptions is that a high RTP automatically means frequent wins. Two games that both have an RTP of 96.5% can feel completely different to play due to their different volatility levels.',
+          callout:
+            'Players with smaller budgets often prefer low or medium-volatility slots. Those aiming for larger payouts may choose high-volatility games despite the increased risk.',
+        },
+        {
+          heading: '4. Common Misconceptions',
+          bullets: [
+            'Myth: a slot must pay after a long losing streak. Fact: every spin is generated independently.',
+            'Myth: a higher RTP guarantees profit. Fact: RTP is a theoretical statistical value, not a guarantee.',
+            'Myth: casinos change RTP during gameplay. Fact: RTP is predetermined by the developer and independently certified.',
+          ],
+        },
+      ],
+    },
+  },
 
-### 1. Анатомия Crash-Механики: Как Это Работает?
+  /* ── BONUSES ── */
+  {
+    id: 'bonuses',
+    slug: 'bonuses',
+    icon: '★',
+    titleRu: 'Бонусы казино',
+    titleEn: 'Casino Bonuses',
+    subtitleRu: 'Приветственные предложения, фриспины и вейджер',
+    subtitleEn: 'Welcome bonuses, free spins and wagering requirements',
+    tagRu: 'Бонусы',
+    tagEn: 'Bonuses',
+    descriptionRu:
+      'Полный гайд по бонусам казино: приветственный бонус, фриспины, вейджер, кэшбэк и программы лояльности. Как правильно выбрать и отыграть бонус.',
+    descriptionEn:
+      'Complete casino bonus guide: welcome bonus, free spins, wagering requirements, cashback and loyalty programs. How to choose and clear a bonus correctly.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Бонусные предложения стали неотъемлемой частью современных онлайн-казино. Практически каждая игровая платформа предлагает различные акции для новых и постоянных пользователей. Однако далеко не все игроки понимают, как работают подобные предложения.',
+        },
+        {
+          heading: '1. Приветственный бонус и бонус на депозит',
+          body: 'Наиболее распространённым видом акции является приветственный бонус — он предоставляется новым пользователям после регистрации и первого пополнения счёта. Размер депозитного бонуса рассчитывается в процентах от внесённой суммы.',
+          bullets: [
+            'Бонус 50% на депозит',
+            'Бонус 100% на первое пополнение',
+            'Бездепозитный бонус — без обязательного пополнения, но с более строгими условиями',
+          ],
+        },
+        {
+          heading: '2. Бесплатные вращения (Free Spins)',
+          body: 'Фриспины позволяют получить определённое количество бесплатных вращений в выбранных игровых автоматах без необходимости использовать собственные средства.',
+          callout:
+            'Перед использованием фриспинов уточните: список доступных слотов, срок действия акции, требования по отыгрышу и максимальную сумму выигрыша.',
+        },
+        {
+          heading: '3. Что такое вейджер',
+          body: 'Вейджер (Wagering Requirement) — это условие, определяющее, сколько раз необходимо поставить сумму бонуса перед возможностью вывести выигрыш.',
+          formula: 'Бонус $100 × вейджер 35 = $3500 необходимо поставить',
+          callout:
+            'Выполнение вейджера не означает обязательную потерю средств. Он лишь определяет необходимый игровой оборот.',
+        },
+        {
+          heading: '4. Кэшбэк, программа лояльности и советы',
+          body: 'Кэшбэк — возврат части проигранных средств за определённый период. Программа лояльности открывает дополнительные преимущества для постоянных игроков.',
+          strategies: [
+            {
+              title: 'На что обращать внимание при выборе бонуса',
+              bullets: [
+                'Размер вейджера и минимальный депозит',
+                'Срок действия акции и список игр',
+                'Максимальная сумма вывода',
+                'Ограничения по максимальной ставке',
+              ],
+            },
+            {
+              title: 'Распространённые ошибки игроков',
+              bullets: [
+                'Активация акции без чтения правил',
+                'Игнорирование требований по вейджеру',
+                'Превышение максимальной ставки во время отыгрыша',
+                'Использование бонуса после окончания срока действия',
+              ],
+            },
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Bonuses have become one of the most attractive features of modern online casinos. Nearly every gaming platform offers promotions designed to reward both new and existing players. While bonuses can significantly enhance the gaming experience, many players are unfamiliar with the terms and conditions that accompany them.',
+        },
+        {
+          heading: '1. Welcome Bonuses and Deposit Bonuses',
+          body: 'The welcome bonus is one of the most popular promotions available at online casinos, usually offered to new players after they create an account and make their first deposit. Deposit bonuses are generally calculated as a percentage of the deposited amount.',
+          bullets: [
+            '50% Deposit Bonus',
+            '100% First Deposit Bonus',
+            'No Deposit Bonus — no initial deposit required, but with stricter wagering requirements',
+          ],
+        },
+        {
+          heading: '2. Free Spins',
+          body: 'Free Spins are among the most popular casino rewards. Players receive a fixed number of complimentary spins on selected slot games without risking their own money.',
+          callout:
+            'Before activating Free Spins, check: eligible slot games, promotion expiration date, wagering requirements, and maximum withdrawal limits.',
+        },
+        {
+          heading: '3. What Are Wagering Requirements?',
+          body: 'A wagering requirement determines how many times a player must wager the bonus amount before winnings can be withdrawn.',
+          formula: '$100 bonus × 35x wagering = $3,500 must be wagered',
+          callout:
+            'Wagering requirements do not guarantee losses. They simply establish the amount of betting activity required before withdrawals are permitted.',
+        },
+        {
+          heading: '4. Cashback, Loyalty Programs and Tips',
+          body: "Cashback promotions return a percentage of a player's net losses. Loyalty programs reward long-term players with exclusive benefits.",
+          strategies: [
+            {
+              title: 'What to Look for Before Claiming a Bonus',
+              bullets: [
+                'Wagering requirements and minimum deposit',
+                'Bonus validity period and eligible games',
+                'Maximum withdrawal limits',
+                'Maximum betting restrictions during wagering',
+              ],
+            },
+            {
+              title: 'Common Bonus Mistakes',
+              bullets: [
+                'Accepting bonuses without reading the terms',
+                'Ignoring wagering requirements',
+                'Exceeding the maximum allowed bet during wagering',
+                'Allowing the bonus to expire',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
 
-В основе любой Crash-игры лежит простая, но математически выверенная концепция. Игрок делает ставку, после чего начинается рост множителя (коэффициента), стартующего с 1.00x. Множитель увеличивается по экспоненциальной или линейной кривой. Главная задача участника — зафиксировать прибыль (нажать кнопку «Кэшаут») до того, как произойдет случайный «краш» (обрушение графика или взлет объекта).
+  /* ── RESPONSIBLE GAMBLING ── */
+  {
+    id: 'responsible',
+    slug: 'responsible',
+    icon: '◎',
+    titleRu: 'Ответственная игра',
+    titleEn: 'Responsible Gambling',
+    subtitleRu: 'Управление банкроллом и безопасная игра',
+    subtitleEn: 'Bankroll management and safer casino play',
+    tagRu: 'Безопасность',
+    tagEn: 'Safety',
+    descriptionRu:
+      'Ответственная игра в казино: управление банкроллом, правило 1–3%, встроенные инструменты контроля (лимиты, самоисключение) и здоровые игровые привычки.',
+    descriptionEn:
+      'Responsible gambling guide: bankroll management, the 1–3% rule, built-in control tools (deposit limits, self-exclusion) and healthy gambling habits.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Азартные игры должны оставаться формой развлечения, а не способом заработка. Именно поэтому опытные игроки уделяют особое внимание грамотному управлению собственным банкроллом. Правильный подход помогает контролировать расходы, избегать эмоциональных решений и получать удовольствие от игрового процесса.',
+        },
+        {
+          heading: '1. Что такое банкролл и почему важно им управлять',
+          body: 'Банкролл — это сумма денежных средств, которую игрок заранее выделяет исключительно для развлечений в онлайн-казино. Эти деньги не должны использоваться для оплаты повседневных расходов.',
+          bullets: [
+            'Контролируйте расходы и увеличьте продолжительность игровых сессий',
+            'Снизьте влияние эмоций и избегайте импульсивных решений',
+            'Даже при удачной серии продолжайте придерживаться стратегии',
+          ],
+        },
+        {
+          heading: '2. Правила безопасной игры',
+          body: 'Многие специалисты рекомендуют использовать на одно вращение не более 1–3% от текущего игрового банка.',
+          strategies: [
+            {
+              title: 'Правила управления банкроллом',
+              bullets: [
+                'Определите игровой бюджет до начала сессии',
+                'Ставка не более 1–3% от банка на одно вращение',
+                'Не пытайтесь отыграться после серии неудач',
+                'Фиксируйте прибыль: при росте баланса на 30–50% — завершите сессию',
+              ],
+            },
+            {
+              title: 'Встроенные инструменты контроля',
+              bullets: [
+                'Лимиты на депозиты и ограничения по времени',
+                'Лимиты проигрыша и напоминания о продолжительности',
+                'Временная блокировка аккаунта и самоисключение',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. Здоровые игровые привычки',
+          body: 'Ответственная игра начинается с правильного отношения к азартным развлечениям. Не стоит воспринимать их как источник стабильного дохода или способ решения финансовых проблем.',
+          callout:
+            'Если выделенная сумма закончилась — завершайте сессию. Если баланс значительно вырос — выведите часть выигрыша и продолжите на меньшую сумму.',
+          bullets: [
+            'Делайте перерывы каждые 45–60 минут',
+            'Не играйте в состоянии усталости или сильных эмоций',
+            'Воспринимайте выигрыши как приятный бонус, а не как гарантированный результат',
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Online casino games are designed to provide entertainment rather than a reliable source of income. One of the most effective ways to enjoy casino games while maintaining control is through responsible gambling and proper bankroll management.',
+        },
+        {
+          heading: '1. What Is a Bankroll and Why Does It Matter?',
+          body: 'A bankroll is the amount of money you have specifically set aside for gambling. This budget should be completely separate from your everyday finances and should only include funds you can comfortably afford to lose.',
+          bullets: [
+            'Better control over gambling expenses',
+            'Longer and more enjoyable gaming sessions',
+            'Reduced emotional pressure during wins and losses',
+          ],
+        },
+        {
+          heading: '2. Rules for Safer Play',
+          body: 'Many experienced players recommend risking no more than 1% to 3% of your total bankroll on a single spin or game round.',
+          strategies: [
+            {
+              title: 'Bankroll Management Rules',
+              bullets: [
+                'Set a gambling budget before every session',
+                'Keep individual bets at 1–3% of total bankroll',
+                'Never chase losses by increasing your wagers',
+                'Protect profits: if your balance grows 30–50%, consider ending the session',
+              ],
+            },
+            {
+              title: 'Built-in Responsible Gambling Tools',
+              bullets: [
+                'Deposit limits and session time reminders',
+                'Loss limits and daily/weekly spending caps',
+                'Temporary account suspension and self-exclusion',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. Building Healthy Gambling Habits',
+          body: 'Responsible gambling is based on discipline rather than luck. Players who consistently follow basic principles enjoy a more balanced and enjoyable gaming experience.',
+          callout:
+            'If your budget is exhausted, end the session. If your balance has grown significantly, withdraw a portion and continue with a smaller amount.',
+          bullets: [
+            'Take breaks every 45–60 minutes',
+            'Avoid playing while tired or emotionally upset',
+            'View winnings as a pleasant bonus, not a guaranteed outcome',
+          ],
+        },
+      ],
+    },
+  },
 
-Если кэшаут произведен вовремя, ставка умножается на текущий коэффициент. Если график обрывается раньше — ставка полностью сгорает. Время раунда непредсказуемо и может длиться от доли секунды до нескольких минут, поднимая множитель до астрономических высот (100x, 1000x и более).
-
-### Технологический фундамент: Алгоритм Provably Fair
-
-В отличие от традиционных централизованных генераторов случайных чисел (ГСЧ), современные быстрые игры функционируют на базе технологии Provably Fair (Доказуемая честность). Этот алгоритм использует криптографическое хеширование (обычно комбинацию серверного хэша, хэшей игроков и уникального идентификатора раунда), что позволяет любому пользователю проверить прозрачность исхода в блокчейн-эксплорере или через специальный калькулятор. Исход раунда формируется не в процессе игры, а генерируется заранее, что исключает возможность манипуляции со стороны платформы.
-
-### 2. Психология Азарта: Почему Быстрые Игры Вызывают Зависимость?
-
-Популярность Crash-форматов обусловлена глубокими психологическими триггерами, которые активируют систему вознаграждения человеческого мозга гораздо интенсивнее, чем стандартные игровые автоматы.
-
-- **Иллюзия контроля (Illusion of Control)**: Поскольку пользователь сам решает, когда именно нажать кнопку вывода средств, его сознание интерпретирует успех как результат личного навыка, интуиции или выбранной тайминговой стратегии, хотя математическое ожидание остается неизменным.
-
-- **Синдром упущенной выгоды (FOMO)**: Наблюдая в live-чате за тем, как другие игроки забирают крупные коэффициенты (>50x), пользователь испытывает острое желание дождаться аналогичного пика, что приводит к неоправданному затягиванию раунда.
-
-- **Эффект «почти выигрыша» (Near-Miss Effect)**: Когда краш происходит на отметке 1.98x, а автоматический кэшаут игрока был установлен на 2.00x, мозг воспринимает это не как полный проигрыш, а как досадную случайность, стимулируя немедленное продолжение игровой сессии.
-
-- **Важно понимать**: Дофаминовый отклик в быстрых играх генерируется не в момент получения выплаты, а в процессе ожидания роста множителя, когда уровень напряжения достигает пиковых значений.
-
-### 3. Математическое Ожидание и Стратегии Риск-Менеджмента
-
-Любая долгосрочная прибыльность в iGaming строится на жесткой дисциплине и управлении капиталом. Средний показатель RTP (Return to Player) в качественных Crash-играх варьируется в пределах 96.0% – 97.0%. Это означает, что математическое преимущество математической модели всегда на стороне системы, однако краткосрочные сессии могут быть высокодоходными при правильном подходе.
-
-**Стратегия фиксированного автоматического кэшаута**: 
-- Установка автоматического вывода на низких коэффициентах (1.20x – 1.50x)
-- Обеспечивает высокую частоту выигрышных раундов (до 85%)
-- Требует серии стабильных побед для перекрытия одного раннего краша на 1.00x
-
-**Дифференцированные ставки (Двойное покрытие)**: 
-- Использование двух ставок на один раунд
-- Первая ставка закрывается автоматически на коэффициенте 2.00x
-- Вторая остается в игре для фиксации сверхприбыли на высоких множителях
-
-**Модифицированный Мартингейл (Анти-Мартингейл)**: 
-- Прогрессивное увеличение ставки исключительно после выигрышных раундов
-- Максимизирует профит в период длительных апстриков (серий побед)
-- Минимизирует потери при даунстриках
-
-### 4. Практические советы по контролю банкролла
-
-Для сохранения капитала в условиях высокой волатильности быстрых игр необходимо следовать трем базовым правилам:
-
-- **Никогда не превышайте лимит разовой ставки более чем на 2-5% от общего объема текущего банка.**
-
-- **Устанавливайте жесткий лимит на убытки (Stop-Loss) за сессию** — при достижении потери 20% от банкролла сессия должна быть немедленно прекращена.
-
-- **Не пытайтесь отыгрываться (Chase Losses)** путем хаотичного увеличения ставок после серии ранних крашей.
-    `,
-    contentEn: `
-## THE PSYCHOLOGY OF CRASH GAMES AND INSTANT WINS: A COMPREHENSIVE GUIDE TO MODERN IGAMING MECHANICS
-
-### Introduction: The Evolution of iGaming from Slots to Instant Decisions
-
-The online entertainment industry is undergoing a fundamental paradigm shift. Traditional reel-based slots with static paylines are progressively losing ground to highly interactive formats. The most dynamically expanding trend is defined by instant games and Crash mechanics. This format radically transforms the user experience: instead of passively watching reels spin, the player becomes an active agent in the decision-making loop, where every split second of hesitation or haste directly impacts the financial outcome.
-
-### 1. The Anatomy of Crash Mechanics: How It Operates
-
-At the core of any Crash game lies a straightforward yet mathematically rigorous concept. A player places a wager, after which an upward multiplier curve initiates, starting from 1.00x. The multiplier scales exponentially or linearly. The primary objective of the participant is to secure profits by clicking the "Cash Out" button before a random, unpredictable "crash" occurs.
-
-If the cashout is executed successfully before the collapse, the stake is multiplied by the current coefficient. If the graph crashes prior to the payout action, the wager is completely forfeited. The duration of a round is entirely volatile, ranging from a fraction of a second to several minutes, potentially driving the multiplier to astronomical heights (100x, 1000x, or more).
-
-### The Technological Foundation: The Provably Fair Algorithm
-
-Unlike conventional centralized Random Number Generators (RNGs), modern instant games operate utilizing Provably Fair technology. This cryptographic algorithm leverages server seeds, client seeds, and nonces to ensure that the outcome of any given round can be independently verified on the blockchain explorer or via third-party open-source calculators. The outcome of the round is predetermined prior to its launch, making it impossible for the hosting platform to manipulate the results in real-time.
-
-### 2. The Psychology of Risk: Why Instant Games Captivate the Brain
-
-The surging popularity of Crash formats is driven by powerful psychological triggers that stimulate the human brain's reward system much more intensely than standard slot machines.
-
-- **Illusion of Control**: Because the user determines the exact millisecond to withdraw funds, the subconscious mind interprets success as a byproduct of personal skill, intuition, or tactical timing, even though the underlying mathematical expectation remains fixed.
-
-- **Fear of Missing Out (FOMO)**: Witnessing other players secure massive multipliers (>50x) in the live telemetry feed triggers an acute desire to hold out for similar peaks, often leading to sub-optimal risk extension.
-
-- **The Near-Miss Effect**: When a crash occurs at 1.98x while the player's auto-cashout was set to 2.00x, the brain processes the outcome not as a total loss, but as a minor, frustrating near-success, incentivizing an immediate subsequent attempt.
-
-- **Crucial insight**: The dopamine response in high-speed crash games is predominantly generated during the tense anticipation of the rising multiplier, rather than the actual credit distribution.
-
-### 3. Mathematical Expectation and Risk Management Strategies
-
-Long-term sustainability in iGaming relies entirely on strict operational discipline and systematic capital distribution. The average RTP (Return to Player) benchmark in premium Crash titles hovers between 96.0% and 97.0%. Consequently, the house edge is mathematically integrated into the architecture, meaning short-term volatility must be navigated using systematic betting architectures.
-
-**Fixed Low-Multiplier Auto-Cashout**: 
-- Configured automatic liquidations at conservative intervals (1.20x to 1.50x)
-- Yields a high frequency of winning rounds (up to 85%)
-- Requires a consistent streak to recuperate from a single immediate 1.00x crash
-
-**Differentiated Dual Betting**: 
-- Deploying two distinct wagers within the same round
-- Primary bet is automated to exit at 2.00x (covering cumulative entry cost)
-- Secondary bet active to freely chase high-amplitude exponential gains
-
-**Modified Anti-Martingale Progression**: 
-- Incrementally scaling wager sizes strictly following winning outcomes
-- Maximizes compound returns during positive variance (streaks)
-- Keeps baseline exposures minimal during negative runs
-
-### 4. Operational Protocols for Bankroll Preservation
-
-To ensure long-term structural survivability against high-volatility algorithms, players must adhere to three fundamental tenets:
-
-- **Never allocate more than 2-5% of the macro-bankroll to any individual game cycle.**
-
-- **Enforce rigid session-based Stop-Loss parameters**: if the current allocation depreciates by 20%, terminate immediately.
-
-- **Completely eradicate emotional loss-chasing patterns** characterized by erratic volume increases after early-cycle crashes.
-    `,
+  /* ── SLOT MYTHS ── */
+  {
+    id: 'myths',
+    slug: 'myths',
+    icon: '?',
+    titleRu: 'Мифы о слотах',
+    titleEn: 'Slot Myths',
+    subtitleRu: 'Правда о «горячих» автоматах и стратегиях',
+    subtitleEn: 'The truth about hot slots and winning strategies',
+    tagRu: 'Мифы',
+    tagEn: 'Myths',
+    descriptionRu:
+      'Развенчиваем 8 мифов о слотах: горячие/холодные автоматы, беспроигрышные стратегии, влияние времени суток и RTP. Что реально влияет на игровой процесс.',
+    descriptionEn:
+      'Busting 8 slot myths: hot/cold machines, guaranteed winning strategies, time-of-day effects and RTP guarantees. What actually influences slot gameplay.',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Игровые автоматы остаются одной из самых популярных категорий развлечений в онлайн-казино. Вместе с популярностью появилось множество мифов, которые передаются из поколения в поколение. Разберём самые распространённые мифы и выясним, что действительно влияет на игровой процесс.',
+        },
+        {
+          heading: 'Миф №1: Существуют «горячие» и «холодные» слоты',
+          body: 'Согласно распространённому мнению, «горячий» слот недавно начал активно выплачивать выигрыши, поэтому вероятность очередной крупной выплаты якобы выше.',
+          callout:
+            'Факт: игровые автоматы работают на основе генератора случайных чисел (RNG). Каждое вращение является независимым событием и не связано с предыдущими результатами.',
+        },
+        {
+          heading: 'Мифы №2, №3 и №4',
+          bullets: [
+            'Миф: после серии проигрышей обязательно будет выигрыш. Факт: каждый спин полностью независим — «ошибка игрока».',
+            'Миф: можно разработать беспроигрышную стратегию. Факт: никакая стратегия не способна изменить вероятность выпадения выигрышной комбинации.',
+            'Миф: большие ставки повышают вероятность выигрыша. Факт: размер ставки влияет на сумму выплаты, но не на вероятность её появления.',
+          ],
+        },
+        {
+          heading: 'Мифы №5, №6, №7, №8',
+          bullets: [
+            'Миф: казино может управлять результатами каждого игрока. Факт: лицензированные слоты проходят независимое тестирование и сертификацию.',
+            'Миф: бесплатная игра отличается от режима на реальные деньги. Факт: лицензированные разработчики используют одинаковую механику.',
+            'Миф: высокий RTP гарантирует прибыль. Факт: RTP рассчитывается на миллионы раундов и не гарантирует выигрыш конкретному игроку.',
+            'Миф: время суток влияет на вероятность выигрыша. Факт: RNG не зависит от времени суток, количества игроков или дня недели.',
+          ],
+        },
+        {
+          heading: 'Что действительно влияет на игровой процесс',
+          body: 'Вместо мифов стоит изучать реальные характеристики слотов.',
+          bullets: [
+            'Показатель RTP и уровень волатильности',
+            'Максимальный выигрыш и бонусные функции',
+            'Количество линий выплат и специальные символы',
+            'Наличие бесплатных вращений и множителей',
+          ],
+          callout:
+            'Грамотный выбор слота на основе реальных характеристик — лучшая стратегия для долгосрочной игры.',
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Online slots are among the most popular casino games, attracting millions of players. As slot games have grown in popularity, countless myths and misconceptions have emerged. Understanding how these games actually work helps players make informed decisions.',
+        },
+        {
+          heading: 'Myth #1: Hot and Cold Slots Really Exist',
+          body: 'A "hot slot" is believed to be a machine that has recently produced several wins and is expected to continue paying out. A "cold slot" is thought to have gone a long time without awarding significant prizes.',
+          callout:
+            'Fact: licensed online slots operate using a Random Number Generator (RNG). Every spin is completely independent of previous results. There is no reliable way to identify a hot or cold slot.',
+        },
+        {
+          heading: 'Myths #2, #3 and #4',
+          bullets: [
+            "Myth: a big win is guaranteed after a long losing streak. Fact: every spin has exactly the same probability — known as the Gambler's Fallacy.",
+            'Myth: there is a guaranteed winning strategy. Fact: no betting system can change the mathematical probability of a winning combination appearing.',
+            'Myth: higher bets increase your chances of winning. Fact: bet size raises the value of potential payouts but does not change the probability of winning combinations.',
+          ],
+        },
+        {
+          heading: 'Myths #5, #6, #7 and #8',
+          bullets: [
+            'Myth: casinos control individual player results. Fact: certified slot games are independently tested and regularly verified.',
+            'Myth: demo slots pay more than real-money games. Fact: reputable developers use the same mathematical model for both modes.',
+            'Myth: a high RTP guarantees profit. Fact: RTP is a theoretical statistical value calculated over millions of spins.',
+            'Myth: time of day affects winning chances. Fact: the RNG operates continuously, independent of time, player count, or weekday.',
+          ],
+        },
+        {
+          heading: 'What Actually Influences Slot Gameplay',
+          body: 'Rather than relying on myths, focus on real game characteristics.',
+          bullets: [
+            'RTP percentage and volatility level',
+            'Maximum win potential and bonus features',
+            'Number of paylines and special symbols',
+            'Free Spins, Wild and Scatter symbols, multipliers',
+          ],
+          callout:
+            'Choosing a slot based on its actual technical characteristics is the best strategy for a long-term enjoyable gaming experience.',
+        },
+      ],
+    },
   },
 ];
+
+export function getGuide(slug: string): GuideData | undefined {
+  return GUIDES.find((g) => g.slug === slug);
+}
