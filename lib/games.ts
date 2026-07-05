@@ -12,6 +12,8 @@ export interface Game {
   seoTextRu: string
   seoTextEn: string
   avatar: string
+  /** If set, the card links directly to this external URL instead of the internal game page */
+  externalUrl?: string
 }
 
 export const games: Game[] = gamesData as Game[]
