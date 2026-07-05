@@ -770,7 +770,7 @@ const GUIDES: GuideData[] = [
         },
         {
           heading: '3. Здоровые игровые привычки',
-          body: 'Ответственная игра начинается с правильного отношения к азартным развлечениям. Не стоит воспринимать их как источник стабильного дохода или способ решения финансовых проблем.',
+          body: 'Ответственная игра начинается с правильного отношения к азартным развлечениям. Не стоит ��оспринимать их как источник стабильного дохода или способ решения финансовых проблем.',
           callout: 'Если выделенная сумма закончилась — завершайте сессию. Если баланс значительно вырос — выведите часть выигрыша и продолжите на меньшую сумму.',
           bullets: [
             'Делайте перерывы каждые 45–60 минут',
@@ -1040,21 +1040,17 @@ export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
                 <ul className="guides-dropdown__menu" role="listbox" aria-label={isEn ? 'Guide list' : 'Список гайдов'}>
                   {GUIDES.map((g) => (
                     <li key={g.id} role="option" aria-selected={g.id === activeId}>
-                      <button
+                      <Link
+                        href={`/${lang}/guides/${g.id}`}
                         className={`guides-dropdown__item${g.id === activeId ? ' guides-dropdown__item--active' : ''}`}
-                        onClick={() => selectGuide(g.id)}
+                        onClick={() => setDropdownOpen(false)}
                       >
                         <span className="guides-dropdown__item-icon" aria-hidden="true">{g.icon}</span>
                         <span className="guides-dropdown__item-text">
                           <span className="guides-dropdown__item-title">{isEn ? g.titleEn : g.titleRu}</span>
                           <span className="guides-dropdown__item-tag">{isEn ? g.tagEn : g.tagRu}</span>
                         </span>
-                        {g.id === activeId && (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        )}
-                      </button>
+                      </Link>
                     </li>
                   ))}
                 </ul>

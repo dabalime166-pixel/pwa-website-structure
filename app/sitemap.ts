@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { games } from '@/lib/games'
+import { GUIDES } from '@/lib/guides-data'
 
 const BASE = 'https://crashgames.demo'
 
@@ -58,5 +59,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ])
 
-  return [...homeEntries, ...gameEntries]
+  const guideIndexEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE}/en/guides`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+      alternates: { languages: { en: `${BASE}/en/guides`, ru: `${BASE}/ru/guides` } },
+    },
+    {
+      url: `${BASE}/ru/guides`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+      alternates: { languages: { en: `${BASE}/en/guides`, ru: `${BASE}/ru/guides` } },
+    },
+  ]
+
+  const guideEntries: MetadataRoute.Sitemap = GUIDES.flatMap((g) => [
+    {
+      url: `${BASE}/en/guides/${g.id}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${BASE}/en/guides/${g.id}`,
+          ru: `${BASE}/ru/guides/${g.id}`,
+        },
+      },
+    },
+    {
+      url: `${BASE}/ru/guides/${g.id}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${BASE}/en/guides/${g.id}`,
+          ru: `${BASE}/ru/guides/${g.id}`,
+        },
+      },
+    },
+  ])
+
+  return [...homeEntries, ...gameEntries, ...guideIndexEntries, ...guideEntries]
 }

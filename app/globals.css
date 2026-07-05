@@ -990,3 +990,84 @@ img { display: block; max-width: 100%; height: auto; }
   transition: color 0.15s;
 }
 .guides-back__link:hover { color: var(--color-gold-light); }
+.guides-back__label { font-size: 0.875rem; }
+
+/* ── Individual guide page: prev/next in sidebar ── */
+.guide-single__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(201, 162, 39, 0.15);
+}
+.guide-single__nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 0.15s;
+}
+.guide-single__nav-link--next {
+  justify-content: flex-end;
+  text-align: right;
+}
+.guide-single__nav-link:hover { color: var(--color-gold-light); }
+
+/* ── Individual guide page: bottom prev/next (mobile) ── */
+.guide-single__bottom-nav {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(201, 162, 39, 0.15);
+}
+@media (min-width: 840px) {
+  .guide-single__bottom-nav { display: none; }
+}
+.guide-single__bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.guide-single__bottom-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 0.625rem;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  transition: background 0.15s, color 0.15s;
+  min-width: 0;
+}
+.guide-single__bottom-btn:hover {
+  background: rgba(201, 162, 39, 0.08);
+  color: var(--color-gold-light);
+}
+.guide-single__bottom-btn--next {
+  justify-content: flex-end;
+  text-align: right;
+}
+.guide-single__bottom-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.125rem;
+}
+.guide-single__bottom-title {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+}
