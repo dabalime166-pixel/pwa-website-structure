@@ -6,7 +6,8 @@ import Link from 'next/link';
 /* ─── Types ─── */
 interface Section {
   heading: string;
-  body: string;
+  body?: string;
+  body2?: string;
   formula?: string;
   bullets?: string[];
   callout?: string;
@@ -45,14 +46,14 @@ const GUIDES: GuideData[] = [
         },
         {
           heading: '1. Математический базис: биномиальное распределение',
-          body: 'Шарик падает через пирамидальную матрицу колышков. На каждом уровне он с равной вероятностью отклоняется влево или вправо — классическая последовательность независимых испытаний Бернулли. Вероятность попадания в определённую лунку рассчитывается по формуле треугольника Паскаля:',
+          body: 'Шарик падает через пирамидальную матрицу колышков. На каждом уровне он с равной вероятностью отклоняется влево или вправо — классическая последовательность независимых испытаний Бернулли. Вероятность попадания в определённую лунку:',
           formula: 'P(k) = C(n, k) × p^k × (1 − p)^(n − k)',
           body2: 'Центральные лунки имеют максимальную вероятность (коэффициент < 1.00x), крайние — минимальную вероятность, но экстремальные множители до 1000x и выше.',
           bullets: [
             'Количество рядов (Lines): от 8 до 16. Больше рядов — выше крайние множители, ниже их вероятность.',
-            'Уровень риска: Низкий / Средний / Высокий. Меняет веса коэффициентов без изменения геометрии доски.',
+            'Уровень риска: Низкий / Средний / Высокий — меняет веса коэффициентов без изменения геометрии доски.',
           ],
-        } as Section & { body2?: string },
+        },
         {
           heading: '2. Психология падения: почему визуализация формирует доверие',
           body: 'Успех Plinko во многом связан со спецификой визуального восприятия траектории.',
@@ -95,21 +96,21 @@ const GUIDES: GuideData[] = [
       en: [
         {
           heading: 'Introduction: How a Physics Experiment Became an iGaming Phenomenon',
-          body: 'The modern arcade gaming industry frequently derives inspiration from classical physics. The most prominent implementation is Plinko — rooted in Sir Francis Galton\'s invention. Within online platforms, this mathematical engine received a digital layer allowing users to dynamically configure expectation, row layout, and baseline risk indexes.',
+          body: "The modern arcade gaming industry frequently derives inspiration from classical physics. The most prominent implementation is Plinko — rooted in Sir Francis Galton's invention. Within online platforms, this mathematical engine received a digital layer allowing users to dynamically configure expectation, row layout, and baseline risk indexes.",
         },
         {
           heading: '1. Mathematical Foundation: Binomial Distribution and Bernoulli Trials',
-          body: 'A ball descends through a pyramidal peg matrix. At each row it deflects left or right with equal probability — a textbook sequence of Bernoulli trials. Landing probability follows Pascal\'s Triangle:',
+          body: "A ball descends through a pyramidal peg matrix. At each row it deflects left or right with equal probability — a textbook sequence of Bernoulli trials. Landing probability follows Pascal's Triangle:",
           formula: 'P(k) = C(n, k) × p^k × (1 − p)^(n − k)',
           body2: 'Central pockets have maximum probability (coefficients < 1.00x); outer pockets have minimal probability but extreme multipliers up to 1000x+.',
           bullets: [
             'Row Density (Lines): scalable 8–16. More rows = higher outer multipliers, lower probability of reaching them.',
-            'Risk Level: Low / Medium / High. Reallocates coefficient weights without altering board geometry.',
+            'Risk Level: Low / Medium / High — reallocates coefficient weights without altering board geometry.',
           ],
-        } as Section & { body2?: string },
+        },
         {
           heading: '2. The Psychology of Descent: Why Visualization Solidifies Trust',
-          body: 'Plinko\'s global traction is tied to trajectory visualization.',
+          body: "Plinko's global traction is tied to trajectory visualization.",
           bullets: [
             'Near-Miss Phenomenon: a ball accelerates toward 1000x for 12 rows, deflects on the last two pins. Players process this as bad luck, not mathematical law.',
             'Continuous Batch Processing: dropping dozens of balls blurs individual losses, creating a meditative engagement that diminishes objective bankroll assessment.',
@@ -170,16 +171,16 @@ const GUIDES: GuideData[] = [
           body: 'Игровое пространство — матрица 5×5 из 25 закрытых ячеек. Игрок задаёт количество мин (от 1 до 24). С каждым успешным кликом множитель растёт, но и вероятность ошибки увеличивается. Вероятность успеха на первом шаге:',
           formula: 'P(1) = (25 − M) / 25',
           body2: 'На каждом следующем шаге знаменатель уменьшается на 1 — формируется динамическая прогрессия риска.',
-          callout: 'Честность подтверждается SHA-256: хэш расположения мин передаётся игроку до начала раунда. После раунда раскрывается соль для независимой верификации.',
-        } as Section & { body2?: string },
+          callout: 'Честность подтверждается SHA-256: хэш расположения мин передаётся игроку до начала раунда.',
+        },
         {
           heading: '2. Психология дискретного выбора и когнитивные ловушки',
           body: 'Mines создаёт уникальное когнитивное давление — без внешнего таймера игрок сам управляет темпом.',
           bullets: [
-            'Паттерны удачи: диагонали и углы не снижают вероятность мины — каждая генерация независима. Любые пространственные паттерны — когнитивная иллюзия.',
-            'Sunk Cost Fallacy: открыв 4 из 5 ячеек, игроки делают пятый шаг «потому что уже зашли далеко» вместо математически обоснованного кэшаута.',
+            'Паттерны удачи: диагонали и углы не снижают вероятность мины — каждая генерация независима.',
+            'Sunk Cost Fallacy: открыв 4 из 5 ячеек, игроки делают пятый шаг вместо математически обоснованного кэшаута.',
           ],
-          callout: 'Главный барьер в Mines — отсутствие таймера. Игра заставляет вести диалог с собственной жадностью и страхом потерять накопленный множитель.',
+          callout: 'Главный барьер в Mines — отсутствие таймера. Игра заставляет вести диалог с собственной жадностью.',
         },
         {
           heading: '3. Математические стратегии и кастомизация волатильности',
@@ -190,8 +191,7 @@ const GUIDES: GuideData[] = [
               bullets: [
                 '1–3 мины; открывать 3–5 ячеек за раунд',
                 'Вероятность безопасного шага >80%',
-                'Плавный рост множителей + прогрессивное увеличение ставок',
-                'Идеально для вейджера и длительного удержания банкролла',
+                'Плавный рост множителей; идеально для вейджера',
               ],
             },
             {
@@ -220,16 +220,16 @@ const GUIDES: GuideData[] = [
         },
         {
           heading: '1. Process Architecture: Combinatorics of the Square Grid',
-          body: 'A 5×5 matrix of 25 concealed tiles. Before each round, define stake and mine count (1–24). Each star tile increments the multiplier; a mine ends the round at total loss. Success probability on the first selection:',
+          body: 'A 5×5 matrix of 25 concealed tiles. Before each round, define stake and mine count (1–24). Each star tile increments the multiplier; a mine ends the round. Success probability on the first selection:',
           formula: 'P(1) = (25 − M) / 25',
           body2: 'The denominator shrinks by 1 on every step, creating a compounding risk curve.',
-          callout: 'Fairness is enforced via SHA-256: the hash of mine positions is provided before tile selection. The server seed and salt are revealed after the round for independent verification.',
-        } as Section & { body2?: string },
+          callout: 'Fairness is enforced via SHA-256: the hash of mine positions is provided before tile selection.',
+        },
         {
           heading: '2. Psychology of Discrete Decisions and Cognitive Traps',
           body: 'Mines generates unique cognitive stress — no countdown timer means the player controls the tempo alone.',
           bullets: [
-            'Availability Heuristics: diagonal or corner patterns do not lower mine probability. Every grid state is isolated; all spatial patterns are purely illusory.',
+            'Availability Heuristics: diagonal or corner patterns do not lower mine probability. Every grid state is isolated.',
             'Sunk Cost Fallacy: having cleared 4 of 5 tiles, players click a 5th due to perceived investment rather than assessing the probability drop.',
           ],
           callout: 'The definitive variable in Mines is the absence of a countdown timer — forcing an unmediated dialogue with individual risk tolerance.',
@@ -243,7 +243,6 @@ const GUIDES: GuideData[] = [
               bullets: [
                 '1–3 mines; 3–5 tile exposures per cycle',
                 'Safe exposure probability remains >80%',
-                'Steady multiplier growth + managed progressive compounding',
                 'Optimal for bankroll retention and wagering requirements',
               ],
             },
@@ -282,26 +281,26 @@ const GUIDES: GuideData[] = [
     sections: {
       ru: [
         {
-          heading: 'Введение: эволюция iGaming от слотов к мгновенным решениям',
-          body: 'Индустрия онлайн-развлечений переживает фундаментальный сдвиг. Классические барабанные слоты уступают место интерактивным форматам. Crash-механики радикально меняют опыт: вместо пассивного наблюдения игрок становится активным участником, где каждая секунда напрямую влияет на результат.',
+          heading: 'Введение: эволюция iGaming',
+          body: 'Индустрия онлайн-развлечений переживает фундаментальный сдвиг. Классические барабанные слоты уступают место интерактивным форматам. Crash-механики радикально меняют опыт: вместо пассивного наблюдения игрок становится активным участником.',
         },
         {
           heading: '1. Анатомия Crash-механики: как это работает',
           body: 'Игрок делает ставку, после чего множитель начинает расти с 1.00x. Задача — нажать «Кэшаут» до случайного краша. Если успел — ставка умножается. Если нет — ставка сгорает полностью.',
-          callout: 'Технология Provably Fair: хэш исхода раунда генерируется заранее из серверного хэша и клиентских сидов. Любой может проверить честность через блокчейн-эксплорер.',
+          callout: 'Технология Provably Fair: хэш исхода раунда генерируется заранее из серверного хэша и клиентских сидов.',
         },
         {
           heading: '2. Психология азарта: почему быстрые игры вызывают зависимость',
           body: 'Crash-игры активируют систему вознаграждения мозга интенсивнее, чем стандартные автоматы.',
           bullets: [
-            'Иллюзия контроля: игрок сам выбирает момент кэшаута, и мозг интерпретирует успех как личный навык — хотя математическое ожидание неизменно.',
-            'FOMO (страх упустить выгоду): наблюдая в чате множители >50x у других игроков, пользователь дольше держит ставку — и рискует всем.',
-            'Эффект «Почти выигрыша»: краш на 1.98x при авто-кэшауте на 2.00x воспринимается не как потеря, а как досадная случайность.',
+            'Иллюзия контроля: игрок сам выбирает момент кэшаута, и мозг интерпретирует успех как личный навык.',
+            'FOMO: наблюдая множители >50x у других игроков, пользователь дольше держит ставку — и рискует всем.',
+            'Эффект «Почти выигрыша»: краш на 1.98x при авто-кэшауте на 2.00x воспринимается как досадная случайность.',
           ],
-          callout: 'Дофаминовый отклик генерируется не в момент выплаты, а в процессе ожидания роста множителя — именно тогда напряжение достигает пика.',
+          callout: 'Дофаминовый отклик генерируется в процессе ожидания роста множителя — именно тогда напряжение достигает пика.',
         },
         {
-          heading: '3. Математическое ожидание и стратегии риск-менеджмента',
+          heading: '3. Стратегии риск-менеджмента',
           body: 'Средний RTP качественных Crash-игр: 96.0–97.0%. Краткосрочные сессии могут быть высокодоходными при правильном подходе.',
           strategies: [
             {
@@ -313,7 +312,7 @@ const GUIDES: GuideData[] = [
               ],
             },
             {
-              title: 'Двойное покрытие (дифференцированные ставки)',
+              title: 'Двойное покрытие',
               bullets: [
                 'Ставка 1: авто-кэшаут на 2.00x — окупает затраты раунда',
                 'Ставка 2: держится для сверхприбыли на высоких множителях',
@@ -323,112 +322,631 @@ const GUIDES: GuideData[] = [
               title: 'Анти-Мартингейл',
               bullets: [
                 'Увеличивать ставку только после выигрышных раундов',
-                'Максимизирует профит в апстрики и минимизирует потери в даунстрики',
+                'Максимизирует профит в апстрики, минимизирует потери в даунстрики',
               ],
             },
           ],
         },
         {
-          heading: '4. Практические советы по контролю банкролла',
+          heading: '4. Контроль банкролла',
           callout: 'Никогда не превышайте 2–5% от банка за один раунд. При потере 20% за сессию — немедленно остановитесь.',
           bullets: [
-            'Не пытайтесь отыграться (Chase Losses) после серии ранних крашей.',
+            'Не пытайтесь отыграться после серии ранних крашей.',
             'Устанавливайте жёсткий Stop-Loss перед каждой сессией.',
           ],
         },
       ],
       en: [
         {
-          heading: 'Introduction: The Evolution of iGaming from Slots to Instant Decisions',
-          body: 'The online entertainment industry is undergoing a fundamental paradigm shift. Traditional reel-based slots are losing ground to interactive formats. Crash mechanics radically transform the user experience: instead of passively watching reels, the player becomes an active agent where every split second directly impacts the financial outcome.',
+          heading: 'Introduction: The Evolution of iGaming',
+          body: 'The online entertainment industry is undergoing a fundamental paradigm shift. Traditional reel-based slots are losing ground to interactive formats. Crash mechanics radically transform the user experience: instead of passively watching reels, the player becomes an active agent.',
         },
         {
-          heading: '1. The Anatomy of Crash Mechanics: How It Operates',
+          heading: '1. The Anatomy of Crash Mechanics',
           body: 'A player places a wager; a multiplier curve initiates from 1.00x. The objective: click Cash Out before an unpredictable crash. If executed in time — the stake is multiplied. If the graph crashes first — the wager is completely forfeited.',
-          callout: 'Provably Fair Technology: the round outcome hash is generated from server seed + client seeds before the round starts. Any participant can independently verify fairness via a blockchain explorer.',
+          callout: 'Provably Fair Technology: the round outcome hash is generated from server seed + client seeds before the round starts.',
         },
         {
-          heading: '2. The Psychology of Risk: Why Instant Games Captivate the Brain',
-          body: 'Crash formats stimulate the brain\'s reward system far more intensely than standard slot machines.',
+          heading: '2. The Psychology of Risk: Why Instant Games Captivate',
+          body: "Crash formats stimulate the brain's reward system far more intensely than standard slot machines.",
           bullets: [
-            'Illusion of Control: the user determines the cashout moment — the subconscious interprets success as personal skill, even though the mathematical expectation remains fixed.',
-            'FOMO: witnessing others secure >50x multipliers in the live feed triggers the urge to hold longer, leading to sub-optimal risk extension.',
-            'Near-Miss Effect: a crash at 1.98x while auto-cashout was set at 2.00x is processed not as a total loss but as a minor frustrating near-success.',
+            'Illusion of Control: the user determines the cashout moment — the subconscious interprets success as personal skill.',
+            'FOMO: witnessing others secure >50x multipliers in the live feed triggers the urge to hold longer.',
+            'Near-Miss Effect: a crash at 1.98x while auto-cashout was set at 2.00x is processed as a minor near-success rather than a total loss.',
           ],
           callout: 'The dopamine response is generated during the tense anticipation of the rising multiplier — not upon credit distribution.',
         },
         {
-          heading: '3. Mathematical Expectation and Risk Management Strategies',
-          body: 'Premium Crash titles average 96.0–97.0% RTP. Short-term volatility must be navigated with systematic betting architectures.',
+          heading: '3. Risk Management Strategies',
+          body: 'Average RTP of quality Crash games: 96.0–97.0%.',
           strategies: [
             {
-              title: 'Fixed Low-Multiplier Auto-Cashout',
+              title: 'Fixed Auto-Cashout Strategy',
               bullets: [
-                'Automated cashout at 1.20x–1.50x',
-                'Winning round frequency up to 85%',
-                'Requires a consistent streak to recuperate from a single 1.00x crash',
+                'Auto-withdraw at 1.20x – 1.50x',
+                'Win frequency up to 85%',
+                'Requires a streak of wins to offset one early crash',
               ],
             },
             {
-              title: 'Differentiated Dual Betting',
+              title: 'Dual Coverage',
               bullets: [
-                'Bet 1: automated exit at 2.00x — covers total round cost',
-                'Bet 2: remains active to chase exponential high-amplitude gains',
+                'Bet 1: auto-cashout at 2.00x — covers round costs',
+                'Bet 2: held for super-profit on high multipliers',
               ],
             },
             {
-              title: 'Modified Anti-Martingale Progression',
+              title: 'Anti-Martingale',
               bullets: [
-                'Scale wager sizes strictly after winning outcomes',
-                'Maximizes compound returns during positive variance; minimal baseline during negative runs',
+                'Increase stake only after winning rounds',
+                'Maximizes profit in upstreaks, minimizes losses in downstreaks',
               ],
             },
           ],
         },
         {
-          heading: '4. Operational Protocols for Bankroll Preservation',
-          callout: 'Never allocate more than 2–5% of the macro-bankroll to any individual game cycle. If the session depreciates by 20%, terminate immediately.',
+          heading: '4. Bankroll Control',
+          callout: 'Never exceed 2–5% of bankroll per round. If you lose 20% in a session — stop immediately.',
           bullets: [
-            'Eradicate emotional loss-chasing patterns after early-cycle crashes.',
-            'Enforce rigid session-based Stop-Loss parameters before every session.',
+            'Never chase losses after a series of early crashes.',
+            'Set a strict Stop-Loss before every session.',
           ],
+        },
+      ],
+    },
+  },
+
+  /* ── MISTAKES ── */
+  {
+    id: 'mistakes',
+    icon: '✕',
+    titleRu: 'Ошибки игроков',
+    titleEn: 'Player Mistakes',
+    subtitleRu: 'Самые распространённые ошибки и как их избежать',
+    subtitleEn: 'The most common mistakes and how to avoid them',
+    tagRu: 'Советы',
+    tagEn: 'Tips',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Успех в онлайн-казино зависит не только от удачи, но и от подхода к игре. Многие игроки совершают одинаковые ошибки, которые приводят к быстрой потере игрового банка, эмоциональным решениям и разочарованию. Большинство подобных ситуаций можно избежать, если заранее понимать основные принципы ответственной игры.',
+        },
+        {
+          heading: '1. Игра без заранее установленного бюджета',
+          body: 'Одной из самых распространённых ошибок является отсутствие игрового бюджета. Некоторые пользователи начинают игру, не определив сумму, которую готовы потратить на развлечение.',
+          callout: 'Перед началом сессии определите сумму, потеря которой не повлияет на личный бюджет. После достижения лимита — завершите игру.',
+        },
+        {
+          heading: '2. Погоня за потерями',
+          body: 'Желание быстро вернуть потерянные деньги известно как погоня за потерями (chasing losses). Это одна из главных причин чрезмерных расходов. Результат каждого раунда определяется случайным образом, поэтому увеличение ставок не повышает вероятность выигрыша.',
+        },
+        {
+          heading: '3. Слишком большие ставки и игра на эмоциях',
+          body: 'Большие ставки позволяют выиграть больше, однако одновременно ускоряют расходование банкролла. Опытные игроки рекомендуют использовать на одну ставку не более 1–3% от общего игрового бюджета.',
+          bullets: [
+            'После крупного выигрыша избегайте чрезмерной уверенности.',
+            'После серии проигрышей не поддавайтесь желанию немедленно отыграться.',
+            'Делайте регулярные перерывы и сохраняйте спокойствие.',
+          ],
+        },
+        {
+          heading: '4. Игнорирование RTP, волатильности и бонусных условий',
+          body: 'Перед запуском игрового автомата важно учитывать RTP, уровень волатильности, максимальный выигрыш и бонусные функции. Также многие игроки забывают читать условия бонусов.',
+          bullets: [
+            'Требования по вейджеру могут существенно влиять на реальную ценность бонуса.',
+            'Максимальный размер ставки во время отыгрыша — важный параметр.',
+            'Срок действия бонуса ограничен — не допускайте его истечения.',
+          ],
+        },
+        {
+          heading: '5. Вера в мифы и «секретные стратегии»',
+          body: 'Лицензированные игровые автоматы работают на основе генератора случайных чисел (RNG), а каждый спин является полностью независимым событием. Не существует стратегии, которая могла бы гарантировать выигрыш.',
+          callout: 'Азартные игры — это развлечение. Не воспринимайте их как способ заработка или решения финансовых проблем.',
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Online casino games are designed to provide entertainment. However, many players make avoidable mistakes that negatively affect their gaming experience and quickly deplete their bankroll. In most cases, these mistakes are not related to bad luck but to poor money management, emotional decision-making, or unrealistic expectations.',
+        },
+        {
+          heading: '1. Playing Without a Budget',
+          body: 'One of the biggest mistakes players make is starting a gaming session without setting a clear spending limit. Without a predetermined bankroll, it becomes much easier to overspend and make emotional decisions during gameplay.',
+          callout: 'Before placing your first bet, decide how much money you are willing to spend purely for entertainment. Once your gambling budget has been reached, end the session.',
+        },
+        {
+          heading: '2. Chasing Losses',
+          body: "Trying to recover losses immediately is one of the most common and costly gambling mistakes. This behavior, known as chasing losses, often results in even greater financial losses. Every spin is independent — previous outcomes have absolutely no influence on future results.",
+        },
+        {
+          heading: '3. Betting Too Much and Letting Emotions Control Decisions',
+          body: 'Higher wagers increase the value of potential payouts, but they also drain your bankroll much faster. Many experienced players recommend risking no more than 1% to 3% of your total bankroll on a single spin.',
+          bullets: [
+            'After a big win, avoid becoming overconfident and increasing bets unnecessarily.',
+            'After losses, resist the urge to make impulsive decisions.',
+            'Taking regular breaks helps maintain better discipline throughout a session.',
+          ],
+        },
+        {
+          heading: '4. Ignoring RTP, Volatility and Bonus Terms',
+          body: 'Before selecting a slot, check RTP, volatility, maximum win potential, and bonus features. Many players also activate promotions without reading the rules.',
+          bullets: [
+            'Wagering requirements determine how many times you must wager before withdrawing.',
+            'Maximum bet limits during wagering are often overlooked.',
+            'Bonus validity periods expire — always check the deadline.',
+          ],
+        },
+        {
+          heading: '5. Believing Gambling Myths',
+          body: 'Modern online slots operate using certified Random Number Generators (RNGs), meaning every spin is completely random and independent. No betting system or secret strategy can change the mathematical probability of a winning combination.',
+          callout: 'Treat gambling as entertainment rather than guaranteed income. Most mistakes stem from poor financial planning, not bad luck.',
+        },
+      ],
+    },
+  },
+
+  /* ── RTP ── */
+  {
+    id: 'rtp',
+    icon: '%',
+    titleRu: 'RTP и волатильность',
+    titleEn: 'RTP & Volatility',
+    subtitleRu: 'Ключевые параметры современных слотов',
+    subtitleEn: 'Key statistics of modern slot machines',
+    tagRu: 'Механика',
+    tagEn: 'Mechanics',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'При выборе игрового автомата многие пользователи обращают внимание не только на оформление, количество бонусных функций или максимальный выигрыш. Не менее важными характеристиками считаются RTP, волатильность и дисперсия — именно эти показатели помогают лучше понять особенности конкретного слота.',
+        },
+        {
+          heading: '1. Что такое RTP',
+          body: 'RTP (Return to Player) — это показатель теоретического возврата игроку, выраженный в процентах. Он демонстрирует, какая часть всех сделанных ставок в долгосрочной перспективе возвращается участникам игры в виде выигрышей.',
+          formula: 'RTP 96% → на каждые $100 ставок теоретически возвращается $96',
+          bullets: [
+            'До 94% — относительно низкий показатель',
+            '95–96% — средний уровень',
+            '96–97% — хороший RTP',
+            'Выше 97% — высокий показатель возврата',
+          ],
+          callout: 'RTP рассчитывается на миллионы игровых раундов. Он не гарантирует конкретный результат отдельной сессии.',
+        },
+        {
+          heading: '2. Что такое волатильность',
+          body: 'Волатильность показывает уровень риска игрового автомата. Именно этот параметр определяет, насколько часто выпадают выигрыши и какого размера они могут быть.',
+          strategies: [
+            {
+              title: 'Низкая волатильность',
+              bullets: [
+                'Частые выплаты небольшого размера',
+                'Небольшие просадки; комфортная игра при ограниченном банкролле',
+                'Подходит для длительных сессий',
+              ],
+            },
+            {
+              title: 'Высокая волатильность',
+              bullets: [
+                'Редкие выигрыши, но высокий потенциал',
+                'Длинные серии без значительных выплат',
+                'Требует большего банкролла и терпения',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. Как RTP и волатильность работают вместе',
+          body: 'Одной из самых распространённых ошибок считается мнение, что высокий RTP автоматически означает частые выигрыши. Два автомата с одинаковым RTP 96.5% могут иметь совершенно разный игровой процесс из-за разной волатильности.',
+          callout: 'Для игроков с небольшим банкроллом — низкая или средняя волатильность. Для охотников за крупными выигрышами — высокая волатильность.',
+        },
+        {
+          heading: '4. Распространённые мифы о RTP',
+          bullets: [
+            'Миф: после серии проигрышей автомат обязательно выплатит крупный выигрыш. Факт: каждый спин независим.',
+            'Миф: высокий RTP гарантирует прибыль. Факт: RTP — математическая характеристика, а не обещание выигрыша.',
+            'Миф: казино может менять RTP во время игры. Факт: параметры задаются производителем и проходят независимую сертификацию.',
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'When choosing an online slot, most players pay attention to graphics, bonus features and jackpot size. However, the most important characteristics of any slot machine are often hidden in its technical specifications: RTP, volatility, and variance.',
+        },
+        {
+          heading: '1. What Is RTP?',
+          body: "RTP (Return to Player) represents the theoretical percentage of all wagered money that a slot returns to players over a very long period of time. For example, if a slot has an RTP of 96%, it theoretically pays back $96 for every $100 wagered across millions of spins.",
+          formula: 'RTP 96% → $96 returned per $100 wagered over millions of spins',
+          bullets: [
+            'Below 94% — relatively low RTP',
+            '95%–96% — average RTP',
+            '96%–97% — good RTP',
+            'Above 97% — very high RTP',
+          ],
+          callout: 'RTP is calculated over millions of game rounds. It does not predict the outcome of a single gaming session.',
+        },
+        {
+          heading: '2. What Is Volatility?',
+          body: 'Volatility describes how frequently a slot pays and how large those payouts are likely to be. A high-volatility slot produces fewer winning combinations but offers the potential for much larger payouts.',
+          strategies: [
+            {
+              title: 'Low Volatility',
+              bullets: [
+                'Frequent small payouts',
+                'Lower balance fluctuations; suitable for smaller bankrolls',
+                'Best for longer gaming sessions',
+              ],
+            },
+            {
+              title: 'High Volatility',
+              bullets: [
+                'Rare wins but high potential',
+                'Longer losing streaks before significant payouts',
+                'Requires a larger bankroll and patience',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. How RTP and Volatility Work Together',
+          body: 'One of the biggest misconceptions is that a high RTP automatically means frequent wins. Two games that both have an RTP of 96.5% can feel completely different to play due to their different volatility levels.',
+          callout: 'Players with smaller budgets often prefer low or medium-volatility slots. Those aiming for larger payouts may choose high-volatility games despite the increased risk.',
+        },
+        {
+          heading: '4. Common Misconceptions',
+          bullets: [
+            'Myth: a slot must pay after a long losing streak. Fact: every spin is generated independently.',
+            'Myth: a higher RTP guarantees profit. Fact: RTP is a theoretical statistical value, not a guarantee.',
+            'Myth: casinos change RTP during gameplay. Fact: RTP is predetermined by the developer and independently certified.',
+          ],
+        },
+      ],
+    },
+  },
+
+  /* ── BONUSES ── */
+  {
+    id: 'bonuses',
+    icon: '★',
+    titleRu: 'Бонусы казино',
+    titleEn: 'Casino Bonuses',
+    subtitleRu: 'Приветственные предложения, фриспины и вейджер',
+    subtitleEn: 'Welcome bonuses, free spins and wagering requirements',
+    tagRu: 'Бонусы',
+    tagEn: 'Bonuses',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Бонусные предложения стали неотъемлемой частью современных онлайн-казино. Практически каждая игровая платформа предлагает различные акции для новых и постоянных пользователей. Однако далеко не все игроки понимают, как работают подобные предложения.',
+        },
+        {
+          heading: '1. Приветственный бонус и бонус на депозит',
+          body: 'Наиболее распространённым видом акции является приветственный бонус — он предоставляется новым пользователям после регистрации и первого пополнения счёта. Размер депозитного бонуса рассчитывается в процентах от внесённой суммы.',
+          bullets: [
+            'Бонус 50% на депозит',
+            'Бонус 100% на первое пополнение',
+            'Бездепозитный бонус — без обязательного пополнения, но с более строгими условиями',
+          ],
+        },
+        {
+          heading: '2. Бесплатные вращения (Free Spins)',
+          body: 'Фриспины позволяют получить определённое количество бесплатных вращений в выбранных игровых автоматах без необходимости использовать собственные средства.',
+          callout: 'Перед использованием фриспинов уточните: список доступных слотов, срок действия акции, требования по отыгрышу и максимальную сумму выигрыша.',
+        },
+        {
+          heading: '3. Что такое вейджер',
+          body: 'Вейджер (Wagering Requirement) — это условие, определяющее, сколько раз необходимо поставить сумму бонуса перед возможностью вывести выигрыш.',
+          formula: 'Бонус $100 × вейджер 35 = $3500 необходимо поставить',
+          callout: 'Выполнение вейджера не означает обязательную потерю средств. Он лишь определяет необходимый игровой оборот.',
+        },
+        {
+          heading: '4. Кэшбэк, программа лояльности и советы',
+          body: 'Кэшбэк — возврат части проигранных средств за определённый период. Программа лояльности открывает дополнительные преимущества для постоянных игроков.',
+          strategies: [
+            {
+              title: 'На что обращать внимание при выборе бонуса',
+              bullets: [
+                'Размер вейджера и минимальный депозит',
+                'Срок действия акции и список игр',
+                'Максимальная сумма вывода',
+                'Ограничения по максимальной ставке',
+              ],
+            },
+            {
+              title: 'Распространённые ошибки игроков',
+              bullets: [
+                'Активация акции без чтения правил',
+                'Игнорирование требований по вейджеру',
+                'Превышение максимальной ставки во время отыгрыша',
+                'Использование бонуса после окончания срока действия',
+              ],
+            },
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Bonuses have become one of the most attractive features of modern online casinos. Nearly every gaming platform offers promotions designed to reward both new and existing players. While bonuses can significantly enhance the gaming experience, many players are unfamiliar with the terms and conditions that accompany them.',
+        },
+        {
+          heading: '1. Welcome Bonuses and Deposit Bonuses',
+          body: 'The welcome bonus is one of the most popular promotions available at online casinos, usually offered to new players after they create an account and make their first deposit. Deposit bonuses are generally calculated as a percentage of the deposited amount.',
+          bullets: [
+            '50% Deposit Bonus',
+            '100% First Deposit Bonus',
+            'No Deposit Bonus — no initial deposit required, but with stricter wagering requirements',
+          ],
+        },
+        {
+          heading: '2. Free Spins',
+          body: 'Free Spins are among the most popular casino rewards. Players receive a fixed number of complimentary spins on selected slot games without risking their own money.',
+          callout: 'Before activating Free Spins, check: eligible slot games, promotion expiration date, wagering requirements, and maximum withdrawal limits.',
+        },
+        {
+          heading: '3. What Are Wagering Requirements?',
+          body: 'A wagering requirement determines how many times a player must wager the bonus amount before winnings can be withdrawn.',
+          formula: '$100 bonus × 35x wagering = $3,500 must be wagered',
+          callout: 'Wagering requirements do not guarantee losses. They simply establish the amount of betting activity required before withdrawals are permitted.',
+        },
+        {
+          heading: '4. Cashback, Loyalty Programs and Tips',
+          body: 'Cashback promotions return a percentage of a player\'s net losses. Loyalty programs reward long-term players with exclusive benefits.',
+          strategies: [
+            {
+              title: 'What to Look for Before Claiming a Bonus',
+              bullets: [
+                'Wagering requirements and minimum deposit',
+                'Bonus validity period and eligible games',
+                'Maximum withdrawal limits',
+                'Maximum betting restrictions during wagering',
+              ],
+            },
+            {
+              title: 'Common Bonus Mistakes',
+              bullets: [
+                'Accepting bonuses without reading the terms',
+                'Ignoring wagering requirements',
+                'Exceeding the maximum allowed bet during wagering',
+                'Allowing the bonus to expire',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  /* ── RESPONSIBLE GAMBLING ── */
+  {
+    id: 'responsible',
+    icon: '◎',
+    titleRu: 'Ответственная игра',
+    titleEn: 'Responsible Gambling',
+    subtitleRu: 'Управление банкроллом и безопасная игра',
+    subtitleEn: 'Bankroll management and safer casino play',
+    tagRu: 'Безопасность',
+    tagEn: 'Safety',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Азартные игры должны оставаться формой развлечения, а не способом заработка. Именно поэтому опытные игроки уделяют особое внимание грамотному управлению собственным банкроллом. Правильный подход помогает контролировать расходы, избегать эмоциональных решений и получать удовольствие от игрового процесса.',
+        },
+        {
+          heading: '1. Что такое банкролл и почему важно им управлять',
+          body: 'Банкролл — это сумма денежных средств, которую игрок заранее выделяет исключительно для развлечений в онлайн-казино. Эти деньги не должны использоваться для оплаты повседневных расходов.',
+          bullets: [
+            'Контролируйте расходы и увеличьте продолжительность игровых сессий',
+            'Снизьте влияние эмоций и избегайте импульсивных решений',
+            'Даже при удачной серии продолжайте придерживаться стратегии',
+          ],
+        },
+        {
+          heading: '2. Правила безопасной игры',
+          body: 'Многие специалисты рекомендуют использовать на одно вращение не более 1–3% от текущего игрового банка.',
+          strategies: [
+            {
+              title: 'Правила управления банкроллом',
+              bullets: [
+                'Определите игровой бюджет до начала сессии',
+                'Ставка не более 1–3% от банка на одно вращение',
+                'Не пытайтесь отыграться после серии неудач',
+                'Фиксируйте прибыль: при росте баланса на 30–50% — завершите сессию',
+              ],
+            },
+            {
+              title: 'Встроенные инструменты контроля',
+              bullets: [
+                'Лимиты на депозиты и ограничения по времени',
+                'Лимиты проигрыша и напоминания о продолжительности',
+                'Временная блокировка аккаунта и самоисключение',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. Здоровые игровые привычки',
+          body: 'Ответственная игра начинается с правильного отношения к азартным развлечениям. Не стоит воспринимать их как источник стабильного дохода или способ решения финансовых проблем.',
+          callout: 'Если выделенная сумма закончилась — завершайте сессию. Если баланс значительно вырос — выведите часть выигрыша и продолжите на меньшую сумму.',
+          bullets: [
+            'Делайте перерывы каждые 45–60 минут',
+            'Не играйте в состоянии усталости или сильных эмоций',
+            'Воспринимайте выигрыши как приятный бонус, а не как гарантированный результат',
+          ],
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Online casino games are designed to provide entertainment rather than a reliable source of income. One of the most effective ways to enjoy casino games while maintaining control is through responsible gambling and proper bankroll management.',
+        },
+        {
+          heading: '1. What Is a Bankroll and Why Does It Matter?',
+          body: 'A bankroll is the amount of money you have specifically set aside for gambling. This budget should be completely separate from your everyday finances and should only include funds you can comfortably afford to lose.',
+          bullets: [
+            'Better control over gambling expenses',
+            'Longer and more enjoyable gaming sessions',
+            'Reduced emotional pressure during wins and losses',
+          ],
+        },
+        {
+          heading: '2. Rules for Safer Play',
+          body: 'Many experienced players recommend risking no more than 1% to 3% of your total bankroll on a single spin or game round.',
+          strategies: [
+            {
+              title: 'Bankroll Management Rules',
+              bullets: [
+                'Set a gambling budget before every session',
+                'Keep individual bets at 1–3% of total bankroll',
+                'Never chase losses by increasing your wagers',
+                'Protect profits: if your balance grows 30–50%, consider ending the session',
+              ],
+            },
+            {
+              title: 'Built-in Responsible Gambling Tools',
+              bullets: [
+                'Deposit limits and session time reminders',
+                'Loss limits and daily/weekly spending caps',
+                'Temporary account suspension and self-exclusion',
+              ],
+            },
+          ],
+        },
+        {
+          heading: '3. Building Healthy Gambling Habits',
+          body: 'Responsible gambling is based on discipline rather than luck. Players who consistently follow basic principles enjoy a more balanced and enjoyable gaming experience.',
+          callout: 'If your budget is exhausted, end the session. If your balance has grown significantly, withdraw a portion and continue with a smaller amount.',
+          bullets: [
+            'Take breaks every 45–60 minutes',
+            'Avoid playing while tired or emotionally upset',
+            'View winnings as a pleasant bonus, not a guaranteed outcome',
+          ],
+        },
+      ],
+    },
+  },
+
+  /* ── SLOT MYTHS ── */
+  {
+    id: 'myths',
+    icon: '?',
+    titleRu: 'Мифы о слотах',
+    titleEn: 'Slot Myths',
+    subtitleRu: 'Правда о «горячих» автоматах и стратегиях',
+    subtitleEn: 'The truth about hot slots and winning strategies',
+    tagRu: 'Мифы',
+    tagEn: 'Myths',
+    sections: {
+      ru: [
+        {
+          heading: 'Введение',
+          body: 'Игровые автоматы остаются одной из самых популярных категорий развлечений в онлайн-казино. Вместе с популярностью появилось множество мифов, которые передаются из поколения в поколение. Разберём самые распространённые мифы и выясним, что действительно влияет на игровой процесс.',
+        },
+        {
+          heading: 'Миф №1: Существуют «горячие» и «холодные» слоты',
+          body: 'Согласно распространённому мнению, «горячий» слот недавно начал активно выплачивать выигрыши, поэтому вероятность очередной крупной выплаты якобы выше.',
+          callout: 'Факт: игровые автоматы работают на основе генератора случайных чисел (RNG). Каждое вращение является независимым событием и не связано с предыдущими результатами.',
+        },
+        {
+          heading: 'Мифы №2, №3 и №4',
+          bullets: [
+            'Миф: после серии проигрышей обязательно будет выигрыш. Факт: каждый спин полностью независим — «ошибка игрока».',
+            'Миф: можно разработать беспроигрышную стратегию. Факт: никакая стратегия не способна изменить вероятность выпадения выигрышной комбинации.',
+            'Миф: большие ставки повышают вероятность выигрыша. Факт: размер ставки влияет на сумму выплаты, но не на вероятность её появления.',
+          ],
+        },
+        {
+          heading: 'Мифы №5, №6, №7, №8',
+          bullets: [
+            'Миф: казино может управлять результатами каждого игрока. Факт: лицензированные слоты проходят независимое тестирование и сертификацию.',
+            'Миф: бесплатная игра отличается от режима на реальные деньги. Факт: лицензированные разработчики используют одинаковую механику.',
+            'Миф: высокий RTP гарантирует прибыль. Факт: RTP рассчитывается на миллионы раундов и не гарантирует выигрыш конкретному игроку.',
+            'Миф: время суток влияет на вероятность выигрыша. Факт: RNG не зависит от времени суток, количества игроков или дня недели.',
+          ],
+        },
+        {
+          heading: 'Что действительно влияет на игровой процесс',
+          body: 'Вместо мифов стоит изучать реальные характеристики слотов.',
+          bullets: [
+            'Показатель RTP и уровень волатильности',
+            'Максимальный выигрыш и бонусные функции',
+            'Количество линий выплат и специальные символы',
+            'Наличие бесплатных вращений и множителей',
+          ],
+          callout: 'Грамотный выбор слота на основе реальных характеристик — лучшая стратегия для долгосрочной игры.',
+        },
+      ],
+      en: [
+        {
+          heading: 'Introduction',
+          body: 'Online slots are among the most popular casino games, attracting millions of players. As slot games have grown in popularity, countless myths and misconceptions have emerged. Understanding how these games actually work helps players make informed decisions.',
+        },
+        {
+          heading: 'Myth #1: Hot and Cold Slots Really Exist',
+          body: 'A "hot slot" is believed to be a machine that has recently produced several wins and is expected to continue paying out. A "cold slot" is thought to have gone a long time without awarding significant prizes.',
+          callout: 'Fact: licensed online slots operate using a Random Number Generator (RNG). Every spin is completely independent of previous results. There is no reliable way to identify a hot or cold slot.',
+        },
+        {
+          heading: 'Myths #2, #3 and #4',
+          bullets: [
+            'Myth: a big win is guaranteed after a long losing streak. Fact: every spin has exactly the same probability — known as the Gambler\'s Fallacy.',
+            'Myth: there is a guaranteed winning strategy. Fact: no betting system can change the mathematical probability of a winning combination appearing.',
+            'Myth: higher bets increase your chances of winning. Fact: bet size raises the value of potential payouts but does not change the probability of winning combinations.',
+          ],
+        },
+        {
+          heading: 'Myths #5, #6, #7 and #8',
+          bullets: [
+            'Myth: casinos control individual player results. Fact: certified slot games are independently tested and regularly verified.',
+            'Myth: demo slots pay more than real-money games. Fact: reputable developers use the same mathematical model for both modes.',
+            'Myth: a high RTP guarantees profit. Fact: RTP is a theoretical statistical value calculated over millions of spins.',
+            'Myth: time of day affects winning chances. Fact: the RNG operates continuously, independent of time, player count, or weekday.',
+          ],
+        },
+        {
+          heading: 'What Actually Influences Slot Gameplay',
+          body: 'Rather than relying on myths, focus on real game characteristics.',
+          bullets: [
+            'RTP percentage and volatility level',
+            'Maximum win potential and bonus features',
+            'Number of paylines and special symbols',
+            'Free Spins, Wild and Scatter symbols, multipliers',
+          ],
+          callout: 'Choosing a slot based on its actual technical characteristics is the best strategy for a long-term enjoyable gaming experience.',
         },
       ],
     },
   },
 ];
 
-/* ─── Section renderer ─── */
-function GuideSection({ section, idx }: { section: Section & { body2?: string }; idx: number }) {
+/* ─── Section Renderer ─── */
+function GuideSection({ section, idx }: { section: Section; idx: number }) {
   return (
     <div className="guide-section">
       <h3 className="guide-section__heading">
-        <span className="guide-section__num">{String(idx + 1).padStart(2, '0')}</span>
+        <span className="guide-section__num">0{idx + 1}</span>
         {section.heading}
       </h3>
-
       {section.body && <p className="guide-section__body">{section.body}</p>}
-
       {section.formula && (
         <div className="guide-formula">
           <span className="guide-formula__label">Formula</span>
           <code className="guide-formula__code">{section.formula}</code>
         </div>
       )}
-
-      {(section as any).body2 && (
-        <p className="guide-section__body">{(section as any).body2}</p>
-      )}
-
+      {section.body2 && <p className="guide-section__body">{section.body2}</p>}
       {section.callout && (
         <div className="guide-callout">
           <span className="guide-callout__icon" aria-hidden="true">!</span>
           <p className="guide-callout__text">{section.callout}</p>
         </div>
       )}
-
-      {section.bullets && (
-        <ul className="guide-bullets">
+      {section.bullets && section.bullets.length > 0 && (
+        <ul className="guide-bullets" role="list">
           {section.bullets.map((b, i) => (
             <li key={i} className="guide-bullets__item">
               <span className="guide-bullets__dot" aria-hidden="true" />
@@ -437,13 +955,12 @@ function GuideSection({ section, idx }: { section: Section & { body2?: string };
           ))}
         </ul>
       )}
-
-      {section.strategies && (
+      {section.strategies && section.strategies.length > 0 && (
         <div className="guide-strategies">
           {section.strategies.map((s, i) => (
             <div key={i} className="guide-strategy-card">
-              <h4 className="guide-strategy-card__title">{s.title}</h4>
-              <ul className="guide-bullets">
+              <p className="guide-strategy-card__title">{s.title}</p>
+              <ul className="guide-bullets" role="list">
                 {s.bullets.map((b, j) => (
                   <li key={j} className="guide-bullets__item">
                     <span className="guide-bullets__dot" aria-hidden="true" />
@@ -459,97 +976,88 @@ function GuideSection({ section, idx }: { section: Section & { body2?: string };
   );
 }
 
-/* ─── Main component ─── */
+/* ─── Main Component ─── */
 export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
-  const [active, setActive] = useState(0);
   const isEn = lang === 'en';
-  const guide = GUIDES[active];
+  const [activeId, setActiveId] = useState(GUIDES[0].id);
+
+  const guide = GUIDES.find((g) => g.id === activeId) ?? GUIDES[0];
   const sections = isEn ? guide.sections.en : guide.sections.ru;
+  const title = isEn ? guide.titleEn : guide.titleRu;
+  const subtitle = isEn ? guide.subtitleEn : guide.subtitleRu;
+  const tag = isEn ? guide.tagEn : guide.tagRu;
+
+  const heroTitle = isEn ? 'iGaming Strategy Guides' : 'Стратегические гайды iGaming';
+  const heroSub = isEn
+    ? 'In-depth guides on game mechanics, RTP, bonuses, and responsible gambling'
+    : 'Подробные гайды по механикам игр, RTP, бонусам и ответственной игре';
 
   return (
     <main className="guides-main">
-      {/* ── Hero ── */}
-      <div className="guides-hero">
-        <p className="guides-hero__eyebrow">
-          {isEn ? 'Strategy Guides' : 'Стратегические гайды'}
-        </p>
-        <h1 className="guides-hero__title">
-          {isEn ? 'Master iGaming Mechanics' : 'Освой механики iGaming'}
-        </h1>
-        <p className="guides-hero__sub">
-          {isEn
-            ? 'In-depth analysis of probability, psychology, and bankroll strategy.'
-            : 'Глубокий анализ математики, психологии и управления банкроллом.'}
-        </p>
+      {/* Back link */}
+      <div className="guides-back">
+        <Link href={`/${lang}`} className="guides-back__link" aria-label={isEn ? 'Back to games' : 'Назад к играм'}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          {isEn ? 'All Games' : 'Все игры'}
+        </Link>
       </div>
 
-      {/* ── Sticky tab bar ── */}
-      <div className="guides-tabbar" role="tablist" aria-label={isEn ? 'Guide tabs' : 'Вкладки гайдов'}>
-        {GUIDES.map((g, idx) => {
-          const isSelected = active === idx;
-          return (
-            <button
-              key={g.id}
-              role="tab"
-              aria-selected={isSelected}
-              aria-controls={`guide-panel-${g.id}`}
-              onClick={() => setActive(idx)}
-              className={`guides-tab${isSelected ? ' guides-tab--active' : ''}`}
-            >
-              <span className="guides-tab__icon" aria-hidden="true">{g.icon}</span>
-              <span className="guides-tab__label">{isEn ? g.titleEn : g.titleRu}</span>
-              <span className="guides-tab__tag">{isEn ? g.tagEn : g.tagRu}</span>
-            </button>
-          );
-        })}
+      {/* Hero */}
+      <header className="guides-hero">
+        <span className="guides-hero__eyebrow">{isEn ? 'Strategy Guides' : 'Гайды'}</span>
+        <h1 className="guides-hero__title">{heroTitle}</h1>
+        <p className="guides-hero__sub">{heroSub}</p>
+      </header>
+
+      {/* Sticky tab bar */}
+      <div className="guides-tabbar" role="tablist" aria-label={isEn ? 'Select a guide' : 'Выберите гайд'}>
+        {GUIDES.map((g) => (
+          <button
+            key={g.id}
+            role="tab"
+            aria-selected={g.id === activeId}
+            className={`guides-tab${g.id === activeId ? ' guides-tab--active' : ''}`}
+            onClick={() => setActiveId(g.id)}
+          >
+            <span className="guides-tab__icon" aria-hidden="true">{g.icon}</span>
+            {isEn ? g.titleEn : g.titleRu}
+            <span className="guides-tab__tag">{isEn ? g.tagEn : g.tagRu}</span>
+          </button>
+        ))}
       </div>
 
-      {/* ── Content ── */}
+      {/* Content */}
       <div className="guides-content-wrap">
-        {/* Sidebar meta */}
-        <aside className="guides-sidebar">
+        {/* Sidebar */}
+        <aside className="guides-sidebar" aria-label={isEn ? 'Guide info' : 'О гайде'}>
           <div className="guides-sidebar__card">
             <span className="guides-sidebar__icon" aria-hidden="true">{guide.icon}</span>
-            <h2 className="guides-sidebar__title">{isEn ? guide.titleEn : guide.titleRu}</h2>
-            <p className="guides-sidebar__sub">{isEn ? guide.subtitleEn : guide.subtitleRu}</p>
-            <div className="guides-sidebar__tag">{isEn ? guide.tagEn : guide.tagRu}</div>
-            <nav aria-label={isEn ? 'Sections' : 'Разделы'}>
-              <ul className="guides-sidebar__toc">
-                {sections.map((s, i) => (
-                  <li key={i} className="guides-sidebar__toc-item">
-                    <span className="guides-sidebar__toc-num">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="guides-sidebar__toc-label">{s.heading}</span>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <p className="guides-sidebar__tag">{tag}</p>
+            <h2 className="guides-sidebar__title">{title}</h2>
+            <p className="guides-sidebar__sub">{subtitle}</p>
+            <ol className="guides-sidebar__toc" aria-label={isEn ? 'Table of contents' : 'Содержание'}>
+              {sections.map((s, i) => (
+                <li key={i} className="guides-sidebar__toc-item">
+                  <span className="guides-sidebar__toc-num">0{i + 1}</span>
+                  <span className="guides-sidebar__toc-label">{s.heading}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </aside>
 
         {/* Article */}
         <article
-          id={`guide-panel-${guide.id}`}
-          role="tabpanel"
           className="guides-article"
+          role="tabpanel"
+          aria-label={title}
         >
           {sections.map((section, idx) => (
-            <GuideSection
-              key={idx}
-              section={section as Section & { body2?: string }}
-              idx={idx}
-            />
+            <GuideSection key={idx} section={section} idx={idx} />
           ))}
         </article>
-      </div>
-
-      {/* ── Back link ── */}
-      <div className="guides-back">
-        <Link href={isEn ? '/en' : '/ru'} className="guides-back__link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          {isEn ? 'Back to Home' : 'На главную'}
-        </Link>
       </div>
     </main>
   );
