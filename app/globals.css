@@ -1071,3 +1071,145 @@ img { display: block; max-width: 100%; height: auto; }
   white-space: nowrap;
   max-width: 140px;
 }
+
+/* ═══════════════════════════════════════════
+   GAME SEARCH
+═══════════════════════════════════════════ */
+
+/* ── Search bar ── */
+.game-search__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.game-search__icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+.game-search__input {
+  width: 100%;
+  height: 44px;
+  padding: 0 2.75rem 0 2.625rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 0.625rem;
+  color: var(--color-text-primary);
+  font-size: 0.9375rem;
+  font-family: var(--font-sans, sans-serif);
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  /* hide native clear button in Chrome/Safari */
+  -webkit-appearance: none;
+}
+.game-search__input::placeholder {
+  color: var(--color-text-muted);
+}
+.game-search__input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+}
+.game-search__input:focus + .game-search__icon,
+.game-search__bar:focus-within .game-search__icon {
+  color: var(--color-gold);
+}
+/* hide native × in IE/Edge */
+.game-search__input::-ms-clear { display: none; }
+/* hide native × in Chrome */
+.game-search__input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.game-search__clear {
+  position: absolute;
+  right: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(201, 162, 39, 0.12);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.game-search__clear:hover {
+  background: rgba(201, 162, 39, 0.25);
+  color: var(--color-gold-light);
+}
+
+/* ── Meta row (count + query) ── */
+.game-search__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.game-search__meta-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+.game-search__meta-count {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-gold-dim);
+}
+.game-search__meta-query {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ── Empty state ── */
+.game-search__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+.game-search__empty-text {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.25rem;
+}
+.game-search__empty-reset {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border-gold);
+  background: transparent;
+  color: var(--color-gold-light);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.game-search__empty-reset:hover {
+  background: rgba(201, 162, 39, 0.1);
+}
+
+/* ── Responsive tweaks ── */
+@media (min-width: 640px) {
+  .game-search__input {
+    height: 48px;
+    font-size: 1rem;
+  }
+  .game-search__meta-title {
+    font-size: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .game-search__bar {
+    max-width: 480px;
+  }
+}

@@ -1,6 +1,6 @@
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
-import { GameCard } from '@/components/game-card'
+import { GameSearch } from '@/components/game-search'
 import { games, i18n, CTA_URL } from '@/lib/games'
 import type { Lang } from '@/lib/games'
 
@@ -109,28 +109,14 @@ export function HomePage({ lang }: HomePageProps) {
           aria-label={isEn ? 'Game catalog' : 'Каталог игр'}
           style={{ maxWidth: '1280px', margin: '0 auto', padding: '2.5rem 1rem 4rem' }}
         >
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1.5rem' }}>
-            <h2 style={{ color: 'var(--color-text-primary)' }}>
-              {isEn ? 'All Games' : 'Все игры'}
-            </h2>
-            <span
-              style={{
-                color: 'var(--color-gold-dim)',
-                fontWeight: 500,
-                fontSize: '0.9375rem',
-              }}
-            >
-              {games.length}
-            </span>
-          </div>
-
-          <div className="games-grid" role="list" aria-label={isEn ? 'Games list' : 'Список игр'}>
-            {games.map((game) => (
-              <div key={game.slug} role="listitem">
-                <GameCard game={game} lang={lang} />
-              </div>
-            ))}
-          </div>
+          <GameSearch
+            games={games}
+            lang={lang}
+            totalLabel={isEn ? 'All Games' : 'Все игры'}
+            emptyLabel={isEn ? 'No games found' : 'Ничего не найдено'}
+            clearLabel={isEn ? 'Clear' : 'Сбросить'}
+            placeholderLabel={isEn ? 'Search games…' : 'Поиск игр…'}
+          />
 
           {/* SEO section */}
           <div
