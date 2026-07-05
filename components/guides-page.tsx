@@ -980,6 +980,7 @@ function GuideSection({ section, idx }: { section: Section; idx: number }) {
 export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
   const isEn = lang === 'en';
   const [activeId, setActiveId] = useState(GUIDES[0].id);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const guide = GUIDES.find((g) => g.id === activeId) ?? GUIDES[0];
   const sections = isEn ? guide.sections.en : guide.sections.ru;
@@ -987,46 +988,111 @@ export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
   const subtitle = isEn ? guide.subtitleEn : guide.subtitleRu;
   const tag = isEn ? guide.tagEn : guide.tagRu;
 
-  const heroTitle = isEn ? 'iGaming Strategy Guides' : 'Стратегические гайды iGaming';
-  const heroSub = isEn
-    ? 'In-depth guides on game mechanics, RTP, bonuses, and responsible gambling'
-    : 'Подробные гайды по механикам игр, RTP, бонусам и ответственной игре';
+  function selectGuide(id: string) {
+    setActiveId(id);
+    setDropdownOpen(false);
+  }
 
   return (
     <main className="guides-main">
-      {/* Back link */}
-      <div className="guides-back">
-        <Link href={`/${lang}`} className="guides-back__link" aria-label={isEn ? 'Back to games' : 'Назад к играм'}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          {isEn ? 'All Games' : 'Все игры'}
-        </Link>
+      {/* ── Sticky top bar: dropdown + lang switcher ── */}
+      <div className="guides-topbar">
+        <div className="guides-topbar__inner">
+          {/* Back link */}
+          <Link href={`/${lang}`} className="guides-back__link" aria-label={isEn ? 'Back to games' : 'Назад к играм'}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span className="guides-back__label">{isEn ? 'Games' : 'Игры'}</span>
+          </Link>
+
+          <span aria-hidden="true" className="guides-topbar__sep" />
+
+          {/* Dropdown trigger */}
+          <div className="guides-dropdown" style={{ position: 'relative' }}>
+            <button
+              className="guides-dropdown__trigger"
+              onClick={() => setDropdownOpen((v) => !v)}
+              aria-haspopup="listbox"
+              aria-expanded={dropdownOpen}
+              aria-label={isEn ? 'Select guide' : 'Выберите гайд'}
+            >
+              <span className="guides-dropdown__icon" aria-hidden="true">{guide.icon}</span>
+              <span className="guides-dropdown__current">{title}</span>
+              <svg
+                className={`guides-dropdown__chevron${dropdownOpen ? ' guides-dropdown__chevron--open' : ''}`}
+                width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            {dropdownOpen && (
+              <>
+                {/* Backdrop to close */}
+                <div
+                  className="guides-dropdown__backdrop"
+                  onClick={() => setDropdownOpen(false)}
+                  aria-hidden="true"
+                />
+                <ul className="guides-dropdown__menu" role="listbox" aria-label={isEn ? 'Guide list' : 'Список гайдов'}>
+                  {GUIDES.map((g) => (
+                    <li key={g.id} role="option" aria-selected={g.id === activeId}>
+                      <button
+                        className={`guides-dropdown__item${g.id === activeId ? ' guides-dropdown__item--active' : ''}`}
+                        onClick={() => selectGuide(g.id)}
+                      >
+                        <span className="guides-dropdown__item-icon" aria-hidden="true">{g.icon}</span>
+                        <span className="guides-dropdown__item-text">
+                          <span className="guides-dropdown__item-title">{isEn ? g.titleEn : g.titleRu}</span>
+                          <span className="guides-dropdown__item-tag">{isEn ? g.tagEn : g.tagRu}</span>
+                        </span>
+                        {g.id === activeId && (
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        )}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+
+          {/* Spacer */}
+          <div style={{ flex: 1 }} />
+
+          {/* Language switcher */}
+          <div role="navigation" aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
+            <Link
+              href="/en/guides"
+              hrefLang="en"
+              className={`lang-btn${!isEn ? '' : ' active'}`}
+              aria-current={isEn ? 'true' : undefined}
+            >
+              EN
+            </Link>
+            <Link
+              href="/ru/guides"
+              hrefLang="ru"
+              className={`lang-btn${isEn ? '' : ' active'}`}
+              aria-current={!isEn ? 'true' : undefined}
+            >
+              RU
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Hero */}
       <header className="guides-hero">
-        <span className="guides-hero__eyebrow">{isEn ? 'Strategy Guides' : 'Гайды'}</span>
-        <h1 className="guides-hero__title">{heroTitle}</h1>
-        <p className="guides-hero__sub">{heroSub}</p>
+        <span className="guides-hero__eyebrow">{isEn ? 'Strategy Guides' : 'Стратегические гайды'}</span>
+        <h1 className="guides-hero__title">{title}</h1>
+        <p className="guides-hero__sub">{subtitle}</p>
       </header>
-
-      {/* Sticky tab bar */}
-      <div className="guides-tabbar" role="tablist" aria-label={isEn ? 'Select a guide' : 'Выберите гайд'}>
-        {GUIDES.map((g) => (
-          <button
-            key={g.id}
-            role="tab"
-            aria-selected={g.id === activeId}
-            className={`guides-tab${g.id === activeId ? ' guides-tab--active' : ''}`}
-            onClick={() => setActiveId(g.id)}
-          >
-            <span className="guides-tab__icon" aria-hidden="true">{g.icon}</span>
-            {isEn ? g.titleEn : g.titleRu}
-            <span className="guides-tab__tag">{isEn ? g.tagEn : g.tagRu}</span>
-          </button>
-        ))}
-      </div>
 
       {/* Content */}
       <div className="guides-content-wrap">
@@ -1049,11 +1115,7 @@ export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
         </aside>
 
         {/* Article */}
-        <article
-          className="guides-article"
-          role="tabpanel"
-          aria-label={title}
-        >
+        <article className="guides-article" role="tabpanel" aria-label={title}>
           {sections.map((section, idx) => (
             <GuideSection key={idx} section={section} idx={idx} />
           ))}
