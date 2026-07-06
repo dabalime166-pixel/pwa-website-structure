@@ -94,7 +94,7 @@ export default function GuidesIndexPage({ lang }: Props) {
     ctaWelcome: isEn ? 'WELCOME BONUS' : 'ПРИВЕТСТВЕННЫЙ БОНУС',
     ctaPlay: isEn ? 'Play for real' : 'Играть на деньги',
     ctaPromo: isEn ? 'PROMO CODE' : 'ПРОМОКОД',
-    ctaCode: 'ADBLOCK',
+    ctaCode: 'PIXELWIN',
     ctaCopy: isEn ? 'Copy' : 'Копировать',
     ctaDisclaimer: isEn ? '18+ · Play responsibly' : '18+ · Играйте ответственно',
   }
