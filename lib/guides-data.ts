@@ -23,6 +23,14 @@ export interface GuideData {
   descriptionRu: string;
   /** SEO meta description (EN) */
   descriptionEn: string;
+  /** Custom SEO page title (RU) — if empty, uses titleRu as page title */
+  titleSeoRu?: string;
+  /** Custom SEO page title (EN) — if empty, uses titleEn as page title */
+  titleSeoEn?: string;
+  /** Custom SEO page description (RU) — if empty, uses descriptionRu */
+  descriptionSeoRu?: string;
+  /** Custom SEO page description (EN) — if empty, uses descriptionEn */
+  descriptionSeoEn?: string;
   sections: { ru: Section[]; en: Section[] };
 }
 
@@ -701,13 +709,13 @@ export const GUIDES: GuideData[] = [
         },
         {
           heading: '4. Кэшбэк, программа лояльности и советы',
-          body: 'Кэшбэк — возврат части проигранных средств за определённый период. Программа лояльности открывает дополнительные преимущества для постоянных игроков.',
+          body: 'Кэшбэк — возврат части проигранных средств за определённ��й период. Программа лояльности открывает дополнительные преимущества для постоянных игроков.',
           strategies: [
             {
               title: 'На что обращать внимание при выборе бонуса',
               bullets: [
                 'Размер вейджера и минимальный депозит',
-                'Срок действия акции и список игр',
+                'Срок действия акции и сп��сок игр',
                 'Максимальная сумма вывода',
                 'Ограничения по максимальной ставке',
               ],
@@ -942,7 +950,7 @@ export const GUIDES: GuideData[] = [
         },
         {
           heading: 'Что действительно влияет на игровой процесс',
-          body: 'Вместо мифов стоит изучать реальные характеристики слотов.',
+          body: 'Вместо мифов стоит изучать реальные характеристики сл��тов.',
           bullets: [
             'Показатель RTP и уровень волатильности',
             'Максимальный выигрыш и бонусные функции',

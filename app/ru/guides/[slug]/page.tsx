@@ -3,9 +3,10 @@ import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
 
-const BASE = 'https://crashgames.demo'
+const BASE = 'https://1weapp.vercel.app'
 
-/* ─── SEO-оптимизированные title и description для каждого гайда (RU) ─── */
+/* ─── Default SEO-оптимизированные title и description для каждого гайда (RU) ─── */
+/* Override these by setting titleSeoRu/descriptionSeoRu in lib/guides-data.ts */
 const SEO: Record<string, { title: string; description: string; keywords: string }> = {
   plinko: {
     title: 'Стратегия Плинко 2025 — Как выиграть в Plinko онлайн | CrashGames',
@@ -78,16 +79,15 @@ export async function generateMetadata({
   const guide = GUIDES.find((g) => g.id === slug)
   if (!guide) return {}
 
-  const seo = SEO[slug] ?? {
-    title: `${guide.titleRu} — Гайд iGaming | CrashGames`,
-    description: guide.subtitleRu,
-    keywords: guide.tagRu,
-  }
+  // Use custom SEO fields if provided, otherwise fall back to defaults
+  const title = guide.titleSeoRu ?? SEO[slug]?.title ?? `${guide.titleRu} — Гайд iGaming | 1weapp`
+  const description = guide.descriptionSeoRu ?? SEO[slug]?.description ?? guide.subtitleRu
+  const keywords = SEO[slug]?.keywords ?? guide.tagRu
 
   return {
-    title: seo.title,
-    description: seo.description,
-    keywords: seo.keywords,
+    title,
+    description,
+    keywords,
     alternates: {
       canonical: `${BASE}/ru/guides/${slug}`,
       languages: {
@@ -96,16 +96,16 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: seo.title,
-      description: seo.description,
+      title,
+      description,
       url: `${BASE}/ru/guides/${slug}`,
       locale: 'ru_RU',
       type: 'article',
     },
     twitter: {
       card: 'summary_large_image',
-      title: seo.title,
-      description: seo.description,
+      title,
+      description,
     },
   }
 }

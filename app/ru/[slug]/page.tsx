@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { GamePage } from '@/components/game-page'
-import { games, getGame, getKeywords } from '@/lib/games'
+import { games, getGame, getKeywords, getSeoTitle, getSeoDescription } from '@/lib/games'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -17,24 +17,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!game) return {}
 
   const keywords = getKeywords(game, 'ru').join(', ')
-  const title = `${game.name} Демо — Играть Бесплатно Онлайн`
-  const description = `Играть в ${game.name} демо бесплатно — без регистрации. Провайдер: ${game.provider}. ${keywords.slice(0, 100)}.`
+  const title = getSeoTitle(game, 'ru')
+  const description = getSeoDescription(game, 'ru')
 
   return {
     title,
     description,
     keywords,
     alternates: {
-      canonical: `https://crashgames.demo/ru/${slug}`,
+      canonical: `https://1weapp.vercel.app/ru/${slug}`,
       languages: {
-        en: `https://crashgames.demo/en/${slug}`,
-        ru: `https://crashgames.demo/ru/${slug}`,
+        en: `https://1weapp.vercel.app/en/${slug}`,
+        ru: `https://1weapp.vercel.app/ru/${slug}`,
       },
     },
     openGraph: {
       title,
       description,
-      url: `https://crashgames.demo/ru/${slug}`,
+      url: `https://1weapp.vercel.app/ru/${slug}`,
       locale: 'ru_RU',
       images: [{ url: game.avatar, width: 400, height: 533, alt: `${game.name} аватарка` }],
     },
