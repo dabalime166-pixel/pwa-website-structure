@@ -10,12 +10,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'CrashGames Demo — Play Free Crash & Slot Games',
-    template: '%s | CrashGames Demo',
+    default: '1weapp — Play Free Crash & Slot Games',
+    template: '%s | 1weapp',
   },
   description:
     'Play crash games and slots in free demo mode. No registration needed. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
-  metadataBase: new URL('https://crashgames.demo'),
+  metadataBase: new URL('https://1weapp.vercel.app'),
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.svg',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     alternateLocale: 'ru_RU',
-    siteName: 'CrashGames Demo',
+    siteName: '1weapp',
   },
   robots: {
     index: true,

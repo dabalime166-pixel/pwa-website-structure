@@ -1,12 +1,16 @@
-import GuidesPage from '@/components/guides-page';
-import { Metadata } from 'next';
+import type { Metadata } from 'next'
+import GuidesIndexPage from '@/components/guides-index-page'
 
 export const metadata: Metadata = {
-  title: 'Гайды по играм - Стратегия и советы | iGaming Гайды',
-  description: 'Полные гайды по играм Плинко, Мины и Краш. Овладейте стратегией, теорией вероятностей и управлением банкроллом.',
-  keywords: 'гайд плинко, стратегия мины, краш игры, управление банкроллом, теория вероятностей',
-};
+  title: 'Стратегические гайды — механики iGaming, RTP и бонусы | 1weapp',
+  description:
+    'Бесплатные стратегические гайды по краш-играм и слотам: математика Plinko, тактика Mines, психология Crash, анализ RTP, охота за бонусами и мифы об онлайн-казино.',
+  openGraph: {
+    title: 'Гайды 1weapp по iGaming',
+    description: 'Освойте механики iGaming с нашими подробными стратегическими гайдами.',
+  },
+}
 
 export default function Page() {
-  return <GuidesPage lang="ru" />;
+  return <GuidesIndexPage lang="ru" />
 }

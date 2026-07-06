@@ -7,6 +7,7 @@ import { GameViewer } from '@/components/game-viewer'
 import { games, getGame, getSeoText, getKeywords, formatSeoText, CTA_URL, i18n } from '@/lib/games'
 import type { Lang, Game } from '@/lib/games'
 import { notFound } from 'next/navigation'
+import { GUIDES } from '@/lib/guides-data'
 
 interface GamePageProps {
   slug: string
@@ -27,7 +28,7 @@ function buildJsonLd(game: Game, lang: Lang): string {
       : `Играть в ${game.name} демо бесплатно — без регистрации. Разработчик: ${game.provider}.`,
     publisher: { '@type': 'Organization', name: game.provider },
     image: game.avatar,
-    url: `https://crashgames.demo/${lang}/${game.slug}`,
+    url: `https://1weapp.vercel.app/${lang}/${game.slug}`,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',
@@ -334,6 +335,47 @@ export function GamePage({ slug, lang }: GamePageProps) {
           </section>
         )}
       </main>
+
+      {/* ── Guides list ── */}
+      <section className="game-guides" aria-labelledby="game-guides-heading">
+        <div className="game-guides__inner">
+          <div className="game-guides__header">
+            <h2 id="game-guides-heading" className="game-guides__title">
+              {isEn ? 'Strategy Guides' : 'Стратегические гайды'}
+            </h2>
+            <Link href={`/${lang}/guides`} className="game-guides__all-link">
+              {isEn ? 'All guides →' : 'Все гайды →'}
+            </Link>
+          </div>
+          <p className="game-guides__sub">
+            {isEn
+              ? 'Learn game mechanics, RTP, bonuses and responsible gambling'
+              : 'Механики игр, RTP, бонусы и ответственная игра'}
+          </p>
+          <div className="game-guides__grid">
+            {GUIDES.map((guide) => (
+              <Link
+                key={guide.id}
+                href={`/${lang}/guides/${guide.id}`}
+                className="game-guides__card"
+              >
+                <span className="game-guides__card-icon" aria-hidden="true">{guide.icon}</span>
+                <span className="game-guides__card-text">
+                  <span className="game-guides__card-title">
+                    {isEn ? guide.titleEn : guide.titleRu}
+                  </span>
+                  <span className="game-guides__card-tag">
+                    {isEn ? guide.tagEn : guide.tagRu}
+                  </span>
+                </span>
+                <svg className="game-guides__card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <SiteFooter lang={lang} />
     </>

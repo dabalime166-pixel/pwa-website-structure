@@ -21,7 +21,7 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
         {/* Logo */}
         <Link
           href={`/${lang}`}
-          aria-label="CrashGames Demo — Home"
+          aria-label="1weapp — Home"
           className="site-header__logo"
         >
           <span
@@ -39,7 +39,7 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
             </svg>
           </span>
           <span className="site-header__logo-text">
-            <span style={{ color: 'var(--color-text-primary)' }}>Crash</span>
+            <span style={{ color: 'var(--color-text-primary)' }}>1we</span>
             <span
               style={{
                 background: 'linear-gradient(90deg, var(--color-gold-light), var(--color-gold))',
@@ -48,7 +48,7 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
                 backgroundClip: 'text',
               }}
             >
-              Games
+              app
             </span>
           </span>
         </Link>

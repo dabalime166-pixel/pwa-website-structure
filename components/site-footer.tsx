@@ -50,7 +50,7 @@ export function SiteFooter({ lang }: SiteFooterProps) {
                 marginBottom: '0.5rem',
               }}
             >
-              <span style={{ color: 'var(--color-text-primary)' }}>Crash</span>
+              <span style={{ color: 'var(--color-text-primary)' }}>1we</span>
               <span
                 style={{
                   background: 'linear-gradient(90deg, var(--color-gold-light), var(--color-gold))',
@@ -59,7 +59,7 @@ export function SiteFooter({ lang }: SiteFooterProps) {
                   backgroundClip: 'text',
                 }}
               >
-                Games
+                app
               </span>
             </p>
             <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', maxWidth: '30rem', lineHeight: 1.6 }}>
@@ -120,7 +120,7 @@ export function SiteFooter({ lang }: SiteFooterProps) {
         />
 
         <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-          &copy; {new Date().getFullYear()} CrashGames Demo.{' '}
+          &copy; {new Date().getFullYear()} 1weapp.{' '}
           {isEn ? 'All rights reserved.' : 'Все права защищены.'}
         </p>
       </div>
