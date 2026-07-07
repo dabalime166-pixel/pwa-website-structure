@@ -12,6 +12,44 @@ export function HomePage({ lang }: HomePageProps) {
   const t = i18n[lang]
   const isEn = lang === 'en'
 
+  const providerCount = new Set(games.map((g) => g.provider)).size
+
+  const features = isEn
+    ? [
+        {
+          title: 'Instant Play',
+          desc: 'Launch any game in one tap — no downloads, no waiting.',
+          icon: 'bolt',
+        },
+        {
+          title: 'No Registration',
+          desc: 'Play in demo mode instantly. No sign-up, no deposit.',
+          icon: 'shield',
+        },
+        {
+          title: 'Mobile Optimized',
+          desc: 'Smooth performance on any phone, tablet or slow connection.',
+          icon: 'phone',
+        },
+      ]
+    : [
+        {
+          title: 'Мгновенный запуск',
+          desc: 'Любая игра в один тап — без загрузок и ожидания.',
+          icon: 'bolt',
+        },
+        {
+          title: 'Без регистрации',
+          desc: 'Демо-режим сразу. Без входа и без депозита.',
+          icon: 'shield',
+        },
+        {
+          title: 'Для смартфонов',
+          desc: 'Плавно работает на любом телефоне и медленном интернете.',
+          icon: 'phone',
+        },
+      ]
+
   return (
     <>
       <SiteHeader lang={lang} />
@@ -19,96 +57,118 @@ export function HomePage({ lang }: HomePageProps) {
       <main id="main-content" role="main">
 
         {/* ── Hero ── */}
-        <section
-          aria-label={t.heroTitle}
-          style={{
-            padding: 'clamp(3rem, 8vw, 5rem) 1rem clamp(2.5rem, 6vw, 4rem)',
-            textAlign: 'center',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          {/* Radial gold glow */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              top: '-30%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '700px',
-              height: '500px',
-              borderRadius: '50%',
-              background:
-                'radial-gradient(ellipse, rgba(201,162,39,0.09) 0%, rgba(201,162,39,0.03) 45%, transparent 70%)',
-              pointerEvents: 'none',
-            }}
-          />
+        <section className="home-hero" aria-label={t.heroTitle}>
+          <div className="home-hero__bg" aria-hidden="true" />
 
-          <div style={{ position: 'relative', maxWidth: '680px', margin: '0 auto' }}>
-            <span className="badge-gold" style={{ marginBottom: '1.25rem', display: 'inline-block' }}>
+          <div className="home-hero__inner">
+            <span className="badge-gold home-hero__badge">
               {isEn ? 'Free to Play — No Registration' : 'Бесплатно — Без регистрации'}
             </span>
 
-            <h1
-              style={{
-                marginBottom: '0.875rem',
-                textWrap: 'balance',
-              }}
-            >
-              <span style={{ color: 'var(--color-text-primary)' }}>{t.heroTitle}{' '}</span>
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 50%, #c17f15 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+            <h1 className="home-hero__title">
+              <span>{t.heroTitle}{' '}</span>
+              <span className="home-hero__title-accent">
                 {isEn ? 'Online' : 'Онлайн'}
               </span>
             </h1>
 
-            <p
-              style={{
-                color: 'var(--color-text-secondary)',
-                fontSize: '1rem',
-                marginBottom: '2rem',
-                lineHeight: 1.7,
-              }}
-            >
-              {t.heroSub}
-            </p>
+            <p className="home-hero__sub">{t.heroSub}</p>
 
-            <a
-              href={CTA_URL}
-              rel="noopener noreferrer nofollow sponsored"
-              target="_blank"
-              className="btn-cta"
-              aria-label={t.playReal}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-              {t.playReal}
-            </a>
+            <div className="home-hero__actions">
+              <a
+                href={CTA_URL}
+                rel="noopener noreferrer nofollow sponsored"
+                target="_blank"
+                className="btn-cta"
+                aria-label={t.playReal}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                {t.playReal}
+              </a>
 
-            <p style={{ marginTop: '0.875rem', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+              <a href="#games" className="btn-ghost">
+                {isEn ? 'Browse games' : 'Смотреть игры'}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Stats strip */}
+            <dl className="home-stats" aria-label={isEn ? 'Platform stats' : 'Статистика платформы'}>
+              <div className="home-stats__item">
+                <dt className="home-stats__num">{games.length}+</dt>
+                <dd className="home-stats__label">{isEn ? 'Games' : 'Игр'}</dd>
+              </div>
+              <div className="home-stats__sep" aria-hidden="true" />
+              <div className="home-stats__item">
+                <dt className="home-stats__num">{providerCount}+</dt>
+                <dd className="home-stats__label">{isEn ? 'Providers' : 'Провайдеров'}</dd>
+              </div>
+              <div className="home-stats__sep" aria-hidden="true" />
+              <div className="home-stats__item">
+                <dt className="home-stats__num">100%</dt>
+                <dd className="home-stats__label">{isEn ? 'Free demo' : 'Бесплатно'}</dd>
+              </div>
+            </dl>
+
+            <p className="home-hero__legal">
               {isEn ? '18+ · Gamble responsibly · T&C apply' : '18+ · Играйте ответственно · Применяются условия'}
             </p>
           </div>
         </section>
 
-        {/* Gold divider */}
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
-          <hr className="gold-line" />
-        </div>
-
-        {/* ── Games Grid ── */}
+        {/* ── Features ── */}
         <section
-          aria-label={isEn ? 'Game catalog' : 'Каталог игр'}
-          style={{ maxWidth: '1280px', margin: '0 auto', padding: '2.5rem 1rem 4rem' }}
+          className="home-features"
+          aria-label={isEn ? 'Why play here' : 'Почему у нас'}
         >
+          {features.map((f) => (
+            <div key={f.title} className="feature-card">
+              <span className="feature-card__icon" aria-hidden="true">
+                {f.icon === 'bolt' && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                  </svg>
+                )}
+                {f.icon === 'shield' && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                )}
+                {f.icon === 'phone' && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                    <line x1="12" y1="18" x2="12" y2="18" />
+                  </svg>
+                )}
+              </span>
+              <div className="feature-card__body">
+                <h3 className="feature-card__title">{f.title}</h3>
+                <p className="feature-card__desc">{f.desc}</p>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* ── Games ── */}
+        <section
+          id="games"
+          className="home-games"
+          aria-label={isEn ? 'Game catalog' : 'Каталог игр'}
+        >
+          <div className="home-section-head">
+            <span className="home-section-head__label">
+              {isEn ? 'Catalog' : 'Каталог'}
+            </span>
+            <h2 className="home-section-head__title">
+              {isEn ? 'All Demo Games' : 'Все демо-игры'}
+            </h2>
+          </div>
+
           <GameSearch
             games={games}
             lang={lang}
@@ -119,21 +179,8 @@ export function HomePage({ lang }: HomePageProps) {
           />
 
           {/* SEO section */}
-          <div
-            style={{
-              marginTop: '3rem',
-              padding: 'clamp(1.25rem, 3vw, 2rem)',
-              background: 'var(--color-bg-surface)',
-              borderRadius: 'var(--radius-card)',
-              border: '1px solid var(--color-border-gold)',
-            }}
-          >
-            <h2
-              style={{
-                color: 'var(--color-text-primary)',
-                marginBottom: '0.875rem',
-              }}
-            >
+          <div className="home-seo">
+            <h2 className="home-seo__title">
               {isEn
                 ? 'Play Free Demo Games — No Registration'
                 : 'Играть в демо-игры бесплатно — без регистрации'}
