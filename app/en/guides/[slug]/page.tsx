@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
 
-const BASE = 'https://1weapp.vercel.app'
+const BASE = 'https://1weapp.online;/en'
 
 /* ─── Default SEO-optimised titles & descriptions per guide (EN) ─── */
 /* Override these by setting titleSeoEn/descriptionSeoEn in lib/guides-data.ts */
