@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+// Импортируем компонент для вставки аналитики
+import Script from 'next/script'
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   },
   description:
     'Play crash games and slots in free demo mode. No registration needed. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
-  metadataBase: new URL('https://1weapp.vercel.app'),
+  metadataBase: new URL('https://1weapp.online'),
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.svg',
@@ -44,7 +46,63 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="bg-[#0a0a0b]">
-      <body className={`${inter.variable} font-sans antialiased`}>{children}</body>
+      <head>
+        {/* ============================================== */}
+        {/* 1. GOOGLE ANALYTICS                            */}
+        {/* ============================================== */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-X4YHR9MBCQ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-X4YHR9MBCQ');
+          `}
+        </Script>
+
+        {/* ============================================== */}
+        {/* 2. ЯНДЕКС МЕТРИКА                              */}
+        {/* ============================================== */}
+        <Script id="yandex-metrika" strategy="afterInteractive">
+          {`
+            (function(m,e,t,r,i,k,a){
+                m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106419141', 'ym');
+
+            ym(106419141, 'init', {
+                ssr: true, 
+                webvisor: true, 
+                clickmap: true, 
+                ecommerce: "dataLayer", 
+                referrer: document.referrer, 
+                url: location.href, 
+                accurateTrackBounce: true, 
+                trackLinks: true
+            });
+          `}
+        </Script>
+      </head>
+      
+      <body className={`${inter.variable} font-sans antialiased`}>
+        {/* Резервный пиксель Яндекс Метрики на случай отключенного JS у юзера */}
+        <noscript>
+          <div>
+            <img 
+              src="https://mc.yandex.ru/watch/106419141" 
+              style={{ position: 'absolute', left: '-9999px' }} 
+              alt="" 
+            />
+          </div>
+        </noscript>
+
+        {children}
+      </body>
     </html>
   )
 }
