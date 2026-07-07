@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { games } from '@/lib/games'
 import { GUIDES } from '@/lib/guides-data'
 
-const BASE = 'https://crashgames.demo'
+const BASE = 'https://1weapp.online'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const homeEntries: MetadataRoute.Sitemap = [
