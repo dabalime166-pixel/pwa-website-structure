@@ -6,16 +6,16 @@ export const metadata: Metadata = {
   title: i18n.ru.metaTitleHome,
   description: i18n.ru.metaDescHome,
   alternates: {
-    canonical: 'https://crashgames.demo/ru',
+    canonical: 'https://1weapp.online;/ru',
     languages: {
-      en: 'https://crashgames.demo/en',
-      ru: 'https://crashgames.demo/ru',
+      en: 'https://1weapp.online;/en',
+      ru: 'https://1weapp.online;/ru',
     },
   },
   openGraph: {
     title: i18n.ru.metaTitleHome,
     description: i18n.ru.metaDescHome,
-    url: 'https://crashgames.demo/ru',
+    url: 'https://1weapp.online;/ru',
     locale: 'ru_RU',
   },
 }
