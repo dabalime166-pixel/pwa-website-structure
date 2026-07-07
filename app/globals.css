@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-/* home redesign v2 */
+/* home redesign v2 — 404 v1 */
 
 @theme inline {
   /* ── Typography ── */
@@ -448,6 +448,71 @@ img { display: block; max-width: 100%; height: auto; }
   .feature-card,
   .btn-ghost,
   .btn-ghost svg { transition: none; }
+}
+
+/* ═══════════════════════════════════════════
+   404 — NOT FOUND
+═══════════════════════════════════════════ */
+.nf {
+  position: relative;
+  overflow: hidden;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.nf__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 640px 440px at 50% 32%, rgba(201,162,39,0.12) 0%, rgba(201,162,39,0.03) 45%, transparent 72%),
+    linear-gradient(rgba(201,162,39,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,162,39,0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 46px 46px, 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, #000 30%, transparent 82%);
+          mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, #000 30%, transparent 82%);
+}
+.nf__inner {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.nf__badge {
+  margin-bottom: 1.5rem;
+}
+.nf__code {
+  font-size: clamp(5rem, 24vw, 9rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 48%, #7a5a10 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nf__title {
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+.nf__sub {
+  color: var(--color-text-secondary);
+  font-size: clamp(0.9rem, 2.4vw, 1rem);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
 /* ── Game frame wrapper — perfect iframe on all screens ── */
