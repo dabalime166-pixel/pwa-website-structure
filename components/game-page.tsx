@@ -331,23 +331,44 @@ export function GamePage({ slug, lang }: GamePageProps) {
               </span>
             </div>
 
-            {/* Mode */}
+            {/* RTP */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
-                {isEn ? 'Mode' : 'Режим'}
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+                  RTP
+                </span>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '16px',
+                    height: '16px',
+                    borderRadius: '50%',
+                    border: '1px solid var(--color-gold)',
+                    fontSize: '0.65rem',
+                    fontWeight: 700,
+                    color: 'var(--color-gold)',
+                    cursor: 'help',
+                    position: 'relative',
+                  }}
+                  title={isEn ? 'Return to Player - Percentage of winnings returned to players' : 'Return to Player - Процент выплат игрокам'}
+                >
+                  ?
+                </div>
+              </div>
               <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold)', lineHeight: 1.2 }}>
-                {isEn ? 'Free Demo' : 'Демо'}
+                {game.rtp || '~96%'}
               </span>
             </div>
 
-            {/* Registration */}
+            {/* Game Type */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
-                {isEn ? 'Sign Up' : 'Вход'}
+                {isEn ? 'Game Type' : 'Тип игры'}
               </span>
-              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold)', lineHeight: 1.2 }}>
-                {isEn ? 'None' : 'Не надо'}
+              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold-light)', lineHeight: 1.2 }}>
+                {game.gameType || 'Slots'}
               </span>
             </div>
 

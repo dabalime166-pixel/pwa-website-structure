@@ -22,6 +22,10 @@ export interface Game {
   descriptionSeoEn?: string
   /** Custom SEO description (RU) — if empty, auto-generated from keywords */
   descriptionSeoRu?: string
+  /** RTP (Return to Player) percentage, e.g., "96.48%" */
+  rtp?: string
+  /** Game type: "Slots", "Crash Games", "Mines", etc. */
+  gameType?: string
 }
 
 export const games: Game[] = gamesData as Game[]
