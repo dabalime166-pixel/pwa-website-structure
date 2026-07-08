@@ -442,12 +442,90 @@ img { display: block; max-width: 100%; height: auto; }
   margin-bottom: 0.875rem;
 }
 
+/* ═══════════════════════════════════════════
+   FAQ — Frequently Asked Questions
+═══════════════════════════════════════════ */
+.game-faq {
+  position: relative;
+  overflow: hidden;
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.faq-item {
+  border: 1px solid var(--color-border-gold);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.faq-item:hover {
+  border-color: var(--color-gold-light);
+  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.15);
+}
+.faq-item.open {
+  border-color: var(--color-gold-light);
+  background: rgba(201, 162, 39, 0.05);
+}
+.faq-question {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  user-select: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  transition: color 0.18s ease, background 0.18s ease;
+  width: 100%;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-family: inherit;
+}
+.faq-question:hover {
+  color: var(--color-gold-light);
+  background: rgba(201, 162, 39, 0.03);
+}
+.faq-item.open .faq-question {
+  color: var(--color-gold);
+  border-bottom: 1px solid var(--color-border-gold);
+}
+.faq-answer {
+  padding: 1.25rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  margin: 0;
+  animation: slideDown 0.25s ease-out;
+  display: block !important;
+}
+.faq-item:not(.open) .faq-answer {
+  display: none !important;
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ── Respect reduced motion / weak devices ── */
 @media (prefers-reduced-motion: reduce) {
   .btn-cta { animation: none; }
   .feature-card,
   .btn-ghost,
   .btn-ghost svg { transition: none; }
+  .faq-item,
+  .faq-question,
+  .faq-answer { transition: none; animation: none; }
 }
 
 /* ═══════════════════════════════════════════
