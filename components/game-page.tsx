@@ -4,7 +4,6 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { GameCard } from '@/components/game-card'
 import { GameViewer } from '@/components/game-viewer'
-import { GameFAQ } from '@/components/game-faq'
 import { games, getGame, getSeoText, getKeywords, formatSeoText, CTA_URL, i18n } from '@/lib/games'
 import type { Lang, Game } from '@/lib/games'
 import { notFound } from 'next/navigation'
@@ -384,18 +383,6 @@ export function GamePage({ slug, lang }: GamePageProps) {
             </div>
           </div>
         </section>
-
-        {/* ── FAQ Section ── */}
-        <GameFAQ 
-          isEn={isEn}
-          items={[
-            { q: isEn ? 'Where to find the free version of the game?' : 'Где найти бесплатную версию игры?', a: isEn ? 'You can play the demo version of this game on our website or on the official Pragmatic Play portal. No registration or deposit is required. You can often find it in search engines by its transliterated name.' : 'Вы можете играть в демо этой игры на нашем сайте или на официальном портале Pragmatic Play. Для этого не нужно регистрироваться или вносить депозит. В поисковиках её часто находят по транслитерированному названию.' },
-            { q: isEn ? 'What is the Super Scatter mechanic?' : 'Что такое механика Super Scatter?', a: isEn ? 'The Super Scatter mechanic is a special modification of the game available on some markets. It adds advanced free spins with an increased chance of landing large multipliers.' : 'Режим Super Scatter — это специальная модификация игры, представленная на некоторых рынках, которая добавляет продвинутые фриспины с повышенным шансом на выпадение крупных множителей.' },
-            { q: isEn ? 'What is the maximum win (Max Win) in the game?' : 'Какой в игре максимальный выигрыш (Max Win)?', a: isEn ? 'The official maximum win is 5000x your bet. When this limit is reached in a single round, the game automatically ends and your winnings are credited to your balance.' : 'Официальный максимальный выигрыш составляет 5000x от вашей ставки. При достижении этого лимита в одном раунде игра автоматически завершается, а выигрыш зачисляется на баланс.' },
-            { q: isEn ? 'Can you somehow cheat the slot?' : 'Можно ли как-то обмануть слот?', a: isEn ? 'No. If you see advertisements for programs or software promising to hack the machine — it\'s a scam. The game is fully protected and runs on the provider\'s remote servers.' : 'Нет. Если вы видите рекламу программ или софта, обещающих взломать автомат — это мошенничество. Игра полностью защищена и работает на удаленных серверах провайдера.' },
-            { q: isEn ? 'Are there other similar games?' : 'Существуют ли другие похожие игры?', a: isEn ? 'Yes, if you like this style, check out similar slots such as Starlight Princess, Gates of Gatot Kaca, or the themed holiday version with similar mechanics.' : 'Да, если вам нравится этот стиль, обратите внимание на похожие слоты, такие как Starlight Princess, Gates of Gatot Kaca или тематические рождественские версии.' },
-          ]}
-        />
 
         {/* ── Related games ── */}
         {related.length > 0 && (
