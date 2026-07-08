@@ -281,36 +281,86 @@ export function GamePage({ slug, lang }: GamePageProps) {
           <div className="seo-body" dangerouslySetInnerHTML={{ __html: formattedSeo }} />
         </article>
 
-        {/* ── Game info table ── */}
+        {/* ── Game info section — big and prominent ── */}
         <section
           aria-label={isEn ? 'Game details' : 'Детали игры'}
           style={{
-            background: 'var(--color-bg-card)',
+            background: 'var(--color-bg-surface)',
             borderRadius: 'var(--radius-card)',
             border: '1px solid var(--color-border-gold)',
-            padding: '1.5rem',
+            padding: 'clamp(2rem, 5vw, 3rem)',
             marginBottom: '3rem',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          <h2 style={{ color: 'var(--color-gold)', marginBottom: '1rem', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            {isEn ? 'Game Info' : 'Информация об игре'}
+          {/* Subtle glow background */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'radial-gradient(ellipse 600px 300px at 50% 0%, rgba(201,162,39,0.08) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }}
+          />
+          
+          <h2 style={{ color: 'var(--color-gold)', marginBottom: 'clamp(1.25rem, 3vw, 1.75rem)', fontSize: 'clamp(0.875rem, 2vw, 1.125rem)', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 700, position: 'relative' }}>
+            {isEn ? '📋 Game Details' : '📋 Информация об игре'}
           </h2>
-          <dl className="info-row">
-            <dt>{isEn ? 'Game' : 'Игра'}</dt>
-            <dd>{game.name}</dd>
 
-            <dt>{t.provider}</dt>
-            <dd>{game.provider}</dd>
+          {/* Info grid — 5 items in row on desktop, responsive on mobile */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 'clamp(1.25rem, 3vw, 2rem)', position: 'relative' }}>
+            {/* Game Name */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+                {isEn ? 'Title' : 'Название'}
+              </span>
+              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-text-primary)', lineHeight: 1.2 }}>
+                {game.name}
+              </span>
+            </div>
 
-            <dt>{isEn ? 'Mode' : 'Режим'}</dt>
-            <dd style={{ color: 'var(--color-gold)' }}>{isEn ? 'Free Demo' : 'Бесплатное демо'}</dd>
+            {/* Provider */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+                {t.provider}
+              </span>
+              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold-light)', lineHeight: 1.2 }}>
+                {game.provider}
+              </span>
+            </div>
 
-            <dt>{isEn ? 'Registration' : 'Регистрация'}</dt>
-            <dd>{isEn ? 'Not required' : 'Не требуется'}</dd>
+            {/* Mode */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+                {isEn ? 'Mode' : 'Режим'}
+              </span>
+              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold)', lineHeight: 1.2 }}>
+                {isEn ? 'Free Demo' : 'Демо'}
+              </span>
+            </div>
 
-            <dt>{isEn ? 'Mobile' : 'Мобильное'}</dt>
-            <dd>{isEn ? 'Optimized' : 'Оптимизировано'}</dd>
-          </dl>
+            {/* Registration */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+                {isEn ? 'Sign Up' : 'Вход'}
+              </span>
+              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold)', lineHeight: 1.2 }}>
+                {isEn ? 'None' : 'Не надо'}
+              </span>
+            </div>
+
+            {/* Mobile */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+                📱 {isEn ? 'Mobile' : 'Мобильная'}
+              </span>
+              <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold-light)', lineHeight: 1.2 }}>
+                {isEn ? 'Yes' : 'Да'}
+              </span>
+            </div>
+          </div>
         </section>
 
         {/* ── Related games ── */}
