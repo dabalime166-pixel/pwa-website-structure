@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: `https://1weapp.online/en/${slug}`,
         ru: `https://1weapp.online/ru/${slug}`,
+        'x-default': `https://1weapp.online/en/${slug}`,
       },
     },
     openGraph: {

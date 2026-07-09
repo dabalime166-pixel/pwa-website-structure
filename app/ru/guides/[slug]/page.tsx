@@ -91,8 +91,9 @@ export async function generateMetadata({
     alternates: {
       canonical: `${BASE}/ru/guides/${slug}`,
       languages: {
-        en: `${BASE}/en/guides/${slug}`,
         ru: `${BASE}/ru/guides/${slug}`,
+        en: `${BASE}/en/guides/${slug}`,
+        'x-default': `${BASE}/en/guides/${slug}`,
       },
     },
     openGraph: {
