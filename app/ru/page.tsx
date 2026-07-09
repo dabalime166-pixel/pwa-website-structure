@@ -6,16 +6,17 @@ export const metadata: Metadata = {
   title: i18n.ru.metaTitleHome,
   description: i18n.ru.metaDescHome,
   alternates: {
-    canonical: 'https://1weapp.online;/ru',
+    canonical: 'https://www.1weapp.online/ru',
     languages: {
-      en: 'https://1weapp.online;/en',
-      ru: 'https://1weapp.online;/ru',
+      ru: 'https://www.1weapp.online/ru',
+      en: 'https://www.1weapp.online/en',
+      'x-default': 'https://www.1weapp.online/en',
     },
   },
   openGraph: {
     title: i18n.ru.metaTitleHome,
     description: i18n.ru.metaDescHome,
-    url: 'https://1weapp.online;/ru',
+    url: 'https://www.1weapp.online/ru',
     locale: 'ru_RU',
   },
 }

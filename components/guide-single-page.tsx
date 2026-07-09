@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { GUIDES } from '@/lib/guides-data';
+import { cleanPathname } from '@/lib/games';
 import type { Guide } from '@/lib/guides-data';
 
 /* ─── Section Renderer (shared) ─── */

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
 
-const BASE = 'https://1weapp.online'
+const BASE = 'https://www.1weapp.online/ru'
 
 /* ─── Default SEO-оптимизированные title и description для каждого гайда (RU) ─── */
 /* Override these by setting titleSeoRu/descriptionSeoRu in lib/guides-data.ts */

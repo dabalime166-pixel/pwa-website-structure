@@ -10,6 +10,7 @@ interface SiteHeaderProps {
 export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
   const t = i18n[lang]
 
+  // Ensure clean paths without double language prefixes
   const enHref = gameSlug ? `/en/${gameSlug}` : '/en'
   const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
   const enGuidesHref = '/en/guides'

@@ -2,6 +2,37 @@ import gamesData from './games-data.json'
 
 export type Lang = 'en' | 'ru'
 
+/**
+ * Removes locale prefix and trailing semicolon from pathname.
+ * Prevents double locale prefixes (e.g., /en/en/guides) and broken URLs.
+ * @example
+ * cleanPathname('/en/guides/plinko') → '/guides/plinko'
+ * cleanPathname('/ru/games') → '/games'
+ * cleanPathname('/guides') → '/guides'
+ * cleanPathname('/en/ru/') → '/' (removes malformed double prefix)
+ */
+export function cleanPathname(pathname: string): string {
+  if (!pathname) return '/'
+  
+  // Remove trailing semicolon if present (prevents malformed URLs)
+  let cleaned = pathname.replace(/;+$/, '')
+  
+  // Remove locale prefix from start (/en, /ru)
+  cleaned = cleaned.replace(/^\/(en|ru)(\/|$)/, '/$1' === cleaned.slice(0, 4) ? '/' : '')
+  
+  // If cleaning didn't remove the prefix properly, try again
+  if (cleaned.startsWith('/en/') || cleaned.startsWith('/ru/')) {
+    cleaned = cleaned.slice(3) // Remove first 3 chars (/en or /ru)
+  }
+  
+  // Ensure path starts with /
+  if (!cleaned.startsWith('/')) {
+    cleaned = '/' + cleaned
+  }
+  
+  return cleaned
+}
+
 export interface Game {
   slug: string
   name: string
