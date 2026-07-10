@@ -28,7 +28,7 @@ function buildJsonLd(game: Game, lang: Lang): string {
       : `Играть в ${game.name} демо бесплатно — без регистрации. Разработчик: ${game.provider}.`,
     publisher: { '@type': 'Organization', name: game.provider },
     image: game.avatar,
-    url: `https://1weapp.online/${lang}/${game.slug}`,
+    url: `https://www.1weapp.online/${lang}/${game.slug}`,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.7',
