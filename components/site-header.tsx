@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import type { Lang } from '@/lib/games'
 import { i18n } from '@/lib/games'
-import { cleanPathname } from '@/lib/games';
 interface SiteHeaderProps {
   lang: Lang
   gameSlug?: string
@@ -10,13 +9,13 @@ interface SiteHeaderProps {
 export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
   const t = i18n[lang]
 
-  // Автоматически защищаем ссылки от двойных префиксов /en/en или /en/ru
-  const enHref = cleanPathname(gameSlug ? `/en/${gameSlug}` : '/en')
-  const ruHref = cleanPathname(gameSlug ? `/ru/${gameSlug}` : '/ru')
+  // Language switcher - always go to clean language root or game page
+  const enHref = gameSlug ? `/en/${gameSlug}` : '/en'
+  const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
   
-  // Если вы хотите, чтобы в шапке были правильные ссылки на разделы гайдов:
-  const enGuidesHref = cleanPathname('/en/guides')
-  const ruGuidesHref = cleanPathname('/ru/guides')
+  // Guides navigation
+  const enGuidesHref = '/en/guides'
+  const ruGuidesHref = '/ru/guides'
 
   return (
     <header className="site-header" role="banner">
