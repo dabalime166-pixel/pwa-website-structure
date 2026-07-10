@@ -1061,20 +1061,20 @@ export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
           {/* Spacer */}
           <div style={{ flex: 1 }} />
 
-          {/* Language switcher */}
+         {/* Language switcher */}
           <div role="navigation" aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
             <Link
-              href="/en/guides"
+              href={cleanPathname(`/en/guides/${slug}`)}
               hrefLang="en"
-              className={`lang-btn${!isEn ? '' : ' active'}`}
+              className={`lang-btn${isEn ? ' active' : ''}`}
               aria-current={isEn ? 'true' : undefined}
             >
               EN
             </Link>
             <Link
-              href="/ru/guides"
+              href={cleanPathname(`/ru/guides/${slug}`)}
               hrefLang="ru"
-              className={`lang-btn${isEn ? '' : ' active'}`}
+              className={`lang-btn${!isEn ? ' active' : ''}`}
               aria-current={!isEn ? 'true' : undefined}
             >
               RU

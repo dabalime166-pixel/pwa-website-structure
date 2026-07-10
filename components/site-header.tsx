@@ -10,11 +10,13 @@ interface SiteHeaderProps {
 export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
   const t = i18n[lang]
 
-  // Ensure clean paths without double language prefixes
-  const enHref = gameSlug ? `/en/${gameSlug}` : '/en'
-  const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
-  const enGuidesHref = '/en/guides'
-  const ruGuidesHref = '/ru/guides'
+  // Автоматически защищаем ссылки от двойных префиксов /en/en или /en/ru
+  const enHref = cleanPathname(gameSlug ? `/en/${gameSlug}` : '/en')
+  const ruHref = cleanPathname(gameSlug ? `/ru/${gameSlug}` : '/ru')
+  
+  // Если вы хотите, чтобы в шапке были правильные ссылки на разделы гайдов:
+  const enGuidesHref = cleanPathname('/en/guides')
+  const ruGuidesHref = cleanPathname('/ru/guides')
 
   return (
     <header className="site-header" role="banner">

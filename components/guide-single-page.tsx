@@ -163,27 +163,27 @@ export default function GuideSinglePage({
 
           <div style={{ flex: 1 }} />
 
-          {/* Language switcher */}
-          <nav aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
-            <Link
-              href={`/en/guides/${slug}`}
-              hrefLang="en"
-              className={`lang-btn${isEn ? ' active' : ''}`}
-              aria-current={isEn ? 'true' : undefined}
-            >
-              EN
-            </Link>
-            <Link
-              href={`/ru/guides/${slug}`}
-              hrefLang="ru"
-              className={`lang-btn${!isEn ? ' active' : ''}`}
-              aria-current={!isEn ? 'true' : undefined}
-            >
-              RU
-            </Link>
-          </nav>
-        </div>
-      </div>
+         {/* Language switcher */}
+<nav aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
+  <Link
+    href={cleanPathname(`/en/guides/${slug}`)}
+    hrefLang="en"
+    className={`lang-btn${isEn ? ' active' : ''}`}
+    aria-current={isEn ? 'true' : undefined}
+  >
+    EN
+  </Link>
+  <Link
+    href={cleanPathname(`/ru/guides/${slug}`)}
+    hrefLang="ru"
+    className={`lang-btn${!isEn ? ' active' : ''}`}
+    aria-current={!isEn ? 'true' : undefined}
+  >
+    RU
+  </Link>
+</nav>
+</div>
+</div>
 
       {/* Hero */}
       <header className="guides-hero">
