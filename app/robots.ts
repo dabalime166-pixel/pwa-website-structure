@@ -7,12 +7,12 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: [
           '/', 
-          '/en', 
           '/en/guides/*',
           '/ru', 
           '/ru/guides/*',
         ],
         disallow: [
+          '/en',           // Disallow /en (duplicate of / - main page serves English via rewrite)
           '/_next/',       // Block Next.js chunks and assets
           '/static/',      // Block static files folder
           '/api/',         // Block API routes
