@@ -25,17 +25,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     keywords,
     alternates: {
-      canonical: `https://1weapp.online/en/${slug}`,
+      canonical: `www.https://1weapp.online/en/${slug}`,
       languages: {
-        en: `https://1weapp.online/en/${slug}`,
-        ru: `https://1weapp.online/ru/${slug}`,
-        'x-default': `https://1weapp.online/en/${slug}`,
+        en: `www.https://1weapp.online/en/${slug}`,
+        ru: `www.https://1weapp.online/ru/${slug}`,
+        'x-default': `www.https://1weapp.online/en/${slug}`,
       },
     },
     openGraph: {
       title,
       description,
-      url: `https://1weapp.online/en/${slug}`,
+      url: `www.https://1weapp.online/en/${slug}`,
       locale: 'en_US',
       images: [{ url: game.avatar, width: 400, height: 533, alt: `${game.name} avatar` }],
     },
