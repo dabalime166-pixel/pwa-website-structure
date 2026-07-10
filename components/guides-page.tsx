@@ -773,7 +773,7 @@ const GUIDES: GuideData[] = [
           body: 'Ответственная игра начинается с правильного отношения к азартным развлечениям. Не стоит ��оспринимать их как источник стабильного дохода или способ решения финансовых проблем.',
           callout: 'Если выделенная сумма закончилась — завершайте сессию. Если баланс значительно вырос — выведите часть выигрыша и продолжите на меньшую сумму.',
           bullets: [
-            'Делайте перерывы каждые 45–60 минут',
+            'Де��айте перерывы каждые 45–60 минут',
             'Не играйте в состоянии усталости или сильных эмоций',
             'Воспринимайте выигрыши как приятный бонус, а не как гарантированный результат',
           ],
@@ -1064,7 +1064,7 @@ export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
          {/* Language switcher */}
           <div role="navigation" aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
             <Link
-              href={cleanPathname(`/en/guides/${slug}`)}
+              href={`/en/guides/${slug}`}
               hrefLang="en"
               className={`lang-btn${isEn ? ' active' : ''}`}
               aria-current={isEn ? 'true' : undefined}
@@ -1072,7 +1072,7 @@ export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
               EN
             </Link>
             <Link
-              href={cleanPathname(`/ru/guides/${slug}`)}
+              href={`/ru/guides/${slug}`}
               hrefLang="ru"
               className={`lang-btn${!isEn ? ' active' : ''}`}
               aria-current={!isEn ? 'true' : undefined}
