@@ -2,8 +2,31 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
+import type { Guide } from '@/lib/guides-data'
 
 const BASE = 'https://www.1weapp.online/ru'
+
+function buildGuideJsonLd(guide: Guide, slug: string): string {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: guide.titleRu,
+    description: guide.subtitleRu,
+    image: guide.image || 'https://www.1weapp.online/og-image.jpg',
+    author: {
+      '@type': 'Organization',
+      name: '1weapp',
+    },
+    inLanguage: 'ru',
+    url: `${BASE}/guides/${slug}`,
+    datePublished: '2024-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
+    publisher: {
+      '@type': 'Organization',
+      name: '1weapp',
+    },
+  })
+}
 
 /* ─── Default SEO-оптимизированные title и description для каждого гайда (RU) ─── */
 /* Override these by setting titleSeoRu/descriptionSeoRu in lib/guides-data.ts */
@@ -119,5 +142,6 @@ export default async function Page({
   const { slug } = await params
   const guide = GUIDES.find((g) => g.id === slug)
   if (!guide) notFound()
-  return <GuideSinglePage slug={slug} lang="ru" />
+  const jsonLd = buildGuideJsonLd(guide, slug)
+  return <GuideSinglePage slug={slug} lang="ru" jsonLd={jsonLd} />
 }

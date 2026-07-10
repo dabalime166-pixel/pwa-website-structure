@@ -63,9 +63,11 @@ function GuideSection({ section, idx }: { section: Guide['sections']['en'][numbe
 export default function GuideSinglePage({
   slug,
   lang,
+  jsonLd,
 }: {
   slug: string;
   lang: 'en' | 'ru';
+  jsonLd?: string;
 }) {
   const isEn = lang === 'en';
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -79,7 +81,9 @@ export default function GuideSinglePage({
   const tag      = isEn ? guide.tagEn      : guide.tagRu;
 
   return (
-    <main className="guides-main">
+    <>
+      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
+      <main className="guides-main">
 
       {/* ── Sticky top bar ── */}
       <div className="guides-topbar">
@@ -297,5 +301,6 @@ export default function GuideSinglePage({
         </article>
       </div>
     </main>
+    </>
   );
 }
