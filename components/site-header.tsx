@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Lang } from '@/lib/games'
 import { i18n } from '@/lib/games'
-
+import { cleanPathname } from '@/lib/games';
 interface SiteHeaderProps {
   lang: Lang
   gameSlug?: string
