@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Lang } from '@/lib/games'
 import { i18n } from '@/lib/games'
+
 interface SiteHeaderProps {
   lang: Lang
   gameSlug?: string
@@ -9,20 +10,25 @@ interface SiteHeaderProps {
 export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
   const t = i18n[lang]
 
-  // Language switcher - always go to clean language root or game page
-  const enHref = gameSlug ? `/en/${gameSlug}` : '/en'
+  // ИСПРАВЛЕНИЕ 1: Ссылки для переключателя языков. 
+  // Если мы на английском, корень — это '/', а не '/en'. Если на конкретной игре — убираем дублирование.
+  const enHref = gameSlug ? `/${gameSlug}` : '/'
   const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
   
-  // Guides navigation
+  // ИСПРАВЛЕНИЕ 2: Пути для разделов гайдов.
+  // Так как для EN корень чистый, гайды лежат по адресу '/guides'
   const enGuidesHref = '/en/guides'
   const ruGuidesHref = '/ru/guides'
+
+  // ИСПРАВЛЕНИЕ 3: Базовый URL для логотипа и главной страницы
+  const homeHref = lang === 'en' ? '/' : '/ru'
 
   return (
     <header className="site-header" role="banner">
       <div className="site-header__inner">
         {/* Logo */}
         <Link
-          href={`/${lang}`}
+          href={homeHref}
           aria-label="1weapp — Home"
           className="site-header__logo"
         >
@@ -59,7 +65,7 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
         <div className="site-header__right">
           {/* Nav links */}
           <nav aria-label="Primary navigation" className="site-header__nav">
-            <Link href={`/${lang}`} className="site-header__nav-link">
+            <Link href={homeHref} className="site-header__nav-link">
               {t.games}
             </Link>
             <Link
