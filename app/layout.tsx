@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { NoIndexHandler } from '@/components/no-index-handler'
 // Импортируем компонент для вставки аналитики
 import Script from 'next/script'
 
@@ -47,6 +48,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="bg-[#0a0a0b]">
       <head>
+        {/* Dynamic noindex/nofollow for 404 and invalid routes */}
+        <NoIndexHandler />
+        
         {/* ============================================== */}
         {/* 1. GOOGLE ANALYTICS                            */}
         {/* ============================================== */}
