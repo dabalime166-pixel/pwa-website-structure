@@ -112,11 +112,11 @@ export async function generateMetadata({
     description,
     keywords,
     alternates: {
-      canonical: `${BASE}/ru/guides/${slug}`,
+      canonical: `${BASE}/guides/${slug}`,
       languages: {
-        ru: `${BASE}/ru/guides/${slug}`,
-        en: `${BASE}/en/guides/${slug}`,
-        'x-default': `${BASE}/en/guides/${slug}`,
+        ru: `${BASE}/guides/${slug}`,
+        en: `https://www.1weapp.online/en/guides/${slug}`,
+        'x-default': `https://www.1weapp.online/en/guides/${slug}`,
       },
     },
     openGraph: {
