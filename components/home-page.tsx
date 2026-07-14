@@ -180,11 +180,11 @@ export function HomePage({ lang }: HomePageProps) {
 
           {/* SEO section */}
           <div className="home-seo">
-            <h2 className="home-seo__title">
+            <p className="home-seo__title">
               {isEn
                 ? 'Play Free Demo Games — No Registration'
                 : 'Играть в демо-игры бесплатно — без регистрации'}
-            </h2>
+            </p>
             <p className="seo-body" style={{ marginBottom: 0 }}>
               {isEn
                 ? 'Our platform provides instant access to the best crash games and slots in demo mode. Try Lucky Jet, Gates of Olympus, Sweet Bonanza, Big Bass Bonanza, Wolf Gold, Starlight Princess, Sugar Rush and more — all completely free, with no deposit required. Mobile-first design means every game works flawlessly on any smartphone or tablet.'
