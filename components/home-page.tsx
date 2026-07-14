@@ -182,11 +182,160 @@ export function HomePage({ lang }: HomePageProps) {
           <div className="home-seo">
             {isEn ? (
               <>
-                <p className="home-seo__title">
-                  Play Free Demo Games — No Registration
+                <h1 className="home-seo__title">
+                  Free Demo Games No Registration — Best Slots and Crash Games with Instant Play
+                </h1>
+                <p className="seo-body">
+                  To choose a fair online casino and guarantee successful withdrawals, verify three things before you ever create an account: a valid regulatory license displayed in the site footer, independently certified RNG (Random Number Generator) audit reports, and clearly published withdrawal timelines backed by real user payout history. If a platform openly shares its RTP rates across every game category, submits to third-party fairness audits, and processes verified withdrawal requests within stated timeframes — you're dealing with a trustworthy operator. Every feature of this platform is built on those exact principles.
                 </p>
                 <p className="seo-body">
-                  Our platform provides instant access to the best crash games and slots in demo mode. Try Lucky Jet, Gates of Olympus, Sweet Bonanza, Big Bass Bonanza, Wolf Gold, Starlight Princess, Sugar Rush and more — all completely free, with no deposit required. Mobile-first design means every game works flawlessly on any smartphone or tablet.
+                  You're one click away from the industry's most exciting gaming library. Play casino demo for free — no download, no signup form, no strings attached. Every title in our catalog launches directly in your browser through instant play technology, powered by HTML5 for seamless performance on any device and any screen size.
+                </p>
+
+                <h2 className="seo-h2">Why Start with Free Demo Mode?</h2>
+                <ul className="seo-list">
+                  <li className="seo-list-item">
+                    <strong>Play games online, no download required.</strong> No app store visits, no storage space sacrificed. Open a tab, pick a genre, and the gaming simulator loads in seconds — desktop, tablet, or smartphone.
+                  </li>
+                  <li className="seo-list-item">
+                    <strong>Instant play games with zero commitment.</strong> A virtual practice balance is credited automatically. Explore paytables, trigger bonus rounds, test betting strategies — all risk-free.
+                  </li>
+                  <li className="seo-list-item">
+                    <strong>Identical math under the hood.</strong> Demo versions run on the same certified RNG engine and the same RTP rates as their real-money counterparts. The only difference is the currency: virtual credits instead of cash.
+                  </li>
+                </ul>
+                <p className="seo-body">
+                  From classic reel formats with fixed paylines to high-speed crash mechanics where a rising multiplier can collapse at any moment — every genre is available for unlimited free exploration. Discover what truly fits your play style before risking a single cent.
+                </p>
+
+                <h2 className="seo-h2">Play Casino for Real Money — From Practice to Real Payouts</h2>
+                <p className="seo-body">
+                  The transition from demo to real stakes is seamless. Once you've mapped out your favorite genres in free mode, switching to gambling for real money takes minutes: create an account, confirm your age, fund your balance, and every winning spin or perfectly timed cash-out becomes a real, withdrawable amount.
+                </p>
+
+                <h3 className="seo-h3">Why Players Choose an Online Casino with Real Money and Withdrawal</h3>
+                <p className="seo-body">
+                  When selecting a casino for real money, financial transparency isn't optional — it's everything. Here's what that looks like in practice:
+                </p>
+                <ul className="seo-list">
+                  <li className="seo-list-item"><strong>Published limits.</strong> Minimum and maximum withdrawal amounts are displayed upfront — no buried fine print, no surprise caps after you've already won.</li>
+                  <li className="seo-list-item"><strong>Predictable processing.</strong> Instant payouts begin processing as soon as identity verification is complete. Most requests clear within hours, not business days.</li>
+                  <li className="seo-list-item"><strong>Flexible payment methods.</strong> Bank cards, e-wallets, cryptocurrency, and local payment systems — choose the channel that works for your region and your preferred speed.</li>
+                  <li className="seo-list-item"><strong>Play for money with withdrawal confidence.</strong> Every transaction is logged, traceable, and protected by banking-grade encryption.</li>
+                </ul>
+
+                <h3 className="seo-h3">Casino for Phone — Full Power in Your Pocket</h3>
+                <p className="seo-body">
+                  A mobile casino online shouldn't feel like a compromise. Our responsive interface auto-adapts to any screen size, and touch controls are engineered for swipes, taps, and long-press gestures — not awkward desktop ports. Whether you're on iOS or Android, the full catalog, cashier, and bonus dashboard are accessible through your mobile browser. No dedicated app required — just bookmark and play. This is a true casino for phone built for modern players who refuse to be tethered to a desk.
+                </p>
+
+                <h2 className="seo-h2">Slots and Crash Games — Two Genres, Two Philosophies</h2>
+
+                <h3 className="seo-h3">Play Slots Online — Depth, Variety, and Proven Mathematics</h3>
+                <p className="seo-body">
+                  Slot machines remain the backbone of every serious gaming platform, and for good reason. Modern reels have evolved far beyond matching fruit symbols. Here's why best slots for money continue to dominate:
+                </p>
+                <ul className="seo-list">
+                  <li className="seo-list-item"><strong>Mechanic diversity.</strong> Cascading reels, expanding wilds, Megaways™-style dynamic paylines, pick-and-click bonus stages, multi-level free spin rounds with progressive multipliers — each sub-genre delivers a distinct rhythm and reward cycle.</li>
+                  <li className="seo-list-item"><strong>Transparent math models.</strong> Before launching any slot, you see three critical data points: RTP (return-to-player percentage), volatility rating (low, medium, or high), and maximum win potential per spin. No guesswork required.</li>
+                  <li className="seo-list-item"><strong>Flexible bet ranges.</strong> Micro-stakes for marathon sessions with controlled bankroll burn, or high-limit wagers for experienced players hunting volatile jackpots — the spectrum is yours.</li>
+                </ul>
+                <p className="seo-body">
+                  Slots for money with withdrawal on this platform run exclusively on licensed engines from top-tier software providers. Every outcome is determined by a certified RNG that neither the player nor the operator can predict or manipulate. Free slots no registration are also always available — switch between demo and real mode at any time.
+                </p>
+
+                <h3 className="seo-h3">Crash Games for Real Money — Speed, Tension, and Pure Decision-Making</h3>
+                <p className="seo-body">
+                  Crash format is the philosophical opposite of reel-based play. No paylines. No bonus rounds. No waiting. The mechanic is distilled to a single, pulse-raising question: when do you cash out?
+                </p>
+                <ul className="seo-list">
+                  <li className="seo-list-item"><strong>Rising multiplier.</strong> After launch, the coefficient climbs — ×1.01… ×1.50… ×3.00… ×10.00 and beyond. Your job: hit the cash-out button before the round crashes to zero.</li>
+                  <li className="seo-list-item"><strong>Instant win games for money.</strong> A single round lasts anywhere from one to thirty seconds. No lengthy animations, no filler — just raw, rapid results.</li>
+                  <li className="seo-list-item"><strong>Genre variations.</strong> Minefields, towers, ladder climbs, balloon inflators — the visual skins differ, but the core loop is identical: escalating risk versus escalating reward.</li>
+                  <li className="seo-list-item"><strong>Provably fair technology.</strong> Many crash titles use cryptographic hash verification, allowing you to independently confirm that each round's crash point was determined before any bets were placed.</li>
+                </ul>
+                <p className="seo-body">
+                  Crash games with money withdrawal attract players who crave adrenaline in short bursts and want manual control over the exit moment, rather than waiting for random symbol combinations. It's a genre built on nerve, timing, and discipline.
+                </p>
+
+                <h2 className="seo-h2">Register, Deposit, and Claim Your Welcome Bonus — Three Steps to Launch</h2>
+
+                <h3 className="seo-h3">Step 1 — Register at Casino for Real Money</h3>
+                <p className="seo-body">
+                  The signup form fits on a single screen: email or phone number, a secure password, and age confirmation (18+). That's it. No multi-page questionnaires. Full identity verification happens later, before your first withdrawal — it exists to protect your funds, not to slow you down. After registration, you can login to casino for real money from any device using the same credentials.
+                </p>
+
+                <h3 className="seo-h3">Step 2 — Make a Deposit in Casino</h3>
+                <p className="seo-body">
+                  Ready to fund your account? Top up casino account instantly using any of the supported payment methods. The minimum deposit casino threshold is set deliberately low — we believe the barrier to entry should never discourage a curious player. You decide how much you're comfortable allocating to a session, and you're never pressured to deposit more.
+                </p>
+                <p className="seo-body">
+                  Here's how to make a deposit in online casino in practice:
+                </p>
+                <ul className="seo-list">
+                  <li className="seo-list-item">Log in and open the Cashier section.</li>
+                  <li className="seo-list-item">Select your preferred payment method.</li>
+                  <li className="seo-list-item">Enter the amount (minimum is clearly displayed next to each option).</li>
+                  <li className="seo-list-item">Confirm the transaction — funds arrive instantly or within minutes, depending on the channel.</li>
+                </ul>
+
+                <h3 className="seo-h3">Step 3 — Activate Your Welcome Rewards</h3>
+                <ul className="seo-list">
+                  <li className="seo-list-item"><strong>First deposit bonus.</strong> A percentage match on your initial deposit — effectively extra playing power that extends your session time and multiplies your opportunities. Every casino deposit with withdrawal capability applies to bonus-generated winnings, provided wagering conditions are met.</li>
+                  <li className="seo-list-item"><strong>Free spins no deposit.</strong> Select promotions offer complimentary spins before you fund your balance — a chance to test real-money slot mechanics with zero personal investment.</li>
+                  <li className="seo-list-item"><strong>Transparent wagering.</strong> Bonus terms, rollover requirements, game contribution percentages, and expiration dates are published before you activate anything. No post-click surprises, no hidden clauses.</li>
+                </ul>
+                <p className="seo-body" style={{ fontStyle: 'italic' }}>
+                  <strong>Pro Tip:</strong> Before you make a deposit and lock in a bonus, open your target slots or crash games in demo mode first. Learn the volatility, understand the bonus triggers, study the paytable. That way, every unit of bonus balance is spent with precision — on mechanics you've already vetted.
+                </p>
+
+                <h2 className="seo-h2">Frequently Asked Questions</h2>
+
+                <h3 className="seo-h3">Can I try games for free without creating an account?</h3>
+                <p className="seo-body">
+                  Absolutely. All free slots demo, no registration required, are accessible directly from the game catalog. The casino practice mode runs on virtual credits while using the exact same certified RNG and RTP rates as the real-money version. It's a full-fidelity gaming simulator — not a watered-down preview. Play demo for free for as long as you like, with no time limits and no pressure to convert.
+                </p>
+
+                <h3 className="seo-h3">How do I switch from demo to real-money play?</h3>
+                <p className="seo-body">
+                  Open any game in demo mode. When you're ready, create an account, fund your balance, and toggle from "Demo" to "Real Money" within the same game window. Your display settings and preferences carry over.
+                </p>
+
+                <h3 className="seo-h3">What payment methods are available for deposits?</h3>
+                <p className="seo-body">
+                  The platform supports a wide range of options — bank cards (Visa, Mastercard), e-wallets, prepaid vouchers, bank transfers, and select cryptocurrency channels. Each method shows its processing speed and minimum/maximum limits before confirmation.
+                </p>
+
+                <h3 className="seo-h3">How long do withdrawals take?</h3>
+                <p className="seo-body">
+                  Two factors determine speed: completed verification status and chosen payment method. Once your identity is verified, most electronic wallet withdrawals process within minutes to a few hours. Bank transfers may take slightly longer depending on your financial institution.
+                </p>
+
+                <h3 className="seo-h3">Are my financial details safe?</h3>
+                <p className="seo-body">
+                  All payment data is transmitted through 256-bit SSL/TLS encryption. Sensitive card information is never stored on platform servers — processing is handled entirely by PCI DSS-compliant payment gateways. Two-factor authentication adds an additional layer of account security.
+                </p>
+
+                <h3 className="seo-h3">What does volatility mean, and how should it affect my choice?</h3>
+                <p className="seo-body">
+                  Volatility describes the risk profile of a game. Low-volatility slots pay out smaller amounts more frequently — ideal for extended sessions. High-volatility titles pay less often but offer significantly larger potential wins. Choose based on your bankroll size and risk appetite. Demo mode is the perfect place to feel the difference before committing real funds.
+                </p>
+
+                <h2 className="seo-h2">About This Platform — Fair Play, Security, and Player Protection</h2>
+                <p className="seo-body">
+                  You are on a licensed online casino that operates under the oversight of a recognized regulatory authority. Every element — from game outcome generation to financial transaction processing — adheres to strict compliance standards and undergoes regular external audits.
+                </p>
+                <p className="seo-body">
+                  Fair online casino is not a tagline here — it's an auditable set of commitments:
+                </p>
+                <ul className="seo-list">
+                  <li className="seo-list-item"><strong>Certified RNG.</strong> The random number generator powering every game is tested and certified by an independent laboratory. Audit certificates are available upon request, and results are verifiable.</li>
+                  <li className="seo-list-item"><strong>Casino with fast money withdrawal.</strong> Rapid payouts to e-wallets, predictable timelines for bank-based methods, and no fabricated delays. This is a verified casino with payout integrity — your winnings are yours, and they move when you say so.</li>
+                  <li className="seo-list-item"><strong>Safe online betting environment.</strong> 256-bit SSL encryption, mandatory two-factor authentication options, and strict KYC (Know Your Customer) compliance form three layers of protection around your account and your money.</li>
+                  <li className="seo-list-item"><strong>Responsible gambling 18+.</strong> Self-limitation tools — deposit caps, loss limits, session duration timers, cooling-off periods, and self-exclusion options — are available in your account settings at all times. If gaming stops being entertainment, we provide resources and tools to help you pause or stop entirely.</li>
+                </ul>
+                <p className="seo-body">
+                  Gambling is entertainment for adults. Play consciously. Set your limits before you start. Never wager more than you can afford to lose. If you or someone you know needs support, responsible gaming resources are always one click away in the platform footer.
                 </p>
               </>
             ) : (
@@ -243,10 +392,10 @@ export function HomePage({ lang }: HomePageProps) {
                 <ul className="seo-list">
                   <li className="seo-list-item"><strong>Вариативность механик.</strong> Каскадные символы, расширяющиеся «вайлды», раунды «Pick & Click», многоуровневые фриспин-сессии — каждая категория предлагает собственный игровой цикл.</li>
                   <li className="seo-list-item"><strong>Прозрачная математика.</strong> Перед запуском лучших слотов на деньги вы видите три ключевых параметра: RTP (процент возврата), волатильность (частота и размер выигрышей) и максимальный коэффициент за один раунд.</li>
-                  <li className="seo-list-item"><strong>Диапазон ставок.</strong> От минимальных (подходит для долгих сессий с низким риском) до крупных — для опытных игроков, ищущих высокую отдачу при высокой волатильности.</li>
+                  <li className="seo-list-item"><strong>Диапазон ставок.</strong> От минимальных (подходит для долгих сессий с низким риском) до крупных — для опытных игроков, ищущих высокую ��тдачу при высокой волатильности.</li>
                 </ul>
                 <p className="seo-body">
-                  Слоты на деньги с выводом работают на лицензионных движках от проверенных провайдеров, и результат каждого спина определяется генератором случайных чисел, который невозможно предсказать или подкрутить ни игроку, ни оператору.
+                  Слоты на деньги с выводом работают на лиценз��онных движках от проверенных провайдеров, и результат каждого спина определяется генератором случайных чисел, который невозможно предсказать или подкрутить ни игроку, ни оператору.
                 </p>
 
                 <h3 className="seo-h3">Краш-игры на деньги — скорость и контроль</h3>
