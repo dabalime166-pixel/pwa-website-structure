@@ -332,7 +332,7 @@ export function HomePage({ lang }: HomePageProps) {
                   <li className="seo-list-item"><strong>Certified RNG.</strong> The random number generator powering every game is tested and certified by an independent laboratory. Audit certificates are available upon request, and results are verifiable.</li>
                   <li className="seo-list-item"><strong>Casino with fast money withdrawal.</strong> Rapid payouts to e-wallets, predictable timelines for bank-based methods, and no fabricated delays. This is a verified casino with payout integrity — your winnings are yours, and they move when you say so.</li>
                   <li className="seo-list-item"><strong>Safe online betting environment.</strong> 256-bit SSL encryption, mandatory two-factor authentication options, and strict KYC (Know Your Customer) compliance form three layers of protection around your account and your money.</li>
-                  <li className="seo-list-item"><strong>Responsible gambling 18+.</strong> Self-limitation tools — deposit caps, loss limits, session duration timers, cooling-off periods, and self-exclusion options — are available in your account settings at all times. If gaming stops being entertainment, we provide resources and tools to help you pause or stop entirely.</li>
+                  <li className="seo-list-item"><strong>Responsible gambling 18+.</strong> Self-limitation tools �� deposit caps, loss limits, session duration timers, cooling-off periods, and self-exclusion options — are available in your account settings at all times. If gaming stops being entertainment, we provide resources and tools to help you pause or stop entirely.</li>
                 </ul>
                 <p className="seo-body">
                   Gambling is entertainment for adults. Play consciously. Set your limits before you start. Never wager more than you can afford to lose. If you or someone you know needs support, responsible gaming resources are always one click away in the platform footer.
@@ -340,9 +340,9 @@ export function HomePage({ lang }: HomePageProps) {
               </>
             ) : (
               <>
-                <h1 className="home-seo__title">
+                <h2 className="home-seo__title">
                   Бесплатные демо-игры без регистрации — лучшие слоты и краш-игры с мгновенным запуском
-                </h1>
+                </h2>
                 <p className="seo-body">
                   Здесь можно играть в демо-казино бесплатно — без скачивания приложений, без создания аккаунта и без любых обязательств. Каталог открывается прямо в браузере: выбираете жанр, нажимаете «Играть» — и симулятор загружается за секунды.
                 </p>
