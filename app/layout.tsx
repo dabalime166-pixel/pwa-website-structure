@@ -47,19 +47,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="bg-[#0a0a0b]">
       <head>
-        {/* ============================================== */}
-        {/* 1. GOOGLE ANALYTICS                            */}
-        {/* ============================================== */}
+        {/* Google Analytics 4 - loads tracking script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-X4YHR9MBCQ"
           strategy="afterInteractive"
         />
+        {/* Google Analytics 4 - initializes tracking */}
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-X4YHR9MBCQ');
+            gtag('config', 'G-X4YHR9MBCQ', {
+              page_path: window.location.pathname,
+              page_title: document.title,
+            });
           `}
         </Script>
 
