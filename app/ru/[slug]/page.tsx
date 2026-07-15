@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: `https://www.1weapp.online/ru/${slug}`,
       locale: 'ru_RU',
+      type: 'website',
       images: [{ url: game.avatar, width: 400, height: 533, alt: `${game.name} аватарка` }],
     },
   }

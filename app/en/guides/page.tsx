@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '1weapp Strategy Guides',
     description: 'Master iGaming mechanics with in-depth strategy guides.',
+    type: 'website',
   },
 }
 
