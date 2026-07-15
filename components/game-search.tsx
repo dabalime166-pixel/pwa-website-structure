@@ -153,18 +153,26 @@ export function GameSearch({
                 type="button"
                 onClick={loadMore}
                 style={{
-                  padding: '0.75rem 1.5rem',
+                  padding: '0.875rem 2rem',
                   background: 'var(--color-gold)',
                   color: 'var(--color-bg-primary)',
                   border: 'none',
-                  borderRadius: 'var(--radius-button)',
+                  borderRadius: '0.5rem',
                   fontSize: '0.95rem',
-                  fontWeight: 500,
+                  fontWeight: 600,
                   cursor: 'pointer',
-                  transition: 'opacity 0.2s',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  boxShadow: '0 4px 12px rgba(218, 165, 32, 0.25)',
+                  letterSpacing: '0.3px',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(218, 165, 32, 0.35)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(218, 165, 32, 0.25)'
+                }}
                 aria-label={lang === 'en' ? 'Load more games' : 'Загрузить ещё'}
               >
                 {lang === 'en' ? 'Load More' : 'Показать ещё'} ({filtered.length - displayed.length} {lang === 'en' ? 'remaining' : 'осталось'})
