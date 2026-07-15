@@ -160,6 +160,9 @@ export function GamePage({ slug, lang }: GamePageProps) {
             demoBadge={t.demo}
             fullscreenLabel={isEn ? 'Full Screen' : 'На весь экран'}
             closeLabel={isEn ? 'Exit' : 'Выйти'}
+            launchLabel={isEn ? 'Launch Demo' : 'Запустить демо'}
+            readyTitle={isEn ? 'Ready to Play?' : 'Готовы играть?'}
+            readyDescription={isEn ? 'Click the button below to launch the demo' : 'Нажмите кнопку ниже, чтобы запустить демо'}
           />
         ) : (
           <div
@@ -376,7 +379,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
             {/* Mobile */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-muted)', fontWeight: 600 }}>
-                📱 {isEn ? 'Mobile' : 'Мобильная'}
+                📱 {isEn ? 'Mobile' : 'Мобильн��я'}
               </span>
               <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 700, color: 'var(--color-gold-light)', lineHeight: 1.2 }}>
                 {isEn ? 'Yes' : 'Да'}
