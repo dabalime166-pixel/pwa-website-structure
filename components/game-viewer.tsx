@@ -139,55 +139,74 @@ export function GameViewer({
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            minHeight: '500px',
+            flex: 1,
             gap: '0',
             position: 'relative',
             overflow: 'hidden',
+            padding: '2rem 1rem',
           }}
         >
           {/* Decorative background elements */}
           <div
             style={{
               position: 'absolute',
-              width: '300px',
-              height: '300px',
+              width: 'clamp(200px, 40vw, 300px)',
+              height: 'clamp(200px, 40vw, 300px)',
               background: 'radial-gradient(circle, rgba(218, 165, 32, 0.08) 0%, transparent 70%)',
               borderRadius: '50%',
-              top: '-100px',
-              left: '-50px',
+              top: '-50%',
+              left: '-20%',
               pointerEvents: 'none',
             }}
           />
           <div
             style={{
               position: 'absolute',
-              width: '250px',
-              height: '250px',
+              width: 'clamp(150px, 35vw, 250px)',
+              height: 'clamp(150px, 35vw, 250px)',
               background: 'radial-gradient(circle, rgba(218, 165, 32, 0.05) 0%, transparent 70%)',
               borderRadius: '50%',
-              bottom: '-80px',
-              right: '-30px',
+              bottom: '-30%',
+              right: '-10%',
               pointerEvents: 'none',
             }}
           />
 
-          {/* Content container */}
-          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 2rem' }}>
+          {/* Content container - properly centered */}
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 1,
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              maxWidth: 'clamp(300px, 90vw, 500px)',
+            }}
+          >
             {/* Play icon accent */}
             <div
               style={{
-                width: '80px',
-                height: '80px',
-                margin: '0 auto 2rem',
+                width: 'clamp(60px, 15vw, 80px)',
+                height: 'clamp(60px, 15vw, 80px)',
+                marginBottom: 'clamp(1.5rem, 4vw, 2rem)',
                 background: 'linear-gradient(135deg, rgba(218, 165, 32, 0.2) 0%, rgba(218, 165, 32, 0.1) 100%)',
                 border: '2px solid rgba(218, 165, 32, 0.3)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
               }}
             >
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--color-gold)" aria-hidden="true">
+              <svg
+                width="clamp(30px, 10vw, 40px)"
+                height="clamp(30px, 10vw, 40px)"
+                viewBox="0 0 24 24"
+                fill="var(--color-gold)"
+                aria-hidden="true"
+              >
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
             </div>
@@ -195,21 +214,22 @@ export function GameViewer({
             {/* Title and description */}
             <h3
               style={{
-                fontSize: '2rem',
+                fontSize: 'clamp(1.5rem, 5vw, 2rem)',
                 fontWeight: 700,
                 color: 'var(--color-text-primary)',
-                marginBottom: '0.75rem',
+                marginBottom: 'clamp(0.5rem, 2vw, 0.75rem)',
                 letterSpacing: '-0.02em',
+                lineHeight: 1.2,
               }}
             >
               {readyTitle}
             </h3>
             <p
               style={{
-                fontSize: '1rem',
+                fontSize: 'clamp(0.875rem, 3vw, 1rem)',
                 color: 'var(--color-text-secondary)',
-                marginBottom: '2.5rem',
-                maxWidth: '320px',
+                marginBottom: 'clamp(1.5rem, 5vw, 2.5rem)',
+                lineHeight: 1.5,
               }}
             >
               {readyDescription}
@@ -219,17 +239,19 @@ export function GameViewer({
             <button
               onClick={launchDemo}
               style={{
-                padding: '1.125rem 3rem',
+                padding: 'clamp(0.75rem, 2vw, 1.125rem) clamp(1.5rem, 5vw, 3rem)',
                 background: 'linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%)',
                 color: 'var(--color-bg-primary)',
                 border: 'none',
                 borderRadius: '0.75rem',
-                fontSize: '1.0625rem',
+                fontSize: 'clamp(0.95rem, 2.5vw, 1.0625rem)',
                 fontWeight: 700,
                 cursor: 'pointer',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 boxShadow: '0 8px 24px rgba(218, 165, 32, 0.35)',
                 letterSpacing: '0.02em',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)'
@@ -242,7 +264,7 @@ export function GameViewer({
               aria-label={launchLabel}
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', justifyContent: 'center' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <svg width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
                 {launchLabel}
