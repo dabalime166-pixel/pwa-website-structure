@@ -47,6 +47,22 @@ export function CustomDropdown({
         maxWidth: 'clamp(140px, 30vw, 220px)',
       }}
     >
+      {/* Blurred backdrop overlay when dropdown is open */}
+      {isOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backdropFilter: 'blur(3px)',
+            WebkitBackdropFilter: 'blur(3px)',
+            zIndex: 999,
+          }}
+          onClick={() => setIsOpen(false)}
+        />
+      )}
       <button
         type="button"
         id={id}
