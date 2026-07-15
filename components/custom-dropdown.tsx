@@ -47,22 +47,6 @@ export function CustomDropdown({
         maxWidth: 'clamp(140px, 30vw, 220px)',
       }}
     >
-      {/* Blurred backdrop overlay when dropdown is open */}
-      {isOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backdropFilter: 'blur(3px)',
-            WebkitBackdropFilter: 'blur(3px)',
-            zIndex: 999,
-          }}
-          onClick={() => setIsOpen(false)}
-        />
-      )}
       <button
         type="button"
         id={id}
@@ -125,7 +109,9 @@ export function CustomDropdown({
             left: 0,
             minWidth: '100%',
             marginTop: '0.5rem',
-            background: 'var(--color-bg-secondary)',
+            background: 'rgba(15, 15, 15, 0.85)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
             border: '1.5px solid var(--color-gold)',
             borderRadius: '0.5rem',
             boxShadow: '0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(218, 165, 32, 0.1)',
