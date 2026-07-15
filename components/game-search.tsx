@@ -13,6 +13,9 @@ interface GameSearchProps {
   placeholderLabel: string
 }
 
+const INITIAL_GAMES_COUNT = 12  // Show first 12 games initially for performance
+const LOAD_MORE_COUNT = 12       // Load 12 more games on each "Load More" click
+
 export function GameSearch({
   games,
   lang,
@@ -22,6 +25,7 @@ export function GameSearch({
   placeholderLabel,
 }: GameSearchProps) {
   const [query, setQuery] = useState('')
+  const [displayedCount, setDisplayedCount] = useState(INITIAL_GAMES_COUNT)
   const inputId = useId()
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -33,10 +37,19 @@ export function GameSearch({
           g.provider.toLowerCase().includes(q),
       )
     : games
+  
+  // Only show up to displayedCount games, but show all when searching
+  const displayed = q ? filtered : filtered.slice(0, displayedCount)
+  const hasMore = !q && displayedCount < filtered.length
 
   function clear() {
     setQuery('')
+    setDisplayedCount(INITIAL_GAMES_COUNT)  // Reset to initial count when clearing
     inputRef.current?.focus()
+  }
+  
+  function loadMore() {
+    setDisplayedCount((prev) => prev + LOAD_MORE_COUNT)
   }
 
   return (
@@ -119,18 +132,46 @@ export function GameSearch({
 
       {/* ── Grid or empty state ── */}
       {filtered.length > 0 ? (
-        <div
-          id="games-grid-results"
-          className="games-grid"
-          role="list"
-          aria-label={lang === 'en' ? 'Games list' : 'Список игр'}
-        >
-          {filtered.map((game) => (
-            <div key={game.slug} role="listitem">
-              <GameCard game={game} lang={lang} />
+        <>
+          <div
+            id="games-grid-results"
+            className="games-grid"
+            role="list"
+            aria-label={lang === 'en' ? 'Games list' : 'Список игр'}
+          >
+            {displayed.map((game) => (
+              <div key={game.slug} role="listitem">
+                <GameCard game={game} lang={lang} />
+              </div>
+            ))}
+          </div>
+          
+          {/* Load More button — visible only when there are hidden games */}
+          {hasMore && (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
+              <button
+                type="button"
+                onClick={loadMore}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  background: 'var(--color-gold)',
+                  color: 'var(--color-bg-primary)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-button)',
+                  fontSize: '0.95rem',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  transition: 'opacity 0.2s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                aria-label={lang === 'en' ? 'Load more games' : 'Загрузить ещё'}
+              >
+                {lang === 'en' ? 'Load More' : 'Показать ещё'} ({filtered.length - displayed.length} {lang === 'en' ? 'remaining' : 'осталось'})
+              </button>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       ) : (
         <div className="game-search__empty" role="status" aria-live="polite">
           <svg
