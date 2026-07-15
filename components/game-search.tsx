@@ -26,25 +26,41 @@ export function GameSearch({
 }: GameSearchProps) {
   const [query, setQuery] = useState('')
   const [displayedCount, setDisplayedCount] = useState(INITIAL_GAMES_COUNT)
+  const [selectedType, setSelectedType] = useState<string>('')
+  const [selectedProvider, setSelectedProvider] = useState<string>('')
   const inputId = useId()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const q = query.trim().toLowerCase()
-  const filtered = q
-    ? games.filter(
-        (g) =>
-          g.name.toLowerCase().includes(q) ||
-          g.provider.toLowerCase().includes(q),
-      )
-    : games
-  
-  // Only show up to displayedCount games, but show all when searching
-  const displayed = q ? filtered : filtered.slice(0, displayedCount)
-  const hasMore = !q && displayedCount < filtered.length
+  // Extract unique game types and providers from games data
+  const gameTypes = [...new Set(games.map(g => g.gameType).filter(Boolean))].sort()
+  const providers = [...new Set(games.map(g => g.provider).filter(Boolean))].sort()
 
-  function clear() {
+  const q = query.trim().toLowerCase()
+  const filtered = games.filter((g) => {
+    // Text search (name or provider)
+    const matchesQuery = !q ||
+      g.name.toLowerCase().includes(q) ||
+      g.provider.toLowerCase().includes(q)
+    
+    // Game type filter
+    const matchesType = !selectedType || g.gameType === selectedType
+    
+    // Provider filter
+    const matchesProvider = !selectedProvider || g.provider === selectedProvider
+    
+    return matchesQuery && matchesType && matchesProvider
+  })
+  
+  // Only show up to displayedCount games, but show all when searching or filtering
+  const isActiveFilter = q || selectedType || selectedProvider
+  const displayed = isActiveFilter ? filtered : filtered.slice(0, displayedCount)
+  const hasMore = !isActiveFilter && displayedCount < filtered.length
+
+  function clearAll() {
     setQuery('')
-    setDisplayedCount(INITIAL_GAMES_COUNT)  // Reset to initial count when clearing
+    setSelectedType('')
+    setSelectedProvider('')
+    setDisplayedCount(INITIAL_GAMES_COUNT)
     inputRef.current?.focus()
   }
   
@@ -96,7 +112,7 @@ export function GameSearch({
           <button
             type="button"
             className="game-search__clear"
-            onClick={clear}
+            onClick={clearAll}
             aria-label={clearLabel}
           >
             <svg
@@ -113,6 +129,133 @@ export function GameSearch({
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
+          </button>
+        )}
+      </div>
+
+      {/* ── Filter controls ── */}
+      <div
+        style={{
+          display: 'flex',
+          gap: '1rem',
+          marginBottom: '1.5rem',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+        }}
+      >
+        {/* Game Type Filter */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <label
+            htmlFor="game-type-select"
+            style={{
+              fontSize: '0.9rem',
+              fontWeight: 500,
+              color: 'var(--color-text-secondary)',
+            }}
+          >
+            {lang === 'en' ? 'Type' : 'Тип'}:
+          </label>
+          <select
+            id="game-type-select"
+            value={selectedType}
+            onChange={(e) => {
+              setSelectedType(e.target.value)
+              setDisplayedCount(INITIAL_GAMES_COUNT)
+            }}
+            style={{
+              padding: '0.5rem 0.75rem',
+              background: 'var(--color-bg-secondary)',
+              color: 'var(--color-text-primary)',
+              border: '1px solid var(--color-border)',
+              borderRadius: '0.375rem',
+              fontSize: '0.9rem',
+              cursor: 'pointer',
+              transition: 'border-color 0.2s',
+            }}
+          >
+            <option value="">
+              {lang === 'en' ? 'All' : 'Все'}
+            </option>
+            {gameTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Provider Filter */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <label
+            htmlFor="provider-select"
+            style={{
+              fontSize: '0.9rem',
+              fontWeight: 500,
+              color: 'var(--color-text-secondary)',
+            }}
+          >
+            {lang === 'en' ? 'Provider' : 'Провайдер'}:
+          </label>
+          <select
+            id="provider-select"
+            value={selectedProvider}
+            onChange={(e) => {
+              setSelectedProvider(e.target.value)
+              setDisplayedCount(INITIAL_GAMES_COUNT)
+            }}
+            style={{
+              padding: '0.5rem 0.75rem',
+              background: 'var(--color-bg-secondary)',
+              color: 'var(--color-text-primary)',
+              border: '1px solid var(--color-border)',
+              borderRadius: '0.375rem',
+              fontSize: '0.9rem',
+              cursor: 'pointer',
+              transition: 'border-color 0.2s',
+            }}
+          >
+            <option value="">
+              {lang === 'en' ? 'All' : 'Все'}
+            </option>
+            {providers.map((provider) => (
+              <option key={provider} value={provider}>
+                {provider}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Reset Filters Button */}
+        {(selectedType || selectedProvider) && (
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedType('')
+              setSelectedProvider('')
+              setDisplayedCount(INITIAL_GAMES_COUNT)
+            }}
+            style={{
+              padding: '0.5rem 0.75rem',
+              background: 'transparent',
+              color: 'var(--color-gold)',
+              border: '1px solid var(--color-gold)',
+              borderRadius: '0.375rem',
+              fontSize: '0.85rem',
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--color-gold)'
+              e.currentTarget.style.color = 'var(--color-bg-primary)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = 'var(--color-gold)'
+            }}
+            aria-label={lang === 'en' ? 'Reset filters' : 'Сбросить фильтры'}
+          >
+            {lang === 'en' ? 'Reset' : 'Сбросить'}
           </button>
         )}
       </div>
@@ -201,7 +344,7 @@ export function GameSearch({
           <button
             type="button"
             className="game-search__empty-reset"
-            onClick={clear}
+            onClick={clearAll}
           >
             {clearLabel}
           </button>
