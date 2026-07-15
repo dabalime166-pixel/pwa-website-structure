@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -12,7 +13,6 @@ const nextConfig = {
       },
     ],
   },
-  // Allow iframes from game providers in Content-Security-Policy
   async headers() {
     return [
       {
@@ -23,8 +23,20 @@ const nextConfig = {
             value: 'nosniff',
           },
           {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'geolocation=(), microphone=(), camera=()',
           },
         ],
       },
