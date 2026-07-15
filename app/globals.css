@@ -2170,20 +2170,4 @@ img { display: block; max-width: 100%; height: auto; }
   opacity: 0.6;
 }
 
-/* ── Select dropdown styling ── */
-select {
-  color-scheme: dark;
-}
 
-select option {
-  background-color: var(--color-bg-surface);
-  color: var(--color-text-primary);
-  padding: 0.5rem 0.75rem;
-  border: none;
-}
-
-select option:checked {
-  background: linear-gradient(var(--color-gold), var(--color-gold));
-  background-color: var(--color-gold) !important;
-  color: var(--color-bg-primary);
-}

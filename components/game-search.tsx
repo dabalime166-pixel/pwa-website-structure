@@ -2,6 +2,7 @@
 
 import { useState, useId, useRef } from 'react'
 import { GameCard } from '@/components/game-card'
+import { CustomDropdown } from '@/components/custom-dropdown'
 import type { Game, Lang } from '@/lib/games'
 
 interface GameSearchProps {
@@ -146,7 +147,6 @@ export function GameSearch({
         {/* Game Type Filter */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <label
-            htmlFor="game-type-select"
             style={{
               fontSize: '0.9rem',
               fontWeight: 500,
@@ -155,55 +155,27 @@ export function GameSearch({
           >
             {lang === 'en' ? 'Type' : 'Тип'}:
           </label>
-          <select
+          <CustomDropdown
             id="game-type-select"
             value={selectedType}
-            onChange={(e) => {
-              setSelectedType(e.target.value)
+            onChange={(value) => {
+              setSelectedType(value)
               setDisplayedCount(INITIAL_GAMES_COUNT)
             }}
-            style={{
-              padding: '0.625rem 0.875rem',
-              background: 'var(--color-bg-secondary)',
-              color: 'var(--color-text-primary)',
-              border: '1.5px solid var(--color-gold)',
-              borderRadius: '0.5rem',
-              fontSize: '0.9rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 2px 8px rgba(218, 165, 32, 0.15)',
-              appearance: 'none',
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23DAA520' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'right 0.625rem center',
-              backgroundSize: '1rem',
-              paddingRight: '2.5rem',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#f4d03f'
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(218, 165, 32, 0.25)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--color-gold)'
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(218, 165, 32, 0.15)'
-            }}
-          >
-            <option value="">
-              {lang === 'en' ? 'All' : 'Все'}
-            </option>
-            {gameTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+            label={lang === 'en' ? 'All' : 'Все'}
+            options={[
+              { value: '', label: lang === 'en' ? 'All' : 'Все' },
+              ...gameTypes.map((type) => ({
+                value: type,
+                label: type,
+              })),
+            ]}
+          />
         </div>
 
         {/* Provider Filter */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <label
-            htmlFor="provider-select"
             style={{
               fontSize: '0.9rem',
               fontWeight: 500,
@@ -212,49 +184,22 @@ export function GameSearch({
           >
             {lang === 'en' ? 'Provider' : 'Провайдер'}:
           </label>
-          <select
+          <CustomDropdown
             id="provider-select"
             value={selectedProvider}
-            onChange={(e) => {
-              setSelectedProvider(e.target.value)
+            onChange={(value) => {
+              setSelectedProvider(value)
               setDisplayedCount(INITIAL_GAMES_COUNT)
             }}
-            style={{
-              padding: '0.625rem 0.875rem',
-              background: 'var(--color-bg-secondary)',
-              color: 'var(--color-text-primary)',
-              border: '1.5px solid var(--color-gold)',
-              borderRadius: '0.5rem',
-              fontSize: '0.9rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 2px 8px rgba(218, 165, 32, 0.15)',
-              appearance: 'none',
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23DAA520' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'right 0.625rem center',
-              backgroundSize: '1rem',
-              paddingRight: '2.5rem',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#f4d03f'
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(218, 165, 32, 0.25)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--color-gold)'
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(218, 165, 32, 0.15)'
-            }}
-          >
-            <option value="">
-              {lang === 'en' ? 'All' : 'Все'}
-            </option>
-            {providers.map((provider) => (
-              <option key={provider} value={provider}>
-                {provider}
-              </option>
-            ))}
-          </select>
+            label={lang === 'en' ? 'All' : 'Все'}
+            options={[
+              { value: '', label: lang === 'en' ? 'All' : 'Все' },
+              ...providers.map((provider) => ({
+                value: provider,
+                label: provider,
+              })),
+            ]}
+          />
         </div>
 
         {/* Reset Filters Button */}
