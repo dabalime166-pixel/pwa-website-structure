@@ -163,14 +163,30 @@ export function GameSearch({
               setDisplayedCount(INITIAL_GAMES_COUNT)
             }}
             style={{
-              padding: '0.5rem 0.75rem',
+              padding: '0.625rem 0.875rem',
               background: 'var(--color-bg-secondary)',
               color: 'var(--color-text-primary)',
-              border: '1px solid var(--color-border)',
-              borderRadius: '0.375rem',
+              border: '1.5px solid var(--color-gold)',
+              borderRadius: '0.5rem',
               fontSize: '0.9rem',
+              fontWeight: 500,
               cursor: 'pointer',
-              transition: 'border-color 0.2s',
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 2px 8px rgba(218, 165, 32, 0.15)',
+              appearance: 'none',
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23DAA520' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E")`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'right 0.625rem center',
+              backgroundSize: '1rem',
+              paddingRight: '2.5rem',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#f4d03f'
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(218, 165, 32, 0.25)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-gold)'
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(218, 165, 32, 0.15)'
             }}
           >
             <option value="">
@@ -204,14 +220,30 @@ export function GameSearch({
               setDisplayedCount(INITIAL_GAMES_COUNT)
             }}
             style={{
-              padding: '0.5rem 0.75rem',
+              padding: '0.625rem 0.875rem',
               background: 'var(--color-bg-secondary)',
               color: 'var(--color-text-primary)',
-              border: '1px solid var(--color-border)',
-              borderRadius: '0.375rem',
+              border: '1.5px solid var(--color-gold)',
+              borderRadius: '0.5rem',
               fontSize: '0.9rem',
+              fontWeight: 500,
               cursor: 'pointer',
-              transition: 'border-color 0.2s',
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 2px 8px rgba(218, 165, 32, 0.15)',
+              appearance: 'none',
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23DAA520' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E")`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'right 0.625rem center',
+              backgroundSize: '1rem',
+              paddingRight: '2.5rem',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#f4d03f'
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(218, 165, 32, 0.25)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-gold)'
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(218, 165, 32, 0.15)'
             }}
           >
             <option value="">
