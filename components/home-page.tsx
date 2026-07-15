@@ -205,9 +205,9 @@ export function HomePage({ lang }: HomePageProps) {
           <div className="home-seo">
             {isEn ? (
               <>
-                <h1 className="home-seo__title">
+                <h2 className="home-seo__title">
                   Free Demo Games No Registration — Best Slots and Crash Games with Instant Play
-                </h1>
+                </h2>
                 <p className="seo-body">
                   To choose a fair online casino and guarantee successful withdrawals, verify three things before you ever create an account: a valid regulatory license displayed in the site footer, independently certified RNG (Random Number Generator) audit reports, and clearly published withdrawal timelines backed by real user payout history. If a platform openly shares its RTP rates across every game category, submits to third-party fairness audits, and processes verified withdrawal requests within stated timeframes — you're dealing with a trustworthy operator. Every feature of this platform is built on those exact principles.
                 </p>
