@@ -1,6 +1,7 @@
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { GameSearch } from '@/components/game-search'
+import { JsonLd } from '@/components/json-ld'
 import { games, i18n, CTA_URL } from '@/lib/games'
 import type { Lang } from '@/lib/games'
 
@@ -50,8 +51,30 @@ export function HomePage({ lang }: HomePageProps) {
         },
       ]
 
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: '1weapp',
+    description: t.metaDescHome,
+    url: 'https://www.1weapp.online',
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      description: 'Free demo games',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.6',
+      ratingCount: '500+',
+    },
+  }
+
   return (
     <>
+      <JsonLd data={organizationSchema} />
       <SiteHeader lang={lang} />
 
       <main id="main-content" role="main">
@@ -391,7 +414,7 @@ export function HomePage({ lang }: HomePageProps) {
                 </p>
                 <ul className="seo-list">
                   <li className="seo-list-item"><strong>Вариативность механик.</strong> Каскадные символы, расширяющиеся «вайлды», раунды «Pick & Click», многоуровневые фриспин-сессии — каждая категория предлагает собственный игровой цикл.</li>
-                  <li className="seo-list-item"><strong>Прозрачная математика.</strong> Перед запуском лучших слотов на деньги вы видите три ключевых параметра: RTP (процент возврата), волатильность (частота и размер выигрышей) и максимальный коэффициент за один раунд.</li>
+                  <li className="seo-list-item"><strong>Прозрачная математика.</strong> Перед запуском лучших слотов на деньги вы видите три ключевых параметра: RTP (процент возвра��а), волатильность (частота и размер выигрышей) и максимальный коэффициент за один раунд.</li>
                   <li className="seo-list-item"><strong>Диапазон ставок.</strong> От минимальных (подходит для долгих сессий с низким риском) до крупных — для опытных игроков, ищущих высокую ��тдачу при высокой волатильности.</li>
                 </ul>
                 <p className="seo-body">

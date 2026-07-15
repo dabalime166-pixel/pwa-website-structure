@@ -18,6 +18,15 @@ export const metadata: Metadata = {
     description: i18n.en.metaDescHome,
     url: 'https://www.1weapp.online/en',
     locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: 'https://raw.githubusercontent.com/dabalime133/ava/main/og-picture.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Play Free Demo Games - 1weapp',
+      },
+    ],
   },
 }
 

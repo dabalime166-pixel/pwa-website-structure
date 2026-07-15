@@ -18,6 +18,15 @@ export const metadata: Metadata = {
     description: i18n.ru.metaDescHome,
     url: 'https://www.1weapp.online/ru',
     locale: 'ru_RU',
+    type: 'website',
+    images: [
+      {
+        url: 'https://raw.githubusercontent.com/dabalime133/ava/main/og-picture.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Играй в бесплатные демо игры - 1weapp',
+      },
+    ],
   },
 }
 
