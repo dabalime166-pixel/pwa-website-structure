@@ -10,9 +10,10 @@ interface SiteHeaderProps {
 export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
   const t = i18n[lang]
 
-  // ИСПРАВЛЕНИЕ 1: Ссылки для переключателя языков. 
-  // Если мы на английском, корень — это '/', а не '/en'. Если на конкретной игре — убираем дублирование.
-  const enHref = gameSlug ? `/${gameSlug}` : '/'
+  // Language switcher links — always preserve locale prefix
+  // Game pages: /en/lucky-jet ↔ /ru/lucky-jet
+  // Home pages: / ↔ /ru
+  const enHref = gameSlug ? `/en/${gameSlug}` : '/'
   const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
   
   // ИСПРАВЛЕНИЕ 2: Пути для разделов гайдов.

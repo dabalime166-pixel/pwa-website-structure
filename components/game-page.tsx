@@ -4,7 +4,7 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { GameCard } from '@/components/game-card'
 import { GameViewer } from '@/components/game-viewer'
-import { games, getGame, getSeoText, getKeywords, formatSeoText, CTA_URL, i18n } from '@/lib/games'
+import { games, getGame, getSeoText, getKeywords, formatSeoText, CTA_URL, i18n, getGameRating } from '@/lib/games'
 import type { Lang, Game } from '@/lib/games'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
@@ -16,6 +16,7 @@ interface GamePageProps {
 
 function buildJsonLd(game: Game, lang: Lang): string {
   const isEn = lang === 'en'
+  const { rating, reviewCount } = getGameRating(game.name)
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -31,8 +32,8 @@ function buildJsonLd(game: Game, lang: Lang): string {
     url: `https://www.1weapp.online/${lang}/${game.slug}`,
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: '4.7',
-      reviewCount: '284',
+      ratingValue: rating.toString(),
+      reviewCount: reviewCount.toString(),
       bestRating: '5',
       worstRating: '1',
     },

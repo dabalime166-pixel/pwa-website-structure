@@ -28,6 +28,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     alternateLocale: 'ru_RU',
     siteName: '1weapp',
+    images: [
+      {
+        url: 'https://raw.githubusercontent.com/dabalime133/ava/main/og-picture.jpg',
+        width: 1200,
+        height: 630,
+        alt: '1weapp - Play Free Demo Games',
+      },
+    ],
   },
   robots: {
     index: true,
