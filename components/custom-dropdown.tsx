@@ -114,8 +114,6 @@ export function CustomDropdown({
             borderRadius: '0.5rem',
             boxShadow: '0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(218, 165, 32, 0.1)',
             zIndex: 1000,
-            maxHeight: 'min(400px, 60vh)',
-            overflowY: 'auto',
             backdropFilter: 'blur(8px)',
           }}
         >
