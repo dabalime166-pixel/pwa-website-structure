@@ -112,7 +112,7 @@ export async function generateMetadata({
     description,
     keywords,
     alternates: {
-      canonical: `${BASE}/guides/${slug}`,
+      canonical: `${BASE}/guides/${slug}/`,
       languages: {
         ru: `${BASE}/guides/${slug}`,
         en: `https://www.1weapp.online/en/guides/${slug}`,
