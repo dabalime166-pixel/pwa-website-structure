@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     keywords,
     alternates: {
-      canonical: `https://www.1weapp.online/ru/${slug}/`,
+      canonical: `https://www.1weapp.online/ru/${slug}`,
       languages: {
         ru: `https://www.1weapp.online/ru/${slug}`,
         en: `https://www.1weapp.online/en/${slug}`,

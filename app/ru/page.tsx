@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: i18n.ru.metaTitleHome,
   description: i18n.ru.metaDescHome,
   alternates: {
-    canonical: 'https://www.1weapp.online/ru/',
+    canonical: 'https://www.1weapp.online/ru',
     languages: {
       ru: 'https://www.1weapp.online/ru',
       en: 'https://www.1weapp.online/en',
