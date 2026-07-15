@@ -44,7 +44,7 @@ export function CustomDropdown({
         position: 'relative',
         display: 'inline-block',
         width: '100%',
-        maxWidth: '200px',
+        maxWidth: 'clamp(140px, 30vw, 220px)',
       }}
     >
       <button
@@ -53,12 +53,12 @@ export function CustomDropdown({
         onClick={() => setIsOpen(!isOpen)}
         style={{
           width: '100%',
-          padding: '0.625rem 0.875rem',
+          padding: 'clamp(0.5rem, 2vw, 0.625rem) clamp(0.75rem, 3vw, 0.875rem)',
           background: 'var(--color-bg-secondary)',
           color: 'var(--color-text-primary)',
           border: '1.5px solid var(--color-gold)',
           borderRadius: '0.5rem',
-          fontSize: '0.9rem',
+          fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
           fontWeight: 500,
           cursor: 'pointer',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -66,6 +66,7 @@ export function CustomDropdown({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          minHeight: 'clamp(40px, 10vw, 48px)',
         }}
         onMouseEnter={(e) => {
           if (!isOpen) {
@@ -108,16 +109,17 @@ export function CustomDropdown({
             left: 0,
             right: 0,
             marginTop: '0.5rem',
-            background: 'var(--color-bg-secondary)',
+            background: 'linear-gradient(135deg, var(--color-bg-surface) 0%, var(--color-bg-secondary) 100%)',
             border: '1.5px solid var(--color-gold)',
             borderRadius: '0.5rem',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(218, 165, 32, 0.1)',
             zIndex: 1000,
-            maxHeight: '300px',
+            maxHeight: 'min(400px, 60vh)',
             overflowY: 'auto',
+            backdropFilter: 'blur(8px)',
           }}
         >
-          {options.map((option) => (
+          {options.map((option, index) => (
             <button
               key={option.value}
               type="button"
@@ -127,22 +129,26 @@ export function CustomDropdown({
               }}
               style={{
                 width: '100%',
-                padding: '0.75rem 0.875rem',
+                padding: 'clamp(0.625rem, 2vw, 0.875rem)',
                 background:
-                  option.value === value ? 'var(--color-gold)' : 'transparent',
+                  option.value === value
+                    ? 'linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%)'
+                    : 'transparent',
                 color:
                   option.value === value
                     ? 'var(--color-bg-primary)'
                     : 'var(--color-text-primary)',
-                border: 'none',
+                border: index === 0 ? 'none' : '1px solid rgba(218, 165, 32, 0.08)',
+                borderTop: index === 0 ? 'none' : undefined,
                 textAlign: 'left',
                 cursor: 'pointer',
-                fontSize: '0.9rem',
-                transition: 'all 0.15s',
+                fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+                fontWeight: option.value === value ? 600 : 500,
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
               onMouseEnter={(e) => {
                 if (option.value !== value) {
-                  e.currentTarget.style.background = 'rgba(218, 165, 32, 0.15)'
+                  e.currentTarget.style.background = 'rgba(218, 165, 32, 0.12)'
                 }
               }}
               onMouseLeave={(e) => {
