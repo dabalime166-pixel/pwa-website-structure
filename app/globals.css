@@ -970,11 +970,12 @@ img { display: block; max-width: 100%; height: auto; }
 .guides-topbar__inner {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 1.25rem;
-  height: 48px;
+  padding: 0 1.5rem;
+  height: 52px;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
+  border-top: 1px solid rgba(218, 165, 32, 0.15);
 }
 .guides-topbar__sep {
   width: 1px;
