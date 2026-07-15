@@ -140,61 +140,115 @@ export function GameViewer({
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '500px',
-            gap: '1.5rem',
+            gap: '0',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          <div style={{ textAlign: 'center' }}>
+          {/* Decorative background elements */}
+          <div
+            style={{
+              position: 'absolute',
+              width: '300px',
+              height: '300px',
+              background: 'radial-gradient(circle, rgba(218, 165, 32, 0.08) 0%, transparent 70%)',
+              borderRadius: '50%',
+              top: '-100px',
+              left: '-50px',
+              pointerEvents: 'none',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              width: '250px',
+              height: '250px',
+              background: 'radial-gradient(circle, rgba(218, 165, 32, 0.05) 0%, transparent 70%)',
+              borderRadius: '50%',
+              bottom: '-80px',
+              right: '-30px',
+              pointerEvents: 'none',
+            }}
+          />
+
+          {/* Content container */}
+          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 2rem' }}>
+            {/* Play icon accent */}
+            <div
+              style={{
+                width: '80px',
+                height: '80px',
+                margin: '0 auto 2rem',
+                background: 'linear-gradient(135deg, rgba(218, 165, 32, 0.2) 0%, rgba(218, 165, 32, 0.1) 100%)',
+                border: '2px solid rgba(218, 165, 32, 0.3)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--color-gold)" aria-hidden="true">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+
+            {/* Title and description */}
             <h3
               style={{
-                fontSize: '1.25rem',
+                fontSize: '2rem',
                 fontWeight: 700,
                 color: 'var(--color-text-primary)',
                 marginBottom: '0.75rem',
+                letterSpacing: '-0.02em',
               }}
             >
               {readyTitle}
             </h3>
             <p
               style={{
-                fontSize: '0.95rem',
+                fontSize: '1rem',
                 color: 'var(--color-text-secondary)',
+                marginBottom: '2.5rem',
+                maxWidth: '320px',
               }}
             >
               {readyDescription}
             </p>
-          </div>
 
-          <button
-            onClick={launchDemo}
-            style={{
-              padding: '0.875rem 2.5rem',
-              background: 'linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%)',
-              color: 'var(--color-bg-primary)',
-              border: 'none',
-              borderRadius: '0.5rem',
-              fontSize: '1rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 4px 12px rgba(218, 165, 32, 0.3)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)'
-              e.currentTarget.style.boxShadow = '0 8px 16px rgba(218, 165, 32, 0.4)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(218, 165, 32, 0.3)'
-            }}
-            aria-label={launchLabel}
-          >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-              {launchLabel}
-            </span>
-          </button>
+            {/* Launch button */}
+            <button
+              onClick={launchDemo}
+              style={{
+                padding: '1.125rem 3rem',
+                background: 'linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%)',
+                color: 'var(--color-bg-primary)',
+                border: 'none',
+                borderRadius: '0.75rem',
+                fontSize: '1.0625rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 8px 24px rgba(218, 165, 32, 0.35)',
+                letterSpacing: '0.02em',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)'
+                e.currentTarget.style.boxShadow = '0 12px 32px rgba(218, 165, 32, 0.45)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)'
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(218, 165, 32, 0.35)'
+              }}
+              aria-label={launchLabel}
+            >
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', justifyContent: 'center' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                {launchLabel}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     )
