@@ -16,7 +16,20 @@ export const metadata: Metadata = {
     template: '%s | 1weapp',
   },
   description:
-    'Play crash games and slots in free demo mode. No registration needed. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
+    'Play free demo crash games and slots online. No registration, no deposit required. Enjoy Lucky Jet, Gates of Olympus, Sweet Bonanza, Mines and 50+ more games.',
+  keywords: [
+    'crash games',
+    'slot games',
+    'online casino',
+    'free demo games',
+    'Lucky Jet',
+    'Gates of Olympus',
+    'Sweet Bonanza',
+    'crash game demo',
+    'play for free',
+    'no registration',
+    'online gambling games',
+  ],
  metadataBase: new URL('https://www.1weapp.online'),
   manifest: '/manifest.json',
   icons: {
