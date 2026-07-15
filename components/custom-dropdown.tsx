@@ -107,14 +107,13 @@ export function CustomDropdown({
             position: 'absolute',
             top: '100%',
             left: 0,
-            right: 0,
+            minWidth: '100%',
             marginTop: '0.5rem',
-            background: 'linear-gradient(135deg, var(--color-bg-surface) 0%, var(--color-bg-secondary) 100%)',
+            background: 'var(--color-bg-secondary)',
             border: '1.5px solid var(--color-gold)',
             borderRadius: '0.5rem',
             boxShadow: '0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(218, 165, 32, 0.1)',
             zIndex: 1000,
-            backdropFilter: 'blur(8px)',
           }}
         >
           {options.map((option, index) => (
@@ -126,23 +125,27 @@ export function CustomDropdown({
                 setIsOpen(false)
               }}
               style={{
+                display: 'block',
                 width: '100%',
-                padding: 'clamp(0.625rem, 2vw, 0.875rem)',
+                padding: '0.75rem 0.875rem',
                 background:
                   option.value === value
-                    ? 'linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%)'
+                    ? 'var(--color-gold)'
                     : 'transparent',
                 color:
                   option.value === value
                     ? 'var(--color-bg-primary)'
                     : 'var(--color-text-primary)',
-                border: index === 0 ? 'none' : '1px solid rgba(218, 165, 32, 0.08)',
-                borderTop: index === 0 ? 'none' : undefined,
+                border: 'none',
+                borderTop: index === 0 ? 'none' : '1px solid rgba(218, 165, 32, 0.08)',
                 textAlign: 'left',
                 cursor: 'pointer',
-                fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+                fontSize: '0.9rem',
                 fontWeight: option.value === value ? 600 : 500,
                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
               onMouseEnter={(e) => {
                 if (option.value !== value) {
