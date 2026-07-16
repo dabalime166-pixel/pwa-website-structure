@@ -14,8 +14,8 @@ Edit `/lib/games-data.json` to customize SEO for each game:
 {
   "slug": "lucky-jet",
   "name": "Lucky Jet",
-  "titleSeoEn": "Lucky Jet Strategy Guide 2025 — How to Win | 1weapp",
-  "titleSeoRu": "Стратегия Lucky Jet 2025 — Как выиграть | 1weapp",
+  "titleSeoEn": "Lucky Jet Strategy Guide 2026 — How to Win | 1weapp",
+  "titleSeoRu": "Стратегия Lucky Jet 2026 — Как выиграть | 1weapp",
   "descriptionSeoEn": "Master Lucky Jet with expert strategies, best multiplier targets, bankroll rules and proven tactics.",
   "descriptionSeoRu": "Полный гайд по Lucky Jet: стратегии, выбор множителя, управление банкроллом и советы."
 }
@@ -44,10 +44,10 @@ Edit `/lib/guides-data.ts` to customize SEO for each guide:
 {
   id: 'plinko',
   titleEn: 'Plinko Mechanics',
-  titleSeoEn: 'Plinko Strategy Guide 2025 — How to Win at Plinko Online | 1weapp',
+  titleSeoEn: 'Plinko Strategy Guide 2026 — How to Win at Plinko Online | 1weapp',
   descriptionSeoEn: 'Master Plinko with our expert strategy guide...',
   titleRu: 'Механика Plinko',
-  titleSeoRu: 'Стратегия Плинко 2025 — Как выиграть в Plinko онлайн | 1weapp',
+  titleSeoRu: 'Стратегия Плинко 2026 — Как выиграть в Plinko онлайн | 1weapp',
   descriptionSeoRu: 'Полный гайд по Плинко: теория вероятностей...',
 }
 ```
@@ -79,8 +79,8 @@ To override the auto-generated title for "Lucky Jet" on both EN and RU:
 2. Find the "lucky-jet" entry
 3. Add or update:
    ```json
-   "titleSeoEn": "Lucky Jet Strategy Guide 2025 — Master the Multiplier | 1weapp",
-   "titleSeoRu": "Стратегия Lucky Jet 2025 — Как выиграть в краш-игре | 1weapp"
+   "titleSeoEn": "Lucky Jet Strategy Guide 2026 — Master the Multiplier | 1weapp",
+   "titleSeoRu": "Стратегия Lucky Jet 2026 — Как выиграть в краш-игре | 1weapp"
    ```
 4. Deploy — changes are live immediately
 
@@ -92,9 +92,9 @@ To override the SEO for the "Mines" guide:
 2. Find the Mines guide object (id: 'mines')
 3. Add or update:
    ```typescript
-   titleSeoEn: 'Mines Game Strategy 2025 — Expert Tips & Winning Tactics | 1weapp',
+   titleSeoEn: 'Mines Game Strategy 2026 — Expert Tips & Winning Tactics | 1weapp',
    descriptionSeoEn: 'Learn the best Mines strategies for online casinos...',
-   titleSeoRu: 'Стратегия Мины 2025 — Лучшие тактики и советы | 1weapp',
+   titleSeoRu: 'Стратегия Мины 22026 — Лучшие тактики и советы | 1weapp',
    descriptionSeoRu: 'Полный гайд по игре Мины в онлайн-казино...',
    ```
 4. Deploy — changes are live immediately
