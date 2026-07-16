@@ -145,7 +145,7 @@ export const i18n = {
     games: 'All Games',
     demo: 'Demo',
     breadcrumbHome: 'Home',
-    metaTitleHome: 'Play Free Demo — Crash Games & Slots',
+    metaTitleHome: 'Best Free Slots: Spin & Play with Bonus Rounds | 1Weаpp',
     metaDescHome:
       'Free demo versions of the best crash games and slots. No registration. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
     filterAll: 'All',
@@ -160,7 +160,7 @@ export const i18n = {
     games: 'Все игры',
     demo: 'Демо',
     breadcrumbHome: 'Главная',
-    metaTitleHome: 'Играть в демо — Краш игры и слоты',
+    metaTitleHome: 'Бесплатные Слот Игры Без Регистрации: Демо с Бонусами | 1WeApp',
     metaDescHome:
       'Бесплатные демо-версии лучших краш игр и слотов. Без регистрации. Lucky Jet, Gates of Olympus, Sweet Bonanza и другие.',
     filterAll: 'Все',
