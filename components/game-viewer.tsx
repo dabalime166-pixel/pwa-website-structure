@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 
 interface GameViewerProps {
   iframeUrl: string
@@ -45,6 +45,47 @@ function ShrinkIcon() {
   )
 }
 
+function getFullscreenElement(): Element | null {
+  const doc = document as Document & {
+    webkitFullscreenElement?: Element | null
+  }
+  return document.fullscreenElement ?? doc.webkitFullscreenElement ?? null
+}
+
+async function requestFs(el: HTMLElement): Promise<boolean> {
+  const node = el as HTMLElement & {
+    webkitRequestFullscreen?: () => Promise<void> | void
+  }
+  try {
+    if (el.requestFullscreen) {
+      await el.requestFullscreen()
+      return true
+    }
+    if (node.webkitRequestFullscreen) {
+      await node.webkitRequestFullscreen()
+      return true
+    }
+  } catch {
+    return false
+  }
+  return false
+}
+
+async function exitFs(): Promise<void> {
+  const doc = document as Document & {
+    webkitExitFullscreen?: () => Promise<void> | void
+  }
+  try {
+    if (getFullscreenElement() && document.exitFullscreen) {
+      await document.exitFullscreen()
+    } else if (doc.webkitExitFullscreen) {
+      await doc.webkitExitFullscreen()
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
 export function GameViewer({
   iframeUrl,
   gameName,
@@ -57,49 +98,104 @@ export function GameViewer({
 }: GameViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [iframeLaunched, setIframeLaunched] = useState(false)
+  const [cssFallback, setCssFallback] = useState(false)
+  const shellRef = useRef<HTMLDivElement>(null)
 
-  const openFullscreen = useCallback(() => setIsFullscreen(true), [])
-  const closeFullscreen = useCallback(() => setIsFullscreen(false), [])
+  useEffect(() => {
+    const sync = () => {
+      const el = shellRef.current
+      const native = Boolean(el && getFullscreenElement() === el)
+      if (native) {
+        setCssFallback(false)
+        setIsFullscreen(true)
+        return
+      }
+      if (!cssFallback) setIsFullscreen(false)
+    }
+
+    document.addEventListener('fullscreenchange', sync)
+    document.addEventListener('webkitfullscreenchange', sync)
+    return () => {
+      document.removeEventListener('fullscreenchange', sync)
+      document.removeEventListener('webkitfullscreenchange', sync)
+    }
+  }, [cssFallback])
+
+  useEffect(() => {
+    if (!cssFallback) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setCssFallback(false)
+        setIsFullscreen(false)
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+    }
+  }, [cssFallback])
+
+  const openFullscreen = useCallback(async () => {
+    const el = shellRef.current
+    if (!el) return
+    const ok = await requestFs(el)
+    if (ok) {
+      setIsFullscreen(true)
+      setCssFallback(false)
+      return
+    }
+    // iOS / restricted browsers: CSS full-viewport fallback
+    setCssFallback(true)
+    setIsFullscreen(true)
+  }, [])
+
+  const closeFullscreen = useCallback(async () => {
+    if (getFullscreenElement()) await exitFs()
+    setCssFallback(false)
+    setIsFullscreen(false)
+  }, [])
+
   const launchDemo = useCallback(() => setIframeLaunched(true), [])
 
-  const IframeEl = (
-    <iframe
-      src={iframeUrl}
-      title={`${gameName} ${demoBadge}`}
-      allow="autoplay; fullscreen"
-      loading="lazy"
-      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-    />
-  )
+  const shellClass = [
+    'game-frame-shell',
+    isFullscreen && cssFallback ? 'game-frame-shell--fs' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
-  if (isFullscreen) {
-    return (
-      <div className="game-fullscreen-overlay" role="dialog" aria-modal="true" aria-label={`${gameName} fullscreen`}>
-        <div className="game-frame-bar">
-          <GoldDots />
-          <span className="game-frame-bar__title">{gameName}</span>
-          <button onClick={closeFullscreen} className="btn-fullscreen" aria-label={closeLabel}>
-            <ShrinkIcon />
-            {closeLabel}
+  return (
+    <div
+      ref={shellRef}
+      className={shellClass}
+      role="region"
+      aria-label={`${gameName} game window`}
+    >
+      <div className="game-frame-bar">
+        <GoldDots />
+        <span className="game-frame-bar__title">
+          {gameName}
+          <span className="game-frame-bar__badge">{demoBadge}</span>
+        </span>
+        {iframeLaunched ? (
+          <button
+            type="button"
+            onClick={isFullscreen ? closeFullscreen : openFullscreen}
+            className="btn-fullscreen"
+            aria-label={isFullscreen ? closeLabel : fullscreenLabel}
+          >
+            {isFullscreen ? <ShrinkIcon /> : <FullscreenIcon />}
+            {isFullscreen ? closeLabel : fullscreenLabel}
           </button>
-        </div>
-        {IframeEl}
-      </div>
-    )
-  }
-
-  if (!iframeLaunched) {
-    return (
-      <div className="game-frame-shell" role="region" aria-label={`${gameName} game window`}>
-        <div className="game-frame-bar">
-          <GoldDots />
-          <span className="game-frame-bar__title">
-            {gameName}
-            <span className="game-frame-bar__badge">{demoBadge}</span>
-          </span>
+        ) : (
           <span className="game-frame-bar__spacer" aria-hidden="true" />
-        </div>
+        )}
+      </div>
 
+      {!iframeLaunched ? (
         <div className="game-frame-body game-frame-body--launch">
           <div className="game-launch" aria-hidden="true">
             <div className="game-launch__orb game-launch__orb--a" />
@@ -114,7 +210,12 @@ export function GameViewer({
             </div>
             <h3 className="game-launch__title">{readyTitle}</h3>
             <p className="game-launch__desc">{readyDescription}</p>
-            <button onClick={launchDemo} className="btn-cta game-launch__btn" aria-label={launchLabel}>
+            <button
+              type="button"
+              onClick={launchDemo}
+              className="btn-cta game-launch__btn"
+              aria-label={launchLabel}
+            >
               <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
@@ -122,25 +223,18 @@ export function GameViewer({
             </button>
           </div>
         </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="game-frame-shell" role="region" aria-label={`${gameName} game window`}>
-      <div className="game-frame-bar">
-        <GoldDots />
-        <span className="game-frame-bar__title">
-          {gameName}
-          <span className="game-frame-bar__badge">{demoBadge}</span>
-        </span>
-        <button onClick={openFullscreen} className="btn-fullscreen" aria-label={fullscreenLabel}>
-          <FullscreenIcon />
-          {fullscreenLabel}
-        </button>
-      </div>
-
-      <div className="game-frame-body">{IframeEl}</div>
+      ) : (
+        <div className="game-frame-body">
+          <iframe
+            src={iframeUrl}
+            title={`${gameName} ${demoBadge}`}
+            allow="autoplay; fullscreen"
+            allowFullScreen
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          />
+        </div>
+      )}
     </div>
   )
 }

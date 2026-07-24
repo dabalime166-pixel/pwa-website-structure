@@ -889,7 +889,7 @@ img { display: block; max-width: 100%; height: auto; }
   max-width: 1280px;
   margin: 0 auto;
   padding: 1.25rem 1rem 4.5rem;
-  isolation: isolate;
+  z-index: 0;
 }
 .game-page__atmosphere {
   position: absolute;
@@ -897,7 +897,7 @@ img { display: block; max-width: 100%; height: auto; }
   height: min(52vh, 420px);
   overflow: hidden;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
   border-radius: 0 0 2rem 2rem;
 }
 .game-page__atmosphere-img {
@@ -917,11 +917,14 @@ img { display: block; max-width: 100%; height: auto; }
 .game-page__breadcrumb {
   margin-bottom: 1.5rem;
   position: relative;
+  z-index: 1;
 }
 .breadcrumb-current { color: var(--color-text-primary); }
 
 /* Hero */
 .gp-hero {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: clamp(1rem, 3vw, 1.75rem);
@@ -1018,6 +1021,8 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Play zone: viewer + aside */
 .gp-play {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
@@ -1158,6 +1163,8 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Highlights strip */
 .gp-highlights {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
@@ -1195,6 +1202,8 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* About / SEO */
 .gp-about {
+  position: relative;
+  z-index: 1;
   margin: 0 0 3rem;
   padding: 1.75rem 0 0;
   border-top: 1px solid var(--color-border);
@@ -1221,6 +1230,8 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Related games */
 .games-related {
+  position: relative;
+  z-index: 1;
   margin: 0 0 1rem;
 }
 .games-related__head {
@@ -1554,26 +1565,47 @@ img { display: block; max-width: 100%; height: auto; }
   }
 }
 
-/* Fullscreen overlay */
-.game-fullscreen-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-}
-.game-fullscreen-overlay .game-frame-bar {
-  flex-shrink: 0;
-  border-radius: 0;
-}
-.game-fullscreen-overlay iframe {
-  flex: 1;
+/* Native + CSS fullscreen for game shell (no iframe remount) */
+.game-frame-shell:fullscreen,
+.game-frame-shell:-webkit-full-screen {
   width: 100%;
   height: 100%;
+  border-radius: 0;
   border: none;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+.game-frame-shell:fullscreen .game-frame-body,
+.game-frame-shell:-webkit-full-screen .game-frame-body,
+.game-frame-shell--fs .game-frame-body {
+  flex: 1;
+  padding-bottom: 0 !important;
+  max-height: none !important;
+  height: 100%;
   min-height: 0;
+}
+.game-frame-shell:fullscreen .game-frame-bar,
+.game-frame-shell:-webkit-full-screen .game-frame-bar,
+.game-frame-shell--fs .game-frame-bar {
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+/* CSS fallback when Fullscreen API is unavailable (e.g. some mobile browsers) */
+.game-frame-shell--fs {
+  position: fixed !important;
+  inset: 0;
+  z-index: 10000;
+  width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  box-shadow: none;
 }
 
 /* ── SEO text block ── */
