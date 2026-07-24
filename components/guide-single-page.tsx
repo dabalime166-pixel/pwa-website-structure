@@ -1,14 +1,26 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { GUIDES } from '@/lib/guides-data';
-import type { Section } from '@/lib/guides-data';
+import Link from 'next/link'
+import { useState } from 'react'
+import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
+import { GUIDES } from '@/lib/guides-data'
+import type { Section } from '@/lib/guides-data'
+import { CTA_URL } from '@/lib/games'
 
-/* ─── Section Renderer (shared) ─── */
+function slugifyHeading(text: string, idx: number): string {
+  const base = text
+    .toLowerCase()
+    .replace(/[^a-z0-9а-яё]+/gi, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 48)
+  return `s${idx + 1}-${base || 'section'}`
+}
+
 function GuideSection({ section, idx }: { section: Section; idx: number }) {
+  const id = slugifyHeading(section.heading, idx)
   return (
-    <div className="guide-section">
+    <section className="guide-section" id={id}>
       <h2 className="guide-section__heading">
         <span className="guide-section__num">0{idx + 1}</span>
         {section.heading}
@@ -22,14 +34,16 @@ function GuideSection({ section, idx }: { section: Section; idx: number }) {
       )}
       {section.body2 && <p className="guide-section__body">{section.body2}</p>}
       {section.callout && (
-        <div className="guide-callout">
-          <span className="guide-callout__icon" aria-hidden="true">!</span>
+        <aside className="guide-callout">
+          <span className="guide-callout__icon" aria-hidden="true">
+            !
+          </span>
           <p className="guide-callout__text">{section.callout}</p>
-        </div>
+        </aside>
       )}
       {section.bullets && section.bullets.length > 0 && (
         <ul className="guide-bullets" role="list">
-          {section.bullets.map((b: string, i: number) => (
+          {section.bullets.map((b, i) => (
             <li key={i} className="guide-bullets__item">
               <span className="guide-bullets__dot" aria-hidden="true" />
               {b}
@@ -39,11 +53,11 @@ function GuideSection({ section, idx }: { section: Section; idx: number }) {
       )}
       {section.strategies && section.strategies.length > 0 && (
         <div className="guide-strategies">
-          {section.strategies.map((s: { title: string; bullets: string[] }, i: number) => (
+          {section.strategies.map((s, i) => (
             <div key={i} className="guide-strategy-card">
               <p className="guide-strategy-card__title">{s.title}</p>
               <ul className="guide-bullets" role="list">
-                {s.bullets.map((b: string, j: number) => (
+                {s.bullets.map((b, j) => (
                   <li key={j} className="guide-bullets__item">
                     <span className="guide-bullets__dot" aria-hidden="true" />
                     {b}
@@ -54,70 +68,92 @@ function GuideSection({ section, idx }: { section: Section; idx: number }) {
           ))}
         </div>
       )}
-    </div>
-  );
+    </section>
+  )
 }
 
-/* ─── Individual Guide Page ─── */
 export default function GuideSinglePage({
   slug,
   lang,
   jsonLd,
 }: {
-  slug: string;
-  lang: 'en' | 'ru';
-  jsonLd?: string;
+  slug: string
+  lang: 'en' | 'ru'
+  jsonLd?: string
 }) {
-  const isEn = lang === 'en';
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const isEn = lang === 'en'
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  const guide = GUIDES.find((g) => g.id === slug);
-  if (!guide) return null;
+  const guide = GUIDES.find((g) => g.id === slug)
+  if (!guide) return null
 
-  const sections = isEn ? guide.sections.en : guide.sections.ru;
-  const title    = isEn ? guide.titleEn    : guide.titleRu;
-  const subtitle = isEn ? guide.subtitleEn : guide.subtitleRu;
-  const tag      = isEn ? guide.tagEn      : guide.tagRu;
+  const sections = isEn ? guide.sections.en : guide.sections.ru
+  const title = isEn ? guide.titleEn : guide.titleRu
+  const subtitle = isEn ? guide.subtitleEn : guide.subtitleRu
+  const tag = isEn ? guide.tagEn : guide.tagRu
+  const keywords = isEn ? guide.keywordsEn : guide.keywordsRu
+  const idx = GUIDES.findIndex((g) => g.id === slug)
+  const prev = GUIDES[idx - 1]
+  const next = GUIDES[idx + 1]
+  const related = GUIDES.filter((g) => g.id !== slug).slice(
+    Math.max(0, idx - 1),
+    Math.max(0, idx - 1) + 3
+  )
 
   return (
     <>
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
-      <main className="guides-main">
+      <SiteHeader lang={lang} />
 
-      {/* ── Sticky top bar ── */}
-      <div className="guides-topbar">
-        <div className="guides-topbar__inner">
+      <main id="main-content" className="guide-page">
+        <div className="guide-page__glow" aria-hidden="true" />
 
-          {/* Back to guides index */}
-          <Link
-            href={`/${lang}/guides`}
-            className="guides-back__link"
-            aria-label={isEn ? 'Back to guides' : 'Назад к гайдам'}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            <span className="guides-back__label">{isEn ? 'Guides' : 'Гайды'}</span>
-          </Link>
+        <nav aria-label="Breadcrumb" className="guide-page__breadcrumb">
+          <ol className="breadcrumb">
+            <li>
+              <Link href={`/${lang}`}>{isEn ? 'Home' : 'Главная'}</Link>
+            </li>
+            <li aria-hidden="true" className="breadcrumb-sep">
+              /
+            </li>
+            <li>
+              <Link href={`/${lang}/guides`}>{isEn ? 'Guides' : 'Гайды'}</Link>
+            </li>
+            <li aria-hidden="true" className="breadcrumb-sep">
+              /
+            </li>
+            <li>
+              <span className="breadcrumb-current" aria-current="page">
+                {title}
+              </span>
+            </li>
+          </ol>
+        </nav>
 
-          <span aria-hidden="true" className="guides-topbar__sep" />
-
-          {/* Guide picker dropdown */}
+        <div className="guide-page__toolbar">
           <div className="guides-dropdown" style={{ position: 'relative' }}>
             <button
+              type="button"
               className="guides-dropdown__trigger"
               onClick={() => setDropdownOpen((v) => !v)}
               aria-haspopup="listbox"
               aria-expanded={dropdownOpen}
               aria-label={isEn ? 'Switch guide' : 'Сменить гайд'}
             >
-              <span className="guides-dropdown__icon" aria-hidden="true">{guide.icon}</span>
+              <span className="guides-dropdown__icon" aria-hidden="true">
+                {guide.icon}
+              </span>
               <span className="guides-dropdown__current">{title}</span>
               <svg
                 className={`guides-dropdown__chevron${dropdownOpen ? ' guides-dropdown__chevron--open' : ''}`}
-                width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 aria-hidden="true"
               >
                 <polyline points="6 9 12 15 18 9" />
@@ -131,8 +167,11 @@ export default function GuideSinglePage({
                   onClick={() => setDropdownOpen(false)}
                   aria-hidden="true"
                 />
-                <ul className="guides-dropdown__menu" role="listbox"
-                  aria-label={isEn ? 'All guides' : 'Все гайды'}>
+                <ul
+                  className="guides-dropdown__menu"
+                  role="listbox"
+                  aria-label={isEn ? 'All guides' : 'Все гайды'}
+                >
                   {GUIDES.map((g) => (
                     <li key={g.id} role="option" aria-selected={g.id === slug}>
                       <Link
@@ -140,7 +179,9 @@ export default function GuideSinglePage({
                         className={`guides-dropdown__item${g.id === slug ? ' guides-dropdown__item--active' : ''}`}
                         onClick={() => setDropdownOpen(false)}
                       >
-                        <span className="guides-dropdown__item-icon" aria-hidden="true">{g.icon}</span>
+                        <span className="guides-dropdown__item-icon" aria-hidden="true">
+                          {g.icon}
+                        </span>
                         <span className="guides-dropdown__item-text">
                           <span className="guides-dropdown__item-title">
                             {isEn ? g.titleEn : g.titleRu}
@@ -149,13 +190,6 @@ export default function GuideSinglePage({
                             {isEn ? g.tagEn : g.tagRu}
                           </span>
                         </span>
-                        {g.id === slug && (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                            strokeLinejoin="round" aria-hidden="true">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        )}
                       </Link>
                     </li>
                   ))}
@@ -164,142 +198,140 @@ export default function GuideSinglePage({
             )}
           </div>
 
-          <div style={{ flex: 1 }} />
+          <p className="guide-page__readtime">
+            {isEn
+              ? `${Math.max(3, sections.length + 1)} min read`
+              : `${Math.max(3, sections.length + 1)} мин чтения`}
+          </p>
+        </div>
 
-         {/* Language switcher — keep locale prefix (/en/... or /ru/...) */}
-<nav aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
-  <Link
-    href={`/en/guides/${slug}`}
-    hrefLang="en"
-    className={`lang-btn${isEn ? ' active' : ''}`}
-    aria-current={isEn ? 'true' : undefined}
-  >
-    EN
-  </Link>
-  <Link
-    href={`/ru/guides/${slug}`}
-    hrefLang="ru"
-    className={`lang-btn${!isEn ? ' active' : ''}`}
-    aria-current={!isEn ? 'true' : undefined}
-  >
-    RU
-  </Link>
-</nav>
-</div>
-</div>
+        <header className="guide-hero">
+          <span className="guide-hero__eyebrow">{tag}</span>
+          <h1 className="guide-hero__title">{title}</h1>
+          <p className="guide-hero__sub">{subtitle}</p>
 
-      {/* Hero */}
-      <header className="guides-hero">
-        <span className="guides-hero__eyebrow">{tag}</span>
-        <h1 className="guides-hero__title">{title}</h1>
-        <p className="guides-hero__sub">{subtitle}</p>
-      </header>
+          <div className="guide-hero__keys" aria-label={isEn ? 'Focus phrases' : 'Фокус-фразы'}>
+            {keywords.map((k) => (
+              <span key={k} className="guide-hero__key">
+                {k}
+              </span>
+            ))}
+          </div>
+        </header>
 
-      {/* Content */}
-      <div className="guides-content-wrap">
-
-        {/* Sidebar — table of contents */}
-        <aside className="guides-sidebar" aria-label={isEn ? 'Contents' : 'Содержание'}>
-          <div className="guides-sidebar__card">
-            <span className="guides-sidebar__icon" aria-hidden="true">{guide.icon}</span>
-            <p className="guides-sidebar__tag">{tag}</p>
-            <p className="guides-sidebar__title">{title}</p>
-            <p className="guides-sidebar__sub">{subtitle}</p>
-            <ol className="guides-sidebar__toc" aria-label={isEn ? 'Table of contents' : 'Содержание'}>
+        <div className="guide-layout">
+          <aside className="guide-toc" aria-label={isEn ? 'Contents' : 'Содержание'}>
+            <p className="guide-toc__label">{isEn ? 'On this page' : 'На этой странице'}</p>
+            <ol className="guide-toc__list">
               {sections.map((s, i) => (
-                <li key={i} className="guides-sidebar__toc-item">
-                  <span className="guides-sidebar__toc-num">0{i + 1}</span>
-                  <span className="guides-sidebar__toc-label">{s.heading}</span>
+                <li key={i}>
+                  <a href={`#${slugifyHeading(s.heading, i)}`} className="guide-toc__link">
+                    <span className="guide-toc__num">0{i + 1}</span>
+                    <span>{s.heading}</span>
+                  </a>
                 </li>
               ))}
             </ol>
 
-            {/* Prev / Next */}
-            <div className="guide-single__nav">
-              {(() => {
-                const idx = GUIDES.findIndex((g) => g.id === slug);
-                const prev = GUIDES[idx - 1];
-                const next = GUIDES[idx + 1];
-                return (
-                  <>
-                    {prev && (
-                      <Link href={`/${lang}/guides/${prev.id}`} className="guide-single__nav-link">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                          strokeLinejoin="round" aria-hidden="true">
-                          <polyline points="15 18 9 12 15 6" />
-                        </svg>
-                        {isEn ? prev.titleEn : prev.titleRu}
-                      </Link>
-                    )}
-                    {next && (
-                      <Link href={`/${lang}/guides/${next.id}`} className="guide-single__nav-link guide-single__nav-link--next">
-                        {isEn ? next.titleEn : next.titleRu}
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                          strokeLinejoin="round" aria-hidden="true">
-                          <polyline points="9 18 15 12 9 6" />
-                        </svg>
-                      </Link>
-                    )}
-                  </>
-                );
-              })()}
+            <div className="guide-toc__cta">
+              <p>
+                {isEn
+                  ? 'Practice the idea in a free demo first.'
+                  : 'Сначала отработайте идею в бесплатном демо.'}
+              </p>
+              <a
+                href={CTA_URL}
+                rel="noopener noreferrer nofollow sponsored"
+                target="_blank"
+                className="btn-cta"
+              >
+                {isEn ? 'Play for Real Money' : 'Играть на деньги'}
+              </a>
+              <p className="guide-toc__legal">
+                {isEn ? '18+ · Gamble responsibly' : '18+ · Играйте ответственно'}
+              </p>
             </div>
-          </div>
-        </aside>
+          </aside>
 
-        {/* Article */}
-        <article className="guides-article" aria-label={title}>
-          {sections.map((section, idx) => (
-            <GuideSection key={idx} section={section} idx={idx} />
-          ))}
+          <article className="guide-article" aria-label={title}>
+            <div className="guide-takeaway">
+              <p className="guide-takeaway__label">
+                {isEn ? 'What you will learn' : 'Что вы узнаете'}
+              </p>
+              <ul className="guide-takeaway__list">
+                {keywords.map((k) => (
+                  <li key={k}>{k}</li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Bottom prev/next for mobile */}
-          <div className="guide-single__bottom-nav">
-            {(() => {
-              const idx = GUIDES.findIndex((g) => g.id === slug);
-              const prev = GUIDES[idx - 1];
-              const next = GUIDES[idx + 1];
-              return (
-                <div className="guide-single__bottom-row">
-                  {prev ? (
-                    <Link href={`/${lang}/guides/${prev.id}`} className="guide-single__bottom-btn">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                        strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="15 18 9 12 15 6" />
-                      </svg>
-                      <span>
-                        <span className="guide-single__bottom-label">{isEn ? 'Previous' : 'Назад'}</span>
-                        <span className="guide-single__bottom-title">
-                          {isEn ? prev.titleEn : prev.titleRu}
-                        </span>
-                      </span>
-                    </Link>
-                  ) : <div />}
-                  {next ? (
-                    <Link href={`/${lang}/guides/${next.id}`} className="guide-single__bottom-btn guide-single__bottom-btn--next">
-                      <span>
-                        <span className="guide-single__bottom-label">{isEn ? 'Next' : 'Далее'}</span>
-                        <span className="guide-single__bottom-title">
-                          {isEn ? next.titleEn : next.titleRu}
-                        </span>
-                      </span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                        strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="9 18 15 12 9 6" />
-                      </svg>
-                    </Link>
-                  ) : <div />}
-                </div>
-              );
-            })()}
-          </div>
-        </article>
-      </div>
-    </main>
+            {sections.map((section, i) => (
+              <GuideSection key={i} section={section} idx={i} />
+            ))}
+
+            <div className="guide-article__footer">
+              <p>
+                {isEn
+                  ? 'Use demos to verify timing and volatility before any real-money decision.'
+                  : 'Проверяйте темп и волатильность в демо до любых решений на деньги.'}
+              </p>
+              <p className="guide-toc__legal">
+                {isEn ? '18+ · Gamble responsibly · T&C apply' : '18+ · Играйте ответственно · Применяются условия'}
+              </p>
+            </div>
+
+            <nav className="guide-pager" aria-label={isEn ? 'Guide navigation' : 'Навигация по гайдам'}>
+              {prev ? (
+                <Link href={`/${lang}/guides/${prev.id}`} className="guide-pager__link">
+                  <span className="guide-pager__dir">{isEn ? 'Previous' : 'Назад'}</span>
+                  <span className="guide-pager__title">{isEn ? prev.titleEn : prev.titleRu}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {next ? (
+                <Link
+                  href={`/${lang}/guides/${next.id}`}
+                  className="guide-pager__link guide-pager__link--next"
+                >
+                  <span className="guide-pager__dir">{isEn ? 'Next' : 'Далее'}</span>
+                  <span className="guide-pager__title">{isEn ? next.titleEn : next.titleRu}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+            </nav>
+          </article>
+        </div>
+
+        {related.length > 0 && (
+          <section className="guide-related" aria-labelledby="guide-related-heading">
+            <div className="guide-related__head">
+              <span className="guide-related__label">{isEn ? 'Keep learning' : 'Читать дальше'}</span>
+              <h2 id="guide-related-heading" className="guide-related__title">
+                {isEn ? 'Related guides' : 'Похожие гайды'}
+              </h2>
+            </div>
+            <div className="guide-related__grid">
+              {related.map((g) => (
+                <Link key={g.id} href={`/${lang}/guides/${g.id}`} className="guide-related__card">
+                  <span className="guide-related__icon" aria-hidden="true">
+                    {g.icon}
+                  </span>
+                  <span className="guide-related__card-title">
+                    {isEn ? g.titleEn : g.titleRu}
+                  </span>
+                  <span className="guide-related__card-sub">
+                    {isEn ? g.subtitleEn : g.subtitleRu}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+      </main>
+
+      <SiteFooter lang={lang} />
     </>
-  );
+  )
 }

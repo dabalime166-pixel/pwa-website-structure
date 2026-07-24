@@ -28,64 +28,62 @@ function buildGuideJsonLd(guide: GuideData, slug: string): string {
   })
 }
 
-/* ─── Default SEO-optimised titles & descriptions per guide (EN) ─── */
-/* Override these by setting titleSeoEn/descriptionSeoEn in lib/guides-data.ts */
+/* Default SEO fallbacks — prefer GuideData titleSeo / descriptionSeo / keywords fields */
 const SEO: Record<string, { title: string; description: string; keywords: string }> = {
   plinko: {
-    title: 'Plinko Strategy Guide 2026 — How to Win at Plinko Online | 1weapp',
+    title: 'Plinko Low Risk Strategy Demo — Rows & Odds Guide | 1weapp',
     description:
-      'Master Plinko with our expert strategy guide. Learn probability theory, optimal risk settings, bankroll management, and how RTP affects your long-term results.',
+      'Learn plinko low risk strategy demo, how plinko demo rows affect odds, and risk level settings — practice free before real play.',
     keywords:
-      'plinko strategy, plinko guide, how to win plinko, plinko tips, plinko online, plinko probability, plinko rtp',
+      'plinko low risk strategy demo, how plinko demo rows affect odds, plinko risk level settings guide',
   },
   mines: {
-    title: 'Mines Game Strategy Guide 2026 — Best Tactics & How to Win | 1weapp',
+    title: 'Mines 3 Bombs Strategy — Cashout Timing Demo Guide | 1weapp',
     description:
-      'Learn the best Mines strategies: combinatorics explained, how to choose the right mine count, volatility management, and when to cash out for maximum profit.',
-    keywords:
-      'mines game strategy, mines tips, how to win mines, mines crash game, mines tactics, mines rtp, mines volatility',
+      'Learn mines 3 bombs strategy, cashout timing, and how to play mines demo with no deposit before real stakes.',
+    keywords: 'mines 3 bombs strategy, mines cashout timing guide, play mines demo no deposit',
   },
   crash: {
-    title: 'Crash Game Strategy Guide 2026 — When to Cash Out & How to Win | 1weapp',
+    title: 'Crash Auto Cashout Strategy — Timing & Demo Tactics | 1weapp',
     description:
-      'Discover proven Crash game strategies — auto-cashout tactics, Martingale vs flat betting, psychological traps, and bankroll rules every serious player must know.',
+      'Learn crash auto cashout strategy, when to cash out crash games, and lucky jet demo cashout tactics before real stakes.',
     keywords:
-      'crash game strategy, crash game tips, how to win crash, auto cashout crash, crash game guide, lucky jet strategy',
+      'crash auto cashout strategy, when to cash out crash games, lucky jet demo cashout tactics',
   },
   mistakes: {
-    title: 'Top 7 Gambling Mistakes to Avoid in 2026 — iGaming Player Guide | 1weapp',
+    title: 'Online Casino Beginner Mistakes — Chasing Losses & Bankroll | 1weapp',
     description:
-      'Avoid the most costly gambling mistakes: chasing losses, no bankroll plan, ignoring RTP, and more. A must-read guide for every online casino player.',
+      'The costliest online casino beginner mistakes, why chasing losses fails, and bankroll management for new players.',
     keywords:
-      'gambling mistakes, casino mistakes, online gambling tips, how to gamble smarter, avoid losing casino, player mistakes guide',
+      'online casino beginner mistakes, why chasing losses fails, bankroll management for new players',
   },
   rtp: {
-    title: 'RTP & Volatility Guide 2026 — What They Mean and How to Use Them | 1weapp',
+    title: 'Slot RTP Explained Simply — Volatility & Bankroll Fit | 1weapp',
     description:
-      'Understand RTP and volatility in online slots and crash games. Learn how to pick the right games for your bankroll style and maximise long-term returns.',
+      'Slot rtp explained simply, how slot volatility and bankroll interact, and when high rtp low volatility slots fit your sessions.',
     keywords:
-      'rtp guide, what is rtp, slot volatility, high volatility slots, low volatility slots, rtp vs volatility, best rtp slots',
+      'slot rtp explained simply, slot volatility and bankroll, high rtp low volatility slots',
   },
   bonuses: {
-    title: 'Casino Bonus Guide 2026 — How to Claim & Clear Bonuses the Right Way | 1weapp',
+    title: 'Casino Wagering Requirement Explained — Free Spins & Traps | 1weapp',
     description:
-      'Everything you need to know about casino bonuses: welcome bonuses, free spins, wagering requirements, cashback, and how to choose the most profitable offers.',
+      'Casino wagering requirement explained, free spins wagering terms clarified, and welcome bonus traps to avoid.',
     keywords:
-      'casino bonus guide, wagering requirements, free spins guide, welcome bonus casino, how to clear wagering, best casino bonuses 2026',
+      'casino wagering requirement explained, free spins wagering terms, welcome bonus traps to avoid',
   },
   responsible: {
-    title: 'Responsible Gambling Guide 2026 — Bankroll Management & Safe Play | 1weapp',
+    title: 'Online Casino Deposit Limit Guide — Session Limits & Checklist | 1weapp',
     description:
-      'Play smarter and safer with our responsible gambling guide. Covers session budgets, the 1-3% rule, self-exclusion tools, and the warning signs of problem gambling.',
+      'Set an online casino deposit limit, use a problem gambling warning signs checklist, and learn how to set casino session limits.',
     keywords:
-      'responsible gambling, bankroll management, problem gambling signs, deposit limits, self exclusion casino, safe gambling tips',
+      'online casino deposit limit guide, problem gambling warning signs checklist, how to set casino session limits',
   },
   myths: {
-    title: 'Online Slot Myths Debunked 2026 — Casino Facts vs Fiction | 1weapp',
+    title: 'Hot and Cold Slots Myth — RNG & Due Payout Explained | 1weapp',
     description:
-      'We bust 8 common slot and casino myths: hot/cold machines, guaranteed win streaks, unbeatable strategies. Learn what really determines your results.',
+      'Why the hot and cold slots myth persists, whether you can beat slot rng, and why the due payout after losing streak myth is costly.',
     keywords:
-      'casino myths, slot myths, online slot facts, hot cold slots myth, gambling myths debunked, casino rng truth',
+      'hot and cold slots myth, can you beat slot rng, due payout after losing streak myth',
   },
 }
 
@@ -102,10 +100,11 @@ export async function generateMetadata({
   const guide = GUIDES.find((g) => g.id === slug)
   if (!guide) return {}
 
-  // Use custom SEO fields if provided, otherwise fall back to defaults
+  // Prefer custom SEO fields + low-frequency keyword list from guides-data
   const title = guide.titleSeoEn ?? SEO[slug]?.title ?? `${guide.titleEn} — iGaming Strategy Guide | 1weapp`
   const description = guide.descriptionSeoEn ?? SEO[slug]?.description ?? guide.subtitleEn
-  const keywords = SEO[slug]?.keywords ?? guide.tagEn
+  const keywords =
+    guide.keywordsEn?.join(', ') || SEO[slug]?.keywords || guide.tagEn
 
   return {
     title,

@@ -205,6 +205,13 @@ export default function GuidesIndexPage({ lang }: Props) {
                 <p className="guides-hub__card-desc">
                   {isEn ? guide.subtitleEn : guide.subtitleRu}
                 </p>
+                <div className="guides-hub__card-keys" aria-hidden="true">
+                  {(isEn ? guide.keywordsEn : guide.keywordsRu).slice(0, 2).map((k) => (
+                    <span key={k} className="guides-hub__card-key">
+                      {k}
+                    </span>
+                  ))}
+                </div>
                 <span className="guides-hub__card-tag">
                   {isEn ? guide.tagEn : guide.tagRu}
                 </span>

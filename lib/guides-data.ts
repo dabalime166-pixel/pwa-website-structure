@@ -1,37 +1,35 @@
 /* ─── Types ─── */
 export interface Section {
-  heading: string;
-  body?: string;
-  body2?: string;
-  formula?: string;
-  bullets?: string[];
-  callout?: string;
-  strategies?: { title: string; bullets: string[] }[];
+  heading: string
+  body?: string
+  body2?: string
+  formula?: string
+  bullets?: string[]
+  callout?: string
+  strategies?: { title: string; bullets: string[] }[]
 }
 
 export interface GuideData {
-  id: string;
-  slug: string;
-  icon: string;
-  titleRu: string;
-  titleEn: string;
-  subtitleRu: string;
-  subtitleEn: string;
-  tagRu: string;
-  tagEn: string;
-  /** SEO meta description (RU) */
-  descriptionRu: string;
-  /** SEO meta description (EN) */
-  descriptionEn: string;
-  /** Custom SEO page title (RU) — if empty, uses titleRu as page title */
-  titleSeoRu?: string;
-  /** Custom SEO page title (EN) — if empty, uses titleEn as page title */
-  titleSeoEn?: string;
-  /** Custom SEO page description (RU) — if empty, uses descriptionRu */
-  descriptionSeoRu?: string;
-  /** Custom SEO page description (EN) — if empty, uses descriptionEn */
-  descriptionSeoEn?: string;
-  sections: { ru: Section[]; en: Section[] };
+  id: string
+  slug: string
+  icon: string
+  titleRu: string
+  titleEn: string
+  subtitleRu: string
+  subtitleEn: string
+  tagRu: string
+  tagEn: string
+  /** 2–3 low-frequency focus phrases (RU) */
+  keywordsRu: string[]
+  /** 2–3 low-frequency focus phrases (EN) */
+  keywordsEn: string[]
+  descriptionRu: string
+  descriptionEn: string
+  titleSeoRu?: string
+  titleSeoEn?: string
+  descriptionSeoRu?: string
+  descriptionSeoEn?: string
+  sections: { ru: Section[]; en: Section[] }
 }
 
 /* ─── Data ─── */
@@ -41,127 +39,127 @@ export const GUIDES: GuideData[] = [
     id: 'plinko',
     slug: 'plinko',
     icon: '◉',
-    titleRu: 'Механика Plinko',
-    titleEn: 'Plinko Mechanics',
-    subtitleRu: 'Анализ распределения вероятностей в доске Гальтона',
-    subtitleEn: 'Analyzing probability distribution in the Galton board',
-    tagRu: 'RTP 97–99%',
-    tagEn: 'RTP 97–99%',
+    titleRu: 'Plinko стратегия низкий риск',
+    titleEn: 'Plinko Low Risk Strategy Demo',
+    subtitleRu: 'Как работает Plinko демо, ряды и риск — без депозита',
+    subtitleEn: 'How Plinko demo rows and risk settings change your odds',
+    tagRu: 'Механика',
+    tagEn: 'Mechanics',
+    keywordsRu: [
+      'plinko стратегия низкий риск',
+      'как работает plinko демо',
+      'plinko количество рядов влияние',
+    ],
+    keywordsEn: [
+      'plinko low risk strategy demo',
+      'how plinko demo rows affect odds',
+      'plinko risk level settings guide',
+    ],
     descriptionRu:
-      'Полный гайд по механике Plinko: биномиальное распределение, уровни риска, стратегии мани-менеджмента и RTP 97–99%. Узнайте, как работает доска Гальтона в онлайн-казино.',
+      'Практический гайд: plinko стратегия низкий риск, как работает plinko демо и как количество рядов влияет на множители. Без депозита, 18+.',
     descriptionEn:
-      'Complete Plinko strategy guide: binomial distribution, risk levels, bankroll management and RTP 97–99%. Learn how the Galton board works in online casinos.',
+      'Practical guide to plinko low risk strategy demo, how plinko demo rows affect odds, and risk level settings. No deposit, 18+.',
+    titleSeoRu: 'Plinko стратегия низкий риск — как работает демо | 1weapp',
+    titleSeoEn: 'Plinko Low Risk Strategy Demo — Rows & Odds Guide | 1weapp',
+    descriptionSeoRu:
+      'Разбор: plinko стратегия низкий риск, как работает plinko демо и влияние количества рядов на множители. Тренируйтесь без депозита.',
+    descriptionSeoEn:
+      'Learn plinko low risk strategy demo, how plinko demo rows affect odds, and risk level settings — practice free before real play.',
     sections: {
       ru: [
         {
-          heading: 'Введение: Как физический эксперимент стал хитом iGaming',
-          body: 'Индустрия современных аркадных игр часто черпает вдохновение в классических физических и математических моделях. Ярчайшим примером стала интеграция механики Plinko — игры, основанной на Доске Гальтона. В условиях онлайн-платформ традиционная математическая модель получила цифровую надстройку, позволяющую динамически управлять математическим ожиданием, количеством рядов и уровнем риска.',
+          heading: 'Как работает Plinko демо',
+          body: 'Если вы ищете, как работает plinko демо, начните с простой модели: шарик падает через ряды колышков и с равной вероятностью уходит влево или вправо. Центральные лунки чаще, крайние — редко, но с высокими множителями. Демо повторяет ту же математику, что и режим на деньги, только баланс виртуальный.',
+          callout: 'Сначала 50–100 дропов в демо — так вы увидите разброс без риска депозита.',
         },
         {
-          heading: '1. Математический базис: биномиальное распределение',
-          body: 'Шарик падает через пирамидальную матрицу колышков. На каждом уровне он с равной вероятностью отклоняется влево или вправо — классическая последовательность независимых испытаний Бернулли. Вероятность попадания в определённую лунку:',
-          formula: 'P(k) = C(n, k) × p^k × (1 − p)^(n − k)',
-          body2:
-            'Центральные лунки имеют максимальную вероятность (коэффициент < 1.00x), крайние — минимальную вероятность, но экстремальные множители до 1000x и выше.',
+          heading: 'Plinko количество рядов: влияние на шансы',
+          body: 'Ключевой параметр — plinko количество рядов влияние на крайние коэффициенты. Больше рядов (14–16) = выше потолок множителя, но ниже шанс крайнего кармана. Меньше рядов (8–10) = спокойнее сессия и чаще мелкие возвраты.',
+          formula: 'P(k) = C(n, k) × 0.5ⁿ',
           bullets: [
-            'Количество рядов (Lines): от 8 до 16. Больше рядов — выше крайние множители, ниже их вероятность.',
-            'Уровень риска: Низкий / Средний / Высокий — меняет веса коэффициентов без изменения геометрии доски.',
+            '8–10 рядов — удобный старт для обучения траекториям',
+            '12 рядов — баланс частоты и потолка множителя',
+            '14–16 рядов — редкие «краевые» выплаты, длинные сухие серии',
           ],
         },
         {
-          heading: '2. Психология падения: почему визуализация формирует доверие',
-          body: 'Успех Plinko во многом связан со спецификой визуального восприятия траектории.',
-          bullets: [
-            'Эффект «Почти у цели» (Near-Miss): шарик 12 рядов движется к 1000x, но на последних колышках уходит в центр. Пользователь воспринимает это как случайность, а не математический закон.',
-            'Пакетные запуски: возможность запускать десятки шаров подряд превращает игру в медитативное наблюдение за траекториями и снижает критичность оценки общего баланса.',
-          ],
-        },
-        {
-          heading: '3. Аналитические стратегии и управление дисперсией',
-          body: 'Удержание RTP 97–99% требует понимания соотношения настроек и размера банкролла.',
+          heading: 'Plinko стратегия низкий риск на практике',
+          body: 'Рабочая plinko стратегия низкий риск строится на короткой доске и профиле Low/Medium. Цель — не поймать 1000x, а понять темп сессии: как часто центр отдаёт 0.5x–0.9x и как ведёт себя банкролл за 100 дропов.',
           strategies: [
             {
-              title: 'Стратегия «Центральный накопитель» — низкая волатильность',
+              title: 'Низкий риск — учебный режим',
               bullets: [
-                '8–10 рядов, низкий или средний риск',
-                'Центр возвращает 0.5x – 0.9x ставки, края ограничены 5x – 10x',
-                'Минимизирует просадку, идеально для вейджера',
+                '8–10 рядов, риск Low или Medium',
+                'Ставка ≤ 0.5% виртуального банка на шар',
+                'Фиксируйте Stop-Loss на сессию заранее',
               ],
             },
             {
-              title: 'Стратегия «Крайний пик» — экстремальная дисперсия',
+              title: 'Высокий риск — только после демо',
               bullets: [
-                '14–16 рядов, высокий риск',
-                'Вероятность крайней лунки < 0.003%',
-                'Банкролл должен выдержать 500–1000 ставок до одного попадания в угол',
+                '14–16 рядов и High risk',
+                'Банк должен выдержать сотни дропов без края',
+                'Не повышайте ставку после near-miss у 1000x',
               ],
             },
           ],
         },
         {
-          heading: '4. Законы безопасного мани-менеджмента',
-          callout:
-            'Никогда не ставьте более 0.5% от банка на один шар, особенно при пакетных запусках.',
+          heading: 'Короткий чеклист перед реальной игрой',
           bullets: [
-            'Смена режима при просадке: 200 циклов без множителя >20x — снизьте количество линий.',
-            'Авто-игра: обязательно выставляйте Stop Loss и Take Profit.',
+            'Проверили влияние рядов в демо',
+            'Выбрали риск под длину сессии',
+            'Задали лимит просадки и не меняете его «на эмоциях»',
           ],
+          callout: 'Демо нужно, чтобы изучить механику. Играйте ответственно, 18+.',
         },
       ],
       en: [
         {
-          heading: 'Introduction: How a Physics Experiment Became an iGaming Phenomenon',
-          body: "The modern arcade gaming industry frequently derives inspiration from classical physics. The most prominent implementation is Plinko — rooted in Sir Francis Galton's invention. Within online platforms, this mathematical engine received a digital layer allowing users to dynamically configure expectation, row layout, and baseline risk indexes.",
+          heading: 'How Plinko demo rows affect odds',
+          body: 'If you want to know how plinko demo rows affect odds, start with the Galton model: each peg deflects left or right with equal chance. Center pockets hit often; edges are rare but pay large multipliers. Demo uses the same engine as real-money mode with virtual credits.',
+          callout: 'Run 50–100 free drops first so you feel variance without a deposit.',
         },
         {
-          heading: '1. Mathematical Foundation: Binomial Distribution and Bernoulli Trials',
-          body: "A ball descends through a pyramidal peg matrix. At each row it deflects left or right with equal probability — a textbook sequence of Bernoulli trials. Landing probability follows Pascal's Triangle:",
-          formula: 'P(k) = C(n, k) × p^k × (1 − p)^(n − k)',
-          body2:
-            'Central pockets have maximum probability (coefficients < 1.00x); outer pockets have minimal probability but extreme multipliers up to 1000x+.',
+          heading: 'Plinko risk level settings guide',
+          body: 'This plinko risk level settings guide is simple: Low/Medium reallocates payout weights toward the center; High pushes value into the edges. Row count and risk stack — changing both at once makes sessions harder to read.',
+          formula: 'P(k) = C(n, k) × 0.5ⁿ',
           bullets: [
-            'Row Density (Lines): scalable 8–16. More rows = higher outer multipliers, lower probability of reaching them.',
-            'Risk Level: Low / Medium / High — reallocates coefficient weights without altering board geometry.',
+            '8–10 rows — calmer learning loop',
+            '12 rows — middle ground for frequency vs ceiling',
+            '14–16 rows — rare edge hits and longer dry spells',
           ],
         },
         {
-          heading: '2. The Psychology of Descent: Why Visualization Solidifies Trust',
-          body: "Plinko's global traction is tied to trajectory visualization.",
-          bullets: [
-            'Near-Miss Phenomenon: a ball accelerates toward 1000x for 12 rows, deflects on the last two pins. Players process this as bad luck, not mathematical law.',
-            'Continuous Batch Processing: dropping dozens of balls blurs individual losses, creating a meditative engagement that diminishes objective bankroll assessment.',
-          ],
-        },
-        {
-          heading: '3. Strategic Architectures and Variance Management',
-          body: 'Sustaining the 97–99% RTP threshold demands strict harmonization between board variables and asset depth.',
+          heading: 'Plinko low risk strategy demo in practice',
+          body: 'A solid plinko low risk strategy demo focuses on short boards and Low/Medium risk. You are not hunting 1000x — you are measuring how often small returns appear and how a 100-drop sample moves the bankroll.',
           strategies: [
             {
-              title: 'Conservative Central Strategy — Low Volatility',
+              title: 'Low-risk learning mode',
               bullets: [
-                '8–10 lines, low or medium risk profile',
-                'Central buckets return 0.5x–0.9x; margins bounded by 5x–10x',
-                'Limits aggressive drawdowns, optimal for wagering',
+                '8–10 rows with Low or Medium risk',
+                'Stake ≤ 0.5% of virtual bankroll per ball',
+                'Set a session stop-loss before you start',
               ],
             },
             {
-              title: 'Outlier Peak Model — High Variance',
+              title: 'High-risk only after demo practice',
               bullets: [
-                '14–16 lines, high risk profile',
-                'Terminal edge probability < 0.003% on 16 rows',
-                'Bankroll must sustain 500–1000 wagers before a margin strike',
+                '14–16 rows with High risk',
+                'Bankroll must survive hundreds of misses',
+                'Never raise stake after a near-miss at the edge',
               ],
             },
           ],
         },
         {
-          heading: '4. Rigid Asset Allocation Protocols',
-          callout:
-            'Never assign more than 0.5% of total capital to an individual drop, especially during mass batch deployments.',
+          heading: 'Pre-real checklist',
           bullets: [
-            'Dynamic Re-indexing: no multipliers >20x across 200 cycles — compress line allocation.',
-            'Automated Safety: always define strict Stop-Loss and Take-Profit caps.',
+            'You tested row count impact in demo',
+            'Risk profile matches your session length',
+            'Loss limit is fixed and not renegotiated mid-tilt',
           ],
+          callout: 'Use demo to learn the loop. Play responsibly, 18+ only.',
         },
       ],
     },
@@ -172,126 +170,111 @@ export const GUIDES: GuideData[] = [
     id: 'mines',
     slug: 'mines',
     icon: '◆',
-    titleRu: 'Стратегия Mines',
-    titleEn: 'Mines Strategy',
-    subtitleRu: 'Управление волатильностью в кастомных смарт-контрактах',
-    subtitleEn: 'Volatility control in customizable smart contracts',
-    tagRu: 'RTP 97%',
-    tagEn: 'RTP 97%',
+    titleRu: 'Mines стратегия 3 мины',
+    titleEn: 'Mines 3 Bombs Strategy',
+    subtitleRu: 'Когда делать кэшаут и как играть mines демо без депозита',
+    subtitleEn: 'Cashout timing and how to play mines demo with no deposit',
+    tagRu: 'Тактика',
+    tagEn: 'Tactics',
+    keywordsRu: [
+      'mines стратегия 3 мины',
+      'mines когда делать кэшаут',
+      'как играть mines демо без депозита',
+    ],
+    keywordsEn: [
+      'mines 3 bombs strategy',
+      'mines cashout timing guide',
+      'play mines demo no deposit',
+    ],
     descriptionRu:
-      'Гайд по игре Mines: комбинаторика матрицы 5×5, стратегии управления волатильностью, кэшаут и мани-менеджмент. RTP 97%, Provably Fair.',
+      'Гайд: mines стратегия 3 мины, mines когда делать кэшаут и как играть mines демо без депозита. RTP ~97%, 18+.',
     descriptionEn:
-      'Mines strategy guide: 5×5 grid combinatorics, volatility control, cashout timing and bankroll management. RTP 97%, Provably Fair mechanics explained.',
+      'Guide covering mines 3 bombs strategy, mines cashout timing guide, and how to play mines demo no deposit. RTP ~97%, 18+.',
+    titleSeoRu: 'Mines стратегия 3 мины — кэшаут и демо без депозита | 1weapp',
+    titleSeoEn: 'Mines 3 Bombs Strategy — Cashout Timing Demo Guide | 1weapp',
+    descriptionSeoRu:
+      'Разберите mines стратегию 3 мины, когда делать кэшаут и как тренироваться в mines демо без депозита.',
+    descriptionSeoEn:
+      'Learn mines 3 bombs strategy, cashout timing, and how to play mines demo with no deposit before real stakes.',
     sections: {
       ru: [
         {
-          heading: 'Введение: новая эра гибкого настраиваемого риска',
-          body: 'Современные Instant-игры дают пользователю возможность самостоятельно определять уровень волатильности каждого раунда. Игра Мины (Mines) исторически восходит к Сапёру, но в iGaming превратилась в аналитический инструмент, где знание комбинаторики способно кардинально изменить результаты.',
-        },
-        {
-          heading: '1. Архитектура: комбинаторика квадратного поля',
-          body: 'Игровое пространство — матрица 5×5 из 25 закрытых ячеек. Игрок задаёт количество мин (от 1 до 24). С каждым успешным кликом множитель растёт, но и вероятность ошибки увеличивается. Вероятность успеха на первом шаге:',
+          heading: 'Как играть mines демо без депозита',
+          body: 'Если цель — понять, как играть mines демо без депозита, откройте раунд на виртуальных кредитах и зафиксируйте число мин до первого клика. На поле 5×5 каждая безопасная клетка поднимает множитель и одновременно повышает шанс попасть на мину на следующем шаге.',
           formula: 'P(1) = (25 − M) / 25',
-          body2:
-            'На каждом следующем шаге знаменатель уменьшается на 1 — формируется динамическая прогрессия риска.',
-          callout:
-            'Честность подтверждается SHA-256: хэш расположения мин передаётся игроку до начала раунда.',
+          callout: 'Демо показывает ту же комбинаторику — меняется только валюта баланса.',
         },
         {
-          heading: '2. Психология дискретного выбора и когнитивные ловушки',
-          body: 'Mines создаёт уникальное когнитивное давление — без внешнего таймера игрок сам управляет темпом.',
-          bullets: [
-            'Паттерны удачи: диагонали и углы не снижают вероятность мины — каждая генерация независима.',
-            'Sunk Cost Fallacy: открыв 4 из 5 ячеек, игроки делают пятый шаг вместо математически обоснованного кэшаута.',
-          ],
-          callout:
-            'Главный барьер в Mines — отсутствие таймера. Игра заставляет вести диалог с собственной жадностью.',
-        },
-        {
-          heading: '3. Математические стратегии и кастомизация волатильности',
-          body: 'Для удержания RTP ≈ 97% опытные аналитики используют два полярных подхода.',
+          heading: 'Mines стратегия 3 мины',
+          body: 'Популярная mines стратегия 3 мины держит риск умеренным: на старте шанс безопасной клетки ≈ 88%. Это удобный учебный режим — множитель растёт заметно, но сессия не ломается от одного агрессивного клика.',
           strategies: [
             {
-              title: 'Тактика «Низкий риск — Длинная дистанция»',
+              title: 'План на 3 мины',
               bullets: [
-                '1–3 мины; открывать 3–5 ячеек за раунд',
-                'Вероятность безопасного шага >80%',
-                'Плавный рост множителей; идеально для вейджера',
+                'Откройте 3–5 клеток и оцените темп множителя',
+                'Не увеличивайте число мин «чтобы быстрее отыграться»',
+                'Ведите учёт: сколько раундов закрыли в плюс vs в минус',
               ],
             },
             {
-              title: 'Тактика «Охота за экстремальными множителями»',
+              title: 'Когда усложнять',
               bullets: [
-                '10–15 мин; жёсткий лимит 1–2 клика',
-                'Два успешных клика при 10 минах — ставка растёт более чем в 3 раза',
-                'Требует значительного запаса прочности банкролла',
+                'Переход на 5–8 мин только после 30+ спокойных демо-раундов',
+                'Сверьте длину сухих серий с размером банка',
+                'Высокий mine-count = короче целевая глубина открытия',
               ],
             },
           ],
         },
         {
-          heading: '4. Алгоритм правильного мани-менеджмента',
-          callout:
-            'Определите конфигурацию (например: 3 мины, 4 клика) ДО начала сессии — не меняйте её импульсивно.',
+          heading: 'Mines: когда делать кэшаут',
+          body: 'Вопрос mines когда делать кэшаут важнее «угадай паттерн». Заранее выберите целевой множитель (например 1.5x–2.5x на 3 минах) и выходите по плану, а не по ощущению «ещё одна клетка точно безопасна».',
           bullets: [
-            'Масштабирование: базовая ставка при >7 минах — не более 1% от баланса.',
-            'Фиксация профита: при росте баланса на 30–50% закрывайте сессию.',
+            'Фиксируйте цель кэшаута до первого клика',
+            'После двух неудачных попыток подряд — пауза или меньше клеток',
+            'Не возвращайтесь в раунд, если уже нажали Cash Out',
           ],
+          callout: 'Эмоция «почти открыл всё поле» — главный враг дисциплины в Mines.',
         },
       ],
       en: [
         {
-          heading: 'Introduction: A New Era of Fully Customizable Risk',
-          body: 'Modern instant games offer unprecedented utility: independently calibrating the volatility index and house edge of each round. The Mines game, rooted in classic Minesweeper, has been re-engineered into a high-utility analytical environment where combinatorics knowledge can heavily dictate outcomes.',
-        },
-        {
-          heading: '1. Process Architecture: Combinatorics of the Square Grid',
-          body: 'A 5×5 matrix of 25 concealed tiles. Before each round, define stake and mine count (1–24). Each star tile increments the multiplier; a mine ends the round. Success probability on the first selection:',
+          heading: 'Play mines demo no deposit',
+          body: 'To play mines demo no deposit, start a round with virtual credits and lock mine count before the first click. On a 5×5 grid each safe tile raises the multiplier and also raises the chance the next pick is a bomb.',
           formula: 'P(1) = (25 − M) / 25',
-          body2: 'The denominator shrinks by 1 on every step, creating a compounding risk curve.',
-          callout:
-            'Fairness is enforced via SHA-256: the hash of mine positions is provided before tile selection.',
+          callout: 'Demo mirrors the same combinatorics — only the balance currency changes.',
         },
         {
-          heading: '2. Psychology of Discrete Decisions and Cognitive Traps',
-          body: 'Mines generates unique cognitive stress — no countdown timer means the player controls the tempo alone.',
-          bullets: [
-            'Availability Heuristics: diagonal or corner patterns do not lower mine probability. Every grid state is isolated.',
-            'Sunk Cost Fallacy: having cleared 4 of 5 tiles, players click a 5th due to perceived investment rather than assessing the probability drop.',
-          ],
-          callout:
-            'The definitive variable in Mines is the absence of a countdown timer — forcing an unmediated dialogue with individual risk tolerance.',
-        },
-        {
-          heading: '3. Mathematical Paradigms and Volatility Customization',
-          body: 'To sustain near-97% RTP performance, practitioners implement two polar tactical blueprints.',
+          heading: 'Mines 3 bombs strategy',
+          body: 'A practical mines 3 bombs strategy keeps risk readable: first-click safety is about 88%. Multipliers move enough to teach pacing without turning every round into a coin flip.',
           strategies: [
             {
-              title: 'Conservative Long-Tail Paradigm',
+              title: '3-bomb training plan',
               bullets: [
-                '1–3 mines; 3–5 tile exposures per cycle',
-                'Safe exposure probability remains >80%',
-                'Optimal for bankroll retention and wagering requirements',
+                'Open 3–5 tiles and watch multiplier growth',
+                'Do not raise mine count to “win it back faster”',
+                'Track how many rounds you cash out green vs bust',
               ],
             },
             {
-              title: 'High-Amplitude Velocity Strategy',
+              title: 'When to increase difficulty',
               bullets: [
-                '10–15 mines; 1–2 tile operational window',
-                'Two clicks against 10 mines scales principal by 300%+',
-                'Demands substantial structural asset depth',
+                'Move to 5–8 mines only after 30+ calm demo rounds',
+                'Compare dry streaks with bankroll depth',
+                'Higher mine count means a shorter open-depth target',
               ],
             },
           ],
         },
         {
-          heading: '4. Rigid Asset Management Protocols',
-          callout:
-            'Establish an immutable matrix profile (e.g., 3 mines, 4 clicks) before starting; eradicate all impulse modifications mid-cycle.',
+          heading: 'Mines cashout timing guide',
+          body: 'This mines cashout timing guide is rule-based: pick a target multiplier before round one (for example 1.5x–2.5x on 3 bombs) and exit on plan — not on the feeling that “one more tile is safe.”',
           bullets: [
-            'Proportional Scale: under high-density profiles (7+ mines), stake ≤ 1% of aggregate bankroll.',
-            'Voluntary Disconnect: upon 30–50% appreciation, conclude the session to mitigate cognitive fatigue.',
+            'Set the cashout target before the first click',
+            'After two busts in a row, pause or open fewer tiles',
+            'Never re-enter a round you already cashed out of',
           ],
+          callout: 'The “almost cleared the board” urge is the main discipline killer in Mines.',
         },
       ],
     },
@@ -302,134 +285,116 @@ export const GUIDES: GuideData[] = [
     id: 'crash',
     slug: 'crash',
     icon: '▲',
-    titleRu: 'Crash-игры',
-    titleEn: 'Crash Games',
-    subtitleRu: 'Психология быстрых выигрышей и управление рисками',
-    subtitleEn: 'Psychology of instant wins and risk management',
-    tagRu: 'RTP 96–97%',
-    tagEn: 'RTP 96–97%',
+    titleRu: 'Crash автокэшаут стратегия',
+    titleEn: 'Crash Auto Cashout Strategy',
+    subtitleRu: 'Когда выводить в краш-игре и тактика кэшаута в Lucky Jet демо',
+    subtitleEn: 'When to cash out crash games and Lucky Jet demo tactics',
+    tagRu: 'Краш',
+    tagEn: 'Crash',
+    keywordsRu: [
+      'crash автокэшаут стратегия',
+      'краш игра когда выводить',
+      'lucky jet демо тактика кэшаута',
+    ],
+    keywordsEn: [
+      'crash auto cashout strategy',
+      'when to cash out crash games',
+      'lucky jet demo cashout tactics',
+    ],
     descriptionRu:
-      'Гайд по Crash-играм: механика, психология азарта, стратегии авто-кэшаута, двойного покрытия и Анти-Мартингейл. RTP 96–97%, Provably Fair.',
+      'Гайд: crash автокэшаут стратегия, краш игра когда выводить и lucky jet демо тактика кэшаута. Без регистрации в демо, 18+.',
     descriptionEn:
-      'Crash game strategy guide: how mechanics work, psychology of risk, auto-cashout strategies, dual coverage and anti-Martingale. RTP 96–97%, Provably Fair.',
+      'Guide to crash auto cashout strategy, when to cash out crash games, and lucky jet demo cashout tactics. Free demo, 18+.',
+    titleSeoRu: 'Crash автокэшаут стратегия — когда выводить | 1weapp',
+    titleSeoEn: 'Crash Auto Cashout Strategy — Timing & Demo Tactics | 1weapp',
+    descriptionSeoRu:
+      'Разберите crash автокэшаут стратегию, решите краш игра когда выводить и отработайте lucky jet демо тактику кэшаута.',
+    descriptionSeoEn:
+      'Learn crash auto cashout strategy, when to cash out crash games, and lucky jet demo cashout tactics before real stakes.',
     sections: {
       ru: [
         {
-          heading: 'Введение: эволюция iGaming',
-          body: 'Индустрия онлайн-развлечений переживает фундаментальный сдвиг. Классические барабанные слоты уступают место интерактивным форматам. Crash-механики радикально меняют опыт: вместо пассивного наблюдения игрок становится активным участником.',
-        },
-        {
-          heading: '1. Анатомия Crash-механики: как это работает',
-          body: 'Игрок делает ставку, после чего множитель начинает расти с 1.00x. Задача — нажать «Кэшаут» до случайного краша. Если успел — ставка умножается. Если нет — ставка сгорает полностью.',
-          callout:
-            'Технология Provably Fair: хэш исхода раунда генерируется заранее из серверного хэша и клиентских сидов.',
-        },
-        {
-          heading: '2. Психология азарта: почему быстрые игры вызывают зависимость',
-          body: 'Crash-игры активируют систему вознаграждения мозга интенсивнее, чем стандартные автоматы.',
+          heading: 'Краш игра: когда выводить',
+          body: 'Главный вопрос краш игра когда выводить решается до ставки, а не в момент роста множителя. Вы заранее выбираете целевой коэффициент (например 1.40x–2.00x) и оцениваете, выдерживает ли банкролл серию ранних крашей.',
           bullets: [
-            'Иллюзия контроля: игрок сам выбирает момент кэшаута, и мозг интерпретирует успех как личный навык.',
-            'FOMO: наблюдая множители >50x у других игроков, пользователь дольше держит ставку — и рискует всем.',
-            'Эффект «Почти выигрыша»: краш на 1.98x при авто-кэшауте на 2.00x воспринимается как досадная случайность.',
+            'Низкая цель (1.2x–1.5x) — чаще мелкие плюсы, меньше эмоций',
+            'Средняя цель (1.8x–2.5x) — нужен запас на серию промахов',
+            'Высокая цель (5x+) — развлекательный режим, не «система»',
           ],
-          callout:
-            'Дофаминовый отклик генерируется в процессе ожидания роста множителя — именно тогда напряжение достигает пика.',
         },
         {
-          heading: '3. Стратегии риск-менеджмента',
-          body: 'Средний RTP качественных Crash-игр: 96.0–97.0%. Краткосрочные сессии могут быть высокодоходными при правильном подходе.',
+          heading: 'Crash автокэшаут стратегия',
+          body: 'Рабочая crash автокэшаут стратегия снимает ручной клик в панике. Авто-вывод на фиксированном множителе превращает сессию в проверку дисциплины: ставка одинаковая, цель одинаковая, лимит просадки заранее.',
           strategies: [
             {
-              title: 'Стратегия фиксированного авто-кэшаута',
+              title: 'Плоская ставка + автокэшаут',
               bullets: [
-                'Авто-вывод на 1.20x – 1.50x',
-                'Частота выигрышных раундов до 85%',
-                'Требует серию побед для перекрытия одного раннего краша',
+                'Одинаковый размер ставки на всю сессию',
+                'Автокэшаут на заранее выбранном x',
+                'Стоп после N минусов подряд или % банка',
               ],
             },
             {
-              title: 'Двойное покрытие',
+              title: 'Чего избегать',
               bullets: [
-                'Ставка 1: авто-кэшаут на 2.00x — окупает затраты раунда',
-                'Ставка 2: держится для сверхприбыли на высоких множителях',
-              ],
-            },
-            {
-              title: 'Анти-Мартингейл',
-              bullets: [
-                'Увеличивать ставку только после выигрышных раундов',
-                'Максимизирует профит в апстрики, минимизирует потери в даунстрики',
+                'Удваивать ставку после каждого краша (Мартингейл)',
+                'Поднимать цель «потому что предыдущий улетел далеко»',
+                'Играть без таймера сессии',
               ],
             },
           ],
+          callout: 'Прошлый множитель не влияет на следующий раунд — это независимые испытания.',
         },
         {
-          heading: '4. Контроль банкролла',
-          callout:
-            'Никогда не превышайте 2–5% от банка за один раунд. При потере 20% за сессию — немедленно остановитесь.',
+          heading: 'Lucky Jet демо: тактика кэшаута',
+          body: 'Lucky jet демо тактика кэшаута нужна, чтобы прочувствовать скорость роста множителя без депозита. В демо сравните ручной вывод и автокэшаут на одной и той же цели — чаще выигрывает заранее заданное правило.',
           bullets: [
-            'Не пытайтесь отыграться после серии ранних крашей.',
-            'Устанавливайте жёсткий Stop-Loss перед каждой сессией.',
+            '20 раундов с автокэшаутом на 1.5x',
+            '20 раундов вручную на ту же цель',
+            'Сравните итоговый виртуальный баланс и число тильт-решений',
           ],
         },
       ],
       en: [
         {
-          heading: 'Introduction: The Evolution of iGaming',
-          body: 'The online entertainment industry is undergoing a fundamental paradigm shift. Traditional reel-based slots are losing ground to interactive formats. Crash mechanics radically transform the user experience: instead of passively watching reels, the player becomes an active agent.',
-        },
-        {
-          heading: '1. The Anatomy of Crash Mechanics',
-          body: 'A player places a wager; a multiplier curve initiates from 1.00x. The objective: click Cash Out before an unpredictable crash. If executed in time — the stake is multiplied. If the graph crashes first — the wager is completely forfeited.',
-          callout:
-            'Provably Fair Technology: the round outcome hash is generated from server seed + client seeds before the round starts.',
-        },
-        {
-          heading: '2. The Psychology of Risk: Why Instant Games Captivate',
-          body: "Crash formats stimulate the brain's reward system far more intensely than standard slot machines.",
+          heading: 'When to cash out crash games',
+          body: 'Deciding when to cash out crash games happens before you bet — not while the multiplier is climbing. Pick a target (for example 1.40x–2.00x) and check whether your bankroll can survive a streak of early crashes.',
           bullets: [
-            'Illusion of Control: the user determines the cashout moment — the subconscious interprets success as personal skill.',
-            'FOMO: witnessing others secure >50x multipliers in the live feed triggers the urge to hold longer.',
-            'Near-Miss Effect: a crash at 1.98x while auto-cashout was set at 2.00x is processed as a minor near-success rather than a total loss.',
+            'Low target (1.2x–1.5x) — frequent small wins, less tilt',
+            'Mid target (1.8x–2.5x) — needs room for miss streaks',
+            'High target (5x+) — entertainment mode, not a system',
           ],
-          callout:
-            'The dopamine response is generated during the tense anticipation of the rising multiplier — not upon credit distribution.',
         },
         {
-          heading: '3. Risk Management Strategies',
-          body: 'Average RTP of quality Crash games: 96.0–97.0%.',
+          heading: 'Crash auto cashout strategy',
+          body: 'A clean crash auto cashout strategy removes panic clicks. Locking auto-cashout at a fixed multiplier turns the session into a discipline test: flat stake, fixed target, pre-set loss limit.',
           strategies: [
             {
-              title: 'Fixed Auto-Cashout Strategy',
+              title: 'Flat stake + auto cashout',
               bullets: [
-                'Auto-withdraw at 1.20x – 1.50x',
-                'Win frequency up to 85%',
-                'Requires a streak of wins to offset one early crash',
+                'Same stake size for the whole session',
+                'Auto cashout at a pre-chosen multiplier',
+                'Stop after N losses or a % bankroll drawdown',
               ],
             },
             {
-              title: 'Dual Coverage',
+              title: 'What to avoid',
               bullets: [
-                'Bet 1: auto-cashout at 2.00x — covers round costs',
-                'Bet 2: held for super-profit on high multipliers',
-              ],
-            },
-            {
-              title: 'Anti-Martingale',
-              bullets: [
-                'Increase stake only after winning rounds',
-                'Maximizes profit in upstreaks, minimizes losses in downstreaks',
+                'Doubling after every crash (Martingale)',
+                'Raising the target because the last round flew high',
+                'Playing without a session timer',
               ],
             },
           ],
+          callout: 'The previous multiplier does not change the next round — trials are independent.',
         },
         {
-          heading: '4. Bankroll Control',
-          callout:
-            'Never exceed 2–5% of bankroll per round. If you lose 20% in a session — stop immediately.',
+          heading: 'Lucky Jet demo cashout tactics',
+          body: 'Lucky jet demo cashout tactics help you feel multiplier speed without a deposit. In demo, compare manual exits vs auto-cashout on the same target — a pre-written rule usually wins.',
           bullets: [
-            'Never chase losses after a series of early crashes.',
-            'Set a strict Stop-Loss before every session.',
+            '20 rounds with auto cashout at 1.5x',
+            '20 rounds manual on the same target',
+            'Compare virtual balance and tilt decisions',
           ],
         },
       ],
@@ -441,95 +406,101 @@ export const GUIDES: GuideData[] = [
     id: 'mistakes',
     slug: 'mistakes',
     icon: '✕',
-    titleRu: 'Ошибки игроков',
-    titleEn: 'Player Mistakes',
-    subtitleRu: 'Самые распространённые ошибки и как их избежать',
-    subtitleEn: 'The most common mistakes and how to avoid them',
-    tagRu: 'Советы',
-    tagEn: 'Tips',
+    titleRu: 'Ошибки новичков в онлайн казино',
+    titleEn: 'Online Casino Beginner Mistakes',
+    subtitleRu: 'Почему нельзя догонять проигрыш и как вести банкролл',
+    subtitleEn: 'Why chasing losses fails and how new players manage bankroll',
+    tagRu: 'Ошибки',
+    tagEn: 'Mistakes',
+    keywordsRu: [
+      'ошибки новичков в онлайн казино',
+      'почему нельзя догонять проигрыш',
+      'банкролл менеджмент для новичков',
+    ],
+    keywordsEn: [
+      'online casino beginner mistakes',
+      'why chasing losses fails',
+      'bankroll management for new players',
+    ],
     descriptionRu:
-      'Топ ошибок игроков в онлайн-казино: игра без бюджета, погоня за потерями, большие ставки, игнорирование RTP и мифы. Как избежать типичных проблем.',
+      'Разбор: ошибки новичков в онлайн казино, почему нельзя догонять проигрыш и банкролл менеджмент для новичков. 18+.',
     descriptionEn:
-      'Top online casino player mistakes: playing without a budget, chasing losses, oversized bets, ignoring RTP and gambling myths. How to avoid them.',
+      'Breakdown of online casino beginner mistakes, why chasing losses fails, and bankroll management for new players. 18+.',
+    titleSeoRu: 'Ошибки новичков в онлайн казино — банкролл и догон | 1weapp',
+    titleSeoEn: 'Online Casino Beginner Mistakes — Chasing Losses & Bankroll | 1weapp',
+    descriptionSeoRu:
+      'Какие ошибки новичков в онлайн казино стоят дороже всего, почему нельзя догонять проигрыш и как строить банкролл менеджмент для новичков.',
+    descriptionSeoEn:
+      'The costliest online casino beginner mistakes, why chasing losses fails, and bankroll management for new players.',
     sections: {
       ru: [
         {
-          heading: 'Введение',
-          body: 'Успех в онлайн-казино зависит не только от удачи, но и от подхода к игре. Многие игроки совершают одинаковые ошибки, которые приводят к быстрой потере игрового банка, эмоциональным решениям и разочарованию. Большинство подобных ситуаций можно избежать, если заранее понимать основные принципы ответственной игры.',
-        },
-        {
-          heading: '1. Игра без заранее установленного бюджета',
-          body: 'Одной из самых распространённых ошибок является отсутствие игрового бюджета. Некоторые пользователи начинают игру, не определив сумму, которую готовы потратить на развлечение.',
-          callout:
-            'Перед началом сессии определите сумму, потеря которой не повлияет на личный бюджет. После достижения лимита — завершите игру.',
-        },
-        {
-          heading: '2. Погоня за потерями',
-          body: 'Желание быстро вернуть потерянные деньги известно как погоня за потерями (chasing losses). Это одна из главных причин чрезмерных расходов. Результат каждого раунда определяется случайным образом, поэтому увеличение ставок не повышает вероятность выигрыша.',
-        },
-        {
-          heading: '3. Слишком большие ставки и игра на эмоциях',
-          body: 'Большие ставки позволяют выиграть больше, однако одновременно ускоряют расходование банкролла. Опытные игроки рекомендуют использовать на одну ставку не более 1–3% от общего игрового бюджета.',
+          heading: 'Ошибки новичков в онлайн казино',
+          body: 'Типичные ошибки новичков в онлайн казино редко связаны с «не той кнопкой». Чаще это отсутствие лимита сессии, ставка больше 2–3% банка и переход в реальный режим без демо-теста механики.',
           bullets: [
-            'После крупного выигрыша избегайте чрезмерной уверенности.',
-            'После серии проигрышей не поддавайтесь желанию немедленно отыграться.',
-            'Делайте регулярные перерывы и сохраняйте спокойствие.',
+            'Игра без заранее записанного стоп-лосса',
+            'Смена игры после каждого проигрыша «потому что эта горячая»',
+            'Игнор RTP и волатильности при выборе слота',
           ],
         },
         {
-          heading: '4. Игнорирование RTP, волатильности и бонусных условий',
-          body: 'Перед запуском игрового автомата важно учитывать RTP, уровень волатильности, максимальный выигрыш и бонусные функции. Также многие игроки забывают читать условия бонусов.',
+          heading: 'Почему нельзя догонять проигрыш',
+          body: 'Ответ на вопрос почему нельзя догонять проигрыш математический: повышение ставки после минуса ускоряет разорение, а не «возвращает справедливость». Серия независимых раундов не обязана компенсировать прошлый результат.',
+          callout: 'Догон превращает один плохой день в полный слив банка.',
           bullets: [
-            'Требования по вейджеру могут существенно влиять на реальную ценность бонуса.',
-            'Максимальный размер ставки во время отыгрыша — важный параметр.',
-            'Срок действия бонуса ограничен — не допускайте его истечения.',
+            'Фиксируйте размер ставки до сессии',
+            'После лимита просадки — выход, не «ещё пять спинов»',
+            'Отыгрыш эмоций перенесите в демо, не в депозит',
           ],
         },
         {
-          heading: '5. Вера в мифы и «секретные стратегии»',
-          body: 'Лицензированные игровые автоматы работают на основе генератора случайных чисел (RNG), а каждый спин является полностью независимым событием. Не существует стратегии, которая могла бы гарантировать выигрыш.',
-          callout:
-            'Азартные игры — это развлечение. Не воспринимайте их как способ заработка или решения финансовых проблем.',
+          heading: 'Банкролл менеджмент для новичков',
+          body: 'Простой банкролл менеджмент для новичков: разделите банк на 50–100 условных ставок, определите дневной лимит и не пополняйте его в тот же день. Демо помогает проверить, выдерживает ли ваш план волатильность выбранной игры.',
+          strategies: [
+            {
+              title: 'Мини-план на неделю',
+              bullets: [
+                '1 депозит = 1 бюджет, без доливок',
+                'Ставка 1–2% банка',
+                'Дневной стоп: −20% или +30% — выход',
+              ],
+            },
+          ],
         },
       ],
       en: [
         {
-          heading: 'Introduction',
-          body: 'Online casino games are designed to provide entertainment. However, many players make avoidable mistakes that negatively affect their gaming experience and quickly deplete their bankroll. In most cases, these mistakes are not related to bad luck but to poor money management, emotional decision-making, or unrealistic expectations.',
-        },
-        {
-          heading: '1. Playing Without a Budget',
-          body: 'One of the biggest mistakes players make is starting a gaming session without setting a clear spending limit. Without a predetermined bankroll, it becomes much easier to overspend and make emotional decisions during gameplay.',
-          callout:
-            'Before placing your first bet, decide how much money you are willing to spend purely for entertainment. Once your gambling budget has been reached, end the session.',
-        },
-        {
-          heading: '2. Chasing Losses',
-          body: "Trying to recover losses immediately is one of the most common and costly gambling mistakes. This behavior, known as chasing losses, often results in even greater financial losses. Every spin is independent — previous outcomes have absolutely no influence on future results.",
-        },
-        {
-          heading: '3. Betting Too Much and Letting Emotions Control Decisions',
-          body: 'Higher wagers increase the value of potential payouts, but they also drain your bankroll much faster. Many experienced players recommend risking no more than 1% to 3% of your total bankroll on a single spin.',
+          heading: 'Online casino beginner mistakes',
+          body: 'Common online casino beginner mistakes are rarely about the wrong button. They are missing session limits, staking more than 2–3% of bankroll, and jumping to real money before testing mechanics in demo.',
           bullets: [
-            'After a big win, avoid becoming overconfident and increasing bets unnecessarily.',
-            'After losses, resist the urge to make impulsive decisions.',
-            'Taking regular breaks helps maintain better discipline throughout a session.',
+            'Playing without a written stop-loss',
+            'Switching titles after every loss because one feels “hot”',
+            'Ignoring RTP and volatility when picking a slot',
           ],
         },
         {
-          heading: '4. Ignoring RTP, Volatility and Bonus Terms',
-          body: 'Before selecting a slot, check RTP, volatility, maximum win potential, and bonus features. Many players also activate promotions without reading the rules.',
+          heading: 'Why chasing losses fails',
+          body: 'Why chasing losses fails is mathematical: raising stakes after a loss speeds ruin instead of restoring “fairness.” Independent rounds are not obligated to repay the previous result.',
+          callout: 'Chasing turns one bad session into a full bankroll wipe.',
           bullets: [
-            'Wagering requirements determine how many times you must wager before withdrawing.',
-            'Maximum bet limits during wagering are often overlooked.',
-            'Bonus validity periods expire — always check the deadline.',
+            'Lock stake size before the session',
+            'After the drawdown limit — exit, do not take “five more spins”',
+            'Process tilt in demo, not with a fresh deposit',
           ],
         },
         {
-          heading: '5. Believing Gambling Myths',
-          body: 'Modern online slots operate using certified Random Number Generators (RNGs), meaning every spin is completely random and independent. No betting system or secret strategy can change the mathematical probability of a winning combination.',
-          callout:
-            'Treat gambling as entertainment rather than guaranteed income. Most mistakes stem from poor financial planning, not bad luck.',
+          heading: 'Bankroll management for new players',
+          body: 'Simple bankroll management for new players: split funds into 50–100 unit bets, set a daily cap, and do not top up the same day. Demo checks whether your plan survives the game’s volatility.',
+          strategies: [
+            {
+              title: 'One-week mini plan',
+              bullets: [
+                'One deposit = one budget, no reloads',
+                'Stake 1–2% of bankroll',
+                'Daily stop at −20% or +30%',
+              ],
+            },
+          ],
         },
       ],
     },
@@ -539,125 +510,91 @@ export const GUIDES: GuideData[] = [
   {
     id: 'rtp',
     slug: 'rtp',
-    icon: '%',
-    titleRu: 'RTP и волатильность',
-    titleEn: 'RTP & Volatility',
-    subtitleRu: 'Ключевые параметры современных слотов',
-    subtitleEn: 'Key statistics of modern slot machines',
-    tagRu: 'Механика',
-    tagEn: 'Mechanics',
+    icon: '％',
+    titleRu: 'Что такое RTP слота простыми словами',
+    titleEn: 'Slot RTP Explained Simply',
+    subtitleRu: 'Волатильность слота, банкролл и выбор высокого RTP',
+    subtitleEn: 'Slot volatility, bankroll fit, and high RTP low volatility picks',
+    tagRu: 'RTP',
+    tagEn: 'RTP',
+    keywordsRu: [
+      'что такое rtp слота простыми словами',
+      'волатильность слота и банкролл',
+      'высокий rtp низкая волатильность',
+    ],
+    keywordsEn: [
+      'slot rtp explained simply',
+      'slot volatility and bankroll',
+      'high rtp low volatility slots',
+    ],
     descriptionRu:
-      'Что такое RTP и волатильность слота? Как они влияют на игру, какой RTP считается хорошим, мифы и реальность. Полный разбор ключевых параметров онлайн-казино.',
+      'Гайд: что такое rtp слота простыми словами, волатильность слота и банкролл, высокий rtp низкая волатильность — с примерами для демо.',
     descriptionEn:
-      'What is RTP and slot volatility? How they affect gameplay, what RTP is considered good, myths vs facts. Complete breakdown of key online slot parameters.',
+      'Guide: slot rtp explained simply, slot volatility and bankroll, and high rtp low volatility slots — with demo practice tips.',
+    titleSeoRu: 'Что такое RTP слота простыми словами — волатильность | 1weapp',
+    titleSeoEn: 'Slot RTP Explained Simply — Volatility & Bankroll Fit | 1weapp',
+    descriptionSeoRu:
+      'Объясняем, что такое rtp слота простыми словами, как связаны волатильность слота и банкролл, и кому подходит высокий rtp низкая волатильность.',
+    descriptionSeoEn:
+      'Slot rtp explained simply, how slot volatility and bankroll interact, and when high rtp low volatility slots fit your sessions.',
     sections: {
       ru: [
         {
-          heading: 'Введение',
-          body: 'При выборе игрового автомата многие пользователи обращают внимание не только на оформление, количество бонусных функций или максимальный выигрыш. Не менее важными характеристиками считаются RTP, волатильность и дисперсия — именно эти показатели помогают лучше понять особенности конкретного слота.',
+          heading: 'Что такое RTP слота простыми словами',
+          body: 'Если кратко: что такое rtp слота простыми словами — это теоретический процент возврата игрокам на очень длинной дистанции. RTP 96% не значит, что вы получите 96 из 100 ставок сегодня; это среднее по миллионам раундов у провайдера.',
+          callout: 'Короткой сессии «справедливый» RTP почти не виден — видна волатильность.',
         },
         {
-          heading: '1. Что такое RTP',
-          body: 'RTP (Return to Player) — это показатель теоретического возврата игроку, выраженный в процентах. Он демонстрирует, какая часть всех сделанных ставок в долгосрочной перспективе возвращается участникам игры в виде выигрышей.',
-          formula: 'RTP 96% → на каждые $100 ставок теоретически возвращается $96',
+          heading: 'Волатильность слота и банкролл',
+          body: 'Связка волатильность слота и банкролл важнее рекламного RTP. Высокая волатильность даёт редкие крупные всплески и длинные сухие серии — банку нужно больше юнитов. Низкая волатильность чаще возвращает мелкие выплаты и мягче к короткой сессии.',
           bullets: [
-            'До 94% — относительно низкий показатель',
-            '95–96% — средний уровень',
-            '96–97% — хороший RTP',
-            'Выше 97% — высокий показатель возврата',
+            'Низкая волатильность — короткие сессии, учебный банкролл',
+            'Средняя — универсальный компромисс',
+            'Высокая — только с запасом и заранее принятым риском просадки',
           ],
-          callout:
-            'RTP рассчитывается на миллионы игровых раундов. Он не гарантирует конкретный результат отдельной сессии.',
         },
         {
-          heading: '2. Что такое волатильность',
-          body: 'Волатильность показывает уровень риска игрового автомата. Именно этот параметр определяет, насколько часто выпадают выигрыши и какого размера они могут быть.',
+          heading: 'Высокий RTP, низкая волатильность',
+          body: 'Искать высокий rtp низкая волатильность имеет смысл, если цель — дольше изучать механику в демо и реже ловить резкие просадки. Сначала сравните заявленный RTP в карточке игры, затем прогоните 100–200 демо-спинов и оцените частоту мелких возвратов.',
           strategies: [
             {
-              title: 'Низкая волатильность',
+              title: 'Как выбрать игру под банк',
               bullets: [
-                'Частые выплаты небольшого размера',
-                'Небольшие просадки; комфортная игра при ограниченном банкролле',
-                'Подходит для длительных сессий',
+                'Короткий банк → приоритет низкой/средней волатильности',
+                'Смотрите RTP в карточке демо на 1weapp',
+                'Не путайте высокий RTP с «гарантией плюса за вечер»',
               ],
             },
-            {
-              title: 'Высокая волатильность',
-              bullets: [
-                'Редкие выигрыши, но высокий потенциал',
-                'Длинные серии без значительных выплат',
-                'Требует большего банкролла и терпения',
-              ],
-            },
-          ],
-        },
-        {
-          heading: '3. Как RTP и волатильность работают вместе',
-          body: 'Одной из самых распространённых ошибок считается мнение, что высокий RTP автоматически означает частые выигрыши. Два автомата с одинаковым RTP 96.5% могут иметь совершенно разный игровой процесс из-за разной волатильности.',
-          callout:
-            'Для игроков с небольшим банкроллом — низкая или средняя волатильность. Для охотников за крупными выигрышами — высокая волатильность.',
-        },
-        {
-          heading: '4. Распространённые мифы о RTP',
-          bullets: [
-            'Миф: после серии проигрышей автомат обязательно выплатит крупный выигрыш. Факт: каждый спин независим.',
-            'Миф: высокий RTP гарантирует прибыль. Факт: RTP — математическая характеристика, а не обещание выигрыша.',
-            'Миф: казино может менять RTP во время игры. Факт: параметры задаются производителем и проходят независимую сертификацию.',
           ],
         },
       ],
       en: [
         {
-          heading: 'Introduction',
-          body: 'When choosing an online slot, most players pay attention to graphics, bonus features and jackpot size. However, the most important characteristics of any slot machine are often hidden in its technical specifications: RTP, volatility, and variance.',
+          heading: 'Slot RTP explained simply',
+          body: 'Slot rtp explained simply: it is the theoretical long-run return to players. A 96% RTP does not mean you get 96 back from 100 bets today — it is an average across a huge sample of rounds.',
+          callout: 'In a short session you barely see RTP — you feel volatility.',
         },
         {
-          heading: '1. What Is RTP?',
-          body: "RTP (Return to Player) represents the theoretical percentage of all wagered money that a slot returns to players over a very long period of time. For example, if a slot has an RTP of 96%, it theoretically pays back $96 for every $100 wagered across millions of spins.",
-          formula: 'RTP 96% → $96 returned per $100 wagered over millions of spins',
+          heading: 'Slot volatility and bankroll',
+          body: 'Slot volatility and bankroll matter more than a marketing RTP number. High volatility means rare spikes and longer dry stretches — you need more units. Low volatility pays smaller wins more often and is gentler on short sessions.',
           bullets: [
-            'Below 94% — relatively low RTP',
-            '95%–96% — average RTP',
-            '96%–97% — good RTP',
-            'Above 97% — very high RTP',
+            'Low volatility — short sessions and learning bankrolls',
+            'Medium — the usual compromise',
+            'High — only with depth and an accepted drawdown risk',
           ],
-          callout:
-            'RTP is calculated over millions of game rounds. It does not predict the outcome of a single gaming session.',
         },
         {
-          heading: '2. What Is Volatility?',
-          body: 'Volatility describes how frequently a slot pays and how large those payouts are likely to be. A high-volatility slot produces fewer winning combinations but offers the potential for much larger payouts.',
+          heading: 'High RTP low volatility slots',
+          body: 'Looking for high rtp low volatility slots makes sense when you want longer demo practice with fewer sharp drawdowns. Check the published RTP on the game card, then run 100–200 demo spins and judge small-win frequency.',
           strategies: [
             {
-              title: 'Low Volatility',
+              title: 'Match the game to the bank',
               bullets: [
-                'Frequent small payouts',
-                'Lower balance fluctuations; suitable for smaller bankrolls',
-                'Best for longer gaming sessions',
+                'Short bank → prefer low/medium volatility',
+                'Read RTP on the 1weapp demo card',
+                'Do not treat high RTP as a same-evening profit guarantee',
               ],
             },
-            {
-              title: 'High Volatility',
-              bullets: [
-                'Rare wins but high potential',
-                'Longer losing streaks before significant payouts',
-                'Requires a larger bankroll and patience',
-              ],
-            },
-          ],
-        },
-        {
-          heading: '3. How RTP and Volatility Work Together',
-          body: 'One of the biggest misconceptions is that a high RTP automatically means frequent wins. Two games that both have an RTP of 96.5% can feel completely different to play due to their different volatility levels.',
-          callout:
-            'Players with smaller budgets often prefer low or medium-volatility slots. Those aiming for larger payouts may choose high-volatility games despite the increased risk.',
-        },
-        {
-          heading: '4. Common Misconceptions',
-          bullets: [
-            'Myth: a slot must pay after a long losing streak. Fact: every spin is generated independently.',
-            'Myth: a higher RTP guarantees profit. Fact: RTP is a theoretical statistical value, not a guarantee.',
-            'Myth: casinos change RTP during gameplay. Fact: RTP is predetermined by the developer and independently certified.',
           ],
         },
       ],
@@ -669,64 +606,59 @@ export const GUIDES: GuideData[] = [
     id: 'bonuses',
     slug: 'bonuses',
     icon: '★',
-    titleRu: 'Бонусы казино',
-    titleEn: 'Casino Bonuses',
-    subtitleRu: 'Приветственные предложения, фриспины и вейджер',
-    subtitleEn: 'Welcome bonuses, free spins and wagering requirements',
+    titleRu: 'Вейджер бонуса казино как считать',
+    titleEn: 'Casino Wagering Requirement Explained',
+    subtitleRu: 'Фриспины с вейджером и подводные камни приветственного бонуса',
+    subtitleEn: 'Free spins wagering terms and welcome bonus traps to avoid',
     tagRu: 'Бонусы',
     tagEn: 'Bonuses',
+    keywordsRu: [
+      'вейджер бонуса казино как считать',
+      'фриспины с вейджером условия',
+      'приветственный бонус подводные камни',
+    ],
+    keywordsEn: [
+      'casino wagering requirement explained',
+      'free spins wagering terms',
+      'welcome bonus traps to avoid',
+    ],
     descriptionRu:
-      'Полный гайд по бонусам казино: приветственный бонус, фриспины, вейджер, кэшбэк и программы лояльности. Как правильно выбрать и отыграть бонус.',
+      'Гайд: вейджер бонуса казино как считать, фриспины с вейджером условия и приветственный бонус подводные камни. 18+.',
     descriptionEn:
-      'Complete casino bonus guide: welcome bonus, free spins, wagering requirements, cashback and loyalty programs. How to choose and clear a bonus correctly.',
+      'Guide: casino wagering requirement explained, free spins wagering terms, and welcome bonus traps to avoid. 18+.',
+    titleSeoRu: 'Вейджер бонуса казино как считать — фриспины и ловушки | 1weapp',
+    titleSeoEn: 'Casino Wagering Requirement Explained — Free Spins & Traps | 1weapp',
+    descriptionSeoRu:
+      'Считаем вейджер бонуса казино, читаем условия фриспинов с вейджером и разбираем подводные камни приветственного бонуса.',
+    descriptionSeoEn:
+      'Casino wagering requirement explained, free spins wagering terms clarified, and welcome bonus traps to avoid.',
     sections: {
       ru: [
         {
-          heading: 'Введение',
-          body: 'Бонусные предложения стали неотъемлемой частью современных онлайн-казино. Практически каждая игровая платформа предлагает различные акции для новых и постоянных пользователей. Однако далеко не все игроки понимают, как работают подобные предложения.',
-        },
-        {
-          heading: '1. Приветственный бонус и бонус на депозит',
-          body: 'Наиболее распространённым видом акции является приветственный бонус — он предоставляется новым пользователям после регистрации и первого пополнения счёта. Размер депозитного бонуса рассчитывается в процентах от внесённой суммы.',
+          heading: 'Вейджер бонуса казино: как считать',
+          body: 'Формула, если нужно понять вейджер бонуса казино как считать: обычно (депозит + бонус) × множитель вейджера, либо только бонус × множитель — читайте правила оффера. Пока вейджер не закрыт, вывод часто заблокирован.',
+          formula: 'Отыгрыш ≈ (депозит + бонус) × W',
           bullets: [
-            'Бонус 50% на депозит',
-            'Бонус 100% на первое пополнение',
-            'Бездепозитный бонус — без обязательного пополнения, но с более строгими условиями',
+            'W = 30–40x — уже ощутимая нагрузка на банк',
+            'Проверяйте, какие игры засчитываются на 100% / 10% / 0%',
+            'Макс. ставка на время вейджера почти всегда ограничена',
           ],
         },
         {
-          heading: '2. Бесплатные вращения (Free Spins)',
-          body: 'Фриспины позволяют получить определённое количество бесплатных вращений в выбранных игровых автоматах без необходимости использовать собственные средства.',
-          callout:
-            'Перед использованием фриспинов уточните: список доступных слотов, срок действия акции, требования по отыгрышу и максимальную сумму выигрыша.',
+          heading: 'Фриспины с вейджером: условия',
+          body: 'Раздел фриспины с вейджером условия чаще всего забывают новички: выигрыш со спинов тоже нужно отыграть, слот фиксирован, а срок жизни оффера ограничен днями. Сравните ценность спинов с размером вейджера до активации.',
+          callout: 'Иногда «100 фриспинов» дороже по условиям, чем небольшой кэш-бонус с честным W.',
         },
         {
-          heading: '3. Что такое вейджер',
-          body: 'Вейджер (Wagering Requirement) — это условие, определяющее, сколько раз необходимо поставить сумму бонуса перед возможностью вывести выигрыш.',
-          formula: 'Бонус $100 × вейджер 35 = $3500 необходимо поставить',
-          callout:
-            'Выполнение вейджера не означает обязательную потерю средств. Он лишь определяет необходимый игровой оборот.',
-        },
-        {
-          heading: '4. Кэшбэк, программа лояльности и советы',
-          body: 'Кэшбэк — возврат части проигранных средств за определённ��й период. Программа лояльности открывает дополнительные преимущества для постоянных игроков.',
+          heading: 'Приветственный бонус: подводные камни',
+          body: 'Список приветственный бонус подводные камни: вкладка стран/провайдеров, исключённые игры, лимит максимального вывода с бонуса и запрет параллельных акций. Перед реальной активацией изучите механику слота в демо на 1weapp — так вы не сожжёте вейджер на незнакомой волатильности.',
           strategies: [
             {
-              title: 'На что обращать внимание при выборе бонуса',
+              title: 'Чеклист до клика «Забрать»',
               bullets: [
-                'Размер вейджера и минимальный депозит',
-                'Срок действия акции и сп��сок игр',
-                'Максимальная сумма вывода',
-                'Ограничения по максимальной ставке',
-              ],
-            },
-            {
-              title: 'Распространённые ошибки игроков',
-              bullets: [
-                'Активация акции без чтения правил',
-                'Игнорирование требований по вейджеру',
-                'Превышение максимальной ставки во время отыгрыша',
-                'Использование бонуса после окончания срока действия',
+                'Посчитали полный отыгрыш в деньгах',
+                'Проверили % вклада вашей игры',
+                'Есть лимит времени и макс. ставки',
               ],
             },
           ],
@@ -734,51 +666,30 @@ export const GUIDES: GuideData[] = [
       ],
       en: [
         {
-          heading: 'Introduction',
-          body: 'Bonuses have become one of the most attractive features of modern online casinos. Nearly every gaming platform offers promotions designed to reward both new and existing players. While bonuses can significantly enhance the gaming experience, many players are unfamiliar with the terms and conditions that accompany them.',
-        },
-        {
-          heading: '1. Welcome Bonuses and Deposit Bonuses',
-          body: 'The welcome bonus is one of the most popular promotions available at online casinos, usually offered to new players after they create an account and make their first deposit. Deposit bonuses are generally calculated as a percentage of the deposited amount.',
+          heading: 'Casino wagering requirement explained',
+          body: 'Casino wagering requirement explained in one line: usually (deposit + bonus) × wager multiplier, or bonus-only × multiplier — read the offer rules. Withdrawals stay locked until wagering clears.',
+          formula: 'Playthrough ≈ (deposit + bonus) × W',
           bullets: [
-            '50% Deposit Bonus',
-            '100% First Deposit Bonus',
-            'No Deposit Bonus — no initial deposit required, but with stricter wagering requirements',
+            'W = 30–40x already stresses a small bankroll',
+            'Check which games contribute 100% / 10% / 0%',
+            'Max bet during wagering is almost always capped',
           ],
         },
         {
-          heading: '2. Free Spins',
-          body: 'Free Spins are among the most popular casino rewards. Players receive a fixed number of complimentary spins on selected slot games without risking their own money.',
-          callout:
-            'Before activating Free Spins, check: eligible slot games, promotion expiration date, wagering requirements, and maximum withdrawal limits.',
+          heading: 'Free spins wagering terms',
+          body: 'Free spins wagering terms are where beginners slip: spin wins often need playthrough, the slot is fixed, and the offer expires in days. Compare spin value to wager size before you activate.',
+          callout: 'Sometimes “100 free spins” is worse value than a smaller cash bonus with clearer W.',
         },
         {
-          heading: '3. What Are Wagering Requirements?',
-          body: 'A wagering requirement determines how many times a player must wager the bonus amount before winnings can be withdrawn.',
-          formula: '$100 bonus × 35x wagering = $3,500 must be wagered',
-          callout:
-            'Wagering requirements do not guarantee losses. They simply establish the amount of betting activity required before withdrawals are permitted.',
-        },
-        {
-          heading: '4. Cashback, Loyalty Programs and Tips',
-          body: "Cashback promotions return a percentage of a player's net losses. Loyalty programs reward long-term players with exclusive benefits.",
+          heading: 'Welcome bonus traps to avoid',
+          body: 'Welcome bonus traps to avoid include country/provider exclusions, capped max cashout from bonus funds, and stacked-promo bans. Before activating, learn the slot in a 1weapp demo so wagering is not burned on unfamiliar volatility.',
           strategies: [
             {
-              title: 'What to Look for Before Claiming a Bonus',
+              title: 'Checklist before claiming',
               bullets: [
-                'Wagering requirements and minimum deposit',
-                'Bonus validity period and eligible games',
-                'Maximum withdrawal limits',
-                'Maximum betting restrictions during wagering',
-              ],
-            },
-            {
-              title: 'Common Bonus Mistakes',
-              bullets: [
-                'Accepting bonuses without reading the terms',
-                'Ignoring wagering requirements',
-                'Exceeding the maximum allowed bet during wagering',
-                'Allowing the bonus to expire',
+                'Total playthrough converted to money',
+                'Contribution % of your intended game',
+                'Time limit and max bet confirmed',
               ],
             },
           ],
@@ -787,225 +698,207 @@ export const GUIDES: GuideData[] = [
     },
   },
 
-  /* ── RESPONSIBLE GAMBLING ── */
+  /* ── RESPONSIBLE ── */
   {
     id: 'responsible',
     slug: 'responsible',
-    icon: '◎',
-    titleRu: 'Ответственная игра',
-    titleEn: 'Responsible Gambling',
-    subtitleRu: 'Управление банкроллом и безопасная игра',
-    subtitleEn: 'Bankroll management and safer casino play',
+    icon: '◈',
+    titleRu: 'Лимит депозита онлайн казино',
+    titleEn: 'Online Casino Deposit Limit Guide',
+    subtitleRu: 'Признаки проблемной игры и как ограничить время сессии',
+    subtitleEn: 'Problem gambling warning signs and how to set session limits',
     tagRu: 'Безопасность',
     tagEn: 'Safety',
+    keywordsRu: [
+      'лимит депозита онлайн казино',
+      'признаки проблемной игры чеклист',
+      'как ограничить время сессии в казино',
+    ],
+    keywordsEn: [
+      'online casino deposit limit guide',
+      'problem gambling warning signs checklist',
+      'how to set casino session limits',
+    ],
     descriptionRu:
-      'Ответственная игра в казино: управление банкроллом, правило 1–3%, встроенные инструменты контроля (лимиты, самоисключение) и здоровые игровые привычки.',
+      'Гайд: лимит депозита онлайн казино, признаки проблемной игры чеклист и как ограничить время сессии в казино. 18+.',
     descriptionEn:
-      'Responsible gambling guide: bankroll management, the 1–3% rule, built-in control tools (deposit limits, self-exclusion) and healthy gambling habits.',
+      'Guide: online casino deposit limit guide, problem gambling warning signs checklist, and how to set casino session limits. 18+.',
+    titleSeoRu: 'Лимит депозита онлайн казино — сессии и чеклист | 1weapp',
+    titleSeoEn: 'Online Casino Deposit Limit Guide — Session Limits & Checklist | 1weapp',
+    descriptionSeoRu:
+      'Как поставить лимит депозита онлайн казино, пройти чеклист признаков проблемной игры и ограничить время сессии.',
+    descriptionSeoEn:
+      'Set an online casino deposit limit, use a problem gambling warning signs checklist, and learn how to set casino session limits.',
     sections: {
       ru: [
         {
-          heading: 'Введение',
-          body: 'Азартные игры должны оставаться формой развлечения, а не способом заработка. Именно поэтому опытные игроки уделяют особое внимание грамотному управлению собственным банкроллом. Правильный подход помогает контролировать расходы, избегать эмоциональных решений и получать удовольствие от игрового процесса.',
-        },
-        {
-          heading: '1. Что такое банкролл и почему важно им управлять',
-          body: 'Банкролл — это сумма денежных средств, которую игрок заранее выделяет исключительно для развлечений в онлайн-казино. Эти деньги не должны использоваться для оплаты повседневных расходов.',
+          heading: 'Лимит депозита онлайн казино',
+          body: 'Поставить лимит депозита онлайн казино лучше в день регистрации, а не после тильта. Выберите сумму, которую готовы потерять за неделю без ущерба для обязательных расходов, и не поднимайте лимит в ту же сессию.',
           bullets: [
-            'Контролируйте расходы и увеличьте продолжительность игровых сессий',
-            'Снизьте влияние эмоций и избегайте импульсивных решений',
-            'Даже при удачной серии продолжайте придерживаться стратегии',
+            'Недельный потолок депозита заранее',
+            'Отдельный «игровой» бюджет вне зарплатной карты на все траты',
+            'Демо на 1weapp — чтобы не тестировать эмоции на депозите',
           ],
         },
         {
-          heading: '2. Правила безопасной игры',
-          body: 'Многие специалисты рекомендуют использовать на одно вращение не более 1–3% от текущего игрового банка.',
+          heading: 'Признаки проблемной игры: чеклист',
+          body: 'Пройдите признаки проблемной игры чеклист честно: скрываете ли сумму ставок, занимаете ли на игру, раздражаетесь ли, когда не можете зайти в аккаунт? Даже один устойчивый пункт — повод поставить паузу и обратиться за помощью.',
+          callout: 'Ответственная игра — это инструменты до проблемы, а не «сила воли после».',
+          bullets: [
+            'Игра дольше, чем планировали, снова и снова',
+            'Попытки отыграться обязательными платежами',
+            'Ложь близким о времени и сумме',
+          ],
+        },
+        {
+          heading: 'Как ограничить время сессии в казино',
+          body: 'Практика как ограничить время сессии в казино: таймер на телефоне, лимит потери/выигрыша и правило «один стоп — выход без исключений». Краш и слоты ускоряют время — внешний таймер важнее внутренних ощущений.',
           strategies: [
             {
-              title: 'Правила управления банкроллом',
+              title: 'Правила безопасной сессии',
               bullets: [
-                'Определите игровой бюджет до начала сессии',
-                'Ставка не более 1–3% от банка на одно вращение',
-                'Не пытайтесь отыграться после серии неудач',
-                'Фиксируйте прибыль: при росте баланса на 30–50% — завершите сессию',
+                'Максимум 30–45 минут подряд',
+                'Стоп по времени срабатывает раньше стопа по эмоциям',
+                'При пробитии лимита — самоисключение/пауза в кабинете',
               ],
             },
-            {
-              title: 'Встроенные инструменты контроля',
-              bullets: [
-                'Лимиты на депозиты и ограничения по времени',
-                'Лимиты проигрыша и напоминания о продолжительности',
-                'Временная блокировка аккаунта и самоисключение',
-              ],
-            },
-          ],
-        },
-        {
-          heading: '3. Здоровые игровые привычки',
-          body: 'Ответственная игра начинается с правильного отношения к азартным развлечениям. Не стоит воспринимать их как источник стабильного дохода или способ решения финансовых проблем.',
-          callout:
-            'Если выделенная сумма закончилась — завершайте сессию. Если баланс значительно вырос — выведите часть выигрыша и продолжите на меньшую сумму.',
-          bullets: [
-            'Делайте перерывы каждые 45–60 минут',
-            'Не играйте в состоянии усталости или сильных эмоций',
-            'Воспринимайте выигрыши как приятный бонус, а не как гарантированный результат',
           ],
         },
       ],
       en: [
         {
-          heading: 'Introduction',
-          body: 'Online casino games are designed to provide entertainment rather than a reliable source of income. One of the most effective ways to enjoy casino games while maintaining control is through responsible gambling and proper bankroll management.',
-        },
-        {
-          heading: '1. What Is a Bankroll and Why Does It Matter?',
-          body: 'A bankroll is the amount of money you have specifically set aside for gambling. This budget should be completely separate from your everyday finances and should only include funds you can comfortably afford to lose.',
+          heading: 'Online casino deposit limit guide',
+          body: 'This online casino deposit limit guide starts on signup day — not after tilt. Choose an amount you can lose in a week without touching essentials, and do not raise the cap in the same session.',
           bullets: [
-            'Better control over gambling expenses',
-            'Longer and more enjoyable gaming sessions',
-            'Reduced emotional pressure during wins and losses',
+            'Weekly deposit ceiling set in advance',
+            'Separate play budget away from essential spending',
+            'Use 1weapp demos to test emotions without depositing',
           ],
         },
         {
-          heading: '2. Rules for Safer Play',
-          body: 'Many experienced players recommend risking no more than 1% to 3% of your total bankroll on a single spin or game round.',
+          heading: 'Problem gambling warning signs checklist',
+          body: 'Use this problem gambling warning signs checklist honestly: hiding stake size, borrowing to play, or anger when you cannot log in? Even one persistent item is a reason to pause and seek help.',
+          callout: 'Responsible play is tools before a crisis — not willpower after.',
+          bullets: [
+            'Sessions keep running longer than planned',
+            'Trying to win back money needed for bills',
+            'Lying about time or amounts spent',
+          ],
+        },
+        {
+          heading: 'How to set casino session limits',
+          body: 'How to set casino session limits in practice: phone timer, loss/win caps, and a hard stop with no exceptions. Crash and slots compress time — an external timer beats gut feel.',
           strategies: [
             {
-              title: 'Bankroll Management Rules',
+              title: 'Safer session rules',
               bullets: [
-                'Set a gambling budget before every session',
-                'Keep individual bets at 1–3% of total bankroll',
-                'Never chase losses by increasing your wagers',
-                'Protect profits: if your balance grows 30–50%, consider ending the session',
+                'Cap continuous play at 30–45 minutes',
+                'Time stop triggers before emotional stop',
+                'If limits break — use cool-off / self-exclusion tools',
               ],
             },
-            {
-              title: 'Built-in Responsible Gambling Tools',
-              bullets: [
-                'Deposit limits and session time reminders',
-                'Loss limits and daily/weekly spending caps',
-                'Temporary account suspension and self-exclusion',
-              ],
-            },
-          ],
-        },
-        {
-          heading: '3. Building Healthy Gambling Habits',
-          body: 'Responsible gambling is based on discipline rather than luck. Players who consistently follow basic principles enjoy a more balanced and enjoyable gaming experience.',
-          callout:
-            'If your budget is exhausted, end the session. If your balance has grown significantly, withdraw a portion and continue with a smaller amount.',
-          bullets: [
-            'Take breaks every 45–60 minutes',
-            'Avoid playing while tired or emotionally upset',
-            'View winnings as a pleasant bonus, not a guaranteed outcome',
           ],
         },
       ],
     },
   },
 
-  /* ── SLOT MYTHS ── */
+  /* ── MYTHS ── */
   {
     id: 'myths',
     slug: 'myths',
     icon: '?',
-    titleRu: 'Мифы о слотах',
-    titleEn: 'Slot Myths',
-    subtitleRu: 'Правда о «горячих» автоматах и стратегиях',
-    subtitleEn: 'The truth about hot slots and winning strategies',
+    titleRu: 'Миф о горячих и холодных слотах',
+    titleEn: 'Hot and Cold Slots Myth',
+    subtitleRu: 'RNG, «должен отдать» после проигрышей и другие суеверия',
+    subtitleEn: 'RNG reality, due-payout myths, and why streaks fool players',
     tagRu: 'Мифы',
     tagEn: 'Myths',
+    keywordsRu: [
+      'миф о горячих и холодных слотах',
+      'можно ли обмануть rng слота',
+      'слот должен отдать после проигрышей',
+    ],
+    keywordsEn: [
+      'hot and cold slots myth',
+      'can you beat slot rng',
+      'due payout after losing streak myth',
+    ],
     descriptionRu:
-      'Развенчиваем 8 мифов о слотах: горячие/холодные автоматы, беспроигрышные стратегии, влияние времени суток и RTP. Что реально влияет на игровой процесс.',
+      'Разбор мифов: миф о горячих и холодных слотах, можно ли обмануть rng слота и вера что слот должен отдать после проигрышей. 18+.',
     descriptionEn:
-      'Busting 8 slot myths: hot/cold machines, guaranteed winning strategies, time-of-day effects and RTP guarantees. What actually influences slot gameplay.',
+      'Myth-busting: hot and cold slots myth, can you beat slot rng, and the due payout after losing streak myth. 18+.',
+    titleSeoRu: 'Миф о горячих и холодных слотах — RNG и «должен отдать» | 1weapp',
+    titleSeoEn: 'Hot and Cold Slots Myth — RNG & Due Payout Explained | 1weapp',
+    descriptionSeoRu:
+      'Почему жив миф о горячих и холодных слотах, можно ли обмануть rng слота и почему фраза «слот должен отдать после проигрышей» опасна.',
+    descriptionSeoEn:
+      'Why the hot and cold slots myth persists, whether you can beat slot rng, and why the due payout after losing streak myth is costly.',
     sections: {
       ru: [
         {
-          heading: 'Введение',
-          body: 'Игровые автоматы остаются одной из самых популярных категорий развлечений в онлайн-казино. Вместе с популярностью появилось множество мифов, которые передаются из поколения в поколение. Разберём самые распространённые мифы и выясним, что действительно влияет на игровой процесс.',
+          heading: 'Миф о горячих и холодных слотах',
+          body: 'Миф о горячих и холодных слотах звучит так: «автомат нагрелся / остыл». На деле сертифицированный генератор не хранит «температуру». Короткие серии плюсов или минусов — нормальная дисперсия, а не сигнал менять ставку.',
+          callout: 'Смена слота после трёх минусов не меняет математику следующего спина.',
         },
         {
-          heading: 'Миф №1: Существуют «горячие» и «холодные» слоты',
-          body: 'Согласно распространённому мнению, «горячий» слот недавно начал активно выплачивать выигрыши, поэтому вероятность очередной крупной выплаты якобы выше.',
-          callout:
-            'Факт: игровые автоматы работают на основе генератора случайных чисел (RNG). Каждое вращение является независимым событием и не связано с предыдущими результатами.',
-        },
-        {
-          heading: 'Мифы №2, №3 и №4',
+          heading: 'Можно ли обмануть RNG слота',
+          body: 'Короткий ответ на можно ли обмануть rng слота: нет, если речь о легальном провайдерском демо/слоте с проверенным ГСЧ. Паттерны в истории спинов — когнитивная иллюзия. Полезнее изучить RTP и волатильность в демо, чем искать «схему».',
           bullets: [
-            'Миф: после серии проигрышей обязательно будет выигрыш. Факт: каждый спин полностью независим — «ошибка игрока».',
-            'Миф: можно разработать беспроигрышную стратегию. Факт: никакая стратегия не способна изменить вероятность выпадения выигрышной комбинации.',
-            'Миф: большие ставки повышают вероятность выигрыша. Факт: размер ставки влияет на сумму выплаты, но не на вероятность её появления.',
+            'Прошлые спины не кодируют будущий результат',
+            '«Системы» ставок не сдвигают house edge',
+            'Provably Fair / аудит RNG ≠ способ предсказать спин',
           ],
         },
         {
-          heading: 'Мифы №5, №6, №7, №8',
-          bullets: [
-            'Миф: казино может управлять результатами каждого игрока. Факт: лицензированные слоты проходят независимое тестирование и сертификацию.',
-            'Миф: бесплатная игра отличается от режима на реальные деньги. Факт: лицензированные разработчики используют одинаковую механику.',
-            'Миф: высокий RTP гарантирует прибыль. Факт: RTP рассчитывается на миллионы раундов и не гарантирует выигрыш конкретному игроку.',
-            'Миф: время суток влияет на вероятность выигрыша. Факт: RNG не зависит от времени суток, количества игроков или дня недели.',
+          heading: 'Слот должен отдать после проигрышей?',
+          body: 'Убеждение слот должен отдать после проигрышей — дорогая ошибка. Игры не ведут счёт «долга» перед вами. После серии минусов банкролл меньше, а риск тильта выше — именно поэтому нужен стоп, а не увеличение ставки.',
+          strategies: [
+            {
+              title: 'Анти-миф практика',
+              bullets: [
+                '100 демо-спинов с фиксацией серий — увидите случайность',
+                'Пишите правило стопа до сессии',
+                'Не повышайте ставку «потому что пора отдать»',
+              ],
+            },
           ],
-        },
-        {
-          heading: 'Что действительно влияет на игровой процесс',
-          body: 'Вместо мифов стоит изучать реальные характеристики сл��тов.',
-          bullets: [
-            'Показатель RTP и уровень волатильности',
-            'Максимальный выигрыш и бонусные функции',
-            'Количество линий выплат и специальные символы',
-            'Наличие бесплатных вращений и множителей',
-          ],
-          callout:
-            'Грамотный выбор слота на основе реальных характеристик — лучшая стратегия для долгосрочной игры.',
         },
       ],
       en: [
         {
-          heading: 'Introduction',
-          body: 'Online slots are among the most popular casino games, attracting millions of players. As slot games have grown in popularity, countless myths and misconceptions have emerged. Understanding how these games actually work helps players make informed decisions.',
+          heading: 'Hot and cold slots myth',
+          body: 'The hot and cold slots myth claims a machine “heated up” or “went cold.” A certified RNG has no temperature. Short win or loss streaks are normal variance — not a signal to change stake size.',
+          callout: 'Switching slots after three losses does not change the next spin’s math.',
         },
         {
-          heading: 'Myth #1: Hot and Cold Slots Really Exist',
-          body: 'A "hot slot" is believed to be a machine that has recently produced several wins and is expected to continue paying out. A "cold slot" is thought to have gone a long time without awarding significant prizes.',
-          callout:
-            'Fact: licensed online slots operate using a Random Number Generator (RNG). Every spin is completely independent of previous results. There is no reliable way to identify a hot or cold slot.',
-        },
-        {
-          heading: 'Myths #2, #3 and #4',
+          heading: 'Can you beat slot RNG',
+          body: 'Can you beat slot rng? Not on a legitimate provider title with audited randomness. Patterns in spin history are cognitive illusions. Studying RTP and volatility in demo beats hunting a “system.”',
           bullets: [
-            "Myth: a big win is guaranteed after a long losing streak. Fact: every spin has exactly the same probability — known as the Gambler's Fallacy.",
-            'Myth: there is a guaranteed winning strategy. Fact: no betting system can change the mathematical probability of a winning combination appearing.',
-            'Myth: higher bets increase your chances of winning. Fact: bet size raises the value of potential payouts but does not change the probability of winning combinations.',
+            'Past spins do not encode the next result',
+            'Betting systems do not move the house edge',
+            'Provably Fair / RNG audits ≠ a way to predict a spin',
           ],
         },
         {
-          heading: 'Myths #5, #6, #7 and #8',
-          bullets: [
-            'Myth: casinos control individual player results. Fact: certified slot games are independently tested and regularly verified.',
-            'Myth: demo slots pay more than real-money games. Fact: reputable developers use the same mathematical model for both modes.',
-            'Myth: a high RTP guarantees profit. Fact: RTP is a theoretical statistical value calculated over millions of spins.',
-            'Myth: time of day affects winning chances. Fact: the RNG operates continuously, independent of time, player count, or weekday.',
+          heading: 'Due payout after losing streak myth',
+          body: 'The due payout after losing streak myth is expensive. Games do not track a debt owed to you. After a losing run your bankroll is smaller and tilt risk is higher — that is why you stop, not raise.',
+          strategies: [
+            {
+              title: 'Anti-myth practice',
+              bullets: [
+                'Log 100 demo spins and watch streak randomness',
+                'Write the stop rule before the session',
+                'Never raise stake because a payout is “due”',
+              ],
+            },
           ],
-        },
-        {
-          heading: 'What Actually Influences Slot Gameplay',
-          body: 'Rather than relying on myths, focus on real game characteristics.',
-          bullets: [
-            'RTP percentage and volatility level',
-            'Maximum win potential and bonus features',
-            'Number of paylines and special symbols',
-            'Free Spins, Wild and Scatter symbols, multipliers',
-          ],
-          callout:
-            'Choosing a slot based on its actual technical characteristics is the best strategy for a long-term enjoyable gaming experience.',
         },
       ],
     },
   },
-];
+]
 
 export function getGuide(slug: string): GuideData | undefined {
-  return GUIDES.find((g) => g.slug === slug);
+  return GUIDES.find((g) => g.slug === slug)
 }
