@@ -125,9 +125,9 @@ export const i18n = {
     games: 'All Games',
     demo: 'Demo',
     breadcrumbHome: 'Home',
-    metaTitleHome: 'Best Free Slots: Spin & Play with Bonus Rounds | 1weapp',
+    metaTitleHome: 'Free Slot Demos No Registration — Crash & Mines | 1weapp',
     metaDescHome:
-      'Free demo versions of the best crash games and slots. No registration. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
+      'Free slot demos no registration, crash game demo online free, Lucky Jet demo play free, Pragmatic Play slots demo and mines demo no deposit — all in your browser.',
     filterAll: 'All',
     heroTitle: 'Play the hottest demos free',
     heroSub: 'Crash, slots & mines — instant browser play, zero signup.',
@@ -140,9 +140,9 @@ export const i18n = {
     games: 'Все игры',
     demo: 'Демо',
     breadcrumbHome: 'Главная',
-    metaTitleHome: 'Бесплатные слот-игры без регистрации: демо с бонусами | 1weapp',
+    metaTitleHome: 'Бесплатные демо слоты без регистрации — краш и mines | 1weapp',
     metaDescHome:
-      'Бесплатные демо-версии лучших краш игр и слотов. Без регистрации. Lucky Jet, Gates of Olympus, Sweet Bonanza и другие.',
+      'Бесплатные демо слоты без регистрации, краш игры демо онлайн, Lucky Jet демо играть бесплатно, слоты Pragmatic Play демо и mines демо без депозита — сразу в браузере.',
     filterAll: 'Все',
     heroTitle: 'Играй в топовые демо бесплатно',
     heroSub: 'Краш, слоты и mines — мгновенно в браузере, без регистрации.',

@@ -5,6 +5,15 @@ import { i18n } from '@/lib/games'
 export const metadata: Metadata = {
   title: i18n.en.metaTitleHome,
   description: i18n.en.metaDescHome,
+  keywords: [
+    'free slot demos no registration',
+    'crash game demo online free',
+    'lucky jet demo play free',
+    'pragmatic play slots demo',
+    'mines demo no deposit',
+    'free online casino demo games',
+    'free online slot machines demo',
+  ],
   alternates: {
     canonical: 'https://www.1weapp.online/en',
     languages: {

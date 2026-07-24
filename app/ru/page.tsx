@@ -5,6 +5,15 @@ import { i18n } from '@/lib/games'
 export const metadata: Metadata = {
   title: i18n.ru.metaTitleHome,
   description: i18n.ru.metaDescHome,
+  keywords: [
+    'бесплатные демо слоты без регистрации',
+    'краш игры демо онлайн',
+    'lucky jet демо играть бесплатно',
+    'слоты pragmatic play демо',
+    'mines демо без депозита',
+    'бесплатные игровые автоматы онлайн демо',
+    'демо казино без регистрации',
+  ],
   alternates: {
     canonical: 'https://www.1weapp.online/ru',
     languages: {
