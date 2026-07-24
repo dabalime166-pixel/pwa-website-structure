@@ -571,30 +571,113 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .home-featured {
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(1.75rem, 4vw, 2.75rem) 0 0;
+}
+.home-featured__inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: clamp(1.75rem, 4vw, 2.75rem) 1rem 0;
+  padding: 0 1rem;
 }
+.home-featured .home-section-head {
+  padding: 0;
+}
+
+/* Hot demos carousel */
+.hot-carousel--desktop { display: none; }
+.hot-carousel--mobile { display: block; }
+
+.hot-carousel__mobile-track {
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 0.75rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.hot-carousel__mobile-track::-webkit-scrollbar { display: none; }
+.hot-carousel__mobile-track .hot-carousel__item {
+  flex: 0 0 58%;
+  max-width: 220px;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 900px) {
+  .hot-carousel--mobile { display: none; }
+  .hot-carousel--desktop {
+    display: block;
+    position: relative;
+    margin-top: 0.25rem;
+  }
+  .home-featured__inner {
+    max-width: none;
+    padding: 0;
+  }
+  .home-featured .home-section-head {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+  }
+  .hot-carousel__viewport {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  }
+  .hot-carousel__track {
+    display: flex;
+    gap: 1.1rem;
+    width: max-content;
+    padding: 0.5rem 1.25rem 1rem;
+    animation: hot-marquee 55s linear infinite;
+    will-change: transform;
+  }
+  .hot-carousel--desktop:hover .hot-carousel__track {
+    animation-play-state: paused;
+  }
+  .hot-carousel__item {
+    flex: 0 0 210px;
+    width: 210px;
+  }
+  .hot-carousel__fade {
+    position: absolute;
+    top: 0;
+    bottom: 0.75rem;
+    width: 72px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hot-carousel__fade--left {
+    left: 0;
+    background: linear-gradient(90deg, var(--color-bg-base), transparent);
+  }
+  .hot-carousel__fade--right {
+    right: 0;
+    background: linear-gradient(270deg, var(--color-bg-base), transparent);
+  }
+}
+
+@keyframes hot-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hot-carousel__track {
+    animation: none !important;
+  }
+  .hot-carousel__viewport {
+    overflow-x: auto;
+  }
+}
+
+/* legacy spotlight kept unused */
 .spotlight-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.875rem;
-}
-@media (min-width: 900px) {
-  .spotlight-grid {
-    grid-template-columns: 1.35fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 1.1rem;
-  }
-  .spotlight-grid__item.is-lead {
-    grid-row: 1 / span 2;
-  }
-  .spotlight-grid__item.is-lead .card-img-wrap {
-    aspect-ratio: 3 / 4.2;
-  }
-  .spotlight-grid__item.is-lead .game-card__name {
-    font-size: 1.05rem;
-  }
 }
 
 /* ── Games section ── */

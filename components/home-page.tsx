@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { GameSearch } from '@/components/game-search'
-import { GameCard } from '@/components/game-card'
+import { HotDemosCarousel } from '@/components/hot-demos-carousel'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { JsonLd } from '@/components/json-ld'
 import { games, i18n, CTA_URL } from '@/lib/games'
@@ -12,13 +12,32 @@ interface HomePageProps {
   lang: Lang
 }
 
-/** Spotlight titles — Mines intentionally excluded from top featured */
-const FEATURED_SLUGS = ['lucky-jet', 'gates-of-olympus', 'sweet-bonanza', 'rocket-queen']
+/** Hero art + carousel order — Mines kept out of the very top */
+const FEATURED_SLUGS = [
+  'lucky-jet',
+  'gates-of-olympus',
+  'sweet-bonanza',
+  'rocket-queen',
+  'sugar-rush',
+  'starlight-princess',
+  'big-bass-bonanza',
+  'the-dog-house',
+  'wolf-gold',
+  'floating-dragon',
+  'fruit-party',
+  'zeus-vs-hades-gods-of-war',
+  'buffalo-king-megaways',
+  'madame-destiny-megaways',
+  'mustang-gold',
+  'wild-west-gold',
+]
 
 export function HomePage({ lang }: HomePageProps) {
   const t = i18n[lang]
   const isEn = lang === 'en'
-  const featured = FEATURED_SLUGS.map((slug) => games.find((g) => g.slug === slug)).filter(Boolean)
+  const featured = FEATURED_SLUGS.map((slug) => games.find((g) => g.slug === slug)).filter(
+    (g): g is NonNullable<typeof g> => Boolean(g)
+  )
   const heroArt = featured.slice(0, 4)
 
   const faqItems = isEn
@@ -176,28 +195,12 @@ export function HomePage({ lang }: HomePageProps) {
         </section>
 
         {featured.length > 0 && (
-          <section className="home-featured" aria-label={isEn ? 'Featured demos' : 'Избранные демо'}>
-            <div className="home-section-head">
-              <span className="home-section-head__label">
-                {isEn ? 'Spotlight' : 'В фокусе'}
-              </span>
-              <h2 className="home-section-head__title">
-                {isEn ? 'Hot demos' : 'Горячие демо'}
-              </h2>
-            </div>
-            <div className="spotlight-grid">
-              {featured.map((game, index) =>
-                game ? (
-                  <div
-                    key={game.slug}
-                    className={`spotlight-grid__item ${index === 0 ? 'is-lead' : ''}`}
-                  >
-                    <GameCard game={game} lang={lang} />
-                  </div>
-                ) : null
-              )}
-            </div>
-          </section>
+          <HotDemosCarousel
+            games={featured}
+            lang={lang}
+            label={isEn ? 'Spotlight' : 'В фокусе'}
+            title={isEn ? 'Hot demos' : 'Горячие демо'}
+          />
         )}
 
         <section
