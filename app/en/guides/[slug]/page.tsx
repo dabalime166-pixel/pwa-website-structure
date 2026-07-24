@@ -2,17 +2,17 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
-import type { Guide } from '@/lib/guides-data'
+import type { GuideData } from '@/lib/guides-data'
 
 const BASE = 'https://www.1weapp.online/en'
 
-function buildGuideJsonLd(guide: Guide, slug: string): string {
+function buildGuideJsonLd(guide: GuideData, slug: string): string {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
     headline: guide.titleEn,
     description: guide.subtitleEn,
-    image: guide.image || 'https://www.1weapp.online/og-image.jpg',
+    image: 'https://www.1weapp.online/og-image.jpg',
     author: {
       '@type': 'Organization',
       name: '1weapp',

@@ -3,24 +3,15 @@ import gamesData from './games-data.json'
 export type Lang = 'en' | 'ru'
 
 /**
- * Removes locale prefix and trailing semicolon from pathname.
+ * Normalize pathnames. Keeps locale prefixes intact for valid localized routes.
  */
 export function cleanPathname(pathname: string): string {
   if (!pathname) return '/'
-
-  let cleaned = pathname.replace(/;+$/, '')
-
-  cleaned = cleaned.replace(/^\/(en|ru)(\/|$)/, '/$1' === cleaned.slice(0, 4) ? '/' : '')
-
-  if (cleaned.startsWith('/en/') || cleaned.startsWith('/ru/')) {
-    cleaned = cleaned.slice(3)
-  }
-
-  if (!cleaned.startsWith('/')) {
-    cleaned = '/' + cleaned
-  }
-
-  return cleaned
+  let cleaned = pathname.replace(/;+$/, '').trim()
+  if (!cleaned.startsWith('/')) cleaned = `/${cleaned}`
+  // Collapse duplicate locale prefixes like /en/en/...
+  cleaned = cleaned.replace(/^\/(en|ru)\/(en|ru)(?=\/|$)/, '/$1')
+  return cleaned === '' ? '/' : cleaned
 }
 
 export interface Game {

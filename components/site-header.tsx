@@ -4,14 +4,31 @@ import { i18n } from '@/lib/games'
 
 interface SiteHeaderProps {
   lang: Lang
+  /** Current game slug — keeps language switch on the same game page */
   gameSlug?: string
+  /** When true, language switch stays inside /guides */
+  section?: 'guides'
+  /** Current guide id — keeps language switch on the same guide */
+  guideSlug?: string
 }
 
-export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
+export function SiteHeader({ lang, gameSlug, section, guideSlug }: SiteHeaderProps) {
   const t = i18n[lang]
 
-  const enHref = gameSlug ? `/en/${gameSlug}` : '/'
-  const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
+  let enHref = '/'
+  let ruHref = '/ru'
+
+  if (guideSlug) {
+    enHref = `/en/guides/${guideSlug}`
+    ruHref = `/ru/guides/${guideSlug}`
+  } else if (section === 'guides') {
+    enHref = '/en/guides'
+    ruHref = '/ru/guides'
+  } else if (gameSlug) {
+    enHref = `/en/${gameSlug}`
+    ruHref = `/ru/${gameSlug}`
+  }
+
   const enGuidesHref = '/en/guides'
   const ruGuidesHref = '/ru/guides'
   const homeHref = lang === 'en' ? '/' : '/ru'
@@ -36,7 +53,7 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
             </Link>
             <Link
               href={lang === 'en' ? enGuidesHref : ruGuidesHref}
-              className="site-header__nav-link"
+              className={`site-header__nav-link${section === 'guides' || guideSlug ? ' is-active' : ''}`}
             >
               {lang === 'en' ? 'Guides' : 'Гайды'}
             </Link>

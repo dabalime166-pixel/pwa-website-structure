@@ -3,11 +3,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { GUIDES } from '@/lib/guides-data';
-import { cleanPathname } from '@/lib/games';
-import type { Guide } from '@/lib/guides-data';
+import type { Section } from '@/lib/guides-data';
 
 /* ─── Section Renderer (shared) ─── */
-function GuideSection({ section, idx }: { section: Guide['sections']['en'][number]; idx: number }) {
+function GuideSection({ section, idx }: { section: Section; idx: number }) {
   return (
     <div className="guide-section">
       <h2 className="guide-section__heading">
@@ -30,7 +29,7 @@ function GuideSection({ section, idx }: { section: Guide['sections']['en'][numbe
       )}
       {section.bullets && section.bullets.length > 0 && (
         <ul className="guide-bullets" role="list">
-          {section.bullets.map((b, i) => (
+          {section.bullets.map((b: string, i: number) => (
             <li key={i} className="guide-bullets__item">
               <span className="guide-bullets__dot" aria-hidden="true" />
               {b}
@@ -40,11 +39,11 @@ function GuideSection({ section, idx }: { section: Guide['sections']['en'][numbe
       )}
       {section.strategies && section.strategies.length > 0 && (
         <div className="guide-strategies">
-          {section.strategies.map((s, i) => (
+          {section.strategies.map((s: { title: string; bullets: string[] }, i: number) => (
             <div key={i} className="guide-strategy-card">
               <p className="guide-strategy-card__title">{s.title}</p>
               <ul className="guide-bullets" role="list">
-                {s.bullets.map((b, j) => (
+                {s.bullets.map((b: string, j: number) => (
                   <li key={j} className="guide-bullets__item">
                     <span className="guide-bullets__dot" aria-hidden="true" />
                     {b}
@@ -167,10 +166,10 @@ export default function GuideSinglePage({
 
           <div style={{ flex: 1 }} />
 
-         {/* Language switcher */}
+         {/* Language switcher — keep locale prefix (/en/... or /ru/...) */}
 <nav aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
   <Link
-    href={cleanPathname(`/en/guides/${slug}`)}
+    href={`/en/guides/${slug}`}
     hrefLang="en"
     className={`lang-btn${isEn ? ' active' : ''}`}
     aria-current={isEn ? 'true' : undefined}
@@ -178,7 +177,7 @@ export default function GuideSinglePage({
     EN
   </Link>
   <Link
-    href={cleanPathname(`/ru/guides/${slug}`)}
+    href={`/ru/guides/${slug}`}
     hrefLang="ru"
     className={`lang-btn${!isEn ? ' active' : ''}`}
     aria-current={!isEn ? 'true' : undefined}

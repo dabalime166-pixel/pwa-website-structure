@@ -1063,23 +1063,23 @@ export default function GuidesPage({ lang }: { lang: 'en' | 'ru' }) {
 
          {/* Language switcher */}
           <div role="navigation" aria-label={isEn ? 'Language' : 'Язык'} className="guides-topbar__lang">
-            <Link
-              href={`/en/guides/${slug}`}
-              hrefLang="en"
-              className={`lang-btn${isEn ? ' active' : ''}`}
-              aria-current={isEn ? 'true' : undefined}
-            >
-              EN
-            </Link>
-            <Link
-              href={`/ru/guides/${slug}`}
-              hrefLang="ru"
-              className={`lang-btn${!isEn ? ' active' : ''}`}
-              aria-current={!isEn ? 'true' : undefined}
-            >
-              RU
-            </Link>
-          </div>
+              <Link
+              href={`/en/guides/${activeId}`}
+                hrefLang="en"
+                className={`lang-btn${isEn ? ' active' : ''}`}
+                aria-current={isEn ? 'true' : undefined}
+              >
+                EN
+              </Link>
+              <Link
+              href={`/ru/guides/${activeId}`}
+                hrefLang="ru"
+                className={`lang-btn${!isEn ? ' active' : ''}`}
+                aria-current={!isEn ? 'true' : undefined}
+              >
+                RU
+              </Link>
+            </div>
         </div>
       </div>
 
