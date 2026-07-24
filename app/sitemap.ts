@@ -4,112 +4,127 @@ import { GUIDES } from '@/lib/guides-data'
 
 const BASE = 'https://www.1weapp.online'
 
+const LEGAL_PATHS = [
+  'privacy',
+  'terms',
+  'disclaimer',
+  'responsible-gaming',
+] as const
+
+function hreflang(enPath: string, ruPath: string) {
+  return {
+    languages: {
+      en: `${BASE}${enPath}`,
+      ru: `${BASE}${ruPath}`,
+      'x-default': `${BASE}${enPath}`,
+    },
+  }
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Home entries (both languages)
   const homeEntries: MetadataRoute.Sitemap = [
     {
       url: `${BASE}/en`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
-      alternates: {
-        languages: {
-          en: `${BASE}/en`,
-          ru: `${BASE}/ru`,
-        },
-      },
+      alternates: hreflang('/en', '/ru'),
     },
     {
       url: `${BASE}/ru`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
-      alternates: {
-        languages: {
-          en: `${BASE}/en`,
-          ru: `${BASE}/ru`,
-        },
-      },
+      alternates: hreflang('/en', '/ru'),
     },
   ]
 
-  // Game entries (all games × 2 languages)
   const gameEntries: MetadataRoute.Sitemap = games.flatMap((g) => {
-    // Mines demo doesn't work, so lower priority
     const priority = g.slug === 'mines' ? 0.3 : 0.8
+    const enPath = `/en/${g.slug}`
+    const ruPath = `/ru/${g.slug}`
     return [
       {
-        url: `${BASE}/en/${g.slug}`,
+        url: `${BASE}${enPath}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority,
-        alternates: {
-          languages: {
-            en: `${BASE}/en/${g.slug}`,
-            ru: `${BASE}/ru/${g.slug}`,
-          },
-        },
+        alternates: hreflang(enPath, ruPath),
       },
       {
-        url: `${BASE}/ru/${g.slug}`,
+        url: `${BASE}${ruPath}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority,
-        alternates: {
-          languages: {
-            en: `${BASE}/en/${g.slug}`,
-            ru: `${BASE}/ru/${g.slug}`,
-          },
-        },
+        alternates: hreflang(enPath, ruPath),
       },
     ]
   })
 
-  // Guide index entries (both languages)
   const guideIndexEntries: MetadataRoute.Sitemap = [
     {
       url: `${BASE}/en/guides`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
-      alternates: { languages: { en: `${BASE}/en/guides`, ru: `${BASE}/ru/guides` } },
+      alternates: hreflang('/en/guides', '/ru/guides'),
     },
     {
       url: `${BASE}/ru/guides`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
-      alternates: { languages: { en: `${BASE}/en/guides`, ru: `${BASE}/ru/guides` } },
+      alternates: hreflang('/en/guides', '/ru/guides'),
     },
   ]
 
-  // Guide detail entries (all guides × 2 languages)
-  const guideEntries: MetadataRoute.Sitemap = GUIDES.flatMap((g) => [
-    {
-      url: `${BASE}/en/guides/${g.id}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.85,
-      alternates: {
-        languages: {
-          en: `${BASE}/en/guides/${g.id}`,
-          ru: `${BASE}/ru/guides/${g.id}`,
-        },
+  const guideEntries: MetadataRoute.Sitemap = GUIDES.flatMap((g) => {
+    const enPath = `/en/guides/${g.id}`
+    const ruPath = `/ru/guides/${g.id}`
+    return [
+      {
+        url: `${BASE}${enPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.85,
+        alternates: hreflang(enPath, ruPath),
       },
-    },
-    {
-      url: `${BASE}/ru/guides/${g.id}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.85,
-      alternates: {
-        languages: {
-          en: `${BASE}/en/guides/${g.id}`,
-          ru: `${BASE}/ru/guides/${g.id}`,
-        },
+      {
+        url: `${BASE}${ruPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.85,
+        alternates: hreflang(enPath, ruPath),
       },
-    },
-  ])
+    ]
+  })
 
-  return [...homeEntries, ...gameEntries, ...guideIndexEntries, ...guideEntries]
+  const legalEntries: MetadataRoute.Sitemap = LEGAL_PATHS.flatMap((path) => {
+    const enPath = `/en/${path}`
+    const ruPath = `/ru/${path}`
+    return [
+      {
+        url: `${BASE}${enPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'yearly' as const,
+        priority: 0.3,
+        alternates: hreflang(enPath, ruPath),
+      },
+      {
+        url: `${BASE}${ruPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'yearly' as const,
+        priority: 0.3,
+        alternates: hreflang(enPath, ruPath),
+      },
+    ]
+  })
+
+  return [
+    ...homeEntries,
+    ...gameEntries,
+    ...guideIndexEntries,
+    ...guideEntries,
+    ...legalEntries,
+  ]
 }
