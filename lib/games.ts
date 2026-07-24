@@ -127,7 +127,7 @@ export const i18n = {
     breadcrumbHome: 'Home',
     metaTitleHome: 'Free Slot Demos No Registration — Crash & Mines | 1weapp',
     metaDescHome:
-      'Free slot demos with no signup: Lucky Jet crash, Pragmatic Play slots and mines — no deposit. Instant browser play on 1weapp.',
+      'Free slot demos with no signup: Lucky Jet crash, Pragmatic Play slots and mines — no deposit. Open instantly in your browser on 1weapp.',
     filterAll: 'All',
     heroTitle: 'Play the hottest demos free',
     heroSub: 'Crash, slots & mines — instant browser play, zero signup.',
@@ -142,7 +142,7 @@ export const i18n = {
     breadcrumbHome: 'Главная',
     metaTitleHome: 'Бесплатные демо слоты без регистрации — краш и mines | 1weapp',
     metaDescHome:
-      'Бесплатные демо слоты без регистрации: Lucky Jet, слоты Pragmatic Play и mines без депозита. Мгновенно в браузере на 1weapp.',
+      'Бесплатные демо слоты без регистрации: Lucky Jet, слоты Pragmatic Play и mines без депозита. Открывайте демо сразу в браузере на 1weapp.',
     filterAll: 'Все',
     heroTitle: 'Играй в топовые демо бесплатно',
     heroSub: 'Краш, слоты и mines — мгновенно в браузере, без регистрации.',
