@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Manrope, Unbounded } from 'next/font/google'
 import './globals.css'
 // Импортируем компонент для вставки аналитики
 import Script from 'next/script'
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin', 'cyrillic'],
   display: 'swap',
   variable: '--font-sans',
+})
+
+const unbounded = Unbounded({
+  subsets: ['latin', 'cyrillic'],
+  display: 'swap',
+  variable: '--font-display',
 })
 
 export const metadata: Metadata = {
@@ -112,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${manrope.variable} ${unbounded.variable} font-sans antialiased`}>
         {/* Резервный пиксель Яндекс Метрики на случай отключенного JS у юзера */}
         <noscript>
           <div>

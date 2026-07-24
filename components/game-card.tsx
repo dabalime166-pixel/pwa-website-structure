@@ -8,27 +8,12 @@ interface GameCardProps {
   lang: Lang
 }
 
-const cornerStyle = (pos: { top?: number; bottom?: number; left?: number; right?: number }) =>
-  ({
-    position: 'absolute' as const,
-    ...pos,
-    width: 18,
-    height: 18,
-    borderTop: pos.top !== undefined ? '2px solid var(--color-gold-light)' : undefined,
-    borderBottom: pos.bottom !== undefined ? '2px solid var(--color-gold-light)' : undefined,
-    borderLeft: pos.left !== undefined ? '2px solid var(--color-gold-light)' : undefined,
-    borderRight: pos.right !== undefined ? '2px solid var(--color-gold-light)' : undefined,
-    borderRadius: `${pos.top !== undefined && pos.left !== undefined ? '2px' : '0'} ${pos.top !== undefined && pos.right !== undefined ? '2px' : '0'} ${pos.bottom !== undefined && pos.right !== undefined ? '2px' : '0'} ${pos.bottom !== undefined && pos.left !== undefined ? '2px' : '0'}`,
-    pointerEvents: 'none' as const,
-    zIndex: 3,
-    opacity: 0.7,
-  })
-
 function CardInner({ game, lang }: { game: Game; lang: Lang }) {
   const t = i18n[lang]
+  const isEn = lang === 'en'
+
   return (
     <>
-      {/* Thumbnail */}
       <div className="card-img-wrap">
         <Image
           src={game.avatar}
@@ -39,57 +24,22 @@ function CardInner({ game, lang }: { game: Game; lang: Lang }) {
           unoptimized
           crossOrigin="anonymous"
         />
-        {/* Gold corner accents */}
-        <span aria-hidden="true" style={cornerStyle({ top: 6, left: 6 })} />
-        <span aria-hidden="true" style={cornerStyle({ top: 6, right: 6 })} />
-        <span aria-hidden="true" style={cornerStyle({ bottom: 6, left: 6 })} />
-        <span aria-hidden="true" style={cornerStyle({ bottom: 6, right: 6 })} />
 
-        {/* Hover overlay */}
+        <div className="card-badges" aria-hidden={!game.rtp && !game.gameType}>
+          {game.gameType && <span className="card-badge card-badge--type">{game.gameType}</span>}
+          {game.rtp && <span className="card-badge card-badge--rtp">RTP {game.rtp}</span>}
+        </div>
+
         <div className="card-overlay" aria-hidden="true">
-          <span
-            style={{
-              background: 'linear-gradient(135deg, var(--color-gold-light), var(--color-gold))',
-              color: '#0a0a0b',
-              fontWeight: 800,
-              fontSize: '0.8125rem',
-              padding: '0.5rem 1.25rem',
-              borderRadius: '99px',
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-            }}
-          >
-            {t.playDemo}
-          </span>
+          <span className="card-overlay__cta">{t.playDemo}</span>
         </div>
       </div>
 
-      {/* Info */}
-      <div style={{ padding: '0.625rem 0.75rem 0.75rem', borderTop: '1px solid var(--color-border)' }}>
-        <p
-          style={{
-            fontSize: '0.875rem',
-            fontWeight: 700,
-            color: 'var(--color-text-primary)',
-            lineHeight: 1.3,
-            marginBottom: '0.2rem',
-            overflow: 'hidden',
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-          }}
-        >
-          {game.name}
-        </p>
-        <p
-          style={{
-            fontSize: '0.7rem',
-            color: 'var(--color-text-muted)',
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-          }}
-        >
-          {game.provider}
+      <div className="game-card__info">
+        <p className="game-card__name">{game.name}</p>
+        <p className="game-card__provider">{game.provider}</p>
+        <p className="sr-only">
+          {isEn ? 'Free demo available' : 'Доступно бесплатное демо'}
         </p>
       </div>
     </>

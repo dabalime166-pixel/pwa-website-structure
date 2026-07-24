@@ -4,32 +4,22 @@ export type Lang = 'en' | 'ru'
 
 /**
  * Removes locale prefix and trailing semicolon from pathname.
- * Prevents double locale prefixes (e.g., /en/en/guides) and broken URLs.
- * @example
- * cleanPathname('/en/guides/plinko') → '/guides/plinko'
- * cleanPathname('/ru/games') → '/games'
- * cleanPathname('/guides') → '/guides'
- * cleanPathname('/en/ru/') → '/' (removes malformed double prefix)
  */
 export function cleanPathname(pathname: string): string {
   if (!pathname) return '/'
-  
-  // Remove trailing semicolon if present (prevents malformed URLs)
+
   let cleaned = pathname.replace(/;+$/, '')
-  
-  // Remove locale prefix from start (/en, /ru)
+
   cleaned = cleaned.replace(/^\/(en|ru)(\/|$)/, '/$1' === cleaned.slice(0, 4) ? '/' : '')
-  
-  // If cleaning didn't remove the prefix properly, try again
+
   if (cleaned.startsWith('/en/') || cleaned.startsWith('/ru/')) {
-    cleaned = cleaned.slice(3) // Remove first 3 chars (/en or /ru)
+    cleaned = cleaned.slice(3)
   }
-  
-  // Ensure path starts with /
+
   if (!cleaned.startsWith('/')) {
     cleaned = '/' + cleaned
   }
-  
+
   return cleaned
 }
 
@@ -81,7 +71,6 @@ export function getSeoText(game: Game, lang: Lang): string {
 export function getSeoTitle(game: Game, lang: Lang): string {
   const custom = lang === 'ru' ? game.titleSeoRu : game.titleSeoEn
   if (custom) return custom
-  // Fallback: auto-generate from game name
   return lang === 'ru'
     ? `${game.name} — Играть в демо онлайн`
     : `${game.name} Demo — Play Free Online`
@@ -90,11 +79,11 @@ export function getSeoTitle(game: Game, lang: Lang): string {
 export function getSeoDescription(game: Game, lang: Lang): string {
   const custom = lang === 'ru' ? game.descriptionSeoRu : game.descriptionSeoEn
   if (custom) return custom
-  // Fallback: auto-generate from keywords
-  const keywords = getKeywords(game, lang).slice(0, 3).join(', ')
+  const type = game.gameType || (lang === 'ru' ? 'игра' : 'game')
+  const rtp = game.rtp ? ` RTP ${game.rtp}.` : ''
   return lang === 'ru'
-    ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}. ${keywords}.`
-    : `Play ${game.name} demo free — no registration needed. ${game.provider}. ${keywords}.`
+    ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}, ${type}.${rtp}`
+    : `Play ${game.name} demo free — no registration needed. ${game.provider} ${type}.${rtp}`
 }
 
 /** Format plain SEO text into semantic HTML paragraphs */
@@ -107,30 +96,30 @@ export function formatSeoText(text: string): string {
     .join('\n')
 }
 
-/**
- * Generate deterministic unique rating (3.5-4.9) and review count (100-500)
- * based on game name hash. Same game always gets same rating.
- * @example
- * getGameRating("Lucky Jet") → { rating: 4.7, reviewCount: 284 }
- */
-export function getGameRating(gameName: string): { rating: number; reviewCount: number } {
-  // Simple hash function from game name
-  let hash = 0
-  for (let i = 0; i < gameName.length; i++) {
-    const char = gameName.charCodeAt(i)
-    hash = (hash << 5) - hash + char
-    hash = hash & hash // Convert to 32bit integer
-  }
-  
-  // Generate deterministic but varied rating (3.5 to 4.9)
-  const ratingRand = Math.abs(hash % 1000) / 1000
-  const rating = Math.round((3.5 + ratingRand * 1.4) * 10) / 10
-  
-  // Generate deterministic review count (100-500)
-  const reviewCountRand = Math.abs((hash >> 8) % 1000) / 1000
-  const reviewCount = Math.round(100 + reviewCountRand * 400)
-  
-  return { rating, reviewCount }
+/** Related games by type/provider, excluding current slug */
+export function getRelatedGames(slug: string, limit = 4): Game[] {
+  const current = getGame(slug)
+  if (!current) return games.filter((g) => g.slug !== slug).slice(0, limit)
+
+  const scored = games
+    .filter((g) => g.slug !== slug)
+    .map((g) => {
+      let score = 0
+      if (current.gameType && g.gameType === current.gameType) score += 3
+      if (g.provider === current.provider) score += 2
+      return { g, score }
+    })
+    .sort((a, b) => b.score - a.score || a.g.name.localeCompare(b.g.name))
+
+  return scored.slice(0, limit).map((x) => x.g)
+}
+
+/** Guides relevant to a game type */
+export function getRelatedGuideIds(gameType?: string): string[] {
+  const type = (gameType || '').toLowerCase()
+  if (type.includes('crash')) return ['crash', 'rtp', 'responsible']
+  if (type.includes('mine')) return ['mines', 'rtp', 'responsible']
+  return ['rtp', 'bonuses', 'mistakes', 'responsible']
 }
 
 /** CTA link */
@@ -139,32 +128,32 @@ export const CTA_URL = 'https://lkiv.cc/dea2'
 export const i18n = {
   en: {
     playDemo: 'Play Demo',
-    playReal: 'Play for Real Money 🚀',
+    playReal: 'Play for Real Money',
     provider: 'Provider',
     home: 'Home',
     games: 'All Games',
     demo: 'Demo',
     breadcrumbHome: 'Home',
-    metaTitleHome: 'Best Free Slots: Spin & Play with Bonus Rounds | 1Weаpp',
+    metaTitleHome: 'Best Free Slots: Spin & Play with Bonus Rounds | 1weapp',
     metaDescHome:
       'Free demo versions of the best crash games and slots. No registration. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
     filterAll: 'All',
-    heroTitle: 'Play Demo Games',
-    heroSub: 'No registration · Instant play · Mobile optimized',
+    heroTitle: 'Free crash & slot demos',
+    heroSub: 'No registration. Instant browser play. Mobile-ready.',
   },
   ru: {
     playDemo: 'Играть Бесплатно',
-    playReal: 'Играть на реальные деньги 🚀',
+    playReal: 'Играть на реальные деньги',
     provider: 'Провайдер',
     home: 'Главная',
     games: 'Все игры',
     demo: 'Демо',
     breadcrumbHome: 'Главная',
-    metaTitleHome: 'Бесплатные Слот Игры Без Регистрации: Демо с Бонусами | 1WeApp',
+    metaTitleHome: 'Бесплатные слот-игры без регистрации: демо с бонусами | 1weapp',
     metaDescHome:
       'Бесплатные демо-версии лучших краш игр и слотов. Без регистрации. Lucky Jet, Gates of Olympus, Sweet Bonanza и другие.',
     filterAll: 'Все',
-    heroTitle: 'Играть в демо',
-    heroSub: 'Без регистрации · Мгновенно · Оптимизировано для мобильных',
+    heroTitle: 'Бесплатные демо краш и слотов',
+    heroSub: 'Без регистрации. Мгновенный запуск в браузере. Для мобильных.',
   },
 } as const
