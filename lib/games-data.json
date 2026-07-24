@@ -1,19 +1,5 @@
 [
   {
-    "slug": "mines",
-    "name": "Mines",
-    "provider": "1weapp Games",
-    "iframeUrl": "",
-    "keywordsRu": "mines, mines игра, mines казино, mines онлайн, mines стратегия, mines демо, как играть в mines, mines бесплатно",
-    "keywordsEn": "mines game, mines casino, mines online, mines strategy, mines demo, how to play mines, play mines free",
-    "seoTextRu": "Mines — Mines от 1weapp Games. Демо-режим нужен, чтобы спокойно разобрать механику: как формируются выигрыши, когда появляются бонусные символы и насколько резко меняется баланс за короткую сессию.\n\nПрактический сценарий простой: откройте Mines demo без регистрации, поставьте комфортный виртуальный размер ставки и сделайте несколько серий спинов или раундов. Смотрите на частоту мелких выплат, длину «сухих» отрезков и ощущение волатильности.\n\nПараметры для ориентира: RTP ~97.00%, тип Mines, провайдер 1weapp Games. После демо сравните темп с другими играми каталога и только затем решайте, подходит ли формат под ваш банкролл. Играйте ответственно, 18+.",
-    "seoTextEn": "Mines stands as a premier strategic crash game that combines calculated risk-taking with immediate decision-making mechanics. The fundamental gameplay revolves around revealing grid cells while strategically avoiding hidden mines scattered across the playing field. Each round of Mines presents a compelling challenge where players must carefully balance risk appetite against potential reward multipliers. The core mechanic operates on a simple but effective principle: each safe cell you uncover increases your payout coefficient, yet simultaneously escalates the probability of encountering a mine. This tension between aggressive expansion and conservative play creates a uniquely engaging gaming experience. The mines demo mode provides a risk-free environment to experiment with various playing strategies and understand game volatility. Players can test different approaches: from conservative low-stake tactics to aggressive high-risk strategies, each offering distinct advantages based on individual gaming preferences. Play mines free on our platform without registration requirements or minimum deposits. The intuitive interface scales seamlessly across all devices, from mobile smartphones to desktop computers, ensuring smooth gameplay regardless of your preferred platform. Join thousands of players worldwide who have discovered the thrilling world of Mines and the electrifying rush of strategic casino entertainment.",
-    "avatar": "https://raw.githubusercontent.com/dabalime133/ava/main/mines.webp",
-    "externalUrl": "https://mines2027.vercel.app/",
-    "gameType": "Mines",
-    "rtp": "~97.00%"
-  },
-  {
     "slug": "lucky-jet",
     "name": "Lucky Jet",
     "titleSeoEn": "Lucky Jet Demo — Play Crash Game Free Online",
@@ -65,6 +51,20 @@
     "avatar": "https://raw.githubusercontent.com/dabalime133/ava/main/sweet-bonanza.webp",
     "rtp": "96.48%",
     "gameType": "Slots"
+  },
+  {
+    "slug": "mines",
+    "name": "Mines",
+    "provider": "1weapp Games",
+    "iframeUrl": "",
+    "keywordsRu": "mines, mines игра, mines казино, mines онлайн, mines стратегия, mines демо, как играть в mines, mines бесплатно",
+    "keywordsEn": "mines game, mines casino, mines online, mines strategy, mines demo, how to play mines, play mines free",
+    "seoTextRu": "Mines — Mines от 1weapp Games. Демо-режим нужен, чтобы спокойно разобрать механику: как формируются выигрыши, когда появляются бонусные символы и насколько резко меняется баланс за короткую сессию.\n\nПрактический сценарий простой: откройте Mines demo без регистрации, поставьте комфортный виртуальный размер ставки и сделайте несколько серий спинов или раундов. Смотрите на частоту мелких выплат, длину «сухих» отрезков и ощущение волатильности.\n\nПараметры для ориентира: RTP ~97.00%, тип Mines, провайдер 1weapp Games. После демо сравните темп с другими играми каталога и только затем решайте, подходит ли формат под ваш банкролл. Играйте ответственно, 18+.",
+    "seoTextEn": "Mines stands as a premier strategic crash game that combines calculated risk-taking with immediate decision-making mechanics. The fundamental gameplay revolves around revealing grid cells while strategically avoiding hidden mines scattered across the playing field. Each round of Mines presents a compelling challenge where players must carefully balance risk appetite against potential reward multipliers. The core mechanic operates on a simple but effective principle: each safe cell you uncover increases your payout coefficient, yet simultaneously escalates the probability of encountering a mine. This tension between aggressive expansion and conservative play creates a uniquely engaging gaming experience. The mines demo mode provides a risk-free environment to experiment with various playing strategies and understand game volatility. Players can test different approaches: from conservative low-stake tactics to aggressive high-risk strategies, each offering distinct advantages based on individual gaming preferences. Play mines free on our platform without registration requirements or minimum deposits. The intuitive interface scales seamlessly across all devices, from mobile smartphones to desktop computers, ensuring smooth gameplay regardless of your preferred platform. Join thousands of players worldwide who have discovered the thrilling world of Mines and the electrifying rush of strategic casino entertainment.",
+    "avatar": "https://raw.githubusercontent.com/dabalime133/ava/main/mines.webp",
+    "externalUrl": "https://mines2027.vercel.app/",
+    "gameType": "Mines",
+    "rtp": "~97.00%"
   },
   {
     "slug": "big-bass-bonanza",

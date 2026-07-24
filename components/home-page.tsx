@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { GameSearch } from '@/components/game-search'
@@ -11,12 +12,14 @@ interface HomePageProps {
   lang: Lang
 }
 
-const FEATURED_SLUGS = ['lucky-jet', 'mines', 'gates-of-olympus', 'sweet-bonanza']
+/** Spotlight titles — Mines intentionally excluded from top featured */
+const FEATURED_SLUGS = ['lucky-jet', 'gates-of-olympus', 'sweet-bonanza', 'rocket-queen']
 
 export function HomePage({ lang }: HomePageProps) {
   const t = i18n[lang]
   const isEn = lang === 'en'
   const featured = FEATURED_SLUGS.map((slug) => games.find((g) => g.slug === slug)).filter(Boolean)
+  const heroArt = featured.slice(0, 4)
 
   const faqItems = isEn
     ? [
@@ -87,8 +90,29 @@ export function HomePage({ lang }: HomePageProps) {
 
       <main id="main-content" role="main">
         <section className="home-hero" aria-label="1weapp">
-          <div className="home-hero__bg" aria-hidden="true" />
-          <div className="home-hero__visual" aria-hidden="true" />
+          <div className="home-hero__stage" aria-hidden="true">
+            <div className="home-hero__glow home-hero__glow--a" />
+            <div className="home-hero__glow home-hero__glow--b" />
+            <div className="home-hero__noise" />
+            <div className="home-hero__art">
+              {heroArt.map((game, index) =>
+                game ? (
+                  <div key={game.slug} className={`home-hero__poster home-hero__poster--${index + 1}`}>
+                    <Image
+                      src={game.avatar}
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 40vw, 28vw"
+                      priority={index < 2}
+                      unoptimized
+                      crossOrigin="anonymous"
+                    />
+                  </div>
+                ) : null
+              )}
+            </div>
+            <div className="home-hero__veil" />
+          </div>
 
           <div className="home-hero__inner">
             <p className="home-hero__brand anim-fade-up">
@@ -96,10 +120,7 @@ export function HomePage({ lang }: HomePageProps) {
               <span className="home-hero__brand-accent">app</span>
             </p>
 
-            <h1 className="home-hero__title anim-fade-up anim-delay-1">
-              {t.heroTitle}
-            </h1>
-
+            <h1 className="home-hero__title anim-fade-up anim-delay-1">{t.heroTitle}</h1>
             <p className="home-hero__sub anim-fade-up anim-delay-2">{t.heroSub}</p>
 
             <div className="home-hero__actions anim-fade-up anim-delay-3">
@@ -117,7 +138,7 @@ export function HomePage({ lang }: HomePageProps) {
               </a>
 
               <a href="#games" className="btn-ghost">
-                {isEn ? 'Browse games' : 'Смотреть игры'}
+                {isEn ? 'Browse demos' : 'Смотреть демо'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -131,22 +152,25 @@ export function HomePage({ lang }: HomePageProps) {
           </div>
         </section>
 
-        <section className="home-features" aria-label={isEn ? 'Why play here' : 'Почему у нас'}>
+        <section className="home-rail" aria-label={isEn ? 'Why play here' : 'Почему у нас'}>
           {(isEn
             ? [
-                { title: 'Instant Play', desc: 'Launch any demo in one tap — no downloads.' },
-                { title: 'No Registration', desc: 'Open free demos without sign-up or deposit.' },
-                { title: 'Mobile Ready', desc: 'Smooth play on phone, tablet, or desktop.' },
+                { k: '01', title: 'Instant launch', desc: 'One tap — demo in the browser.' },
+                { k: '02', title: 'Zero signup', desc: 'No account. No deposit wall.' },
+                { k: '03', title: 'Built for mobile', desc: 'Crisp play on any screen.' },
               ]
             : [
-                { title: 'Мгновенный запуск', desc: 'Демо в один тап — без загрузок.' },
-                { title: 'Без регистрации', desc: 'Играйте бесплатно без входа и депозита.' },
-                { title: 'Для смартфонов', desc: 'Удобно на телефоне, планшете и ПК.' },
+                { k: '01', title: 'Мгновенный старт', desc: 'Один тап — демо в браузере.' },
+                { k: '02', title: 'Без регистрации', desc: 'Без аккаунта и депозита.' },
+                { k: '03', title: 'Для мобильных', desc: 'Чётко на любом экране.' },
               ]
           ).map((f) => (
-            <div key={f.title} className="feature-row">
-              <h3 className="feature-row__title">{f.title}</h3>
-              <p className="feature-row__desc">{f.desc}</p>
+            <div key={f.k} className="home-rail__item">
+              <span className="home-rail__index">{f.k}</span>
+              <div>
+                <h3 className="home-rail__title">{f.title}</h3>
+                <p className="home-rail__desc">{f.desc}</p>
+              </div>
             </div>
           ))}
         </section>
@@ -155,16 +179,23 @@ export function HomePage({ lang }: HomePageProps) {
           <section className="home-featured" aria-label={isEn ? 'Featured demos' : 'Избранные демо'}>
             <div className="home-section-head">
               <span className="home-section-head__label">
-                {isEn ? 'Start here' : 'Начните здесь'}
+                {isEn ? 'Spotlight' : 'В фокусе'}
               </span>
               <h2 className="home-section-head__title">
-                {isEn ? 'Featured demos' : 'Избранные демо'}
+                {isEn ? 'Hot demos' : 'Горячие демо'}
               </h2>
             </div>
-            <div className="games-grid games-grid--featured">
-              {featured.map((game) => game && (
-                <GameCard key={game.slug} game={game} lang={lang} />
-              ))}
+            <div className="spotlight-grid">
+              {featured.map((game, index) =>
+                game ? (
+                  <div
+                    key={game.slug}
+                    className={`spotlight-grid__item ${index === 0 ? 'is-lead' : ''}`}
+                  >
+                    <GameCard game={game} lang={lang} />
+                  </div>
+                ) : null
+              )}
             </div>
           </section>
         )}

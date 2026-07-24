@@ -72,7 +72,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-[#0a0a0b]">
+    <html lang="en" className="bg-[#07070a]">
       <head>
         {/* Google Analytics 4 - loads tracking script */}
         <Script

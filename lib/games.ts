@@ -138,8 +138,8 @@ export const i18n = {
     metaDescHome:
       'Free demo versions of the best crash games and slots. No registration. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
     filterAll: 'All',
-    heroTitle: 'Free crash & slot demos',
-    heroSub: 'No registration. Instant browser play. Mobile-ready.',
+    heroTitle: 'Play the hottest demos free',
+    heroSub: 'Crash, slots & mines — instant browser play, zero signup.',
   },
   ru: {
     playDemo: 'Играть Бесплатно',
@@ -153,7 +153,7 @@ export const i18n = {
     metaDescHome:
       'Бесплатные демо-версии лучших краш игр и слотов. Без регистрации. Lucky Jet, Gates of Olympus, Sweet Bonanza и другие.',
     filterAll: 'Все',
-    heroTitle: 'Бесплатные демо краш и слотов',
-    heroSub: 'Без регистрации. Мгновенный запуск в браузере. Для мобильных.',
+    heroTitle: 'Играй в топовые демо бесплатно',
+    heroSub: 'Краш, слоты и mines — мгновенно в браузере, без регистрации.',
   },
 } as const
