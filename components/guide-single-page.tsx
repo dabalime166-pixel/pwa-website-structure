@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import type { Section } from '@/lib/guides-data'
 import { CTA_URL } from '@/lib/games'
@@ -279,6 +280,8 @@ export default function GuideSinglePage({
                 {isEn ? '18+ · Gamble responsibly · T&C apply' : '18+ · Играйте ответственно · Применяются условия'}
               </p>
             </div>
+
+            <ExpertBanner lang={lang} />
 
             <nav className="guide-pager" aria-label={isEn ? 'Guide navigation' : 'Навигация по гайдам'}>
               {prev ? (

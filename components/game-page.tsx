@@ -4,6 +4,7 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { GameCard } from '@/components/game-card'
 import { GameViewer } from '@/components/game-viewer'
+import { ExpertBanner } from '@/components/expert-banner'
 import {
   getGame,
   getSeoText,
@@ -310,6 +311,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
             </h2>
           </div>
           <div className="seo-body" dangerouslySetInnerHTML={{ __html: formattedSeo }} />
+          <ExpertBanner lang={lang} variant="compact" />
         </article>
 
         {related.length > 0 && (

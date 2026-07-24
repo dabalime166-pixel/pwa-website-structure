@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
 import type { GuideData } from '@/lib/guides-data'
+import { EXPERT } from '@/lib/expert'
 
 const BASE = 'https://www.1weapp.online/ru'
 
@@ -14,8 +15,16 @@ function buildGuideJsonLd(guide: GuideData, slug: string): string {
     description: guide.subtitleRu,
     image: 'https://www.1weapp.online/og-image.jpg',
     author: {
-      '@type': 'Organization',
-      name: '1weapp',
+      '@type': 'Person',
+      name: EXPERT.name,
+      jobTitle: EXPERT.titleRu,
+      image: `https://www.1weapp.online${EXPERT.avatar}`,
+      description: EXPERT.bioRu,
+    },
+    reviewedBy: {
+      '@type': 'Person',
+      name: EXPERT.name,
+      jobTitle: EXPERT.titleRu,
     },
     inLanguage: 'ru',
     url: `${BASE}/guides/${slug}`,

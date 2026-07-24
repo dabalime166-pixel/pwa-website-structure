@@ -4,6 +4,7 @@ import { SiteFooter } from '@/components/site-footer'
 import { GameSearch } from '@/components/game-search'
 import { HotDemosCarousel } from '@/components/hot-demos-carousel'
 import { FaqAccordion } from '@/components/faq-accordion'
+import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
 import { games, i18n, CTA_URL } from '@/lib/games'
 import type { Lang } from '@/lib/games'
@@ -109,6 +110,14 @@ export function HomePage({ lang }: HomePageProps) {
       price: '0',
       priceCurrency: 'USD',
       description: 'Free demo games',
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Dr. Henrik Adler',
+      jobTitle: isEn
+        ? 'Demo Mechanics & Responsible Play Reviewer'
+        : 'Рецензент демо-механик и ответственной игры',
+      image: 'https://www.1weapp.online/experts/dr-henrik-adler.png',
     },
   }
 
@@ -403,6 +412,8 @@ export function HomePage({ lang }: HomePageProps) {
                 </p>
               </>
             )}
+
+            <ExpertBanner lang={lang} />
 
             <FaqAccordion
               title={isEn ? 'Frequently asked questions' : 'Частые вопросы'}

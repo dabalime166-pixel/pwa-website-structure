@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import type { Lang } from '@/lib/games'
 import { CTA_URL } from '@/lib/games'
@@ -219,6 +220,10 @@ export default function GuidesIndexPage({ lang }: Props) {
             ))}
           </div>
         </section>
+
+        <div className="guides-hub__expert">
+          <ExpertBanner lang={lang} />
+        </div>
 
         <section className="guides-hub__cta" aria-label={ui.ctaTitle}>
           <div className="guides-hub__cta-inner">
