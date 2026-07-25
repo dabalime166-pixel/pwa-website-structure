@@ -5,6 +5,8 @@ import { SiteFooter } from '@/components/site-footer'
 import { GameCard } from '@/components/game-card'
 import { GameViewer } from '@/components/game-viewer'
 import { ExpertBanner } from '@/components/expert-banner'
+import { FaqAccordion } from '@/components/faq-accordion'
+import type { FaqItem } from '@/components/faq-accordion'
 import {
   getGame,
   getSeoText,
@@ -23,10 +25,67 @@ interface GamePageProps {
   lang: Lang
 }
 
-function buildJsonLd(game: Game, lang: Lang): string {
+function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] {
   const isEn = lang === 'en'
-  return JSON.stringify({
-    '@context': 'https://schema.org',
+  const name = game.name
+  const type = game.gameType || (isEn ? 'slots' : 'слоты')
+  const rtp = game.rtp || '~96%'
+  const provider = game.provider
+
+  if (isEn) {
+    return [
+      {
+        question: `How to play ${name} demo?`,
+        answer: `Open the ${name} demo on this page — no registration or deposit needed. The free demo uses virtual credits and the same core mechanics as the real version by ${provider}, so you can learn the loop before any real-money play.`,
+      },
+      {
+        question: `Can I play ${name} for free?`,
+        answer: `Yes. You can play ${name} for free in browser demo mode with virtual balance. It is ideal for checking volatility, features and pacing without risking a deposit.`,
+      },
+      {
+        question: `${name} demo without registration — is signup required?`,
+        answer: `No. The ${name} demo without registration opens instantly. You do not need an account, email or app install to start the free session.`,
+      },
+      {
+        question: `What is the RTP of ${name} demo?`,
+        answer: `${name} is listed as ${type} from ${provider} with published RTP ${rtp}. Demo mode follows the same published range so you can judge session feel before deciding anything else.`,
+      },
+      {
+        question: `Can I play ${name} for real money?`,
+        answer: `Yes — you can play ${name} for real money if you continue via the button below. Try the free demo first, stay 18+, and set limits before depositing.`,
+        cta: { href: CTA_URL, label: playRealLabel },
+      },
+    ]
+  }
+
+  return [
+    {
+      question: `Как играть в ${name} демо?`,
+      answer: `Откройте ${name} демо на этой странице — без регистрации и депозита. Бесплатное демо идёт на виртуальных кредитах с той же базовой механикой, что у версии на деньги от ${provider}.`,
+    },
+    {
+      question: `Можно ли играть в ${name} бесплатно?`,
+      answer: `Да. Играть в ${name} бесплатно можно в демо-режиме прямо в браузере. Так вы проверяете волатильность, бонусы и темп сессии без риска для депозита.`,
+    },
+    {
+      question: `${name} демо без регистрации — нужен ли аккаунт?`,
+      answer: `Нет. ${name} демо без регистрации запускается сразу: аккаунт, почта и установка приложения не требуются.`,
+    },
+    {
+      question: `Какой RTP у ${name} демо?`,
+      answer: `${name} — ${type} от ${provider}, заявленный RTP ${rtp}. В демо используется тот же ориентир, чтобы оценить ощущение сессии до любых решений на деньги.`,
+    },
+    {
+      question: `Можно ли играть в ${name} на деньги?`,
+      answer: `Да — играть в ${name} на деньги можно, если перейти по кнопке ниже. Сначала протестируйте бесплатное демо, играйте только 18+ и заранее задайте лимиты.`,
+      cta: { href: CTA_URL, label: playRealLabel },
+    },
+  ]
+}
+
+function buildJsonLd(game: Game, lang: Lang, faqItems: FaqItem[]): string {
+  const isEn = lang === 'en'
+  const app = {
     '@type': 'SoftwareApplication',
     name: `${game.name} Demo`,
     applicationCategory: 'GameApplication',
@@ -38,6 +97,23 @@ function buildJsonLd(game: Game, lang: Lang): string {
     publisher: { '@type': 'Organization', name: game.provider },
     image: game.avatar,
     url: `https://www.1weapp.online/${lang}/${game.slug}`,
+  }
+
+  const faq = {
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [app, faq],
   })
 }
 
@@ -49,7 +125,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
   const isEn = lang === 'en'
   const seoText = getSeoText(game, lang)
   const formattedSeo = formatSeoText(seoText)
-  const jsonLd = buildJsonLd(game, lang)
+  const faqItems = buildGameFaq(game, lang, t.playReal)
+  const jsonLd = buildJsonLd(game, lang, faqItems)
   const related = getRelatedGames(slug, 4)
   const guideIds = getRelatedGuideIds(game.gameType)
   const relatedGuides = GUIDES.filter((g) => guideIds.includes(g.id)).slice(0, 4)
@@ -313,6 +390,14 @@ export function GamePage({ slug, lang }: GamePageProps) {
           <div className="seo-body" dangerouslySetInnerHTML={{ __html: formattedSeo }} />
           <ExpertBanner lang={lang} variant="compact" />
         </article>
+
+        <div className="gp-faq">
+          <FaqAccordion
+            idPrefix={`game-${game.slug}-faq`}
+            title={isEn ? `${game.name} — FAQ` : `${game.name} — частые вопросы`}
+            items={faqItems}
+          />
+        </div>
 
         {related.length > 0 && (
           <section className="games-related" aria-labelledby="related-games-heading">
