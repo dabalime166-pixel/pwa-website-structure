@@ -1096,10 +1096,43 @@ img { display: block; max-width: 100%; height: auto; }
     linear-gradient(180deg, rgba(7,7,10,0.35) 0%, rgba(7,7,10,0.82) 55%, var(--color-bg-base) 100%),
     radial-gradient(ellipse 70% 60% at 20% 20%, rgba(226,184,74,0.18), transparent 60%);
 }
-.game-page__breadcrumb {
-  margin-bottom: 1.5rem;
+.game-page__topbar {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.game-page__breadcrumb {
+  margin-bottom: 0;
+  position: relative;
+  min-width: 0;
+}
+.gp-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-gold);
+  background: rgba(226,184,74,0.08);
+  color: var(--color-gold-light);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+}
+.gp-home-btn:hover {
+  background: rgba(226,184,74,0.16);
+  border-color: var(--color-gold);
+  color: #fff;
+  transform: translateY(-1px);
 }
 .breadcrumb-current { color: var(--color-text-primary); }
 

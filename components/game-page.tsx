@@ -171,25 +171,39 @@ export function GamePage({ slug, lang }: GamePageProps) {
           <div className="game-page__atmosphere-veil" />
         </div>
 
-        <nav aria-label="Breadcrumb" className="game-page__breadcrumb">
-          <ol className="breadcrumb" itemScope itemType="https://schema.org/BreadcrumbList">
-            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <Link href={`/${lang}`} itemProp="item">
-                <span itemProp="name">{t.breadcrumbHome}</span>
-              </Link>
-              <meta itemProp="position" content="1" />
-            </li>
-            <li aria-hidden="true" className="breadcrumb-sep">
-              /
-            </li>
-            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <span itemProp="name" aria-current="page" className="breadcrumb-current">
-                {game.name}
-              </span>
-              <meta itemProp="position" content="2" />
-            </li>
-          </ol>
-        </nav>
+        <div className="game-page__topbar">
+          <nav aria-label="Breadcrumb" className="game-page__breadcrumb">
+            <ol className="breadcrumb" itemScope itemType="https://schema.org/BreadcrumbList">
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <Link href={`/${lang}`} itemProp="item">
+                  <span itemProp="name">{t.breadcrumbHome}</span>
+                </Link>
+                <meta itemProp="position" content="1" />
+              </li>
+              <li aria-hidden="true" className="breadcrumb-sep">
+                /
+              </li>
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <span itemProp="name" aria-current="page" className="breadcrumb-current">
+                  {game.name}
+                </span>
+                <meta itemProp="position" content="2" />
+              </li>
+            </ol>
+          </nav>
+
+          <Link
+            href={`/${lang}`}
+            className="gp-home-btn"
+            aria-label={isEn ? 'Back to home' : 'На главную'}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 10.5 12 3l9 7.5" />
+              <path d="M5 10v10h14V10" />
+            </svg>
+            {isEn ? 'Home' : 'На главную'}
+          </Link>
+        </div>
 
         <header className="gp-hero">
           <div className="gp-hero__cover">
