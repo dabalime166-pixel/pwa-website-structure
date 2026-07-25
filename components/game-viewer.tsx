@@ -1,16 +1,23 @@
 'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
+import { CasinoInviteModal } from '@/components/casino-invite-modal'
+import type { CasinoInviteCopy } from '@/components/casino-invite-modal'
+import { CTA_URL } from '@/lib/games'
+
+const INVITE_DELAY_MS = 2 * 60 * 1000
 
 interface GameViewerProps {
   iframeUrl: string
   gameName: string
+  gameSlug: string
   demoBadge: string
   fullscreenLabel: string
   closeLabel: string
   launchLabel?: string
   readyTitle?: string
   readyDescription?: string
+  inviteCopy: CasinoInviteCopy
 }
 
 function GoldDots() {
@@ -86,19 +93,26 @@ async function exitFs(): Promise<void> {
   }
 }
 
+function inviteStorageKey(slug: string) {
+  return `1weapp-casino-invite-shown:${slug}`
+}
+
 export function GameViewer({
   iframeUrl,
   gameName,
+  gameSlug,
   demoBadge,
   fullscreenLabel,
   closeLabel,
   launchLabel = 'Launch Demo',
   readyTitle = 'Ready to Play?',
   readyDescription = 'Click the button below to launch the demo',
+  inviteCopy,
 }: GameViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [iframeLaunched, setIframeLaunched] = useState(false)
   const [cssFallback, setCssFallback] = useState(false)
+  const [inviteOpen, setInviteOpen] = useState(false)
   const shellRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -138,6 +152,22 @@ export function GameViewer({
     }
   }, [cssFallback])
 
+  // After 2 minutes of demo play, show casino invite once per session/game
+  useEffect(() => {
+    if (!iframeLaunched) return
+    try {
+      if (sessionStorage.getItem(inviteStorageKey(gameSlug)) === '1') return
+    } catch {
+      /* private mode */
+    }
+
+    const timer = window.setTimeout(() => {
+      setInviteOpen(true)
+    }, INVITE_DELAY_MS)
+
+    return () => window.clearTimeout(timer)
+  }, [iframeLaunched, gameSlug])
+
   const openFullscreen = useCallback(async () => {
     const el = shellRef.current
     if (!el) return
@@ -147,7 +177,6 @@ export function GameViewer({
       setCssFallback(false)
       return
     }
-    // iOS / restricted browsers: CSS full-viewport fallback
     setCssFallback(true)
     setIsFullscreen(true)
   }, [])
@@ -160,12 +189,23 @@ export function GameViewer({
 
   const launchDemo = useCallback(() => setIframeLaunched(true), [])
 
+  const dismissInvite = useCallback(() => {
+    setInviteOpen(false)
+    try {
+      sessionStorage.setItem(inviteStorageKey(gameSlug), '1')
+    } catch {
+      /* ignore */
+    }
+  }, [gameSlug])
+
   const shellClass = [
     'game-frame-shell',
     isFullscreen && cssFallback ? 'game-frame-shell--fs' : '',
   ]
     .filter(Boolean)
     .join(' ')
+
+  const nativeFs = isFullscreen && !cssFallback
 
   return (
     <div
@@ -235,6 +275,15 @@ export function GameViewer({
           />
         </div>
       )}
+
+      <CasinoInviteModal
+        open={inviteOpen}
+        gameName={gameName}
+        ctaUrl={CTA_URL}
+        copy={inviteCopy}
+        inline={nativeFs || cssFallback}
+        onDismiss={dismissInvite}
+      />
     </div>
   )
 }

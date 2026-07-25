@@ -255,6 +255,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
               <GameViewer
                 iframeUrl={game.iframeUrl}
                 gameName={game.name}
+                gameSlug={game.slug}
                 demoBadge={t.demo}
                 fullscreenLabel={isEn ? 'Full Screen' : 'На весь экран'}
                 closeLabel={isEn ? 'Exit' : 'Выйти'}
@@ -264,6 +265,31 @@ export function GamePage({ slug, lang }: GamePageProps) {
                   isEn
                     ? 'Click below to load the free demo in your browser'
                     : 'Нажмите ниже, чтобы загрузить бесплатное демо в браузере'
+                }
+                inviteCopy={
+                  isEn
+                    ? {
+                        eyebrow: 'Ready for the real round?',
+                        title: 'Continue {game} for real prizes',
+                        text: 'You have been exploring the free {game} demo. When you are ready, keep the same mechanics — with real stakes and real rewards.',
+                        ctaLabel: t.playReal,
+                        dismissLabel: 'Keep playing demo',
+                        legal: '18+ · Gamble responsibly · T&C apply',
+                        perk1: 'Same game engine as demo',
+                        perk2: 'Fast checkout & support',
+                        perk3: 'Bonuses for new players',
+                      }
+                    : {
+                        eyebrow: 'Готовы к реальному раунду?',
+                        title: 'Продолжите {game} на реальные призы',
+                        text: 'Вы уже изучили бесплатное демо {game}. Когда будете готовы — та же механика, но со ставками и призами на деньги.',
+                        ctaLabel: t.playReal,
+                        dismissLabel: 'Остаться в демо',
+                        legal: '18+ · Играйте ответственно · Применяются условия',
+                        perk1: 'Тот же движок, что в демо',
+                        perk2: 'Быстрый вывод и поддержка',
+                        perk3: 'Бонусы для новых игроков',
+                      }
                 }
               />
             ) : (
