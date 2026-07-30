@@ -13,8 +13,9 @@ interface RandomDemoPromoProps {
 const CARD_W = 96
 const GAP = 12
 const STEP = CARD_W + GAP
-const IDLE_SPEED = 0.55 // px per frame @60fps-ish
+const IDLE_SPEED = 0.55
 const SPIN_MS = 2200
+const STRIP_LOOPS = 6
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -35,27 +36,35 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     return shuffle(withAvatar).slice(0, 36)
   }, [games])
 
-  const loopWidth = Math.max(pool.length, 1) * STEP
+  const strip = useMemo(() => {
+    const out: Game[] = []
+    for (let i = 0; i < STRIP_LOOPS; i++) out.push(...pool)
+    return out
+  }, [pool])
+
   const [mode, setMode] = useState<Mode>('idle')
   const [offset, setOffset] = useState(0)
   const [picked, setPicked] = useState<Game | null>(null)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
   const offsetRef = useRef(0)
   const modeRef = useRef<Mode>('idle')
+  const spinTimerRef = useRef<number | null>(null)
 
   useEffect(() => {
-    modeRef.current = mode
-  }, [mode])
-
-  useEffect(() => {
-    offsetRef.current = offset
-  }, [offset])
+    return () => {
+      if (spinTimerRef.current) window.clearTimeout(spinTimerRef.current)
+    }
+  }, [])
 
   // Continuous idle scroll until Spin
   useEffect(() => {
     if (mode !== 'idle' || pool.length < 3) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
 
+    const loopWidth = pool.length * STEP
     let raf = 0
     let last = performance.now()
 
@@ -71,45 +80,65 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
 
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [mode, pool.length, loopWidth])
+  }, [mode, pool.length])
 
   function spin() {
-    if (mode === 'spinning' || pool.length < 3) return
+    if (modeRef.current === 'spinning' || pool.length < 3) return
 
-    const base = offsetRef.current
-    const loops = 2 + Math.floor(Math.random() * 2)
-    const land = Math.floor(Math.random() * pool.length)
-    const target =
-      base +
-      loops * loopWidth +
-      ((land * STEP - (base % loopWidth) + loopWidth) % loopWidth)
-
+    // Stop idle immediately (don't wait for React state)
+    modeRef.current = 'spinning'
+    setMode('spinning')
     setPicked(null)
     setActiveIndex(null)
-    // Enable transition on next frame so the browser keeps the idle position first
-    setMode('spinning')
+
+    // Snap to nearest card so math stays exact
+    const currentCard = Math.round(offsetRef.current / STEP)
+    const base = currentCard * STEP
+    offsetRef.current = base
+    setOffset(base)
+
+    const landInPool = Math.floor(Math.random() * pool.length)
+    const currentInPool = ((currentCard % pool.length) + pool.length) % pool.length
+    const loops = 2 + Math.floor(Math.random() * 2)
+    const stepsForward =
+      ((landInPool - currentInPool + pool.length) % pool.length) + loops * pool.length
+
+    const finalIndex = currentCard + stepsForward
+    // Keep finalIndex inside the rendered strip
+    if (finalIndex >= strip.length) {
+      modeRef.current = 'idle'
+      setMode('idle')
+      return
+    }
+
+    const target = finalIndex * STEP
+    const chosen = strip[finalIndex] // same object as centered avatar
+
+    // Next frame: enable CSS transition, then move to target
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
+        if (modeRef.current !== 'spinning') return
         offsetRef.current = target
         setOffset(target)
       })
     })
 
-    window.setTimeout(() => {
-      const finalIndex = Math.round(target / STEP)
-      setPicked(pool[land])
+    if (spinTimerRef.current) window.clearTimeout(spinTimerRef.current)
+    spinTimerRef.current = window.setTimeout(() => {
+      // Derive pick ONLY from the card that sits under the marker
+      offsetRef.current = target
+      setOffset(target)
+      setPicked(chosen)
       setActiveIndex(finalIndex)
+      modeRef.current = 'landed'
       setMode('landed')
-    }, SPIN_MS + 40)
+    }, SPIN_MS + 50)
   }
 
   function playPicked() {
-    if (!picked || mode === 'spinning') return
+    if (!picked || modeRef.current === 'spinning') return
     router.push(`/${lang}/${picked.slug}`)
   }
-
-  // Three loops so a long spin never runs out of cards
-  const strip = [...pool, ...pool, ...pool, ...pool]
 
   return (
     <aside className="random-slot-promo" aria-label={isEn ? 'Random demo' : 'Случайное демо'}>
