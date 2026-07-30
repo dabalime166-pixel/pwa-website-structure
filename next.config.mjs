@@ -11,6 +11,21 @@ const nextConfig = {
         hostname: 'raw.githubusercontent.com',
         pathname: '/dabalime133/ava/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'luckmedia.link',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.slotindex.io',
+        pathname: '/media/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.slot.win',
+        pathname: '/**',
+      },
     ],
   },
   async headers() {
