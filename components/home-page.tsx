@@ -1,13 +1,14 @@
 import Image from 'next/image'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
-import { GameSearch } from '@/components/game-search'
+import { HomeLobby } from '@/components/home-lobby'
+import { RandomDemoPromo } from '@/components/random-demo-promo'
 import { HotDemosCarousel } from '@/components/hot-demos-carousel'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
 import { games, i18n, CTA_URL } from '@/lib/games'
-import type { Lang } from '@/lib/games'
+import type { Game, Lang } from '@/lib/games'
 
 interface HomePageProps {
   lang: Lang
@@ -40,6 +41,47 @@ export function HomePage({ lang }: HomePageProps) {
     (g): g is NonNullable<typeof g> => Boolean(g)
   )
   const heroArt = featured.slice(0, 4)
+
+  const byProvider = (name: string) =>
+    games.filter((g) => g.provider === name).sort((a, b) => a.name.localeCompare(b.name))
+
+  const popularGames: Game[] = [
+    ...featured,
+    ...games.filter((g) => !FEATURED_SLUGS.includes(g.slug)).slice(0, 8),
+  ].filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
+
+  const lobbySections = [
+    {
+      id: 'lobby-popular',
+      title: isEn ? 'Popular' : 'Популярные',
+      subtitle: isEn ? 'Instant picks' : 'Быстрый выбор',
+      games: popularGames,
+    },
+    {
+      id: 'lobby-pragmatic-play',
+      title: 'Pragmatic Play',
+      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
+      games: byProvider('Pragmatic Play'),
+    },
+    {
+      id: 'lobby-hacksaw-gaming',
+      title: 'Hacksaw Gaming',
+      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
+      games: byProvider('Hacksaw Gaming'),
+    },
+    {
+      id: 'lobby-bgaming',
+      title: 'BGaming',
+      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
+      games: byProvider('BGaming'),
+    },
+    {
+      id: 'lobby-1weapp',
+      title: '1weapp Games',
+      subtitle: isEn ? 'Originals' : 'Оригиналы',
+      games: byProvider('1weapp Games'),
+    },
+  ].filter((s) => s.games.length > 0)
 
   const faqItems = isEn
     ? [
@@ -175,7 +217,7 @@ export function HomePage({ lang }: HomePageProps) {
                 {t.playReal}
               </a>
 
-              <a href="#games" className="btn-ghost">
+              <a href="#lobby" className="btn-ghost">
                 {isEn ? 'Browse demos' : 'Смотреть демо'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
@@ -222,29 +264,24 @@ export function HomePage({ lang }: HomePageProps) {
           />
         )}
 
+        <RandomDemoPromo games={games} lang={lang} />
+
         <section
-          id="games"
+          id="lobby"
           className="home-games"
-          aria-label={isEn ? 'Game catalog' : 'Каталог игр'}
+          aria-label={isEn ? 'Demo lobby by provider' : 'Лобби демо по провайдерам'}
         >
           <div className="home-section-head">
             <span className="home-section-head__label">
-              {isEn ? 'Catalog' : 'Каталог'}
+              {isEn ? 'Lobby' : 'Лобби'}
             </span>
             <h2 className="home-section-head__title">
-              {isEn ? 'All free demo games' : 'Все бесплатные демо-игры'}
+              {isEn ? 'Demos by provider' : 'Демо по провайдерам'}
             </h2>
             <p className="home-section-head__count">{games.length}</p>
           </div>
 
-          <GameSearch
-            games={games}
-            lang={lang}
-            totalLabel={isEn ? 'All Games' : 'Все игры'}
-            emptyLabel={isEn ? 'No games found' : 'Ничего не найдено'}
-            clearLabel={isEn ? 'Clear' : 'Сбросить'}
-            placeholderLabel={isEn ? 'Search games…' : 'Поиск игр…'}
-          />
+          <HomeLobby lang={lang} sections={lobbySections} allGames={games} />
 
           <div className="home-seo">
             {isEn ? (
