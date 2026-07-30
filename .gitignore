@@ -16,3 +16,5 @@ node_modules
 # Build / TS
 tsconfig.tsbuildinfo
 next-env.d.ts
+
+.indexnow-key
