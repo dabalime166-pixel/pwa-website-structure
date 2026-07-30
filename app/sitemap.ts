@@ -24,18 +24,18 @@ function hreflang(enPath: string, ruPath: string) {
 export default function sitemap(): MetadataRoute.Sitemap {
   const homeEntries: MetadataRoute.Sitemap = [
     {
-      url: `${BASE}/en`,
+      url: `${BASE}/`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
-      alternates: hreflang('/en', '/ru'),
+      alternates: hreflang('/', '/ru'),
     },
     {
       url: `${BASE}/ru`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
-      alternates: hreflang('/en', '/ru'),
+      alternates: hreflang('/', '/ru'),
     },
   ]
 

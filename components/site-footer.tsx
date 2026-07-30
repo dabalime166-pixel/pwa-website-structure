@@ -90,7 +90,7 @@ export function SiteFooter({ lang }: SiteFooterProps) {
               >
                 <li>
                   <Link
-                    href="/en"
+                    href="/"
                     style={{
                       color: lang === 'en' ? 'var(--color-gold)' : 'var(--color-text-muted)',
                       fontWeight: 600,

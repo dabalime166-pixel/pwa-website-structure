@@ -1,3 +1,10 @@
+import { HtmlLang } from '@/components/html-lang'
+
 export default function RuLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <>
+      <HtmlLang lang="ru" />
+      {children}
+    </>
+  )
 }

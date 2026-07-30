@@ -116,6 +116,11 @@ export function getRelatedGuideIds(gameType?: string): string[] {
 /** CTA link */
 export const CTA_URL = 'https://lkiv.cc/dea2'
 
+/** English home lives at `/`; Russian at `/ru` */
+export function homeHref(lang: Lang): string {
+  return lang === 'en' ? '/' : '/ru'
+}
+
 export const i18n = {
   en: {
     playDemo: 'Play Demo',

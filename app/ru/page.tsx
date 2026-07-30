@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.1weapp.online/ru',
     languages: {
       ru: 'https://www.1weapp.online/ru',
-      en: 'https://www.1weapp.online/en',
-      'x-default': 'https://www.1weapp.online/en',
+      en: 'https://www.1weapp.online/',
+      'x-default': 'https://www.1weapp.online/',
     },
   },
   openGraph: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://raw.githubusercontent.com/dabalime133/ava/main/og-picture.jpg',
+        url: '/og-picture.jpg',
         width: 1200,
         height: 630,
         alt: 'Играй в бесплатные демо игры - 1weapp',

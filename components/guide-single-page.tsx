@@ -7,7 +7,7 @@ import { SiteFooter } from '@/components/site-footer'
 import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import type { Section } from '@/lib/guides-data'
-import { CTA_URL } from '@/lib/games'
+import { CTA_URL, homeHref } from '@/lib/games'
 
 function slugifyHeading(text: string, idx: number): string {
   const base = text
@@ -112,7 +112,7 @@ export default function GuideSinglePage({
         <nav aria-label="Breadcrumb" className="guide-page__breadcrumb">
           <ol className="breadcrumb">
             <li>
-              <Link href={`/${lang}`}>{isEn ? 'Home' : 'Главная'}</Link>
+              <Link href={homeHref(lang)}>{isEn ? 'Home' : 'Главная'}</Link>
             </li>
             <li aria-hidden="true" className="breadcrumb-sep">
               /

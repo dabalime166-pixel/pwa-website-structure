@@ -158,13 +158,27 @@ export function HomePage({ lang }: HomePageProps) {
       jobTitle: isEn
         ? 'Demo Mechanics & Responsible Play Reviewer'
         : 'Рецензент демо-механик и ответственной игры',
-      image: 'https://www.1weapp.online/experts/dr-henrik-adler.png',
+      image: 'https://www.1weapp.online/experts/dr-henrik-adler.webp',
     },
+  }
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
   }
 
   return (
     <>
       <JsonLd data={organizationSchema} />
+      <JsonLd data={faqSchema} />
       <SiteHeader lang={lang} />
 
       <main id="main-content" role="main">
@@ -183,8 +197,6 @@ export function HomePage({ lang }: HomePageProps) {
                       fill
                       sizes="(max-width: 768px) 40vw, 28vw"
                       priority={index < 2}
-                      unoptimized
-                      crossOrigin="anonymous"
                     />
                   </div>
                 ) : null

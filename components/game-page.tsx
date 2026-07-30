@@ -15,6 +15,7 @@ import {
   i18n,
   getRelatedGames,
   getRelatedGuideIds,
+  homeHref,
 } from '@/lib/games'
 import type { Lang, Game } from '@/lib/games'
 import {
@@ -168,10 +169,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
             src={game.avatar}
             alt=""
             fill
-            sizes="100vw"
-            priority
-            unoptimized
-            crossOrigin="anonymous"
+            sizes="40vw"
+            loading="lazy"
             className="game-page__atmosphere-img"
           />
           <div className="game-page__atmosphere-veil" />
@@ -181,7 +180,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
           <nav aria-label="Breadcrumb" className="game-page__breadcrumb">
             <ol className="breadcrumb" itemScope itemType="https://schema.org/BreadcrumbList">
               <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <Link href={`/${lang}`} itemProp="item">
+                <Link href={homeHref(lang)} itemProp="item">
                   <span itemProp="name">{t.breadcrumbHome}</span>
                 </Link>
                 <meta itemProp="position" content="1" />
@@ -199,7 +198,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
           </nav>
 
           <Link
-            href={`/${lang}`}
+            href={homeHref(lang)}
             className="gp-home-btn"
             aria-label={isEn ? 'Back to home' : 'На главную'}
           >
@@ -219,8 +218,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
               width={160}
               height={160}
               priority
-              unoptimized
-              crossOrigin="anonymous"
+              sizes="160px"
             />
           </div>
 
@@ -479,7 +477,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
                   {isEn ? 'Similar games' : 'Похожие игры'}
                 </h2>
               </div>
-              <Link href={`/${lang}`} className="games-related__all-link">
+              <Link href={homeHref(lang)} className="games-related__all-link">
                 {isEn ? 'View all →' : 'Все игры →'}
               </Link>
             </div>

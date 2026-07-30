@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: '1weapp',
     images: [
       {
-        url: 'https://raw.githubusercontent.com/dabalime133/ava/main/og-picture.jpg',
+        url: '/og-picture.jpg',
         width: 1200,
         height: 630,
         alt: '1weapp - Play Free Demo Games',
@@ -106,7 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             ym(106419141, 'init', {
                 ssr: true, 
-                webvisor: true, 
+                webvisor: false, 
                 clickmap: true, 
                 ecommerce: "dataLayer", 
                 referrer: document.referrer, 
@@ -119,6 +119,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       
       <body className={`${manrope.variable} ${unbounded.variable} font-sans antialiased`}>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         {/* Резервный пиксель Яндекс Метрики на случай отключенного JS у юзера */}
         <noscript>
           <div>

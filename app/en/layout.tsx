@@ -1,3 +1,10 @@
+import { HtmlLang } from '@/components/html-lang'
+
 export default function EnLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <>
+      <HtmlLang lang="en" />
+      {children}
+    </>
+  )
 }

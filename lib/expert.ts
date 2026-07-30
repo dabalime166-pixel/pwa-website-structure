@@ -22,7 +22,7 @@ export interface ExpertProfile {
 export const EXPERT: ExpertProfile = {
   id: 'dr-henrik-adler',
   name: 'Dr. Henrik Adler',
-  avatar: '/experts/dr-henrik-adler.png',
+  avatar: '/experts/dr-henrik-adler.webp',
   credentialsEn: 'PhD, Applied Probability',
   credentialsRu: 'PhD, прикладная теория вероятностей',
   titleEn: 'Demo Mechanics & Responsible Play Reviewer',

@@ -14,8 +14,8 @@ const GAP = 12
 const STEP = CARD_W + GAP
 const IDLE_SPEED = 0.55
 const SPIN_MS = 2400
-const POOL_SIZE = 24
-const STRIP_LOOPS = 4
+const POOL_SIZE = 20
+const STRIP_LOOPS = 3
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -277,7 +277,7 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
                     width={CARD_W}
                     height={Math.round(CARD_W * 1.3)}
                     draggable={false}
-                    loading={i < 8 ? 'eager' : 'lazy'}
+                    loading={i < 4 ? 'eager' : 'lazy'}
                     decoding="async"
                   />
                 </div>

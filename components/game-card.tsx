@@ -19,10 +19,8 @@ function CardInner({ game, lang }: { game: Game; lang: Lang }) {
           src={game.avatar}
           alt={game.name}
           fill
-          sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 25vw"
+          sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 180px"
           loading="lazy"
-          unoptimized
-          crossOrigin="anonymous"
         />
 
         <div className="card-badges" aria-hidden={!game.rtp && !game.gameType}>

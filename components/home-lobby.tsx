@@ -17,7 +17,7 @@ interface HomeLobbyProps {
   allGames: Game[]
 }
 
-const PREVIEW = 18
+const PREVIEW = 12
 
 export function HomeLobby({ lang, sections, allGames }: HomeLobbyProps) {
   const isEn = lang === 'en'
@@ -84,6 +84,7 @@ export function HomeLobby({ lang, sections, allGames }: HomeLobbyProps) {
                 type="button"
                 className={`lobby-tab${active === s.id ? ' is-active' : ''}`}
                 onClick={() => jump(s.id)}
+                aria-current={active === s.id ? 'true' : undefined}
               >
                 {s.title}
                 <span className="lobby-tab__count">{s.games.length}</span>
@@ -178,6 +179,7 @@ export function HomeLobby({ lang, sections, allGames }: HomeLobbyProps) {
                       <button
                         type="button"
                         className="lobby-section-more"
+                        aria-expanded={isOpen}
                         onClick={() =>
                           setExpanded((prev) => ({ ...prev, [section.id]: !prev[section.id] }))
                         }
