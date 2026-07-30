@@ -10,23 +10,29 @@ export type GameTheme =
   | 'mines'
   | 'adventure'
   | 'glamour'
+  | 'chaos'
+  | 'table'
   | 'slots'
 
 export function detectGameTheme(game: Game): GameTheme {
   const s = `${game.slug} ${game.name}`.toLowerCase()
-  if (/bass|fish|splash/.test(s)) return 'fishing'
-  if (/olympus|zeus|hades|greek|gods|cleocatra|pyramid|egypt|tut|kingdom|pharaoh|gatot|lamp|rio/.test(s))
+  if (/bass|fish|splash|tuna|marlin|boat|catch/.test(s)) return 'fishing'
+  if (/olympus|zeus|hades|greek|gods|cleocatra|pyramid|egypt|tut|kingdom|pharaoh|gatot|lamp|rio|anubis|horus|athena|ymir|medusa/.test(s))
     return 'mythology'
-  if (/fruit|sweet|sugar|bonanza|candy|chilli|pepper|frozen|charms/.test(s)) return 'candy'
-  if (/dog|wolf|buffalo|mustang|rhino|tiger|safari|wild|animal|pixies|gladiator|kraken|gang|machine|walker|archer/.test(s))
+  if (/fruit|sweet|sugar|bonanza|candy|chilli|pepper|frozen|charms|monsta|clover|jelly|donut|beer|banana/.test(s))
+    return 'candy'
+  if (/dog|wolf|buffalo|mustang|rhino|tiger|safari|wild|animal|pixies|gladiator|kraken|gang|machine|walker|archer|cat|panda|piggy|eagle|dragon|chicken|cluck/.test(s))
     return 'animals'
-  if (/megaways/.test(s)) return 'megaways'
-  if ((game.gameType || '').toLowerCase().includes('crash')) return 'crash'
-  if ((game.gameType || '').toLowerCase().includes('mine')) return 'mines'
-  if (/book|vikings|pirate|gold|treasure|spartan|john-hunter|return|mystery|empty-the-bank/.test(s))
+  if (/megaways|stackways|stack.?n.?sync/.test(s)) return 'megaways'
+  if ((game.gameType || '').toLowerCase().includes('crash') || /crash|always.?up/.test(s)) return 'crash'
+  if ((game.gameType || '').toLowerCase().includes('mine') || /mines|scratch/.test(s)) return 'mines'
+  if (/book|vikings|pirate|gold|treasure|spartan|john-hunter|return|mystery|empty-the-bank|wanted|outlaw|ronin|shaolin|warrior/.test(s))
     return 'adventure'
-  if (/starlight|princess|starz|vegas|joker|jewels|nights|christmas|xmas|destiny|badge|blitz/.test(s))
+  if (/starlight|princess|starz|vegas|joker|jewels|nights|christmas|xmas|destiny|badge|blitz|luxe|miami|rainbow/.test(s))
     return 'glamour'
+  if (/chaos|crew|dork|bombs|bullets|duel|rip-city|hacksaw|bandit|le-zeus|le-king|le-pharaoh|le-bunny|le-bandit|wanted-dead|six-six-six/.test(s))
+    return 'chaos'
+  if (/dice|roulette|blackjack|poker|twenty-one/.test(s)) return 'table'
   return 'slots'
 }
 
@@ -348,6 +354,74 @@ const THEMES: Record<GameTheme, ThemeCopy> = {
     faqExtraEn: {
       q: 'Why demo flashy glamour slots?',
       a: 'Pretty art can hide dry stretches. Demo shows multiplier frequency and UI comfort on a real screen.',
+    },
+  },
+  chaos: {
+    labelRu: 'Hacksaw / xFeatures',
+    labelEn: 'Hacksaw / xFeatures',
+    focusRu: 'резкий темп, множители и усиленные режимы',
+    focusEn: 'sharp pace, multipliers and enhanced modes',
+    checklistRu: [
+      'Отметьте, как часто база «ломается» в усиленный режим',
+      'Сравните ощущение дисперсии на 80–100 спинах',
+      'Проверьте читаемость UI на узком экране',
+    ],
+    checklistEn: [
+      'Note how often base game breaks into an enhanced mode',
+      'Compare variance feel across 80–100 spins',
+      'Check UI readability on a narrow screen',
+    ],
+    highlightRu: [
+      { title: 'Темп Hacksaw', desc: 'Поймите резкость сессии без депозита.' },
+      { title: 'xFeatures в деле', desc: 'Смотрите частоту усилений на короткой выборке.' },
+      { title: 'Дисперсия', desc: 'Решите, комфортен ли размах до кассы.' },
+    ],
+    highlightEn: [
+      { title: 'Hacksaw pace', desc: 'Judge session sharpness with no deposit.' },
+      { title: 'xFeatures live', desc: 'Watch enhancement frequency on a short sample.' },
+      { title: 'Variance', desc: 'Decide if the swing fits you before the cashier.' },
+    ],
+    faqExtraRu: {
+      q: 'Зачем демо для слотов Hacksaw-стиля?',
+      a: 'У таких релизов темп и дисперсия часто выше среднего. Демо показывает, комфортен ли ритм именно вам — до депозита.',
+    },
+    faqExtraEn: {
+      q: 'Why demo Hacksaw-style slots?',
+      a: 'These titles often run above-average pace and variance. Demo shows whether the rhythm fits you — before any deposit.',
+    },
+  },
+  table: {
+    labelRu: 'Стол / кости',
+    labelEn: 'Table / dice',
+    focusRu: 'темп раундов, правила выплат и UI',
+    focusEn: 'round pace, payout rules and UI',
+    checklistRu: [
+      'Сделайте 30–50 демо-раундов с одной ставкой',
+      'Проверьте понятность правил выплат',
+      'Оцените удобство кнопок на телефоне',
+    ],
+    checklistEn: [
+      'Run 30–50 demo rounds at one stake',
+      'Check that payout rules stay clear',
+      'Judge button comfort on a phone',
+    ],
+    highlightRu: [
+      { title: 'Правила без риска', desc: 'Изучите выплаты на виртуальном балансе.' },
+      { title: 'Темп раундов', desc: 'Поймите ритм до депозита.' },
+      { title: 'UI стола', desc: 'Удобство управления тоже важно.' },
+    ],
+    highlightEn: [
+      { title: 'Rules risk-free', desc: 'Learn payouts on virtual balance.' },
+      { title: 'Round pace', desc: 'Feel the rhythm before depositing.' },
+      { title: 'Table UI', desc: 'Control comfort matters too.' },
+    ],
+    faqExtraRu: {
+      q: 'Чем полезно демо table/dice игры?',
+      a: 'Вы проверяете темп раундов и понятность UI без давления депозита — это и есть полезный контент карточки.',
+    },
+    faqExtraEn: {
+      q: 'What is useful about a table/dice demo?',
+      a: 'You check round pace and UI clarity without deposit pressure — that is the useful part of the card.',
     },
   },
   slots: {
