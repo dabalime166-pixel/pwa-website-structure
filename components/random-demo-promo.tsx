@@ -15,7 +15,8 @@ const GAP = 12
 const STEP = CARD_W + GAP
 const IDLE_SPEED = 0.55
 const SPIN_MS = 2200
-const STRIP_LOOPS = 6
+const POOL_SIZE = 24
+const STRIP_LOOPS = 4
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -33,7 +34,7 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
   const router = useRouter()
   const pool = useMemo(() => {
     const withAvatar = games.filter((g) => g.avatar)
-    return shuffle(withAvatar).slice(0, 36)
+    return shuffle(withAvatar).slice(0, POOL_SIZE)
   }, [games])
 
   const strip = useMemo(() => {
@@ -50,6 +51,8 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
   const offsetRef = useRef(0)
   const modeRef = useRef<Mode>('idle')
   const spinTimerRef = useRef<number | null>(null)
+  const stripRef = useRef(strip)
+  stripRef.current = strip
 
   useEffect(() => {
     return () => {
@@ -82,6 +85,11 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     return () => cancelAnimationFrame(raf)
   }, [mode, pool.length])
 
+  function indexAtOffset(px: number) {
+    const idx = Math.round(px / STEP)
+    return Math.max(0, Math.min(stripRef.current.length - 1, idx))
+  }
+
   function spin() {
     if (modeRef.current === 'spinning' || pool.length < 3) return
 
@@ -92,27 +100,28 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     setActiveIndex(null)
 
     // Snap to nearest card so math stays exact
-    const currentCard = Math.round(offsetRef.current / STEP)
+    const currentCard = indexAtOffset(offsetRef.current)
     const base = currentCard * STEP
     offsetRef.current = base
     setOffset(base)
 
     const landInPool = Math.floor(Math.random() * pool.length)
     const currentInPool = ((currentCard % pool.length) + pool.length) % pool.length
-    const loops = 2 + Math.floor(Math.random() * 2)
+    const loops = 1 + Math.floor(Math.random() * 2)
     const stepsForward =
       ((landInPool - currentInPool + pool.length) % pool.length) + loops * pool.length
 
-    const finalIndex = currentCard + stepsForward
-    // Keep finalIndex inside the rendered strip
+    let finalIndex = currentCard + stepsForward
     if (finalIndex >= strip.length) {
+      finalIndex = landInPool + (STRIP_LOOPS - 1) * pool.length
+    }
+    if (finalIndex >= strip.length || finalIndex < 0) {
       modeRef.current = 'idle'
       setMode('idle')
       return
     }
 
     const target = finalIndex * STEP
-    const chosen = strip[finalIndex] // same object as centered avatar
 
     // Next frame: enable CSS transition, then move to target
     requestAnimationFrame(() => {
@@ -125,11 +134,13 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
 
     if (spinTimerRef.current) window.clearTimeout(spinTimerRef.current)
     spinTimerRef.current = window.setTimeout(() => {
-      // Derive pick ONLY from the card that sits under the marker
+      // Pick ONLY from whatever card is under the marker after the spin
       offsetRef.current = target
       setOffset(target)
-      setPicked(chosen)
-      setActiveIndex(finalIndex)
+      const landedIndex = indexAtOffset(target)
+      const chosen = stripRef.current[landedIndex]
+      setPicked(chosen ?? null)
+      setActiveIndex(landedIndex)
       modeRef.current = 'landed'
       setMode('landed')
     }, SPIN_MS + 50)
@@ -185,7 +196,8 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
             <div
               className={`random-slot-promo__track${mode === 'spinning' ? ' is-spinning' : ''}${mode === 'idle' ? ' is-idle' : ''}`}
               style={{
-                transform: `translate3d(calc(50% - ${CARD_W / 2}px - ${offset}px), -50%, 0)`,
+                // left:50% in CSS — 50% here would be track width and desync the marker
+                transform: `translate3d(calc(-${CARD_W / 2}px - ${offset}px), -50%, 0)`,
               }}
             >
               {strip.map((game, i) => (
@@ -199,7 +211,10 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
                     alt=""
                     width={CARD_W}
                     height={Math.round(CARD_W * 1.3)}
+                    sizes="96px"
                     unoptimized
+                    loading={i < POOL_SIZE ? 'eager' : 'lazy'}
+                    decoding="async"
                   />
                 </div>
               ))}

@@ -947,7 +947,8 @@ img { display: block; max-width: 100%; height: auto; }
 .random-slot-promo__track {
   position: absolute;
   top: 50%;
-  left: 0;
+  /* Anchor strip start at viewport center so offset = index * STEP centers that card */
+  left: 50%;
   display: flex;
   gap: 12px;
   will-change: transform;
