@@ -113,24 +113,28 @@ async function getOk(url) {
   }
 }
 
+const CASINO_ONLY = /playamo|stake\.games|sol\.casino|bitcoincasino/i
+
 function isDirectProviderDemo(url, providerSlug) {
   if (!url) return false
+  if (CASINO_ONLY.test(url)) return false
   if (providerSlug === 'bgaming') {
     return /bgaming-network\.com\/(play|games)\//i.test(url) || /bgaming-system\.com\/launch_demo/i.test(url)
   }
   if (providerSlug === 'hacksaw-gaming') {
     return /hacksawgaming\.com/i.test(url)
   }
-  return /^https?:\/\//i.test(url) && !/playamo|stake\.games|sol\.casino|bitcoincasino/i.test(url)
+  return /^https?:\/\//i.test(url)
 }
 
+/** @returns {Promise<string|null>} iframe URL or null if no real demo */
 async function resolveIframe(item, providerSlug) {
-  const embed = `https://demo.slotindex.io/embed/${item.slug}`
-
   try {
     const dr = await fetch(`https://demo.slotindex.io/api/demo/${item.slug}`, { redirect: 'manual' })
     const loc = dr.headers.get('location') || ''
     if (isDirectProviderDemo(loc, providerSlug) && (await getOk(loc))) return loc
+    // Casino funnel only — skip this title
+    if (loc && CASINO_ONLY.test(loc)) return null
   } catch {
     /* fall through */
   }
@@ -144,10 +148,15 @@ async function resolveIframe(item, providerSlug) {
     for (const u of candidates) {
       if (await getOk(u)) return u
     }
+    return null
   }
 
-  // Always-valid embed wrapper
-  return embed
+  if (providerSlug === 'hacksaw-gaming') {
+    // No provider URL resolved — skip rather than fake a casino embed
+    return null
+  }
+
+  return null
 }
 
 async function resolveAvatar(prefix, slug) {
@@ -216,16 +225,23 @@ async function main() {
     console.log(`\n=== ${job.providerName}: ${targets.length} to import (catalog ${catalog.length}) ===`)
 
     let i = 0
+    let skippedNoDemo = 0
     for (const item of targets) {
       i++
       const iframeUrl = await resolveIframe(item, job.providerSlug)
       await sleep(30)
+      if (!iframeUrl) {
+        skippedNoDemo++
+        console.log(`skip no-demo ${item.slug}`)
+        continue
+      }
       const avatar = await resolveAvatar(job.prefix, item.slug)
       const rec = toGameRecord(item, job.providerName, job.prefix, iframeUrl, avatar)
       added.push(rec)
       existingSlugs.add(item.slug)
       console.log(`+ ${i}/${targets.length} ${item.slug}`)
     }
+    console.log(`Skipped no-demo: ${skippedNoDemo}`)
   }
 
   const merged = [...existing, ...added]
