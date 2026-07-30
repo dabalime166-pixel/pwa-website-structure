@@ -951,7 +951,10 @@ img { display: block; max-width: 100%; height: auto; }
   display: flex;
   gap: 12px;
   will-change: transform;
-  transition: transform 2.1s cubic-bezier(0.12, 0.75, 0.08, 1);
+  transition: none;
+}
+.random-slot-promo__track.is-idle {
+  transition: none;
 }
 .random-slot-promo__track.is-spinning {
   transition: transform 2.1s cubic-bezier(0.12, 0.75, 0.08, 1);
@@ -977,6 +980,10 @@ img { display: block; max-width: 100%; height: auto; }
   transform: scale(1.05);
   border-color: rgba(226, 184, 74, 0.65);
   box-shadow: 0 0 0 1px rgba(226, 184, 74, 0.25), 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+.random-slot-promo__track.is-idle .random-slot-promo__card {
+  opacity: 0.72;
+  transform: scale(0.96);
 }
 .random-slot-promo__result {
   display: flex;
