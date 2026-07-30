@@ -59,18 +59,22 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
 
   const offsetRef = useRef(0)
   const modeRef = useRef<Mode>('idle')
-  const rafRef = useRef(0)
+  const spinRafRef = useRef(0)
   const trayRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const stripRef = useRef(strip)
+  stripRef.current = strip
+  const bySlugRef = useRef(bySlug)
+  bySlugRef.current = bySlug
 
   useEffect(() => {
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      if (spinRafRef.current) cancelAnimationFrame(spinRafRef.current)
     }
   }, [])
 
-  /** Card closest to the gold markers (tray center) — source of truth for name/play */
-  function measureCentered(): { game: Game; index: number; el: HTMLElement; delta: number } | null {
+  /** Card closest to the gold markers — source of truth for name/play */
+  function measureCentered(): { game: Game; index: number; delta: number } | null {
     const tray = trayRef.current
     const track = trackRef.current
     if (!tray || !track) return null
@@ -96,34 +100,41 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     if (!best) return null
     const slug = best.dataset.gameSlug
     if (!slug) return null
-    const game = bySlug.get(slug)
+    const game = bySlugRef.current.get(slug)
     if (!game) return null
     const rect = best.getBoundingClientRect()
     const cx = rect.left + rect.width / 2
-    // +delta to offset moves the track left (CSS: translateX(-offset))
-    return { game, index: bestIndex, el: best, delta: cx - markerX }
+    return { game, index: bestIndex, delta: cx - markerX }
   }
 
-  function finishSpin() {
-    // 1) snap to whichever card is under the markers
+  function finishSpin(fallbackIndex: number) {
     const hit = measureCentered()
     if (hit && Math.abs(hit.delta) > 0.5) {
       offsetRef.current += hit.delta
       setOffset(offsetRef.current)
     }
-    // 2) after paint, read again — name/play MUST come from DOM under markers
-    requestAnimationFrame(() => {
+
+    const settle = () => {
       const final = measureCentered()
       if (final) {
         setPicked(final.game)
         setActiveIndex(final.index)
+      } else {
+        const game = stripRef.current[fallbackIndex]
+        if (game) {
+          setPicked(game)
+          setActiveIndex(fallbackIndex)
+        }
       }
       modeRef.current = 'landed'
       setMode('landed')
-    })
+    }
+
+    // One frame for the nudge to paint, then always land (never stick on Spinning…)
+    requestAnimationFrame(settle)
   }
 
-  // Idle scroll
+  // Idle scroll — own RAF id so cleanup cannot cancel the spin loop
   useEffect(() => {
     if (mode !== 'idle' || pool.length < 3) return
     if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -131,6 +142,7 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     }
 
     const loopWidth = pool.length * STEP
+    let raf = 0
     let last = performance.now()
 
     const tick = (now: number) => {
@@ -140,11 +152,11 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
       const next = (offsetRef.current + IDLE_SPEED * (dt / 16.67)) % loopWidth
       offsetRef.current = next
       setOffset(next)
-      rafRef.current = requestAnimationFrame(tick)
+      raf = requestAnimationFrame(tick)
     }
 
-    rafRef.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(rafRef.current)
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
   }, [mode, pool.length])
 
   function spin() {
@@ -154,7 +166,7 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     setMode('spinning')
     setPicked(null)
     setActiveIndex(null)
-    cancelAnimationFrame(rafRef.current)
+    cancelAnimationFrame(spinRafRef.current)
 
     const currentCard = Math.round(offsetRef.current / STEP)
     const start = currentCard * STEP
@@ -184,20 +196,16 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
       setOffset(next)
 
       if (t < 1) {
-        rafRef.current = requestAnimationFrame(tick)
+        spinRafRef.current = requestAnimationFrame(tick)
         return
       }
 
-      // Hard-snap, then read the real card under the markers
       offsetRef.current = target
       setOffset(target)
-
-      requestAnimationFrame(() => {
-        finishSpin()
-      })
+      finishSpin(finalIndex)
     }
 
-    rafRef.current = requestAnimationFrame(tick)
+    spinRafRef.current = requestAnimationFrame(tick)
   }
 
   function playPicked() {
@@ -263,7 +271,6 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
                   }`}
                   aria-hidden="true"
                 >
-                  {/* native img — Next/Image wrappers inflate flex min-width and desync STEP */}
                   <img
                     src={game.avatar}
                     alt=""
