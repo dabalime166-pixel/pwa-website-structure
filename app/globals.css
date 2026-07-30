@@ -854,9 +854,6 @@ img { display: block; max-width: 100%; height: auto; }
   flex-direction: column;
   gap: 2rem;
 }
-.lobby-section {
-  scroll-margin-top: 5.5rem;
-}
 .lobby-section-header {
   display: flex;
   align-items: flex-end;
