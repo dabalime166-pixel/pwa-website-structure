@@ -850,10 +850,21 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* ── Random demo promo ── */
+.lazy-random-demo {
+  margin: 2rem auto 1.5rem;
+  max-width: 1280px;
+  padding: 0 1rem;
+}
+.random-slot-promo--skeleton {
+  min-height: 280px;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(226, 184, 74, 0.12);
+  background: linear-gradient(160deg, rgba(22, 22, 26, 0.6), rgba(12, 12, 14, 0.85));
+}
 .random-slot-promo {
   position: relative;
   max-width: 1280px;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto;
   padding: 1.25rem 1rem;
   display: grid;
   gap: 1.25rem;

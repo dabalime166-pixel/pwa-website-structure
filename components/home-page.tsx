@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
-import { RandomDemoPromo } from '@/components/random-demo-promo'
+import { LazyRandomDemo } from '@/components/lazy-random-demo'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
@@ -266,8 +266,6 @@ export function HomePage({ lang }: HomePageProps) {
           ))}
         </section>
 
-        <RandomDemoPromo games={games} lang={lang} />
-
         <section
           id="lobby"
           className="home-games"
@@ -460,6 +458,8 @@ export function HomePage({ lang }: HomePageProps) {
             />
           </div>
         </section>
+
+        <LazyRandomDemo games={games} lang={lang} />
       </main>
 
       <SiteFooter lang={lang} />
