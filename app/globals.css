@@ -1451,6 +1451,71 @@ img { display: block; max-width: 100%; height: auto; }
   line-height: 1.45;
 }
 
+/* Theme checklist — how to try this demo */
+.gp-try {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 2.5rem;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--color-border);
+  animation: gp-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+}
+.gp-try__head {
+  margin-bottom: 1rem;
+  max-width: 40rem;
+}
+.gp-try__label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.35rem;
+}
+.gp-try__title {
+  color: var(--color-text-primary);
+  font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+  margin-bottom: 0.45rem;
+}
+.gp-try__focus {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+.gp-try__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+  counter-reset: try-step;
+}
+@media (min-width: 720px) {
+  .gp-try__list { grid-template-columns: 1fr 1fr 1fr; gap: 0.85rem; }
+}
+.gp-try__item {
+  counter-increment: try-step;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.85rem 0.15rem 0.85rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary, var(--color-text-muted));
+  border-top: 1px solid rgba(226, 184, 74, 0.18);
+}
+.gp-try__item::before {
+  content: counter(try-step, decimal-leading-zero);
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.04em;
+  padding-top: 0.15rem;
+}
+
 /* About / SEO */
 .gp-about {
   position: relative;
@@ -1530,6 +1595,7 @@ img { display: block; max-width: 100%; height: auto; }
   .gp-hero,
   .gp-play,
   .gp-highlights,
+  .gp-try,
   .gp-about,
   .gp-hero__cover { animation: none; }
 }

@@ -838,21 +838,22 @@ export const GUIDES: GuideData[] = [
       ru: [
         {
           heading: 'Миф о горячих и холодных слотах',
-          body: 'Миф о горячих и холодных слотах звучит так: «автомат нагрелся / остыл». На деле сертифицированный генератор не хранит «температуру». Короткие серии плюсов или минусов — нормальная дисперсия, а не сигнал менять ставку.',
+          body: 'Миф о горячих и холодных слотах звучит так: «автомат нагрелся / остыл». На деле сертифицированный генератор не хранит «температуру». Короткие серии плюсов или минусов — нормальная дисперсия, а не сигнал менять ставку. На 1weapp этот гайд как раз отделяет суеверия от того, что реально видно в демо: RTP, длину сухих серий и темп бонусов.',
           callout: 'Смена слота после трёх минусов не меняет математику следующего спина.',
         },
         {
           heading: 'Можно ли обмануть RNG слота',
-          body: 'Короткий ответ на можно ли обмануть rng слота: нет, если речь о легальном провайдерском демо/слоте с проверенным ГСЧ. Паттерны в истории спинов — когнитивная иллюзия. Полезнее изучить RTP и волатильность в демо, чем искать «схему».',
+          body: 'Короткий ответ на можно ли обмануть rng слота: нет, если речь о легальном провайдерском демо/слоте с проверенным ГСЧ. Паттерны в истории спинов — когнитивная иллюзия. Полезнее изучить RTP и волатильность в демо, чем искать «схему». Практический тест: 100 одинаковых демо-спинов с записью серий — вы увидите случайность без «долга» автомата.',
           bullets: [
             'Прошлые спины не кодируют будущий результат',
             '«Системы» ставок не сдвигают house edge',
             'Provably Fair / аудит RNG ≠ способ предсказать спин',
+            'Демо на 1weapp нужно для механики, а не для поиска «сигнала»',
           ],
         },
         {
           heading: 'Слот должен отдать после проигрышей?',
-          body: 'Убеждение слот должен отдать после проигрышей — дорогая ошибка. Игры не ведут счёт «долга» перед вами. После серии минусов банкролл меньше, а риск тильта выше — именно поэтому нужен стоп, а не увеличение ставки.',
+          body: 'Убеждение слот должен отдать после проигрышей — дорогая ошибка. Игры не ведут счёт «долга» перед вами. После серии минусов банкролл меньше, а риск тильта выше — именно поэтому нужен стоп, а не увеличение ставки. Если после демо хочется «отыграться», закройте сессию: это и есть полезный вывод гайда.',
           strategies: [
             {
               title: 'Анти-миф практика',
@@ -860,29 +861,36 @@ export const GUIDES: GuideData[] = [
                 '100 демо-спинов с фиксацией серий — увидите случайность',
                 'Пишите правило стопа до сессии',
                 'Не повышайте ставку «потому что пора отдать»',
+                'Сравнивайте два слота по темпу, а не по «удачливости» скриншота',
               ],
             },
           ],
+        },
+        {
+          heading: 'Как использовать демо без мифов',
+          body: 'Откройте любой слот в каталоге 1weapp, зафиксируйте виртуальную ставку и смотрите только три метрики: частота мелких выплат, длина сухой серии, ощущение бонуса. Это и есть полезный контент — в отличие от советов «подождать пока нагреется».',
+          callout: 'Демо отвечает на «подходит ли темп», а не на «когда автомат отдаст».',
         },
       ],
       en: [
         {
           heading: 'Hot and cold slots myth',
-          body: 'The hot and cold slots myth claims a machine “heated up” or “went cold.” A certified RNG has no temperature. Short win or loss streaks are normal variance — not a signal to change stake size.',
+          body: 'The hot and cold slots myth claims a machine “heated up” or “went cold.” A certified RNG has no temperature. Short win or loss streaks are normal variance — not a signal to change stake size. On 1weapp this guide separates superstition from what demo actually shows: RTP, dry-stretch length and bonus pace.',
           callout: 'Switching slots after three losses does not change the next spin’s math.',
         },
         {
           heading: 'Can you beat slot RNG',
-          body: 'Can you beat slot rng? Not on a legitimate provider title with audited randomness. Patterns in spin history are cognitive illusions. Studying RTP and volatility in demo beats hunting a “system.”',
+          body: 'Can you beat slot rng? Not on a legitimate provider title with audited randomness. Patterns in spin history are cognitive illusions. Studying RTP and volatility in demo beats hunting a “system.” Practical test: 100 identical demo spins with streak notes — you will see randomness without a machine “debt.”',
           bullets: [
             'Past spins do not encode the next result',
             'Betting systems do not move the house edge',
             'Provably Fair / RNG audits ≠ a way to predict a spin',
+            '1weapp demos are for mechanics, not for hunting a “signal”',
           ],
         },
         {
           heading: 'Due payout after losing streak myth',
-          body: 'The due payout after losing streak myth is expensive. Games do not track a debt owed to you. After a losing run your bankroll is smaller and tilt risk is higher — that is why you stop, not raise.',
+          body: 'The due payout after losing streak myth is expensive. Games do not track a debt owed to you. After a losing run your bankroll is smaller and tilt risk is higher — that is why you stop, not raise. If after demo you want to “win it back,” close the session: that is the useful takeaway.',
           strategies: [
             {
               title: 'Anti-myth practice',
@@ -890,9 +898,15 @@ export const GUIDES: GuideData[] = [
                 'Log 100 demo spins and watch streak randomness',
                 'Write the stop rule before the session',
                 'Never raise stake because a payout is “due”',
+                'Compare two slots on pace, not on a lucky screenshot',
               ],
             },
           ],
+        },
+        {
+          heading: 'How to use demos without myths',
+          body: 'Open any slot in the 1weapp catalog, lock a virtual stake and track only three metrics: small-win frequency, dry-stretch length, bonus feel. That is useful content — unlike tips to “wait until it heats up.”',
+          callout: 'Demo answers “does the pace fit,” not “when will it pay.”',
         },
       ],
     },

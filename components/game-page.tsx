@@ -17,6 +17,11 @@ import {
   getRelatedGuideIds,
 } from '@/lib/games'
 import type { Lang, Game } from '@/lib/games'
+import {
+  getDemoChecklist,
+  getGameHighlights,
+  getThemeFaqExtra,
+} from '@/lib/game-themes'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 
@@ -31,24 +36,31 @@ function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] 
   const type = game.gameType || (isEn ? 'slots' : 'слоты')
   const rtp = game.rtp || '~96%'
   const provider = game.provider
+  const themeFaq = getThemeFaqExtra(game, lang)
+  const checklist = getDemoChecklist(game, lang)
+  const tipLine = checklist.items[0]
 
   if (isEn) {
     return [
       {
         question: `How to play ${name} demo?`,
-        answer: `Open the ${name} demo on this page — no registration or deposit needed. The free demo uses virtual credits and the same core mechanics as the real version by ${provider}, so you can learn the loop before any real-money play.`,
+        answer: `Open the ${name} demo on this page — no registration or deposit needed. The free demo uses virtual credits and the same core mechanics as the real version by ${provider}. Focus of this card: ${checklist.focus}. First tip: ${tipLine}`,
       },
       {
         question: `Can I play ${name} for free?`,
-        answer: `Yes. You can play ${name} for free in browser demo mode with virtual balance. It is ideal for checking volatility, features and pacing without risking a deposit.`,
+        answer: `Yes. You can play ${name} for free in browser demo mode with virtual balance. It is ideal for checking volatility, features and pacing without risking a deposit. Theme tag on 1weapp: ${checklist.label}.`,
       },
       {
         question: `${name} demo without registration — is signup required?`,
-        answer: `No. The ${name} demo without registration opens instantly. You do not need an account, email or app install to start the free session.`,
+        answer: `No. The ${name} demo without registration opens instantly. You do not need an account, email or app install to start the free session on /${lang}/${game.slug}.`,
       },
       {
         question: `What is the RTP of ${name} demo?`,
         answer: `${name} is listed as ${type} from ${provider} with published RTP ${rtp}. Demo mode follows the same published range so you can judge session feel before deciding anything else.`,
+      },
+      {
+        question: themeFaq.question,
+        answer: themeFaq.answer,
       },
       {
         question: `Can I play ${name} for real money?`,
@@ -61,19 +73,23 @@ function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] 
   return [
     {
       question: `Как играть в ${name} демо?`,
-      answer: `Откройте ${name} демо на этой странице — без регистрации и депозита. Бесплатное демо идёт на виртуальных кредитах с той же базовой механикой, что у версии на деньги от ${provider}.`,
+      answer: `Откройте ${name} демо на этой странице — без регистрации и депозита. Бесплатное демо идёт на виртуальных кредитах с той же базовой механикой, что у версии на деньги от ${provider}. Фокус карточки: ${checklist.focus}. Первый шаг: ${tipLine}`,
     },
     {
       question: `Можно ли играть в ${name} бесплатно?`,
-      answer: `Да. Играть в ${name} бесплатно можно в демо-режиме прямо в браузере. Так вы проверяете волатильность, бонусы и темп сессии без риска для депозита.`,
+      answer: `Да. Играть в ${name} бесплатно можно в демо-режиме прямо в браузере. Так вы проверяете волатильность, бонусы и темп сессии без риска для депозита. Тема на 1weapp: ${checklist.label}.`,
     },
     {
       question: `${name} демо без регистрации — нужен ли аккаунт?`,
-      answer: `Нет. ${name} демо без регистрации запускается сразу: аккаунт, почта и установка приложения не требуются.`,
+      answer: `Нет. ${name} демо без регистрации запускается сразу: аккаунт, почта и установка приложения не требуются. Адрес страницы: /${lang}/${game.slug}.`,
     },
     {
       question: `Какой RTP у ${name} демо?`,
       answer: `${name} — ${type} от ${provider}, заявленный RTP ${rtp}. В демо используется тот же ориентир, чтобы оценить ощущение сессии до любых решений на деньги.`,
+    },
+    {
+      question: themeFaq.question,
+      answer: themeFaq.answer,
     },
     {
       question: `Можно ли играть в ${name} на деньги?`,
@@ -133,18 +149,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
 
   const typeLabel = game.gameType || (isEn ? 'Slots' : 'Слоты')
   const rtpLabel = game.rtp || '~96%'
-
-  const highlights = isEn
-    ? [
-        { k: '01', title: 'Free credits', desc: 'Practice with virtual balance — no deposit.' },
-        { k: '02', title: 'Same mechanics', desc: 'Demo mirrors real RTP and feature logic.' },
-        { k: '03', title: 'Instant browser', desc: 'Launch on mobile or desktop in one tap.' },
-      ]
-    : [
-        { k: '01', title: 'Бесплатный баланс', desc: 'Тренируйтесь на виртуальных кредитах.' },
-        { k: '02', title: 'Та же механика', desc: 'Демо повторяет RTP и бонусные правила.' },
-        { k: '03', title: 'В браузере сразу', desc: 'Запуск на телефоне и ПК без установки.' },
-      ]
+  const highlights = getGameHighlights(game, lang)
+  const checklist = getDemoChecklist(game, lang)
 
   const legalLine = isEn
     ? '18+ · Gamble responsibly · T&C apply'
@@ -418,6 +424,29 @@ export function GamePage({ slug, lang }: GamePageProps) {
               </div>
             </div>
           ))}
+        </section>
+
+        <section className="gp-try" aria-labelledby="gp-try-heading">
+          <div className="gp-try__head">
+            <span className="gp-try__label">{checklist.label}</span>
+            <h2 id="gp-try-heading" className="gp-try__title">
+              {isEn
+                ? `How to try ${game.name} usefully`
+                : `Как полезно протестировать ${game.name}`}
+            </h2>
+            <p className="gp-try__focus">
+              {isEn
+                ? `What this demo is for: ${checklist.focus}.`
+                : `Зачем это демо: ${checklist.focus}.`}
+            </p>
+          </div>
+          <ol className="gp-try__list">
+            {checklist.items.map((item) => (
+              <li key={item} className="gp-try__item">
+                {item}
+              </li>
+            ))}
+          </ol>
         </section>
 
         <article className="gp-about" aria-label={isEn ? 'Game description' : 'Описание игры'}>
