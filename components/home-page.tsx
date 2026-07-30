@@ -3,7 +3,6 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
 import { RandomDemoPromo } from '@/components/random-demo-promo'
-import { HotDemosCarousel } from '@/components/hot-demos-carousel'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
@@ -254,15 +253,6 @@ export function HomePage({ lang }: HomePageProps) {
             </div>
           ))}
         </section>
-
-        {featured.length > 0 && (
-          <HotDemosCarousel
-            games={featured}
-            lang={lang}
-            label={isEn ? 'Spotlight' : 'В фокусе'}
-            title={isEn ? 'Hot demos' : 'Горячие демо'}
-          />
-        )}
 
         <RandomDemoPromo games={games} lang={lang} />
 
