@@ -38,26 +38,24 @@ function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] 
   const rtp = game.rtp || '~96%'
   const provider = game.provider
   const themeFaq = getThemeFaqExtra(game, lang)
-  const checklist = getDemoChecklist(game, lang)
-  const tipLine = checklist.items[0]
 
   if (isEn) {
     return [
       {
         question: `How to play ${name} demo?`,
-        answer: `Open the ${name} demo on this page — no registration or deposit needed. The free demo uses virtual credits and the same core mechanics as the real version by ${provider}. Focus of this card: ${checklist.focus}. First tip: ${tipLine}`,
+        answer: `Open this page and launch the free ${name} demo — virtual credits, same core loop as ${provider}. No signup.`,
       },
       {
         question: `Can I play ${name} for free?`,
-        answer: `Yes. You can play ${name} for free in browser demo mode with virtual balance. It is ideal for checking volatility, features and pacing without risking a deposit. Theme tag on 1weapp: ${checklist.label}.`,
+        answer: `Yes. Browser demo only, no deposit. Use it to check pace, features and RTP ${rtp}.`,
       },
       {
-        question: `${name} demo without registration — is signup required?`,
-        answer: `No. The ${name} demo without registration opens instantly. You do not need an account, email or app install to start the free session on /${lang}/${game.slug}.`,
+        question: `${name} demo without registration?`,
+        answer: `No account needed. Start instantly at /${lang}/${game.slug}.`,
       },
       {
-        question: `What is the RTP of ${name} demo?`,
-        answer: `${name} is listed as ${type} from ${provider} with published RTP ${rtp}. Demo mode follows the same published range so you can judge session feel before deciding anything else.`,
+        question: `What is the RTP of ${name}?`,
+        answer: `${name} (${type}, ${provider}) lists RTP ${rtp}. Demo follows the published range.`,
       },
       {
         question: themeFaq.question,
@@ -65,7 +63,7 @@ function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] 
       },
       {
         question: `Can I play ${name} for real money?`,
-        answer: `Yes — you can play ${name} for real money if you continue via the button below. Try the free demo first, stay 18+, and set limits before depositing.`,
+        answer: `Yes — after the demo, continue via the button below. 18+ only; set limits first.`,
         cta: { href: CTA_URL, label: playRealLabel },
       },
     ]
@@ -74,19 +72,19 @@ function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] 
   return [
     {
       question: `Как играть в ${name} демо?`,
-      answer: `Откройте ${name} демо на этой странице — без регистрации и депозита. Бесплатное демо идёт на виртуальных кредитах с той же базовой механикой, что у версии на деньги от ${provider}. Фокус карточки: ${checklist.focus}. Первый шаг: ${tipLine}`,
+      answer: `Откройте страницу и запустите бесплатное демо ${name} — виртуальные кредиты, та же база, что у ${provider}. Без регистрации.`,
     },
     {
       question: `Можно ли играть в ${name} бесплатно?`,
-      answer: `Да. Играть в ${name} бесплатно можно в демо-режиме прямо в браузере. Так вы проверяете волатильность, бонусы и темп сессии без риска для депозита. Тема на 1weapp: ${checklist.label}.`,
+      answer: `Да. Только браузерное демо, без депозита. Проверьте темп, фичи и RTP ${rtp}.`,
     },
     {
-      question: `${name} демо без регистрации — нужен ли аккаунт?`,
-      answer: `Нет. ${name} демо без регистрации запускается сразу: аккаунт, почта и установка приложения не требуются. Адрес страницы: /${lang}/${game.slug}.`,
+      question: `${name} демо без регистрации?`,
+      answer: `Аккаунт не нужен. Старт сразу на /${lang}/${game.slug}.`,
     },
     {
-      question: `Какой RTP у ${name} демо?`,
-      answer: `${name} — ${type} от ${provider}, заявленный RTP ${rtp}. В демо используется тот же ориентир, чтобы оценить ощущение сессии до любых решений на деньги.`,
+      question: `Какой RTP у ${name}?`,
+      answer: `${name} (${type}, ${provider}) — RTP ${rtp}. В демо тот же ориентир.`,
     },
     {
       question: themeFaq.question,
@@ -94,7 +92,7 @@ function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] 
     },
     {
       question: `Можно ли играть в ${name} на деньги?`,
-      answer: `Да — играть в ${name} на деньги можно, если перейти по кнопке ниже. Сначала протестируйте бесплатное демо, играйте только 18+ и заранее задайте лимиты.`,
+      answer: `Да — после демо через кнопку ниже. Только 18+; сначала задайте лимиты.`,
       cta: { href: CTA_URL, label: playRealLabel },
     },
   ]
@@ -264,6 +262,14 @@ export function GamePage({ slug, lang }: GamePageProps) {
                 {t.playReal}
               </a>
             </div>
+            <p className="rg-note gp-hero__rg">
+              18+ ·{' '}
+              <Link href={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'} className="rg-note__link">
+                {isEn ? 'Gamble responsibly' : 'Играйте ответственно'}
+              </Link>
+              {' · '}
+              {isEn ? 'T&C apply' : 'Условия применяются'}
+            </p>
           </div>
         </header>
 
@@ -463,6 +469,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
             idPrefix={`game-${game.slug}-faq`}
             title={isEn ? `${game.name} — FAQ` : `${game.name} — частые вопросы`}
             items={faqItems}
+            responsibleHref={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}
+            responsibleLabel={isEn ? 'Responsible gaming' : 'Ответственная игра'}
           />
         </div>
 

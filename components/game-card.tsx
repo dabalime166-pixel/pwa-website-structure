@@ -2,13 +2,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Game, Lang } from '@/lib/games'
 import { i18n } from '@/lib/games'
+import { FavoriteButton } from '@/components/favorite-button'
 
 interface GameCardProps {
   game: Game
   lang: Lang
+  priority?: boolean
 }
 
-function CardInner({ game, lang }: { game: Game; lang: Lang }) {
+function CardInner({ game, lang, priority }: { game: Game; lang: Lang; priority?: boolean }) {
   const t = i18n[lang]
   const isEn = lang === 'en'
 
@@ -20,7 +22,8 @@ function CardInner({ game, lang }: { game: Game; lang: Lang }) {
           alt={game.name}
           fill
           sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 180px"
-          loading="lazy"
+          loading={priority ? 'eager' : 'lazy'}
+          priority={priority}
         />
 
         <div className="card-badges" aria-hidden={!game.rtp && !game.gameType}>
@@ -44,7 +47,7 @@ function CardInner({ game, lang }: { game: Game; lang: Lang }) {
   )
 }
 
-export function GameCard({ game, lang }: GameCardProps) {
+export function GameCard({ game, lang, priority }: GameCardProps) {
   const t = i18n[lang]
 
   if (game.externalUrl) {
@@ -56,8 +59,9 @@ export function GameCard({ game, lang }: GameCardProps) {
           rel="noopener noreferrer nofollow"
           aria-label={`${game.name} — ${t.playDemo}`}
         >
-          <CardInner game={game} lang={lang} />
+          <CardInner game={game} lang={lang} priority={priority} />
         </a>
+        <FavoriteButton slug={game.slug} lang={lang} />
       </article>
     )
   }
@@ -65,8 +69,9 @@ export function GameCard({ game, lang }: GameCardProps) {
   return (
     <article className="game-card">
       <Link href={`/${lang}/${game.slug}`} aria-label={`${game.name} — ${t.playDemo}`}>
-        <CardInner game={game} lang={lang} />
+        <CardInner game={game} lang={lang} priority={priority} />
       </Link>
+      <FavoriteButton slug={game.slug} lang={lang} />
     </article>
   )
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import type { Lang } from '@/lib/games'
 
@@ -9,110 +7,34 @@ interface SiteFooterProps {
 
 export function SiteFooter({ lang }: SiteFooterProps) {
   const isEn = lang === 'en'
+  const year = new Date().getFullYear()
+
   return (
-    <footer
-      role="contentinfo"
-      style={{
-        borderTop: '1px solid var(--color-border-gold)',
-        background: 'var(--color-bg-surface)',
-        padding: '2rem 1rem 1.5rem',
-        marginTop: '4rem',
-        position: 'relative',
-      }}
-    >
-      {/* Gold top line */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent, var(--color-gold-dim) 30%, var(--color-gold) 50%, var(--color-gold-dim) 70%, transparent)',
-        }}
-      />
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '1.5rem',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            marginBottom: '1.5rem',
-          }}
-        >
+    <footer className="site-footer" role="contentinfo">
+      <div className="site-footer__line" aria-hidden="true" />
+      <div className="site-footer__inner">
+        <div className="site-footer__top">
           <div>
-            <p
-              style={{
-                fontWeight: 800,
-                fontSize: '1.0625rem',
-                letterSpacing: '-0.01em',
-                marginBottom: '0.5rem',
-              }}
-            >
-              <span style={{ color: 'var(--color-text-primary)' }}>1we</span>
-              <span
-                style={{
-                  background: 'linear-gradient(90deg, var(--color-gold-light), var(--color-gold))',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                app
-              </span>
+            <p className="site-footer__brand">
+              <span className="site-footer__brand-plain">1we</span>
+              <span className="site-footer__brand-accent">app</span>
             </p>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', maxWidth: '30rem', lineHeight: 1.6 }}>
+            <p className="site-footer__blurb">
               {isEn
                 ? 'Free demo versions of crash games and slots. No real money involved. For entertainment only. 18+ only.'
                 : 'Бесплатные демо-версии краш-игр и слотов. Без реальных денег. Только для развлечения. 18+.'}
             </p>
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.5rem',
-              alignItems: 'flex-start',
-            }}
-          >
+          <div className="site-footer__navs">
             <nav aria-label="Language selection">
-              <ul
-                style={{
-                  listStyle: 'none',
-                  display: 'flex',
-                  gap: '1.25rem',
-                  flexWrap: 'wrap',
-                  fontSize: '0.875rem',
-                }}
-              >
+              <ul className="site-footer__langs">
                 <li>
-                  <Link
-                    href="/"
-                    style={{
-                      color: lang === 'en' ? 'var(--color-gold)' : 'var(--color-text-muted)',
-                      fontWeight: 600,
-                      letterSpacing: '0.06em',
-                      textTransform: 'uppercase',
-                      fontSize: '0.8125rem',
-                    }}
-                  >
+                  <Link href="/" className={lang === 'en' ? 'is-active' : undefined}>
                     EN
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/ru"
-                    style={{
-                      color: lang === 'ru' ? 'var(--color-gold)' : 'var(--color-text-muted)',
-                      fontWeight: 600,
-                      letterSpacing: '0.06em',
-                      textTransform: 'uppercase',
-                      fontSize: '0.8125rem',
-                    }}
-                  >
+                  <Link href="/ru" className={lang === 'ru' ? 'is-active' : undefined}>
                     RU
                   </Link>
                 </li>
@@ -120,88 +42,36 @@ export function SiteFooter({ lang }: SiteFooterProps) {
             </nav>
 
             <nav aria-label="Legal and compliance">
-              <ul
-                style={{
-                  listStyle: 'none',
-                  display: 'flex',
-                  gap: '1.5rem',
-                  flexWrap: 'wrap',
-                  fontSize: '0.75rem',
-                }}
-              >
+              <ul className="site-footer__legal">
                 <li>
-                  <a
-                    href={isEn ? '/en/terms' : '/ru/terms'}
-                    style={{
-                      color: 'var(--color-text-muted)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-gold)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
-                  >
+                  <Link href={isEn ? '/en/terms' : '/ru/terms'}>
                     {isEn ? 'Terms of Service' : 'Условия обслуживания'}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href={isEn ? '/en/privacy' : '/ru/privacy'}
-                    style={{
-                      color: 'var(--color-text-muted)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-gold)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
-                  >
+                  <Link href={isEn ? '/en/privacy' : '/ru/privacy'}>
                     {isEn ? 'Privacy Policy' : 'Политика конфиденциальности'}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href={isEn ? '/en/disclaimer' : '/ru/disclaimer'}
-                    style={{
-                      color: 'var(--color-text-muted)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-gold)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
-                  >
+                  <Link href={isEn ? '/en/disclaimer' : '/ru/disclaimer'}>
                     {isEn ? 'Disclaimer' : 'Дисклеймер'}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}
-                    style={{
-                      color: 'var(--color-text-muted)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-gold)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
-                  >
+                  <Link href={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}>
                     {isEn ? 'Responsible Gaming' : 'Ответственная игра'}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
           </div>
         </div>
 
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(90deg, transparent, var(--color-border-gold), transparent)',
-            marginBottom: '1.25rem',
-          }}
-        />
+        <div className="site-footer__rule" aria-hidden="true" />
 
-        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-          &copy; {new Date().getFullYear()} 1weapp.{' '}
-          {isEn ? 'All rights reserved.' : 'Все права защищены.'}
+        <p className="site-footer__copy">
+          &copy; {year} 1weapp. {isEn ? 'All rights reserved.' : 'Все права защищены.'}
         </p>
       </div>
     </footer>

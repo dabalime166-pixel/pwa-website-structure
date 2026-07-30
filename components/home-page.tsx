@@ -215,45 +215,60 @@ export function HomePage({ lang }: HomePageProps) {
             <p className="home-hero__sub anim-fade-up anim-delay-2">{t.heroSub}</p>
 
             <div className="home-hero__actions anim-fade-up anim-delay-3">
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="btn-cta"
-                aria-label={t.playReal}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-                {t.playReal}
-              </a>
-
-              <a href="#lobby" className="btn-ghost">
+              <a href="#lobby" className="btn-cta">
                 {isEn ? 'Browse demos' : 'Смотреть демо'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
               </a>
+
+              <a
+                href={CTA_URL}
+                rel="noopener noreferrer nofollow sponsored"
+                target="_blank"
+                className="btn-ghost"
+                aria-label={t.playReal}
+              >
+                {t.playReal}
+              </a>
             </div>
 
             <p className="home-hero__legal anim-fade-up anim-delay-4">
-              {isEn ? '18+ · Gamble responsibly · T&C apply' : '18+ · Играйте ответственно · Применяются условия'}
+              {isEn ? (
+                <>
+                  18+ ·{' '}
+                  <a href="/en/responsible-gaming" className="rg-note__link">
+                    Gamble responsibly
+                  </a>
+                  {' · '}
+                  T&amp;C apply
+                </>
+              ) : (
+                <>
+                  18+ ·{' '}
+                  <a href="/ru/responsible-gaming" className="rg-note__link">
+                    Играйте ответственно
+                  </a>
+                  {' · '}
+                  Применяются условия
+                </>
+              )}
             </p>
           </div>
         </section>
 
-        <section className="home-rail" aria-label={isEn ? 'Why play here' : 'Почему у нас'}>
+        <section className="home-rail home-rail--how" aria-label={isEn ? 'How the demo works' : 'Как работает демо'}>
           {(isEn
             ? [
-                { k: '01', title: 'Instant launch', desc: 'One tap — demo in the browser.' },
-                { k: '02', title: 'Zero signup', desc: 'No account. No deposit wall.' },
-                { k: '03', title: 'Built for mobile', desc: 'Crisp play on any screen.' },
+                { k: '01', title: 'Open a card', desc: 'Pick any title — demo loads in the browser.' },
+                { k: '02', title: 'Play with virtual credits', desc: 'No signup, no deposit, same core mechanics.' },
+                { k: '03', title: 'Decide later', desc: 'If it fits, continue for real money — 18+ with limits.' },
               ]
             : [
-                { k: '01', title: 'Мгновенный старт', desc: 'Один тап — демо в браузере.' },
-                { k: '02', title: 'Без регистрации', desc: 'Без аккаунта и депозита.' },
-                { k: '03', title: 'Для мобильных', desc: 'Чётко на любом экране.' },
+                { k: '01', title: 'Откройте карточку', desc: 'Любой тайтл — демо прямо в браузере.' },
+                { k: '02', title: 'Виртуальные кредиты', desc: 'Без регистрации и депозита, та же механика.' },
+                { k: '03', title: 'Решение потом', desc: 'Если зашло — на деньги, только 18+ и с лимитами.' },
               ]
           ).map((f) => (
             <div key={f.k} className="home-rail__item">
@@ -455,6 +470,8 @@ export function HomePage({ lang }: HomePageProps) {
             <FaqAccordion
               title={isEn ? 'Frequently asked questions' : 'Частые вопросы'}
               items={faqItems}
+              responsibleHref={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}
+              responsibleLabel={isEn ? 'Responsible gaming' : 'Ответственная игра'}
             />
           </div>
         </section>

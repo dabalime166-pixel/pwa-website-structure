@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export interface FaqItem {
   question: string
@@ -17,22 +17,47 @@ interface FaqAccordionProps {
   title: string
   /** Prefix for aria ids when multiple FAQs exist on one page */
   idPrefix?: string
+  responsibleHref?: string
+  responsibleLabel?: string
 }
 
-export function FaqAccordion({ items, title, idPrefix = 'faq' }: FaqAccordionProps) {
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9а-яё]+/gi, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 64)
+}
+
+export function FaqAccordion({
+  items,
+  title,
+  idPrefix = 'faq',
+  responsibleHref = '/en/responsible-gaming',
+  responsibleLabel = 'Responsible gaming',
+}: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const hash = window.location.hash.replace(/^#/, '')
+    if (!hash.startsWith(`${idPrefix}-`)) return
+    const idx = items.findIndex((item, i) => `${idPrefix}-${slugify(item.question) || i}` === hash)
+    if (idx >= 0) setOpenIndex(idx)
+  }, [idPrefix, items])
+
   return (
-    <section className="faq" aria-label={title}>
+    <section className="faq" aria-label={title} id={idPrefix}>
       <h2 className="faq__title">{title}</h2>
       <div className="faq__list">
         {items.map((item, index) => {
           const isOpen = openIndex === index
+          const anchor = `${idPrefix}-${slugify(item.question) || index}`
           const panelId = `${idPrefix}-panel-${index}`
           const buttonId = `${idPrefix}-button-${index}`
 
           return (
-            <div key={item.question} className={`faq__item ${isOpen ? 'is-open' : ''}`}>
+            <div key={item.question} id={anchor} className={`faq__item ${isOpen ? 'is-open' : ''}`}>
               <h3 className="faq__question">
                 <button
                   id={buttonId}
@@ -40,7 +65,12 @@ export function FaqAccordion({ items, title, idPrefix = 'faq' }: FaqAccordionPro
                   className="faq__trigger"
                   aria-expanded={isOpen}
                   aria-controls={panelId}
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  onClick={() => {
+                    setOpenIndex(isOpen ? null : index)
+                    if (typeof window !== 'undefined') {
+                      history.replaceState(null, '', `#${anchor}`)
+                    }
+                  }}
                 >
                   <span>{item.question}</span>
                   <span className="faq__icon" aria-hidden="true">
@@ -57,28 +87,36 @@ export function FaqAccordion({ items, title, idPrefix = 'faq' }: FaqAccordionPro
               >
                 <p className="faq__answer">{item.answer}</p>
                 {item.cta && (
-                  <a
-                    href={item.cta.href}
-                    rel="noopener noreferrer nofollow sponsored"
-                    target="_blank"
-                    className="btn-cta faq__cta"
-                    aria-label={item.cta.label}
-                  >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                  <div className="faq__cta-wrap">
+                    <a
+                      href={item.cta.href}
+                      rel="noopener noreferrer nofollow sponsored"
+                      target="_blank"
+                      className="btn-cta faq__cta"
+                      aria-label={item.cta.label}
                     >
-                      <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                    {item.cta.label}
-                  </a>
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                      </svg>
+                      {item.cta.label}
+                    </a>
+                    <p className="rg-note">
+                      18+ ·{' '}
+                      <a href={responsibleHref} className="rg-note__link">
+                        {responsibleLabel}
+                      </a>
+                    </p>
+                  </div>
                 )}
               </div>
             </div>

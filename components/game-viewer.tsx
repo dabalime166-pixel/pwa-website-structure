@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import { CasinoInviteModal } from '@/components/casino-invite-modal'
 import type { CasinoInviteCopy } from '@/components/casino-invite-modal'
 import { CTA_URL } from '@/lib/games'
+import { pushRecentSlug } from '@/lib/player-prefs'
 
 const INVITE_DELAY_MS = 2 * 60 * 1000
 
@@ -187,7 +188,10 @@ export function GameViewer({
     setIsFullscreen(false)
   }, [])
 
-  const launchDemo = useCallback(() => setIframeLaunched(true), [])
+  const launchDemo = useCallback(() => {
+    setIframeLaunched(true)
+    pushRecentSlug(gameSlug)
+  }, [gameSlug])
 
   const dismissInvite = useCallback(() => {
     setInviteOpen(false)
@@ -237,31 +241,25 @@ export function GameViewer({
 
       {!iframeLaunched ? (
         <div className="game-frame-body game-frame-body--launch">
-          <div className="game-launch" aria-hidden="true">
-            <div className="game-launch__orb game-launch__orb--a" />
-            <div className="game-launch__orb game-launch__orb--b" />
-          </div>
-
-          <div className="game-launch__content">
-            <div className="game-launch__play" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--color-gold)">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
+          <button type="button" className="game-launch game-launch--hit" onClick={launchDemo} aria-label={launchLabel}>
+            <div className="game-launch__orb game-launch__orb--a" aria-hidden="true" />
+            <div className="game-launch__orb game-launch__orb--b" aria-hidden="true" />
+            <div className="game-launch__content">
+              <div className="game-launch__play" aria-hidden="true">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--color-gold)">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+              </div>
+              <h3 className="game-launch__title">{readyTitle}</h3>
+              <p className="game-launch__desc">{readyDescription}</p>
+              <span className="btn-cta game-launch__btn">
+                <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                {launchLabel}
+              </span>
             </div>
-            <h3 className="game-launch__title">{readyTitle}</h3>
-            <p className="game-launch__desc">{readyDescription}</p>
-            <button
-              type="button"
-              onClick={launchDemo}
-              className="btn-cta game-launch__btn"
-              aria-label={launchLabel}
-            >
-              <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-              {launchLabel}
-            </button>
-          </div>
+          </button>
         </div>
       ) : (
         <div className="game-frame-body">
@@ -270,9 +268,28 @@ export function GameViewer({
             title={`${gameName} ${demoBadge}`}
             allow="autoplay; fullscreen"
             allowFullScreen
-            loading="lazy"
+            loading="eager"
+            referrerPolicy="no-referrer-when-downgrade"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           />
+          <div className="game-sticky-play" role="toolbar" aria-label={fullscreenLabel}>
+            <button
+              type="button"
+              className="game-sticky-play__btn"
+              onClick={isFullscreen ? closeFullscreen : openFullscreen}
+            >
+              {isFullscreen ? <ShrinkIcon /> : <FullscreenIcon />}
+              {isFullscreen ? closeLabel : fullscreenLabel}
+            </button>
+            <a
+              href={CTA_URL}
+              className="game-sticky-play__money"
+              rel="noopener noreferrer nofollow sponsored"
+              target="_blank"
+            >
+              18+
+            </a>
+          </div>
         </div>
       )}
 
