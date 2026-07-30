@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Game, Lang } from '@/lib/games'
@@ -14,7 +13,7 @@ const CARD_W = 96
 const GAP = 12
 const STEP = CARD_W + GAP
 const IDLE_SPEED = 0.55
-const SPIN_MS = 2200
+const SPIN_MS = 2400
 const POOL_SIZE = 24
 const STRIP_LOOPS = 4
 
@@ -25,6 +24,10 @@ function shuffle<T>(arr: T[]): T[] {
     ;[a[i], a[j]] = [a[j], a[i]]
   }
   return a
+}
+
+function easeOutCubic(t: number) {
+  return 1 - (1 - t) ** 3
 }
 
 type Mode = 'idle' | 'spinning' | 'landed'
@@ -43,6 +46,12 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     return out
   }, [pool])
 
+  const bySlug = useMemo(() => {
+    const map = new Map<string, Game>()
+    for (const g of pool) map.set(g.slug, g)
+    return map
+  }, [pool])
+
   const [mode, setMode] = useState<Mode>('idle')
   const [offset, setOffset] = useState(0)
   const [picked, setPicked] = useState<Game | null>(null)
@@ -50,17 +59,71 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
 
   const offsetRef = useRef(0)
   const modeRef = useRef<Mode>('idle')
-  const spinTimerRef = useRef<number | null>(null)
-  const stripRef = useRef(strip)
-  stripRef.current = strip
+  const rafRef = useRef(0)
+  const trayRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     return () => {
-      if (spinTimerRef.current) window.clearTimeout(spinTimerRef.current)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
   }, [])
 
-  // Continuous idle scroll until Spin
+  /** Card closest to the gold markers (tray center) — source of truth for name/play */
+  function measureCentered(): { game: Game; index: number; el: HTMLElement; delta: number } | null {
+    const tray = trayRef.current
+    const track = trackRef.current
+    if (!tray || !track) return null
+
+    const markerX = tray.getBoundingClientRect().left + tray.clientWidth / 2
+    const cards = track.querySelectorAll<HTMLElement>('[data-game-slug]')
+    let best: HTMLElement | null = null
+    let bestDist = Infinity
+    let bestIndex = -1
+
+    for (let i = 0; i < cards.length; i++) {
+      const el = cards[i]
+      const r = el.getBoundingClientRect()
+      const center = r.left + r.width / 2
+      const dist = Math.abs(center - markerX)
+      if (dist < bestDist) {
+        bestDist = dist
+        best = el
+        bestIndex = i
+      }
+    }
+
+    if (!best) return null
+    const slug = best.dataset.gameSlug
+    if (!slug) return null
+    const game = bySlug.get(slug)
+    if (!game) return null
+    const rect = best.getBoundingClientRect()
+    const cx = rect.left + rect.width / 2
+    // +delta to offset moves the track left (CSS: translateX(-offset))
+    return { game, index: bestIndex, el: best, delta: cx - markerX }
+  }
+
+  function finishSpin() {
+    // 1) snap to whichever card is under the markers
+    const hit = measureCentered()
+    if (hit && Math.abs(hit.delta) > 0.5) {
+      offsetRef.current += hit.delta
+      setOffset(offsetRef.current)
+    }
+    // 2) after paint, read again — name/play MUST come from DOM under markers
+    requestAnimationFrame(() => {
+      const final = measureCentered()
+      if (final) {
+        setPicked(final.game)
+        setActiveIndex(final.index)
+      }
+      modeRef.current = 'landed'
+      setMode('landed')
+    })
+  }
+
+  // Idle scroll
   useEffect(() => {
     if (mode !== 'idle' || pool.length < 3) return
     if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -68,7 +131,6 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
     }
 
     const loopWidth = pool.length * STEP
-    let raf = 0
     let last = performance.now()
 
     const tick = (now: number) => {
@@ -78,32 +140,26 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
       const next = (offsetRef.current + IDLE_SPEED * (dt / 16.67)) % loopWidth
       offsetRef.current = next
       setOffset(next)
-      raf = requestAnimationFrame(tick)
+      rafRef.current = requestAnimationFrame(tick)
     }
 
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    rafRef.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafRef.current)
   }, [mode, pool.length])
-
-  function indexAtOffset(px: number) {
-    const idx = Math.round(px / STEP)
-    return Math.max(0, Math.min(stripRef.current.length - 1, idx))
-  }
 
   function spin() {
     if (modeRef.current === 'spinning' || pool.length < 3) return
 
-    // Stop idle immediately (don't wait for React state)
     modeRef.current = 'spinning'
     setMode('spinning')
     setPicked(null)
     setActiveIndex(null)
+    cancelAnimationFrame(rafRef.current)
 
-    // Snap to nearest card so math stays exact
-    const currentCard = indexAtOffset(offsetRef.current)
-    const base = currentCard * STEP
-    offsetRef.current = base
-    setOffset(base)
+    const currentCard = Math.round(offsetRef.current / STEP)
+    const start = currentCard * STEP
+    offsetRef.current = start
+    setOffset(start)
 
     const landInPool = Math.floor(Math.random() * pool.length)
     const currentInPool = ((currentCard % pool.length) + pool.length) % pool.length
@@ -113,37 +169,35 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
 
     let finalIndex = currentCard + stepsForward
     if (finalIndex >= strip.length) {
-      finalIndex = landInPool + (STRIP_LOOPS - 1) * pool.length
+      finalIndex = landInPool + Math.max(0, STRIP_LOOPS - 2) * pool.length
     }
-    if (finalIndex >= strip.length || finalIndex < 0) {
-      modeRef.current = 'idle'
-      setMode('idle')
-      return
-    }
-
+    finalIndex = Math.max(0, Math.min(strip.length - 1, finalIndex))
     const target = finalIndex * STEP
+    const distance = target - start
+    const t0 = performance.now()
 
-    // Next frame: enable CSS transition, then move to target
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (modeRef.current !== 'spinning') return
-        offsetRef.current = target
-        setOffset(target)
-      })
-    })
+    const tick = (now: number) => {
+      if (modeRef.current !== 'spinning') return
+      const t = Math.min(1, (now - t0) / SPIN_MS)
+      const next = start + distance * easeOutCubic(t)
+      offsetRef.current = next
+      setOffset(next)
 
-    if (spinTimerRef.current) window.clearTimeout(spinTimerRef.current)
-    spinTimerRef.current = window.setTimeout(() => {
-      // Pick ONLY from whatever card is under the marker after the spin
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(tick)
+        return
+      }
+
+      // Hard-snap, then read the real card under the markers
       offsetRef.current = target
       setOffset(target)
-      const landedIndex = indexAtOffset(target)
-      const chosen = stripRef.current[landedIndex]
-      setPicked(chosen ?? null)
-      setActiveIndex(landedIndex)
-      modeRef.current = 'landed'
-      setMode('landed')
-    }, SPIN_MS + 50)
+
+      requestAnimationFrame(() => {
+        finishSpin()
+      })
+    }
+
+    rafRef.current = requestAnimationFrame(tick)
   }
 
   function playPicked() {
@@ -189,31 +243,34 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
       </div>
 
       <div className="random-slot-promo__stage">
-        <div className="random-slot-promo__tray">
+        <div className="random-slot-promo__tray" ref={trayRef}>
           <span className="random-slot-promo__marker random-slot-promo__marker--top" aria-hidden="true" />
           <span className="random-slot-promo__marker random-slot-promo__marker--bottom" aria-hidden="true" />
           <div className="random-slot-promo__viewport">
             <div
-              className={`random-slot-promo__track${mode === 'spinning' ? ' is-spinning' : ''}${mode === 'idle' ? ' is-idle' : ''}`}
+              ref={trackRef}
+              className={`random-slot-promo__track${mode === 'idle' ? ' is-idle' : ''}${mode === 'landed' ? ' is-landed' : ''}`}
               style={{
-                // left:50% in CSS — 50% here would be track width and desync the marker
                 transform: `translate3d(calc(-${CARD_W / 2}px - ${offset}px), -50%, 0)`,
               }}
             >
               {strip.map((game, i) => (
                 <div
                   key={`${game.slug}-${i}`}
-                  className={`random-slot-promo__card${activeIndex === i && mode === 'landed' ? ' is-active' : ''}`}
+                  data-game-slug={game.slug}
+                  className={`random-slot-promo__card${
+                    activeIndex === i && mode === 'landed' ? ' is-active' : ''
+                  }`}
                   aria-hidden="true"
                 >
-                  <Image
+                  {/* native img — Next/Image wrappers inflate flex min-width and desync STEP */}
+                  <img
                     src={game.avatar}
                     alt=""
                     width={CARD_W}
                     height={Math.round(CARD_W * 1.3)}
-                    sizes="96px"
-                    unoptimized
-                    loading={i < POOL_SIZE ? 'eager' : 'lazy'}
+                    draggable={false}
+                    loading={i < 8 ? 'eager' : 'lazy'}
                     decoding="async"
                   />
                 </div>

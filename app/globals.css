@@ -954,27 +954,28 @@ img { display: block; max-width: 100%; height: auto; }
   will-change: transform;
   transition: none;
 }
-.random-slot-promo__track.is-idle {
-  transition: none;
-}
-.random-slot-promo__track.is-spinning {
-  transition: transform 2.1s cubic-bezier(0.12, 0.75, 0.08, 1);
-}
 .random-slot-promo__card {
+  box-sizing: border-box;
   flex: 0 0 96px;
   width: 96px;
+  min-width: 96px;
+  max-width: 96px;
   height: 125px;
   border-radius: 0.75rem;
   overflow: hidden;
   opacity: 0.55;
   transform: scale(0.92);
+  transform-origin: center center;
   border: 1px solid transparent;
   transition: opacity 0.25s, transform 0.25s, border-color 0.25s;
 }
 .random-slot-promo__card img {
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: 96px;
+  height: 125px;
+  max-width: 100%;
   object-fit: cover;
+  pointer-events: none;
 }
 .random-slot-promo__card.is-active {
   opacity: 1;
@@ -985,6 +986,9 @@ img { display: block; max-width: 100%; height: auto; }
 .random-slot-promo__track.is-idle .random-slot-promo__card {
   opacity: 0.72;
   transform: scale(0.96);
+}
+.random-slot-promo__track.is-landed .random-slot-promo__card:not(.is-active) {
+  opacity: 0.5;
 }
 .random-slot-promo__result {
   display: flex;
