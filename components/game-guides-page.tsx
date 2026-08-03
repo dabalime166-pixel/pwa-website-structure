@@ -105,6 +105,11 @@ function slugifyHeading(text: string, idx: number): string {
   return `s${idx + 1}-${base || 'section'}`
 }
 
+const TOC_LABELS = {
+  en: ['Quick start', 'How it works', 'Free play tips', 'RTP', 'Checklist'],
+  ru: ['С чего начать', 'Как устроено', 'Советы в демо', 'RTP', 'Чеклист'],
+}
+
 export function GameGuideSinglePage({
   guide,
   lang,
@@ -118,6 +123,13 @@ export function GameGuideSinglePage({
   const sections = isEn ? guide.sections.en : guide.sections.ru
   const playHref = `/${lang}/${guide.gameSlug}`
   const indexHref = isEn ? '/en/guides/games' : '/ru/guides/games'
+  const game = getGame(guide.gameSlug)
+  const gameName = game?.name ?? guide.gameSlug.replace(/-/g, ' ')
+  const tocLabels = isEn ? TOC_LABELS.en : TOC_LABELS.ru
+  const displayTitle = isEn ? `${gameName} demo guide` : `Демо-гайд: ${gameName}`
+  const displaySub = isEn
+    ? `How free play works, what to watch for, and how to practice without a deposit.`
+    : `Как устроено бесплатное демо, на что смотреть и как потренироваться без депозита.`
 
   return (
     <>
@@ -125,106 +137,89 @@ export function GameGuideSinglePage({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       ) : null}
       <SiteHeader lang={lang} section="guides" gameGuideSlug={guide.id} />
-      <main className="guide-page game-guide-page" id="main-content">
-        <div className="guide-page__layout">
-          <aside className="guide-sidebar" aria-label={isEn ? 'On this page' : 'На этой странице'}>
-            <p className="guide-sidebar__label">{isEn ? 'Contents' : 'Содержание'}</p>
-            <nav className="guide-sidebar__nav">
+      <main className="gg-page" id="main-content">
+        <div className="gg-page__glow" aria-hidden="true" />
+
+        <nav className="gg-crumb" aria-label="Breadcrumb">
+          <Link href={homeHref(lang)}>{isEn ? 'Home' : 'Главная'}</Link>
+          <span aria-hidden="true">/</span>
+          <Link href={isEn ? '/en/guides' : '/ru/guides'}>{isEn ? 'Guides' : 'Гайды'}</Link>
+          <span aria-hidden="true">/</span>
+          <Link href={indexHref}>{isEn ? 'Games' : 'Игры'}</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{gameName}</span>
+        </nav>
+
+        <header className="gg-hero">
+          <div className="gg-hero__art">
+            <Image
+              src={guide.avatar}
+              alt=""
+              width={320}
+              height={427}
+              className="gg-hero__avatar"
+              priority
+            />
+          </div>
+          <div className="gg-hero__copy">
+            <p className="gg-hero__eyebrow">{isEn ? guide.tagEn : guide.tagRu}</p>
+            <h1 className="gg-hero__title">{displayTitle}</h1>
+            <p className="gg-hero__sub">{displaySub}</p>
+            <div className="gg-hero__actions">
+              <Link href={playHref} className="gg-hero__play">
+                {isEn ? 'Open free demo' : 'Открыть демо'}
+              </Link>
+              <Link href={indexHref} className="gg-hero__back">
+                {isEn ? 'All game guides' : 'Все гайды по играм'}
+              </Link>
+            </div>
+          </div>
+        </header>
+
+        <div className="gg-layout">
+          <aside className="gg-toc" aria-label={isEn ? 'On this page' : 'На этой странице'}>
+            <p className="gg-toc__label">{isEn ? 'On this page' : 'На странице'}</p>
+            <nav className="gg-toc__nav">
               {sections.map((s, i) => (
-                <a key={s.heading} href={`#${slugifyHeading(s.heading, i)}`}>
-                  {s.heading}
+                <a key={s.heading} href={`#${slugifyHeading(s.heading, i)}`} className="gg-toc__link">
+                  <span className="gg-toc__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span>{tocLabels[i] ?? s.heading}</span>
                 </a>
               ))}
             </nav>
-            <Link href={playHref} className="btn-cta guide-sidebar__play">
-              {isEn ? 'Open free demo' : 'Открыть бесплатное демо'}
-            </Link>
-            <Link href={indexHref} className="guide-sidebar__back">
-              {isEn ? '← Game guides' : '← Гайды по играм'}
-            </Link>
           </aside>
 
-          <article className="guide-article">
-            <nav className="breadcrumb" aria-label="Breadcrumb">
-              <Link href={homeHref(lang)}>{isEn ? 'Home' : 'Главная'}</Link>
-              <span aria-hidden="true">/</span>
-              <Link href={isEn ? '/en/guides' : '/ru/guides'}>{isEn ? 'Guides' : 'Гайды'}</Link>
-              <span aria-hidden="true">/</span>
-              <Link href={indexHref}>{isEn ? 'Games' : 'Игры'}</Link>
-              <span aria-hidden="true">/</span>
-              <span aria-current="page">{isEn ? guide.titleEn : guide.titleRu}</span>
-            </nav>
-
-            <header className="guide-article__header game-guide-page__header">
-              <div className="game-guide-page__hero-row">
-                <Image
-                  src={guide.avatar}
-                  alt=""
-                  width={160}
-                  height={213}
-                  className="game-guide-page__avatar"
-                  priority
-                />
-                <div className="game-guide-page__hero-text">
-                  <p className="guide-article__tag">{isEn ? guide.tagEn : guide.tagRu}</p>
-                  <h1 className="guide-article__title">{isEn ? guide.titleEn : guide.titleRu}</h1>
-                  <p className="guide-article__sub">{isEn ? guide.subtitleEn : guide.subtitleRu}</p>
-                </div>
-              </div>
-              <div className="game-guide-page__kw">
-                <p className="game-guide-page__kw-label">
-                  {isEn ? 'Also searched as' : 'Также ищут'}
-                </p>
-                <ul>
-                  {(isEn ? guide.keywordsEn : guide.keywordsRu).map((kw) => (
-                    <li key={kw}>{kw}</li>
-                  ))}
-                </ul>
-              </div>
-              <Link href={playHref} className="btn-cta game-guide-page__demo-cta">
-                {isEn ? `Play ${guide.gameSlug.replace(/-/g, ' ')} demo` : `Играть ${guide.gameSlug.replace(/-/g, ' ')} демо`}
-              </Link>
-            </header>
-
+          <article className="gg-article">
             {sections.map((section, idx) => {
               const id = slugifyHeading(section.heading, idx)
               return (
-                <section key={section.heading} className="guide-section" id={id}>
-                  <h2 className="guide-section__heading">
-                    <span className="guide-section__num">0{idx + 1}</span>
-                    {section.heading}
+                <section key={section.heading} className="gg-section" id={id}>
+                  <h2 className="gg-section__heading">
+                    <span className="gg-section__num">{String(idx + 1).padStart(2, '0')}</span>
+                    {tocLabels[idx] ?? section.heading}
                   </h2>
-                  {section.body && <p className="guide-section__body">{section.body}</p>}
-                  {section.body2 && <p className="guide-section__body">{section.body2}</p>}
+                  {section.body && <p className="gg-section__body">{section.body}</p>}
+                  {section.body2 && <p className="gg-section__body">{section.body2}</p>}
                   {section.callout && (
-                    <aside className="guide-callout">
-                      <span className="guide-callout__icon" aria-hidden="true">
-                        !
-                      </span>
-                      <p className="guide-callout__text">{section.callout}</p>
+                    <aside className="gg-callout">
+                      <p>{section.callout}</p>
                     </aside>
                   )}
                   {section.bullets && section.bullets.length > 0 && (
-                    <ul className="guide-bullets" role="list">
+                    <ul className="gg-bullets" role="list">
                       {section.bullets.map((b, i) => (
-                        <li key={i} className="guide-bullets__item">
-                          <span className="guide-bullets__dot" aria-hidden="true" />
-                          {b}
-                        </li>
+                        <li key={i}>{b}</li>
                       ))}
                     </ul>
                   )}
                   {section.strategies && section.strategies.length > 0 && (
-                    <div className="guide-strategies">
+                    <div className="gg-strategies">
                       {section.strategies.map((s, i) => (
-                        <div key={i} className="guide-strategy-card">
-                          <p className="guide-strategy-card__title">{s.title}</p>
-                          <ul className="guide-bullets" role="list">
+                        <div key={i} className="gg-strategy">
+                          <p className="gg-strategy__title">{s.title}</p>
+                          <ul className="gg-bullets" role="list">
                             {s.bullets.map((b, j) => (
-                              <li key={j} className="guide-bullets__item">
-                                <span className="guide-bullets__dot" aria-hidden="true" />
-                                {b}
-                              </li>
+                              <li key={j}>{b}</li>
                             ))}
                           </ul>
                         </div>
@@ -235,16 +230,25 @@ export function GameGuideSinglePage({
               )
             })}
 
+            <details className="gg-keywords">
+              <summary>{isEn ? 'Also searched as' : 'Также ищут'}</summary>
+              <ul>
+                {(isEn ? guide.keywordsEn : guide.keywordsRu).map((kw) => (
+                  <li key={kw}>{kw}</li>
+                ))}
+              </ul>
+            </details>
+
             <ExpertBanner lang={lang} />
 
-            <div className="game-guide-page__end-cta">
-              <p>
+            <div className="gg-end">
+              <p className="gg-end__text">
                 {isEn
-                  ? 'Ready to test the same mechanics in the browser?'
-                  : 'Готовы проверить ту же механику в браузере?'}
+                  ? `Try ${gameName} in free demo — same rules, virtual balance.`
+                  : `Попробуйте ${gameName} в бесплатном демо — те же правила, виртуальный баланс.`}
               </p>
-              <Link href={playHref} className="btn-cta">
-                {isEn ? 'Open free demo' : 'Открыть бесплатное демо'}
+              <Link href={playHref} className="gg-hero__play">
+                {isEn ? 'Open free demo' : 'Открыть демо'}
               </Link>
               <p className="rg-note">
                 18+ ·{' '}
