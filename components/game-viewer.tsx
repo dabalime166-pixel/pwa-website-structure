@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { CasinoInviteModal } from '@/components/casino-invite-modal'
 import type { CasinoInviteCopy } from '@/components/casino-invite-modal'
@@ -12,6 +13,7 @@ interface GameViewerProps {
   iframeUrl: string
   gameName: string
   gameSlug: string
+  avatar: string
   demoBadge: string
   fullscreenLabel: string
   closeLabel: string
@@ -19,16 +21,6 @@ interface GameViewerProps {
   readyTitle?: string
   readyDescription?: string
   inviteCopy: CasinoInviteCopy
-}
-
-function GoldDots() {
-  return (
-    <div className="game-frame-dots" aria-hidden="true">
-      <span />
-      <span />
-      <span />
-    </div>
-  )
 }
 
 function FullscreenIcon() {
@@ -102,6 +94,7 @@ export function GameViewer({
   iframeUrl,
   gameName,
   gameSlug,
+  avatar,
   demoBadge,
   fullscreenLabel,
   closeLabel,
@@ -153,7 +146,6 @@ export function GameViewer({
     }
   }, [cssFallback])
 
-  // After 2 minutes of demo play, show casino invite once per session/game
   useEffect(() => {
     if (!iframeLaunched) return
     try {
@@ -204,6 +196,7 @@ export function GameViewer({
 
   const shellClass = [
     'game-frame-shell',
+    !iframeLaunched ? 'game-frame-shell--teaser' : '',
     isFullscreen && cssFallback ? 'game-frame-shell--fs' : '',
   ]
     .filter(Boolean)
@@ -219,7 +212,6 @@ export function GameViewer({
       aria-label={`${gameName} game window`}
     >
       <div className="game-frame-bar">
-        <GoldDots />
         <span className="game-frame-bar__title">
           {gameName}
           <span className="game-frame-bar__badge">{demoBadge}</span>
@@ -234,43 +226,57 @@ export function GameViewer({
             {isFullscreen ? <ShrinkIcon /> : <FullscreenIcon />}
             {isFullscreen ? closeLabel : fullscreenLabel}
           </button>
-        ) : (
-          <span className="game-frame-bar__spacer" aria-hidden="true" />
-        )}
+        ) : null}
       </div>
 
       {!iframeLaunched ? (
         <div className="game-frame-body game-frame-body--launch">
-          <button type="button" className="game-launch game-launch--hit" onClick={launchDemo} aria-label={launchLabel}>
-            <div className="game-launch__orb game-launch__orb--a" aria-hidden="true" />
-            <div className="game-launch__orb game-launch__orb--b" aria-hidden="true" />
-            <div className="game-launch__content">
-              <div className="game-launch__play" aria-hidden="true">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--color-gold)">
-                  <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-              </div>
-              <h3 className="game-launch__title">{readyTitle}</h3>
-              <p className="game-launch__desc">{readyDescription}</p>
-              <span className="btn-cta game-launch__btn">
-                <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <div className="game-teaser" aria-hidden="true">
+            <Image
+              src={avatar}
+              alt=""
+              fill
+              sizes="(max-width: 900px) 100vw, 70vw"
+              className="game-teaser__bg"
+              priority
+            />
+            <div className="game-teaser__shade" />
+          </div>
+
+          <div className="game-teaser__panel">
+            <div className="game-teaser__cover">
+              <Image
+                src={avatar}
+                alt=""
+                width={160}
+                height={213}
+                className="game-teaser__avatar"
+                priority
+              />
+            </div>
+            <div className="game-teaser__copy">
+              <p className="game-teaser__kicker">{demoBadge}</p>
+              <h3 className="game-teaser__title">{readyTitle}</h3>
+              <p className="game-teaser__desc">{readyDescription}</p>
+              <button type="button" className="game-teaser__btn" onClick={launchDemo}>
+                <svg width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
                 {launchLabel}
-              </span>
+              </button>
             </div>
-          </button>
+          </div>
         </div>
       ) : (
         <div className="game-frame-body">
           <iframe
             src={iframeUrl}
             title={`${gameName} ${demoBadge}`}
-            allow="autoplay; fullscreen"
+            allow="autoplay; fullscreen; payment"
             allowFullScreen
             loading="eager"
             referrerPolicy="no-referrer-when-downgrade"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
           />
           <div className="game-sticky-play" role="toolbar" aria-label={fullscreenLabel}>
             <button

@@ -282,15 +282,16 @@ export function GamePage({ slug, lang }: GamePageProps) {
                 iframeUrl={game.iframeUrl}
                 gameName={game.name}
                 gameSlug={game.slug}
+                avatar={game.avatar}
                 demoBadge={t.demo}
                 fullscreenLabel={isEn ? 'Full Screen' : 'На весь экран'}
                 closeLabel={isEn ? 'Exit' : 'Выйти'}
                 launchLabel={isEn ? 'Launch Demo' : 'Запустить демо'}
-                readyTitle={isEn ? 'Ready to Play?' : 'Готовы играть?'}
+                readyTitle={isEn ? `Play ${game.name} free` : `Играть в ${game.name} бесплатно`}
                 readyDescription={
                   isEn
-                    ? 'Click below to load the free demo in your browser'
-                    : 'Нажмите ниже, чтобы загрузить бесплатное демо в браузере'
+                    ? 'Load the official demo in this window — no signup, virtual balance.'
+                    : 'Загрузите официальное демо в этом окне — без регистрации, виртуальный баланс.'
                 }
                 inviteCopy={
                   isEn
