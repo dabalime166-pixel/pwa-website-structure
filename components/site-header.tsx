@@ -10,15 +10,25 @@ interface SiteHeaderProps {
   section?: 'guides'
   /** Current guide id — keeps language switch on the same guide */
   guideSlug?: string
+  /** Game-guides hub under /guides/games */
+  gameGuides?: boolean
+  /** Current game-guide article id */
+  gameGuideSlug?: string
 }
 
-export function SiteHeader({ lang, gameSlug, section, guideSlug }: SiteHeaderProps) {
+export function SiteHeader({ lang, gameSlug, section, guideSlug, gameGuides, gameGuideSlug }: SiteHeaderProps) {
   const t = i18n[lang]
 
   let enHref = '/'
   let ruHref = '/ru'
 
-  if (guideSlug) {
+  if (gameGuideSlug) {
+    enHref = `/en/guides/games/${gameGuideSlug}`
+    ruHref = `/ru/guides/games/${gameGuideSlug}`
+  } else if (gameGuides) {
+    enHref = '/en/guides/games'
+    ruHref = '/ru/guides/games'
+  } else if (guideSlug) {
     enHref = `/en/guides/${guideSlug}`
     ruHref = `/ru/guides/${guideSlug}`
   } else if (section === 'guides') {

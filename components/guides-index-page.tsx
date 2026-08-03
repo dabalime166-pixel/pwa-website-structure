@@ -101,6 +101,10 @@ export default function GuidesIndexPage({ lang }: Props) {
     featuredLabel: isEn ? 'Start here' : 'Начните здесь',
     read: isEn ? 'Read guide' : 'Читать гайд',
     library: isEn ? 'Guide library' : 'Библиотека гайдов',
+    gamesSection: isEn ? 'Guides by game' : 'Гайды по играм',
+    gamesSectionSub: isEn
+      ? 'Hot mid/low-frequency headlines for popular demos'
+      : 'Горячие СЧ/НЧ-заголовки под популярные демо',
     min: isEn ? 'min' : 'мин',
     ctaTitle: isEn ? 'Tried the theory?' : 'Теория освоена?',
     ctaSub: isEn
@@ -153,6 +157,37 @@ export default function GuidesIndexPage({ lang }: Props) {
             </p>
             <span className="guides-hub__feature-cta">
               {ui.read}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </Link>
+        </section>
+
+        <section className="guides-hub__featured game-guides-promo" aria-labelledby="game-guides-heading">
+          <div className="guides-hub__section-head">
+            <span className="guides-hub__label">{ui.gamesSection}</span>
+            <h2 id="game-guides-heading" className="guides-hub__heading">
+              {ui.gamesSectionSub}
+            </h2>
+          </div>
+          <Link
+            href={isEn ? '/en/guides/games' : '/ru/guides/games'}
+            className="guides-hub__feature-card game-guides-promo__card"
+          >
+            <div className="guides-hub__feature-meta">
+              <span className="card-badge card-badge--type">
+                {isEn ? 'New section' : 'Новый раздел'}
+              </span>
+            </div>
+            <p className="guides-hub__feature-desc">
+              {isEn
+                ? 'Test article live: Gates of Olympus demo no registration — multipliers, free spins, RTP.'
+                : 'Уже в тесте: Gates of Olympus демо без регистрации — множители, фриспины, RTP.'}
+            </p>
+            <span className="guides-hub__feature-cta">
+              {isEn ? 'Open game guides' : 'Открыть гайды по играм'}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />

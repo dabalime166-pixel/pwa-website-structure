@@ -25,6 +25,7 @@ import {
 } from '@/lib/game-themes'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
+import { GAME_GUIDES } from '@/lib/game-guides-data'
 
 interface GamePageProps {
   slug: string
@@ -144,7 +145,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
   const jsonLd = buildJsonLd(game, lang, faqItems)
   const related = getRelatedGames(slug, 4)
   const guideIds = getRelatedGuideIds(game.gameType)
-  const relatedGuides = GUIDES.filter((g) => guideIds.includes(g.id)).slice(0, 4)
+  const relatedGameGuide = GAME_GUIDES.find((g) => g.gameSlug === game.slug)
+  const relatedGuides = GUIDES.filter((g) => guideIds.includes(g.id)).slice(0, relatedGameGuide ? 3 : 4)
 
   const typeLabel = game.gameType || (isEn ? 'Slots' : 'Слоты')
   const rtpLabel = game.rtp || '~96%'
@@ -519,6 +521,22 @@ export function GamePage({ slug, lang }: GamePageProps) {
               : 'Механики, RTP, бонусы и ответственная игра'}
           </p>
           <div className="game-guides__grid">
+            {relatedGameGuide && (
+              <Link
+                href={`/${lang}/guides/games/${relatedGameGuide.id}`}
+                className="game-guides__card"
+              >
+                <span className="game-guides__card-tag">
+                  {isEn ? relatedGameGuide.tagEn : relatedGameGuide.tagRu}
+                </span>
+                <span className="game-guides__card-title">
+                  {isEn ? relatedGameGuide.titleEn : relatedGameGuide.titleRu}
+                </span>
+                <span className="game-guides__card-sub">
+                  {isEn ? relatedGameGuide.subtitleEn : relatedGameGuide.subtitleRu}
+                </span>
+              </Link>
+            )}
             {relatedGuides.map((guide) => (
               <Link
                 key={guide.id}
