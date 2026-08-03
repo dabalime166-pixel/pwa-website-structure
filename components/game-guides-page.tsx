@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
@@ -42,25 +43,36 @@ export function GameGuidesIndexPage({ lang }: Props) {
         </section>
 
         <section className="guides-hub__library" aria-label={isEn ? 'Game guide library' : 'Библиотека гайдов по играм'}>
-          <div className="guides-hub__grid">
+          <div className="guides-hub__grid game-guides-hub__grid">
             {GAME_GUIDES.map((g) => (
-              <article key={g.id} className="guides-hub__card">
-                <p className="guides-hub__card-tag">
-                  {isEn ? g.tagEn : g.tagRu}
-                  <span className="game-guides-hub__band">{g.intentBand}</span>
-                </p>
-                <h2 className="guides-hub__card-title">
-                  <Link href={`${base}/${g.id}`}>{isEn ? g.titleEn : g.titleRu}</Link>
-                </h2>
-                <p className="guides-hub__card-sub">{isEn ? g.subtitleEn : g.subtitleRu}</p>
-                <ul className="game-guides-hub__kw" aria-label={isEn ? 'Focus queries' : 'Фокус-запросы'}>
-                  {(isEn ? g.keywordsEn : g.keywordsRu).slice(0, 3).map((kw) => (
-                    <li key={kw}>{kw}</li>
-                  ))}
-                </ul>
-                <Link href={`${base}/${g.id}`} className="guides-hub__card-cta">
-                  {isEn ? 'Read guide' : 'Читать гайд'}
+              <article key={g.id} className="guides-hub__card game-guides-hub__card">
+                <Link href={`${base}/${g.id}`} className="game-guides-hub__avatar-link">
+                  <Image
+                    src={g.avatar}
+                    alt=""
+                    width={120}
+                    height={160}
+                    className="game-guides-hub__avatar"
+                  />
                 </Link>
+                <div className="game-guides-hub__card-body">
+                  <p className="guides-hub__card-tag">
+                    {isEn ? g.tagEn : g.tagRu}
+                    <span className="game-guides-hub__band">{g.intentBand}</span>
+                  </p>
+                  <h2 className="guides-hub__card-title">
+                    <Link href={`${base}/${g.id}`}>{isEn ? g.titleEn : g.titleRu}</Link>
+                  </h2>
+                  <p className="guides-hub__card-sub">{isEn ? g.subtitleEn : g.subtitleRu}</p>
+                  <ul className="game-guides-hub__kw" aria-label={isEn ? 'Focus queries' : 'Фокус-запросы'}>
+                    {(isEn ? g.keywordsEn : g.keywordsRu).slice(0, 3).map((kw) => (
+                      <li key={kw}>{kw}</li>
+                    ))}
+                  </ul>
+                  <Link href={`${base}/${g.id}`} className="guides-hub__card-cta">
+                    {isEn ? 'Read guide' : 'Читать гайд'}
+                  </Link>
+                </div>
               </article>
             ))}
           </div>
@@ -132,10 +144,22 @@ export function GameGuideSinglePage({
               <span aria-current="page">{isEn ? guide.titleEn : guide.titleRu}</span>
             </nav>
 
-            <header className="guide-article__header">
-              <p className="guide-article__tag">{isEn ? guide.tagEn : guide.tagRu}</p>
-              <h1 className="guide-article__title">{isEn ? guide.titleEn : guide.titleRu}</h1>
-              <p className="guide-article__sub">{isEn ? guide.subtitleEn : guide.subtitleRu}</p>
+            <header className="guide-article__header game-guide-page__header">
+              <div className="game-guide-page__hero-row">
+                <Image
+                  src={guide.avatar}
+                  alt=""
+                  width={160}
+                  height={213}
+                  className="game-guide-page__avatar"
+                  priority
+                />
+                <div className="game-guide-page__hero-text">
+                  <p className="guide-article__tag">{isEn ? guide.tagEn : guide.tagRu}</p>
+                  <h1 className="guide-article__title">{isEn ? guide.titleEn : guide.titleRu}</h1>
+                  <p className="guide-article__sub">{isEn ? guide.subtitleEn : guide.subtitleRu}</p>
+                </div>
+              </div>
               <div className="game-guide-page__kw">
                 <p className="game-guide-page__kw-label">
                   {isEn ? 'Focus queries' : 'Фокус-запросы'}

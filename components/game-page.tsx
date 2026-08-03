@@ -524,16 +524,25 @@ export function GamePage({ slug, lang }: GamePageProps) {
             {relatedGameGuide && (
               <Link
                 href={`/${lang}/guides/games/${relatedGameGuide.id}`}
-                className="game-guides__card"
+                className="game-guides__card game-guides__card--avatar"
               >
-                <span className="game-guides__card-tag">
-                  {isEn ? relatedGameGuide.tagEn : relatedGameGuide.tagRu}
-                </span>
-                <span className="game-guides__card-title">
-                  {isEn ? relatedGameGuide.titleEn : relatedGameGuide.titleRu}
-                </span>
-                <span className="game-guides__card-sub">
-                  {isEn ? relatedGameGuide.subtitleEn : relatedGameGuide.subtitleRu}
+                <Image
+                  src={relatedGameGuide.avatar}
+                  alt=""
+                  width={72}
+                  height={96}
+                  className="game-guides__card-avatar"
+                />
+                <span className="game-guides__card-text">
+                  <span className="game-guides__card-tag">
+                    {isEn ? relatedGameGuide.tagEn : relatedGameGuide.tagRu}
+                  </span>
+                  <span className="game-guides__card-title">
+                    {isEn ? relatedGameGuide.titleEn : relatedGameGuide.titleRu}
+                  </span>
+                  <span className="game-guides__card-sub">
+                    {isEn ? relatedGameGuide.subtitleEn : relatedGameGuide.subtitleRu}
+                  </span>
                 </span>
               </Link>
             )}

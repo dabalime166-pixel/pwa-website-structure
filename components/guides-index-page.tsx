@@ -183,8 +183,8 @@ export default function GuidesIndexPage({ lang }: Props) {
             </div>
             <p className="guides-hub__feature-desc">
               {isEn
-                ? 'Test article live: Gates of Olympus demo no registration — multipliers, free spins, RTP.'
-                : 'Уже в тесте: Gates of Olympus демо без регистрации — множители, фриспины, RTP.'}
+                ? '16 Popular titles with avatars: Lucky Jet, Gates of Olympus, Sweet Bonanza, Sugar Rush and more — demo guides with no registration.'
+                : '16 популярных игр с аватарками: Lucky Jet, Gates of Olympus, Sweet Bonanza, Sugar Rush и другие — демо-гайды без регистрации.'}
             </p>
             <span className="guides-hub__feature-cta">
               {isEn ? 'Open game guides' : 'Открыть гайды по играм'}

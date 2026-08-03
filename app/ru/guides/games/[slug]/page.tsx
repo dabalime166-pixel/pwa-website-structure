@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { GAME_GUIDES, getGameGuide } from '@/lib/game-guides-data'
 import { GameGuideSinglePage } from '@/components/game-guides-page'
 import { EXPERT } from '@/lib/expert'
+import { getGame } from '@/lib/games'
 
 const BASE = 'https://www.1weapp.online/ru'
 
@@ -36,6 +37,7 @@ export async function generateMetadata({
       url: `${BASE}/guides/games/${slug}`,
       locale: 'ru_RU',
       type: 'article',
+      images: [{ url: guide.avatar, width: 400, height: 533, alt: guide.titleRu }],
     },
   }
 }
@@ -44,6 +46,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params
   const guide = getGameGuide(slug)
   if (!guide) notFound()
+  const game = getGame(guide.gameSlug)
 
   const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
@@ -52,6 +55,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     description: guide.subtitleRu,
     inLanguage: 'ru',
     url: `${BASE}/guides/games/${slug}`,
+    image: `https://www.1weapp.online${guide.avatar}`,
     author: {
       '@type': 'Person',
       name: EXPERT.name,
@@ -59,8 +63,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     },
     about: {
       '@type': 'VideoGame',
-      name: 'Gates of Olympus',
-      url: 'https://www.1weapp.online/ru/gates-of-olympus',
+      name: game?.name ?? guide.gameSlug,
+      url: `https://www.1weapp.online/ru/${guide.gameSlug}`,
+      image: `https://www.1weapp.online${guide.avatar}`,
     },
   })
 
