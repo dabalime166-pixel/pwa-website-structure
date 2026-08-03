@@ -1,4 +1,4 @@
-import gamesData from './games-data.json'
+import catalogData from './games-catalog.json'
 
 export type Lang = 'en' | 'ru'
 
@@ -9,82 +9,38 @@ export function cleanPathname(pathname: string): string {
   if (!pathname) return '/'
   let cleaned = pathname.replace(/;+$/, '').trim()
   if (!cleaned.startsWith('/')) cleaned = `/${cleaned}`
-  // Collapse duplicate locale prefixes like /en/en/...
   cleaned = cleaned.replace(/^\/(en|ru)\/(en|ru)(?=\/|$)/, '/$1')
   return cleaned === '' ? '/' : cleaned
 }
 
+/** Lightweight catalog entry — safe for client components & RSC payloads. */
 export interface Game {
   slug: string
   name: string
   provider: string
+  avatar: string
+  externalUrl?: string
+  rtp?: string
+  gameType?: string
+}
+
+/** Full game record used only on the server (SEO + iframe). */
+export interface GameFull extends Game {
   iframeUrl: string
   keywordsRu: string
   keywordsEn: string
   seoTextRu: string
   seoTextEn: string
-  avatar: string
-  /** If set, the card links directly to this external URL instead of the internal game page */
-  externalUrl?: string
-  /** Custom SEO title (EN) — if empty, auto-generated from game name */
   titleSeoEn?: string
-  /** Custom SEO title (RU) — if empty, auto-generated from game name */
   titleSeoRu?: string
-  /** Custom SEO description (EN) — if empty, auto-generated from keywords */
   descriptionSeoEn?: string
-  /** Custom SEO description (RU) — if empty, auto-generated from keywords */
   descriptionSeoRu?: string
-  /** RTP (Return to Player) percentage, e.g., "96.48%" */
-  rtp?: string
-  /** Game type: "Slots", "Crash Games", "Mines", etc. */
-  gameType?: string
 }
 
-export const games: Game[] = gamesData as Game[]
+export const games: Game[] = catalogData as Game[]
 
 export function getGame(slug: string): Game | undefined {
   return games.find((g) => g.slug === slug)
-}
-
-export function getKeywords(game: Game, lang: Lang): string[] {
-  const raw = lang === 'ru' ? game.keywordsRu : game.keywordsEn
-  return raw
-    .split(',')
-    .map((k) => k.trim())
-    .filter(Boolean)
-    .slice(0, 10)
-}
-
-export function getSeoText(game: Game, lang: Lang): string {
-  return lang === 'ru' ? game.seoTextRu : game.seoTextEn
-}
-
-export function getSeoTitle(game: Game, lang: Lang): string {
-  const custom = lang === 'ru' ? game.titleSeoRu : game.titleSeoEn
-  if (custom) return custom
-  return lang === 'ru'
-    ? `${game.name} — Играть в демо онлайн`
-    : `${game.name} Demo — Play Free Online`
-}
-
-export function getSeoDescription(game: Game, lang: Lang): string {
-  const custom = lang === 'ru' ? game.descriptionSeoRu : game.descriptionSeoEn
-  if (custom) return custom
-  const type = game.gameType || (lang === 'ru' ? 'игра' : 'game')
-  const rtp = game.rtp ? ` RTP ${game.rtp}.` : ''
-  return lang === 'ru'
-    ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}, ${type}.${rtp}`
-    : `Play ${game.name} demo free — no registration needed. ${game.provider} ${type}.${rtp}`
-}
-
-/** Format plain SEO text into semantic HTML paragraphs */
-export function formatSeoText(text: string): string {
-  return text
-    .split(/\n{2,}/)
-    .map((para) => para.trim())
-    .filter(Boolean)
-    .map((para) => `<p>${para}</p>`)
-    .join('\n')
 }
 
 /** Related games by type/provider, excluding current slug */

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { GameGuidesIndexPage } from '@/components/game-guides-page'
 
 export const metadata: Metadata = {
-  title: 'Гайды по играм — как работают популярные демо | 1weapp',
+  title: 'Гайды по играм — как работают популярные демо',
   description:
     'Короткие разборы Lucky Jet, Gates of Olympus, Sweet Bonanza и других хитов — множители, фриспины, кэшаут. Бесплатное демо без регистрации. 18+.',
   alternates: {

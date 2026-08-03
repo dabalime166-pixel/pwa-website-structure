@@ -14,6 +14,8 @@ const unbounded = Unbounded({
   subsets: ['latin', 'cyrillic'],
   display: 'swap',
   variable: '--font-display',
+  preload: false,
+  weight: ['500', '700'],
 })
 
 export const metadata: Metadata = {
@@ -74,13 +76,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="bg-[#07070a]">
       <head>
-        {/* Google Analytics 4 - loads tracking script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-X4YHR9MBCQ"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        {/* Google Analytics 4 - initializes tracking */}
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -92,10 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {/* ============================================== */}
-        {/* 2. ЯНДЕКС МЕТРИКА                              */}
-        {/* ============================================== */}
-        <Script id="yandex-metrika" strategy="afterInteractive">
+        <Script id="yandex-metrika" strategy="lazyOnload">
           {`
             (function(m,e,t,r,i,k,a){
                 m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -105,13 +102,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106419141', 'ym');
 
             ym(106419141, 'init', {
-                ssr: true, 
-                webvisor: false, 
-                clickmap: true, 
-                ecommerce: "dataLayer", 
-                referrer: document.referrer, 
-                url: location.href, 
-                accurateTrackBounce: true, 
+                ssr: true,
+                webvisor: false,
+                clickmap: true,
+                ecommerce: "dataLayer",
+                referrer: document.referrer,
+                url: location.href,
+                accurateTrackBounce: true,
                 trackLinks: true
             });
           `}

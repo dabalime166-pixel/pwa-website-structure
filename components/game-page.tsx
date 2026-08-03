@@ -8,16 +8,18 @@ import { ExpertBanner } from '@/components/expert-banner'
 import { FaqAccordion } from '@/components/faq-accordion'
 import type { FaqItem } from '@/components/faq-accordion'
 import {
-  getGame,
-  getSeoText,
-  formatSeoText,
   CTA_URL,
   i18n,
   getRelatedGames,
   getRelatedGuideIds,
   homeHref,
 } from '@/lib/games'
-import type { Lang, Game } from '@/lib/games'
+import type { Lang, GameFull } from '@/lib/games'
+import {
+  getGameFull,
+  getSeoText,
+  formatSeoText,
+} from '@/lib/games-content'
 import {
   getDemoChecklist,
   getGameHighlights,
@@ -32,7 +34,7 @@ interface GamePageProps {
   lang: Lang
 }
 
-function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] {
+function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string): FaqItem[] {
   const isEn = lang === 'en'
   const name = game.name
   const type = game.gameType || (isEn ? 'slots' : 'слоты')
@@ -99,7 +101,7 @@ function buildGameFaq(game: Game, lang: Lang, playRealLabel: string): FaqItem[] 
   ]
 }
 
-function buildJsonLd(game: Game, lang: Lang, faqItems: FaqItem[]): string {
+function buildJsonLd(game: GameFull, lang: Lang, faqItems: FaqItem[]): string {
   const isEn = lang === 'en'
   const app = {
     '@type': 'SoftwareApplication',
@@ -134,7 +136,7 @@ function buildJsonLd(game: Game, lang: Lang, faqItems: FaqItem[]): string {
 }
 
 export function GamePage({ slug, lang }: GamePageProps) {
-  const game = getGame(slug)
+  const game = getGameFull(slug)
   if (!game) notFound()
 
   const t = i18n[lang]

@@ -42,3 +42,15 @@ const outDir = join(root, 'lib');
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, 'games-data.json'), JSON.stringify(games, null, 2), 'utf-8');
 console.log(`✅  Written ${games.length} games to lib/games-data.json`);
+
+// Keep light catalog + SEO split in sync for client/server payloads
+const { spawnSync } = await import('node:child_process');
+const sync = spawnSync(process.execPath, [join(__dirname, 'sync-games-catalog.mjs')], {
+  cwd: root,
+  encoding: 'utf8',
+});
+if (sync.status !== 0) {
+  console.error(sync.stderr || sync.stdout);
+  process.exit(sync.status || 1);
+}
+console.log(sync.stdout.trim());

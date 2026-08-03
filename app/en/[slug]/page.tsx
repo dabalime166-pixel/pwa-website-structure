@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { GamePage } from '@/components/game-page'
-import { games, getGame, getKeywords, getSeoTitle, getSeoDescription } from '@/lib/games'
+import { games } from '@/lib/games'
+import {
+  getGameFull,
+  getKeywords,
+  getSeoTitle,
+  getSeoDescription,
+} from '@/lib/games-content'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -13,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const game = getGame(slug)
+  const game = getGameFull(slug)
   if (!game) return {}
 
   const keywords = getKeywords(game, 'en').join(', ')
@@ -45,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EnGamePage({ params }: Props) {
   const { slug } = await params
-  const game = getGame(slug)
+  const game = getGameFull(slug)
   if (!game) notFound()
   return <GamePage slug={slug} lang="en" />
 }
