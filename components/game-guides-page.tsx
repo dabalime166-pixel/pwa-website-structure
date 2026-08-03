@@ -2,13 +2,14 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { ExpertBanner } from '@/components/expert-banner'
 import { GAME_GUIDES } from '@/lib/game-guides-data'
 import type { GameGuide } from '@/lib/game-guides-data'
 import type { Lang } from '@/lib/games'
-import { homeHref } from '@/lib/games'
+import { getGame, homeHref } from '@/lib/games'
 
 interface Props {
   lang: Lang
@@ -17,24 +18,38 @@ interface Props {
 export function GameGuidesIndexPage({ lang }: Props) {
   const isEn = lang === 'en'
   const base = isEn ? '/en/guides/games' : '/ru/guides/games'
+  const heroAvatars = GAME_GUIDES.slice(0, 6)
 
   return (
     <>
       <SiteHeader lang={lang} section="guides" gameGuides />
       <main className="guides-hub game-guides-hub">
-        <section className="guides-hub__hero" aria-label={isEn ? 'Game guides' : 'Гайды по играм'}>
-          <div className="guides-hub__hero-bg" aria-hidden="true" />
-          <div className="guides-hub__hero-inner">
-            <p className="guides-hub__eyebrow">{isEn ? 'Guides · Games' : 'Гайды · Игры'}</p>
-            <h1 className="guides-hub__title">
-              {isEn ? 'SEO playbooks for popular demos' : 'SEO-разборы популярных демо'}
-            </h1>
-            <p className="guides-hub__sub">
-              {isEn
-                ? 'Mid- and low-frequency intents: how demos work, multipliers, free spins and RTP — written for real search headlines.'
-                : 'Средне- и низкочастотные запросы: как работает демо, множители, фриспины и RTP — с заголовками под живой поиск.'}
+        <section className="game-guides-hub__hero" aria-label={isEn ? 'Game guides' : 'Гайды по играм'}>
+          <div className="game-guides-hub__hero-bg" aria-hidden="true" />
+          <div className="game-guides-hub__hero-inner">
+            <p className="guides-hub__brand anim-fade-up">
+              <span className="guides-hub__brand-main">1we</span>
+              <span className="guides-hub__brand-accent">app</span>
             </p>
-            <p className="guides-hub__meta">
+            <p className="guides-hub__eyebrow anim-fade-up anim-delay-1">
+              {isEn ? 'Guides · Games' : 'Гайды · Игры'}
+            </p>
+            <h1 className="guides-hub__title anim-fade-up anim-delay-2">
+              {isEn ? 'How popular demos really work' : 'Как на самом деле работают хиты'}
+            </h1>
+            <p className="guides-hub__sub anim-fade-up anim-delay-3">
+              {isEn
+                ? 'Multipliers, free spins and crash timing — short guides tied to free play, no signup.'
+                : 'Множители, фриспины и момент кэшаута — короткие разборы с бесплатным демо, без регистрации.'}
+            </p>
+            <ul className="game-guides-hub__hero-fan anim-fade-up anim-delay-3" aria-hidden="true">
+              {heroAvatars.map((g, i) => (
+                <li key={g.id} style={{ '--i': i } as CSSProperties}>
+                  <Image src={g.avatar} alt="" width={96} height={128} priority={i < 3} />
+                </li>
+              ))}
+            </ul>
+            <p className="guides-hub__meta anim-fade-up anim-delay-3">
               <Link href={isEn ? '/en/guides' : '/ru/guides'} className="guides-hub__back">
                 {isEn ? '← All guides' : '← Все гайды'}
               </Link>
@@ -43,38 +58,34 @@ export function GameGuidesIndexPage({ lang }: Props) {
         </section>
 
         <section className="guides-hub__library" aria-label={isEn ? 'Game guide library' : 'Библиотека гайдов по играм'}>
-          <div className="guides-hub__grid game-guides-hub__grid">
-            {GAME_GUIDES.map((g) => (
-              <article key={g.id} className="guides-hub__card game-guides-hub__card">
-                <Link href={`${base}/${g.id}`} className="game-guides-hub__avatar-link">
+          <div className="game-guides-hub__mosaic">
+            {GAME_GUIDES.map((g) => {
+              const game = getGame(g.gameSlug)
+              const shortTitle = game?.name ?? g.gameSlug
+              return (
+              <Link key={g.id} href={`${base}/${g.id}`} className="game-guides-hub__tile">
+                <span className="game-guides-hub__tile-art">
                   <Image
                     src={g.avatar}
                     alt=""
-                    width={120}
-                    height={160}
-                    className="game-guides-hub__avatar"
+                    width={200}
+                    height={267}
+                    className="game-guides-hub__tile-avatar"
                   />
-                </Link>
-                <div className="game-guides-hub__card-body">
-                  <p className="guides-hub__card-tag">
-                    {isEn ? g.tagEn : g.tagRu}
-                    <span className="game-guides-hub__band">{g.intentBand}</span>
-                  </p>
-                  <h2 className="guides-hub__card-title">
-                    <Link href={`${base}/${g.id}`}>{isEn ? g.titleEn : g.titleRu}</Link>
-                  </h2>
-                  <p className="guides-hub__card-sub">{isEn ? g.subtitleEn : g.subtitleRu}</p>
-                  <ul className="game-guides-hub__kw" aria-label={isEn ? 'Focus queries' : 'Фокус-запросы'}>
-                    {(isEn ? g.keywordsEn : g.keywordsRu).slice(0, 3).map((kw) => (
-                      <li key={kw}>{kw}</li>
-                    ))}
-                  </ul>
-                  <Link href={`${base}/${g.id}`} className="guides-hub__card-cta">
+                </span>
+                <span className="game-guides-hub__tile-body">
+                  <span className="game-guides-hub__tile-tag">{isEn ? g.tagEn : g.tagRu}</span>
+                  <span className="game-guides-hub__tile-title">{shortTitle}</span>
+                  <span className="game-guides-hub__tile-sub">
+                    {isEn ? g.subtitleEn : g.subtitleRu}
+                  </span>
+                  <span className="game-guides-hub__tile-cta">
                     {isEn ? 'Read guide' : 'Читать гайд'}
-                  </Link>
-                </div>
-              </article>
-            ))}
+                  </span>
+                </span>
+              </Link>
+              )
+            })}
           </div>
         </section>
 
@@ -162,7 +173,7 @@ export function GameGuideSinglePage({
               </div>
               <div className="game-guide-page__kw">
                 <p className="game-guide-page__kw-label">
-                  {isEn ? 'Focus queries' : 'Фокус-запросы'}
+                  {isEn ? 'Also searched as' : 'Также ищут'}
                 </p>
                 <ul>
                   {(isEn ? guide.keywordsEn : guide.keywordsRu).map((kw) => (

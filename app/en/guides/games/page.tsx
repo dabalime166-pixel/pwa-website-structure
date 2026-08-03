@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { GameGuidesIndexPage } from '@/components/game-guides-page'
 
 export const metadata: Metadata = {
-  title: 'Game Guides — Mid & Low-Frequency Demo SEO | 1weapp',
+  title: 'Game Guides — How Popular Demos Work | 1weapp',
   description:
-    'SEO playbooks for popular demos: Gates of Olympus and more — multipliers, free spins, RTP. Demo-first, 18+.',
+    'Short guides for Lucky Jet, Gates of Olympus, Sweet Bonanza and more — multipliers, free spins, crash timing. Free demo, no signup. 18+.',
   alternates: {
     canonical: 'https://www.1weapp.online/en/guides/games',
     languages: {
