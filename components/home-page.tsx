@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
+import { HomeDiscover } from '@/components/home-discover'
 import { LazyRandomDemo } from '@/components/lazy-random-demo'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
@@ -280,6 +281,8 @@ export function HomePage({ lang }: HomePageProps) {
             </div>
           ))}
         </section>
+
+        <HomeDiscover lang={lang} catalog={featured} />
 
         <section
           id="lobby"

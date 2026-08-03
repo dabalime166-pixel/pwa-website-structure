@@ -23,6 +23,36 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/guides',
+        destination: '/en/guides',
+        permanent: true,
+      },
+      {
+        source: '/guides/',
+        destination: '/en/guides',
+        permanent: true,
+      },
+      {
+        source: '/guides/games',
+        destination: '/en/guides/games',
+        permanent: true,
+      },
+      {
+        source: '/guides/games/',
+        destination: '/en/guides/games',
+        permanent: true,
+      },
+      {
+        source: '/guides/games/:slug',
+        destination: '/en/guides/games/:slug',
+        permanent: true,
+      },
+      {
+        source: '/guides/:slug',
+        destination: '/en/guides/:slug',
+        permanent: true,
+      },
     ]
   },
   async headers() {
