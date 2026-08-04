@@ -8,10 +8,10 @@
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   /* ── Night Champagne Palette ── */
-  --color-bg-base:        #07070a;
-  --color-bg-surface:     #0e0f14;
-  --color-bg-card:        #12141b;
-  --color-bg-card-hover:  #1a1d27;
+  --color-bg-base:        #0a0908;
+  --color-bg-surface:     #12110f;
+  --color-bg-card:        #161410;
+  --color-bg-card-hover:  #1e1b16;
 
   --color-gold:           #e2b84a;
   --color-gold-light:     #ffe39a;
@@ -49,17 +49,53 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  background: #07070a;
+  background-color: var(--color-bg-base);
 }
 
 body {
-  background-color: var(--color-bg-base);
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   line-height: 1.6;
-  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-base);
+  background-image:
+    radial-gradient(ellipse 80% 55% at 12% -8%, rgba(226, 184, 74, 0.14), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 92% 108%, rgba(184, 140, 60, 0.1), transparent 52%),
+    radial-gradient(ellipse 55% 40% at 50% 40%, rgba(255, 248, 230, 0.02), transparent 70%),
+    url('/banners/site-atmosphere.webp');
+  background-size: auto, auto, auto, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat;
+  background-attachment: scroll, scroll, scroll, fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    radial-gradient(rgba(255, 227, 154, 0.045) 0.6px, transparent 0.7px);
+  background-size: 3px 3px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 20%, transparent 75%);
+}
+
+@media (max-width: 900px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
 .skip-link {
