@@ -4,7 +4,6 @@ import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
 import { HomeDiscover } from '@/components/home-discover'
 import { HomeProviderHubs } from '@/components/home-provider-hubs'
-import { LazyRandomDemo } from '@/components/lazy-random-demo'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
@@ -49,8 +48,6 @@ export function HomePage({ lang }: HomePageProps) {
   ]
     .filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
     .slice(0, 20)
-
-  const randomPool = featured.slice(0, 16)
 
   const faqItems = isEn
     ? [
@@ -408,8 +405,6 @@ export function HomePage({ lang }: HomePageProps) {
             />
           </div>
         </section>
-
-        <LazyRandomDemo games={randomPool} lang={lang} />
       </main>
 
       <SiteFooter lang={lang} />

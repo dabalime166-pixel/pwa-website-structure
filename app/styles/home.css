@@ -1647,6 +1647,11 @@
 .provider-hub__grid {
   margin-bottom: 1.5rem;
 }
+.provider-hub__random {
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(226, 184, 74, 0.12);
+}
 .provider-hub__skel {
   aspect-ratio: 3 / 4;
   border-radius: 0.85rem;

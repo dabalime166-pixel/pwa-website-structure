@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { LazyRandomDemo } from '@/components/lazy-random-demo'
 import { ProviderHubLobby } from '@/components/provider-hub-lobby'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
@@ -108,6 +109,12 @@ export function ProviderHubPage({
         >
           <ProviderHubLobby lang={lang} games={all} initialPage={page} />
         </Suspense>
+
+        {all.length > 1 && (
+          <div className="provider-hub__random">
+            <LazyRandomDemo games={all.slice(0, 16)} lang={lang} />
+          </div>
+        )}
       </main>
       <SiteFooter lang={lang} />
     </>
