@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
+import { MoodThemeRail } from '@/components/mood-theme-rail'
 import type { Game, Lang } from '@/lib/games'
 import { GAME_GUIDES } from '@/lib/game-guides-data'
 import { getGame } from '@/lib/games'
@@ -44,6 +45,13 @@ export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] })
     (t): t is ThemeTile & { game: Game } => Boolean(t.game)
   )
 
+  const railItems = tiles.map((t) => ({
+    id: t.id,
+    label: isEn ? t.labelEn : t.labelRu,
+    href: `/${lang}/${t.game.slug}`,
+    avatar: t.game.avatar,
+  }))
+
   return (
     <>
       <section className="home-mood-banner" aria-labelledby="home-moods-heading">
@@ -72,28 +80,7 @@ export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] })
             </p>
           </div>
 
-          <div className="home-mood-banner__rail-wrap">
-            <ul className="home-mood-banner__rail" aria-label={isEn ? 'Themes' : 'Темы'}>
-              {tiles.map((t, i) => (
-                <li key={t.id} style={{ '--i': i } as CSSProperties}>
-                  <Link href={`/${lang}/${t.game.slug}`} className="home-mood-banner__tile">
-                    <span className="home-mood-banner__tile-art">
-                      <Image
-                        src={t.game.avatar}
-                        alt=""
-                        width={120}
-                        height={160}
-                        sizes="96px"
-                      />
-                    </span>
-                    <span className="home-mood-banner__tile-label">
-                      {isEn ? t.labelEn : t.labelRu}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <MoodThemeRail items={railItems} lang={lang} />
         </div>
       </section>
 
