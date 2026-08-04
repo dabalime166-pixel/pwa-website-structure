@@ -10,6 +10,7 @@ import catalog from '../lib/games-catalog.json' with { type: 'json' }
 const PROVIDERS = [
   { slug: 'pragmatic-play', name: 'Pragmatic Play' },
   { slug: 'play-n-go', name: "Play'n GO" },
+  { slug: 'netent', name: 'NetEnt' },
   { slug: 'hacksaw-gaming', name: 'Hacksaw Gaming' },
   { slug: 'bgaming', name: 'BGaming' },
   { slug: '1weapp-games', name: '1weapp Games' },
