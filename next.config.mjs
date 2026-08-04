@@ -120,6 +120,15 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: '/yandex_1fecab4dce49084e.html',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
     ]
   },
 }

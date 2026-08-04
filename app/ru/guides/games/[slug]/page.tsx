@@ -21,7 +21,7 @@ export async function generateMetadata({
   const guide = getGameGuide(slug)
   if (!guide) return {}
   const title = withBrandTitle(guide.titleSeoRu)
-  const description = clampMetaDescription(guide.descriptionSeoRu)
+  const description = clampMetaDescription(guide.descriptionSeoRu, 'ru')
   return {
     title,
     description,

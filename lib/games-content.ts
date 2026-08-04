@@ -51,14 +51,14 @@ export function getSeoTitle(game: GameFull, lang: Lang): string {
 
 export function getSeoDescription(game: GameFull, lang: Lang): string {
   const custom = lang === 'ru' ? game.descriptionSeoRu : game.descriptionSeoEn
-  if (custom) return clampMetaDescription(custom)
+  if (custom) return clampMetaDescription(custom, lang)
   const type = game.gameType || (lang === 'ru' ? 'игра' : 'game')
   const rtp = game.rtp ? ` RTP ${game.rtp}.` : ''
   const raw =
     lang === 'ru'
       ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}, ${type}.${rtp}`
       : `Play ${game.name} demo free — no registration needed. ${game.provider} ${type}.${rtp}`
-  return clampMetaDescription(raw)
+  return clampMetaDescription(raw, lang)
 }
 
 /** Format plain SEO text into semantic HTML paragraphs */

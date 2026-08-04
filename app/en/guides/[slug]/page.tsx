@@ -115,7 +115,8 @@ export async function generateMetadata({
     guide.titleSeoEn ?? SEO[slug]?.title ?? `${guide.titleEn} — iGaming Strategy Guide`
   )
   const description = clampMetaDescription(
-    guide.descriptionSeoEn ?? SEO[slug]?.description ?? guide.subtitleEn
+    guide.descriptionSeoEn ?? SEO[slug]?.description ?? guide.subtitleEn,
+    'en'
   )
   const keywords =
     guide.keywordsEn?.join(', ') || SEO[slug]?.keywords || guide.tagEn

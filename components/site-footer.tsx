@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Lang } from '@/lib/games'
+import { providersIndexHref } from '@/lib/providers'
 
 interface SiteFooterProps {
   lang: Lang
@@ -36,6 +37,26 @@ export function SiteFooter({ lang }: SiteFooterProps) {
                 <li>
                   <Link href="/ru" className={lang === 'ru' ? 'is-active' : undefined}>
                     RU
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+
+            <nav aria-label="Explore">
+              <ul className="site-footer__legal">
+                <li>
+                  <Link href={providersIndexHref(lang)}>
+                    {isEn ? 'Providers' : 'Провайдеры'}
+                  </Link>
+                </li>
+                <li>
+                  <Link href={isEn ? '/en/guides' : '/ru/guides'}>
+                    {isEn ? 'Guides' : 'Гайды'}
+                  </Link>
+                </li>
+                <li>
+                  <Link href={isEn ? '/en/guides/games' : '/ru/guides/games'}>
+                    {isEn ? 'Game guides' : 'Гайды по играм'}
                   </Link>
                 </li>
               </ul>

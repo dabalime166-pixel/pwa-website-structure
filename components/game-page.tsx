@@ -26,6 +26,7 @@ import {
   getThemeFaqExtra,
 } from '@/lib/game-themes'
 import { absoluteUrl } from '@/lib/seo'
+import { getProviderByName, providerHref, providersIndexHref } from '@/lib/providers'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import { GAME_GUIDES } from '@/lib/game-guides-data'
@@ -110,26 +111,46 @@ function buildJsonLd(game: GameFull, lang: Lang, faqItems: FaqItem[]): string {
     ? `Play ${game.name} demo free — no registration needed. Developed by ${game.provider}.`
     : `Играть в ${game.name} демо бесплатно — без регистрации. Разработчик: ${game.provider}.`
 
-  const app = {
-    '@type': 'SoftwareApplication',
-    '@id': `${pageUrl}#app`,
-    name: `${game.name} Demo`,
-    applicationCategory: 'GameApplication',
-    operatingSystem: 'Web Browser',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-    },
+  // Prefer WebPage + VideoGame + FAQPage over SoftwareApplication —
+  // Google rich-result checks often flag SoftwareApplication without rating/review.
+  const webPage = {
+    '@type': 'WebPage',
+    '@id': pageUrl,
+    url: pageUrl,
+    name: isEn ? `${game.name} Demo` : `${game.name} демо`,
     description,
-    publisher: {
+    inLanguage: lang,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: '1weapp',
+      url: 'https://www.1weapp.online',
+    },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: imageUrl,
+    },
+  }
+
+  const videoGame = {
+    '@type': 'VideoGame',
+    '@id': `${pageUrl}#game`,
+    name: game.name,
+    description,
+    image: imageUrl,
+    url: pageUrl,
+    gamePlatform: 'Web Browser',
+    applicationCategory: 'Game',
+    author: {
       '@type': 'Organization',
       name: game.provider,
     },
-    image: imageUrl,
-    url: pageUrl,
-    inLanguage: lang,
+    offers: {
+      '@type': 'Offer',
+      price: 0,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      category: 'Free',
+    },
   }
 
   const faq = {
@@ -147,7 +168,7 @@ function buildJsonLd(game: GameFull, lang: Lang, faqItems: FaqItem[]): string {
 
   return JSON.stringify({
     '@context': 'https://schema.org',
-    '@graph': [app, faq],
+    '@graph': [webPage, videoGame, faq],
   })
 }
 
@@ -161,10 +182,11 @@ export function GamePage({ slug, lang }: GamePageProps) {
   const formattedSeo = formatSeoText(seoText)
   const faqItems = buildGameFaq(game, lang, t.playReal)
   const jsonLd = buildJsonLd(game, lang, faqItems)
-  const related = getRelatedGames(slug, 4)
+  const related = getRelatedGames(slug, 8)
   const guideIds = getRelatedGuideIds(game.gameType)
   const relatedGameGuide = GAME_GUIDES.find((g) => g.gameSlug === game.slug)
   const relatedGuides = GUIDES.filter((g) => guideIds.includes(g.id)).slice(0, relatedGameGuide ? 3 : 4)
+  const providerDef = getProviderByName(game.provider)
 
   const typeLabel = game.gameType || (isEn ? 'Slots' : 'Слоты')
   const rtpLabel = game.rtp || '~96%'
@@ -211,10 +233,34 @@ export function GamePage({ slug, lang }: GamePageProps) {
                 /
               </li>
               <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <Link href={providersIndexHref(lang)} itemProp="item">
+                  <span itemProp="name">{isEn ? 'Providers' : 'Провайдеры'}</span>
+                </Link>
+                <meta itemProp="position" content="2" />
+              </li>
+              {providerDef ? (
+                <>
+                  <li aria-hidden="true" className="breadcrumb-sep">
+                    /
+                  </li>
+                  <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                    <Link href={providerHref(lang, providerDef.slug)} itemProp="item">
+                      <span itemProp="name">
+                        {isEn ? providerDef.titleEn : providerDef.titleRu}
+                      </span>
+                    </Link>
+                    <meta itemProp="position" content="3" />
+                  </li>
+                </>
+              ) : null}
+              <li aria-hidden="true" className="breadcrumb-sep">
+                /
+              </li>
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
                 <span itemProp="name" aria-current="page" className="breadcrumb-current">
                   {game.name}
                 </span>
-                <meta itemProp="position" content="2" />
+                <meta itemProp="position" content={providerDef ? '4' : '3'} />
               </li>
             </ol>
           </nav>
@@ -249,7 +295,13 @@ export function GamePage({ slug, lang }: GamePageProps) {
           </div>
 
           <div className="gp-hero__body">
-            <p className="gp-hero__provider">{game.provider}</p>
+            <p className="gp-hero__provider">
+              {providerDef ? (
+                <Link href={providerHref(lang, providerDef.slug)}>{game.provider}</Link>
+              ) : (
+                game.provider
+              )}
+            </p>
             <h1 className="gp-hero__title">
               {game.name} <span className="gp-hero__demo">{t.demo}</span>
             </h1>

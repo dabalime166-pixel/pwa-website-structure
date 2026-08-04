@@ -62,7 +62,7 @@ export function RootDocument({
             <img
               src="https://mc.yandex.ru/watch/106419141"
               style={{ position: 'absolute', left: '-9999px' }}
-              alt=""
+              alt="Yandex Metrika"
             />
           </div>
         </noscript>

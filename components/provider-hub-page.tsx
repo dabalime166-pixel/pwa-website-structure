@@ -33,7 +33,8 @@ export function providerMetadata(lang: Lang, providerSlug: string): Metadata {
   const description = clampMetaDescription(
     lang === 'en'
       ? `Browse free ${provider.titleEn} demo games on 1weapp. No signup, instant browser play.`
-      : `Смотрите бесплатные демо ${provider.titleRu} на 1weapp. Без регистрации, сразу в браузере.`
+      : `Смотрите бесплатные демо ${provider.titleRu} на 1weapp. Без регистрации, сразу в браузере.`,
+    lang
   )
   const url = `https://www.1weapp.online${providerHref(lang, provider.slug)}`
   return {

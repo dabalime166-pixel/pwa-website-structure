@@ -42,9 +42,26 @@ export function withBrandTitle(title: string, maxLen = 60): string {
   return `${cut || core.slice(0, budget)}${brand}`
 }
 
-/** Keep meta descriptions in a healthy ~120–155 character range when possible. */
-export function clampMetaDescription(text: string, maxLen = 155): string {
-  const t = text.replace(/\s+/g, ' ').trim()
+/**
+ * Keep meta descriptions in Ahrefs' healthy ~120–155 character band.
+ * Pads short copy with a locale-aware closer; truncates long copy at a word boundary.
+ */
+export function clampMetaDescription(
+  text: string,
+  lang: 'en' | 'ru' = 'en',
+  minLen = 120,
+  maxLen = 155
+): string {
+  let t = text.replace(/\s+/g, ' ').trim()
+
+  if (t.length < minLen) {
+    const pad =
+      lang === 'ru'
+        ? ' Бесплатное демо в браузере на 1weapp — без регистрации и депозита.'
+        : ' Free browser demo on 1weapp — no signup and no deposit required.'
+    t = `${t}${pad}`.replace(/\s+/g, ' ').trim()
+  }
+
   if (t.length <= maxLen) return t
 
   let cut = t.slice(0, maxLen - 1)
