@@ -1,11 +1,39 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Lang } from '@/lib/games'
-import { getProviderCards, pageChipNumbers, providerHref } from '@/lib/providers'
+import { getProviderCards, providerHref } from '@/lib/providers'
+
+function ArrowLeftIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M14.5 5.5 8 12l6.5 6.5"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M9.5 5.5 16 12l-6.5 6.5"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 export function HomeProviderHubs({ lang }: { lang: Lang }) {
   const isEn = lang === 'en'
-  const cards = getProviderCards(3)
+  const cards = getProviderCards()
 
   return (
     <section className="home-provider-hubs" aria-labelledby="home-providers-title">
@@ -15,32 +43,28 @@ export function HomeProviderHubs({ lang }: { lang: Lang }) {
         </h2>
         <p>
           {isEn
-            ? 'Jump straight into a studio lobby — or open any page number below.'
-            : 'Сразу в лобби студии — или откройте нужную страницу ниже.'}
+            ? 'Open a studio lobby — use the arrows to step through pages.'
+            : 'Откройте лобби студии — стрелками листайте страницы.'}
         </p>
       </div>
 
       <ul className="home-provider-hubs__grid">
         {cards.map((card) => {
-          const chips = pageChipNumbers(card.pages, 7)
           const hub = providerHref(lang, card.slug)
+          const nextPage = card.pages > 1 ? `${hub}?page=2` : hub
           return (
             <li key={card.slug} className="home-provider-hubs__item">
               <Link href={hub} className="home-provider-hubs__card">
-                <div className="home-provider-hubs__previews" aria-hidden="true">
-                  {card.previews.map((game) => (
-                    <span key={game.slug} className="home-provider-hubs__shot">
-                      <Image
-                        src={game.avatar}
-                        alt=""
-                        width={72}
-                        height={96}
-                        sizes="72px"
-                        loading="lazy"
-                      />
-                    </span>
-                  ))}
-                </div>
+                <span className="home-provider-hubs__fan" aria-hidden="true">
+                  <Image
+                    src={card.previewImage}
+                    alt=""
+                    width={240}
+                    height={136}
+                    sizes="(max-width: 640px) 120px, 140px"
+                    loading="lazy"
+                  />
+                </span>
                 <div className="home-provider-hubs__meta">
                   <span className="home-provider-hubs__name">
                     {isEn ? card.titleEn : card.titleRu}
@@ -54,36 +78,42 @@ export function HomeProviderHubs({ lang }: { lang: Lang }) {
                 </div>
               </Link>
 
-              {card.pages > 1 && (
-                <nav
-                  className="hub-pages hub-pages--home"
+              <nav
+                className="hub-arrows"
+                aria-label={
+                  isEn
+                    ? `${card.titleEn} lobby navigation`
+                    : `Навигация лобби ${card.titleRu}`
+                }
+              >
+                <Link
+                  href={hub}
+                  className="hub-arrows__btn"
+                  prefetch={false}
+                  aria-label={isEn ? 'Open lobby' : 'Открыть лобби'}
+                >
+                  <ArrowLeftIcon />
+                </Link>
+                <Link href={hub} className="hub-arrows__label" prefetch={false}>
+                  {isEn ? 'Open lobby' : 'Открыть лобби'}
+                </Link>
+                <Link
+                  href={nextPage}
+                  className="hub-arrows__btn hub-arrows__btn--next"
+                  prefetch={false}
                   aria-label={
-                    isEn
-                      ? `${card.titleEn} pages`
-                      : `Страницы ${card.titleRu}`
+                    card.pages > 1
+                      ? isEn
+                        ? 'Next page'
+                        : 'Следующая страница'
+                      : isEn
+                        ? 'Open lobby'
+                        : 'Открыть лобби'
                   }
                 >
-                  <ol className="hub-pages__list">
-                    {chips.map((p, idx) =>
-                      p === '…' ? (
-                        <li key={`e-${card.slug}-${idx}`} className="hub-pages__ellipsis" aria-hidden="true">
-                          …
-                        </li>
-                      ) : (
-                        <li key={`${card.slug}-${p}`}>
-                          <Link
-                            href={p === 1 ? hub : `${hub}?page=${p}`}
-                            className="hub-pages__leaf"
-                            prefetch={false}
-                          >
-                            <span className="hub-pages__leaf-face">{p}</span>
-                          </Link>
-                        </li>
-                      ),
-                    )}
-                  </ol>
-                </nav>
-              )}
+                  <ArrowRightIcon />
+                </Link>
+              </nav>
             </li>
           )
         })}

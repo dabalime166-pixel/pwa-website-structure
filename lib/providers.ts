@@ -45,34 +45,20 @@ export function providersIndexHref(lang: Lang): string {
 export type ProviderCard = ProviderDef & {
   count: number
   pages: number
-  previews: Game[]
+  /** Single collage image: /banners/providers/{slug}.webp */
+  previewImage: string
 }
 
-export function getProviderCards(previewCount = 4): ProviderCard[] {
+export function getProviderCards(): ProviderCard[] {
   return PROVIDERS.map((p) => {
     const list = getGamesByProvider(p.name)
     return {
       ...p,
       count: list.length,
       pages: Math.max(1, Math.ceil(list.length / PROVIDER_PAGE_SIZE)),
-      previews: list.slice(0, previewCount),
+      previewImage: `/banners/providers/${p.slug}.webp`,
     }
   }).filter((p) => p.count > 0)
-}
-
-/** Compact page list for UI chips: 1 … n with optional ellipsis. */
-export function pageChipNumbers(totalPages: number, maxChips = 8): (number | '…')[] {
-  if (totalPages <= maxChips) {
-    return Array.from({ length: totalPages }, (_, i) => i + 1)
-  }
-  const mid = maxChips - 2
-  const nums: (number | '…')[] = [1]
-  const start = 2
-  const end = start + mid - 1
-  for (let i = start; i <= end; i++) nums.push(i)
-  nums.push('…')
-  nums.push(totalPages)
-  return nums
 }
 
 export function homePath(lang: Lang): string {

@@ -59,6 +59,7 @@ export function ProviderHubPage({
 
   const isEn = lang === 'en'
   const all = getGamesByProvider(provider.name)
+  const previewImage = `/banners/providers/${provider.slug}.webp`
 
   return (
     <>
@@ -83,12 +84,15 @@ export function ProviderHubPage({
         </header>
 
         {all.length > 0 && (
-          <div className="provider-hub__previews" aria-hidden="true">
-            {all.slice(0, 5).map((g) => (
-              <span key={g.slug} className="provider-hub__shot">
-                <Image src={g.avatar} alt="" width={64} height={85} sizes="64px" priority={false} />
-              </span>
-            ))}
+          <div className="provider-hub__collage" aria-hidden="true">
+            <Image
+              src={previewImage}
+              alt=""
+              width={240}
+              height={136}
+              sizes="(max-width: 640px) 160px, 200px"
+              priority={false}
+            />
           </div>
         )}
 

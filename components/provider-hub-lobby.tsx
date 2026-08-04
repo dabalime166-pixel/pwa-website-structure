@@ -24,22 +24,6 @@ function matchesQuery(game: Game, q: string) {
   return tokens.every((t) => hay.includes(t))
 }
 
-function pageWindow(current: number, total: number): (number | '…')[] {
-  if (total <= 9) return Array.from({ length: total }, (_, i) => i + 1)
-  const pages: (number | '…')[] = []
-  const push = (v: number | '…') => {
-    if (pages[pages.length - 1] !== v) pages.push(v)
-  }
-  push(1)
-  const start = Math.max(2, current - 1)
-  const end = Math.min(total - 1, current + 1)
-  if (start > 2) push('…')
-  for (let i = start; i <= end; i++) push(i)
-  if (end < total - 1) push('…')
-  push(total)
-  return pages
-}
-
 export function ProviderHubLobby({
   lang,
   games,
@@ -104,8 +88,6 @@ export function ProviderHubLobby({
     setPage(1)
   }
 
-  const pages = pageWindow(safePage, totalPages)
-
   return (
     <div className="provider-hub-lobby">
       <div className="provider-hub-lobby__toolbar">
@@ -166,42 +148,31 @@ export function ProviderHubLobby({
       )}
 
       {totalPages > 1 && (
-        <nav className="hub-pages" aria-label={isEn ? 'Pagination' : 'Страницы'}>
+        <nav className="hub-arrows hub-arrows--lobby" aria-label={isEn ? 'Pagination' : 'Страницы'}>
           <button
             type="button"
-            className="hub-pages__nav"
+            className="hub-arrows__btn"
             disabled={safePage <= 1}
             onClick={() => goToPage(safePage - 1)}
+            aria-label={isEn ? 'Previous page' : 'Предыдущая страница'}
           >
-            {isEn ? 'Prev' : 'Назад'}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M14.5 5.5 8 12l6.5 6.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
-          <ol className="hub-pages__list">
-            {pages.map((p, idx) =>
-              p === '…' ? (
-                <li key={`e-${idx}`} className="hub-pages__ellipsis" aria-hidden="true">
-                  …
-                </li>
-              ) : (
-                <li key={p}>
-                  <button
-                    type="button"
-                    className={`hub-pages__leaf${p === safePage ? ' is-active' : ''}`}
-                    aria-current={p === safePage ? 'page' : undefined}
-                    onClick={() => goToPage(p)}
-                  >
-                    <span className="hub-pages__leaf-face">{p}</span>
-                  </button>
-                </li>
-              ),
-            )}
-          </ol>
+          <span className="hub-arrows__status" aria-live="polite">
+            {isEn ? `Page ${safePage} of ${totalPages}` : `Стр. ${safePage} из ${totalPages}`}
+          </span>
           <button
             type="button"
-            className="hub-pages__nav"
+            className="hub-arrows__btn hub-arrows__btn--next"
             disabled={safePage >= totalPages}
             onClick={() => goToPage(safePage + 1)}
+            aria-label={isEn ? 'Next page' : 'Следующая страница'}
           >
-            {isEn ? 'Next' : 'Далее'}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 5.5 16 12l-6.5 6.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
         </nav>
       )}

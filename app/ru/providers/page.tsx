@@ -8,7 +8,8 @@ import { getProviderCards, providerHref } from '@/lib/providers'
 
 export const metadata: Metadata = {
   title: 'Провайдеры демо — бесплатные лобби | 1weapp',
-  description: 'Каталог бесплатных демо по провайдерам на 1weapp: Pragmatic Play, Play\'n GO, Hacksaw, BGaming и другие.',
+  description:
+    "Каталог бесплатных демо по провайдерам на 1weapp: Pragmatic Play, Play'n GO, Hacksaw, BGaming и другие.",
   alternates: {
     canonical: 'https://www.1weapp.online/ru/providers',
     languages: {
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 export default function RuProvidersIndexPage() {
-  const cards = getProviderCards(4)
+  const cards = getProviderCards()
   return (
     <>
       <SiteHeader lang="ru" />
@@ -36,15 +37,18 @@ export default function RuProvidersIndexPage() {
         </header>
         <ul className="home-provider-hubs__grid">
           {cards.map((card) => (
-            <li key={card.slug}>
+            <li key={card.slug} className="home-provider-hubs__item">
               <Link href={providerHref('ru', card.slug)} className="home-provider-hubs__card">
-                <div className="home-provider-hubs__previews" aria-hidden="true">
-                  {card.previews.map((game) => (
-                    <span key={game.slug} className="home-provider-hubs__shot">
-                      <Image src={game.avatar} alt="" width={72} height={96} sizes="72px" />
-                    </span>
-                  ))}
-                </div>
+                <span className="home-provider-hubs__fan" aria-hidden="true">
+                  <Image
+                    src={card.previewImage}
+                    alt=""
+                    width={240}
+                    height={136}
+                    sizes="140px"
+                    loading="lazy"
+                  />
+                </span>
                 <div className="home-provider-hubs__meta">
                   <span className="home-provider-hubs__name">{card.titleRu}</span>
                   <span className="home-provider-hubs__count">{card.count} демо</span>
