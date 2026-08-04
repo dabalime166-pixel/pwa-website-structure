@@ -5,135 +5,90 @@ import type { Game, Lang } from '@/lib/games'
 import { GAME_GUIDES } from '@/lib/game-guides-data'
 import { getGame } from '@/lib/games'
 
-type Mood = {
+type ThemeTile = {
   id: string
-  titleEn: string
-  titleRu: string
-  subEn: string
-  subRu: string
-  ctaEn: string
-  ctaRu: string
-  leadSlug: string
-  cast: string[]
+  labelEn: string
+  labelRu: string
+  slug: string
 }
 
-const MOODS: Mood[] = [
-  {
-    id: 'crash',
-    titleEn: 'Ride the multiplier',
-    titleRu: 'Поймай множитель',
-    subEn: 'Crash demos — cash out before the jet leaves.',
-    subRu: 'Crash-демо — кэшаут до улёта джета.',
-    ctaEn: 'Open Lucky Jet',
-    ctaRu: 'Открыть Lucky Jet',
-    leadSlug: 'lucky-jet',
-    cast: ['lucky-jet', 'rocket-queen'],
-  },
-  {
-    id: 'olympus',
-    titleEn: 'Gods & tumbles',
-    titleRu: 'Боги и каскады',
-    subEn: 'Olympus energy — orbs, free spins, high drama.',
-    subRu: 'Олимп — сферы, фриспины, высокая драма.',
-    ctaEn: 'Open Gates of Olympus',
-    ctaRu: 'Открыть Gates of Olympus',
-    leadSlug: 'gates-of-olympus',
-    cast: ['gates-of-olympus', 'starlight-princess', 'zeus-vs-hades-gods-of-war'],
-  },
-  {
-    id: 'candy',
-    titleEn: 'Sweet cascades',
-    titleRu: 'Сладкие каскады',
-    subEn: 'Candy clusters that keep falling.',
-    subRu: 'Конфетные кластеры, которые всё падают.',
-    ctaEn: 'Open Sweet Bonanza',
-    ctaRu: 'Открыть Sweet Bonanza',
-    leadSlug: 'sweet-bonanza',
-    cast: ['sweet-bonanza', 'sugar-rush', 'fruit-party'],
-  },
-  {
-    id: 'western',
-    titleEn: 'Dust & sticky wilds',
-    titleRu: 'Пыль и липкие вайлды',
-    subEn: 'Western money respins and outlaw free spins.',
-    subRu: 'Вестерн: money-respin и outlaw-фриспины.',
-    ctaEn: 'Open Wild West Gold',
-    ctaRu: 'Открыть Wild West Gold',
-    leadSlug: 'wild-west-gold',
-    cast: ['wild-west-gold', 'mustang-gold', 'wolf-gold'],
-  },
+/** Scrollable theme avatars in the mood banner */
+const THEME_TILES: ThemeTile[] = [
+  { id: 'crash', labelEn: 'Crash', labelRu: 'Crash', slug: 'lucky-jet' },
+  { id: 'olympus', labelEn: 'Olympus', labelRu: 'Олимп', slug: 'gates-of-olympus' },
+  { id: 'candy', labelEn: 'Candy', labelRu: 'Candy', slug: 'sweet-bonanza' },
+  { id: 'princess', labelEn: 'Anime', labelRu: 'Аниме', slug: 'starlight-princess' },
+  { id: 'fishing', labelEn: 'Fishing', labelRu: 'Рыбалка', slug: 'big-bass-bonanza' },
+  { id: 'western', labelEn: 'Western', labelRu: 'Вестерн', slug: 'wild-west-gold' },
+  { id: 'dogs', labelEn: 'Kennel', labelRu: 'Dogs', slug: 'the-dog-house' },
+  { id: 'megaways', labelEn: 'Megaways', labelRu: 'Megaways', slug: 'buffalo-king-megaways' },
+  { id: 'sugar', labelEn: 'Sugar', labelRu: 'Sugar', slug: 'sugar-rush' },
+  { id: 'mustang', labelEn: 'Mustang', labelRu: 'Mustang', slug: 'mustang-gold' },
 ]
 
-function resolveCast(slugs: string[], catalog: Game[]): Game[] {
-  return slugs
-    .map((slug) => catalog.find((g) => g.slug === slug) ?? getGame(slug))
-    .filter((g): g is Game => Boolean(g))
+const BG_SLUGS = ['gates-of-olympus', 'lucky-jet', 'sweet-bonanza', 'wild-west-gold']
+
+function resolveGame(slug: string, catalog: Game[]): Game | undefined {
+  return catalog.find((g) => g.slug === slug) ?? getGame(slug)
 }
 
 export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] }) {
   const isEn = lang === 'en'
   const guidesHref = isEn ? '/en/guides/games' : '/ru/guides/games'
-  const guideCards = GAME_GUIDES.slice(0, 4)
+  const guideCards = GAME_GUIDES.slice(0, 6)
+  const tiles = THEME_TILES.map((t) => ({ ...t, game: resolveGame(t.slug, catalog) })).filter(
+    (t): t is ThemeTile & { game: Game } => Boolean(t.game)
+  )
+  const bgGames = BG_SLUGS.map((s) => resolveGame(s, catalog)).filter((g): g is Game => Boolean(g))
 
   return (
     <>
-      <section className="home-moods" aria-labelledby="home-moods-heading">
-        <div className="home-moods__head">
-          <p className="home-moods__eyebrow">{isEn ? 'Start by mood' : 'Начни с настроения'}</p>
-          <h2 id="home-moods-heading" className="home-moods__title">
-            {isEn ? 'What do you want to feel tonight?' : 'Какое настроение на сегодня?'}
-          </h2>
-          <p className="home-moods__sub">
-            {isEn
-              ? 'Four demo paths — pick a vibe, open the lead title free.'
-              : 'Четыре демо-маршрута — выбери вайб и открой главный тайтл бесплатно.'}
-          </p>
-        </div>
+      <section className="home-mood-banner" aria-labelledby="home-moods-heading">
+        <div className="home-mood-banner__frame">
+          <div className="home-mood-banner__bg" aria-hidden="true">
+            {bgGames.map((g, i) => (
+              <div key={g.slug} className={`home-mood-banner__poster home-mood-banner__poster--${i + 1}`}>
+                <Image src={g.avatar} alt="" fill sizes="40vw" />
+              </div>
+            ))}
+            <div className="home-mood-banner__grid" />
+            <div className="home-mood-banner__veil" />
+          </div>
 
-        <div className="home-moods__grid">
-          {MOODS.map((mood, index) => {
-            const cast = resolveCast(mood.cast, catalog)
-            const lead = cast.find((g) => g.slug === mood.leadSlug) ?? cast[0]
-            if (!lead) return null
-            const href = `/${lang}/${lead.slug}`
-            return (
-              <article
-                key={mood.id}
-                className={`home-mood home-mood--${mood.id}`}
-                style={{ '--mood-i': index } as CSSProperties}
-              >
-                <div className="home-mood__art" aria-hidden="true">
-                  <Image
-                    src={lead.avatar}
-                    alt=""
-                    fill
-                    sizes="(max-width: 900px) 100vw, 50vw"
-                    className="home-mood__bg"
-                  />
-                  <div className="home-mood__shade" />
-                </div>
+          <div className="home-mood-banner__copy">
+            <p className="home-mood-banner__badge">1WEAPP</p>
+            <h2 id="home-moods-heading" className="home-mood-banner__title">
+              {isEn ? 'Play the best demos for free' : 'Играй в лучшие демо бесплатно'}
+            </h2>
+            <p className="home-mood-banner__sub">
+              {isEn
+                ? 'Instant demos in your browser. No deposit or registration.'
+                : 'Мгновенные демо в браузере. Без депозита и регистрации.'}
+            </p>
+          </div>
 
-                <div className="home-mood__body">
-                  <div className="home-mood__cast" aria-hidden="true">
-                    {cast.map((g) => (
-                      <span key={g.slug} className="home-mood__chip">
-                        <Image src={g.avatar} alt="" width={56} height={74} />
-                      </span>
-                    ))}
-                  </div>
-                  <h3 className="home-mood__title">{isEn ? mood.titleEn : mood.titleRu}</h3>
-                  <p className="home-mood__sub">{isEn ? mood.subEn : mood.subRu}</p>
-                  <Link href={href} className="home-mood__cta">
-                    {isEn ? mood.ctaEn : mood.ctaRu}
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
+          <div className="home-mood-banner__rail-wrap">
+            <ul className="home-mood-banner__rail" aria-label={isEn ? 'Themes' : 'Темы'}>
+              {tiles.map((t, i) => (
+                <li key={t.id} style={{ '--i': i } as CSSProperties}>
+                  <Link href={`/${lang}/${t.game.slug}`} className="home-mood-banner__tile">
+                    <span className="home-mood-banner__tile-art">
+                      <Image
+                        src={t.game.avatar}
+                        alt=""
+                        width={120}
+                        height={160}
+                        sizes="96px"
+                      />
+                    </span>
+                    <span className="home-mood-banner__tile-label">
+                      {isEn ? t.labelEn : t.labelRu}
+                    </span>
                   </Link>
-                </div>
-              </article>
-            )
-          })}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -160,11 +115,11 @@ export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] })
             </Link>
           </div>
 
-          <ul className="home-guides-strip__fan" aria-hidden="true">
+          <ul className="home-guides-strip__fan">
             {guideCards.map((g, i) => (
               <li key={g.id} style={{ '--i': i } as CSSProperties}>
-                <Link href={`${guidesHref}/${g.id}`} tabIndex={-1}>
-                  <Image src={g.avatar} alt="" width={112} height={149} />
+                <Link href={`${guidesHref}/${g.id}`}>
+                  <Image src={g.avatar} alt="" width={128} height={171} />
                 </Link>
               </li>
             ))}
