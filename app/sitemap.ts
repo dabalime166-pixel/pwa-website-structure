@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { games } from '@/lib/games'
 import { GUIDES } from '@/lib/guides-data'
 import { GAME_GUIDES } from '@/lib/game-guides-data'
+import { getProviderCards } from '@/lib/providers'
 
 const BASE = 'https://www.1weapp.online'
 
@@ -41,7 +42,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const gameEntries: MetadataRoute.Sitemap = games.flatMap((g) => {
-    const priority = g.slug === 'mines' ? 0.3 : 0.8
+    const priority =
+      g.slug === 'mines'
+        ? 0.3
+        : g.slug === 'gates-of-olympus-1000' ||
+            g.slug === 'sweet-bonanza-1000' ||
+            g.slug === 'gates-of-olympus' ||
+            g.slug === 'sweet-bonanza' ||
+            g.slug === 'lucky-jet'
+          ? 0.9
+          : 0.8
     const enPath = `/en/${g.slug}`
     const ruPath = `/ru/${g.slug}`
     return [
@@ -57,6 +67,45 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority,
+        alternates: hreflang(enPath, ruPath),
+      },
+    ]
+  })
+
+  const providerCards = getProviderCards()
+  const providerIndexEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE}/en/providers`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.88,
+      alternates: hreflang('/en/providers', '/ru/providers'),
+    },
+    {
+      url: `${BASE}/ru/providers`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.88,
+      alternates: hreflang('/en/providers', '/ru/providers'),
+    },
+  ]
+
+  const providerHubEntries: MetadataRoute.Sitemap = providerCards.flatMap((p) => {
+    const enPath = `/en/providers/${p.slug}`
+    const ruPath = `/ru/providers/${p.slug}`
+    return [
+      {
+        url: `${BASE}${enPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.87,
+        alternates: hreflang(enPath, ruPath),
+      },
+      {
+        url: `${BASE}${ruPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.87,
         alternates: hreflang(enPath, ruPath),
       },
     ]
@@ -162,6 +211,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...homeEntries,
     ...gameEntries,
+    ...providerIndexEntries,
+    ...providerHubEntries,
     ...guideIndexEntries,
     ...guideEntries,
     ...gameGuideIndexEntries,
