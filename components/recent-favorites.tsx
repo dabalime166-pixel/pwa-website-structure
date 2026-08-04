@@ -1,33 +1,47 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GameCard } from '@/components/game-card'
 import { readFavoriteSlugs, readRecentSlugs } from '@/lib/player-prefs'
 import type { Game, Lang } from '@/lib/games'
 
 interface RecentFavoritesProps {
   lang: Lang
-  allGames: Game[]
 }
 
-export function RecentFavorites({ lang, allGames }: RecentFavoritesProps) {
+export function RecentFavorites({ lang }: RecentFavoritesProps) {
   const isEn = lang === 'en'
-  const [recent, setRecent] = useState<string[]>([])
-  const [favs, setFavs] = useState<string[]>([])
+  const [recentGames, setRecentGames] = useState<Game[]>([])
+  const [favGames, setFavGames] = useState<Game[]>([])
 
   useEffect(() => {
-    setRecent(readRecentSlugs())
-    setFavs(readFavoriteSlugs())
+    const recent = readRecentSlugs().slice(0, 8)
+    const favs = readFavoriteSlugs().slice(0, 8)
+    const needed = [...new Set([...recent, ...favs])]
+    if (!needed.length) return
+
+    let cancelled = false
+    const ctrl = new AbortController()
+
+    fetch(`/api/games-lookup?slugs=${encodeURIComponent(needed.join(','))}`, {
+      signal: ctrl.signal,
+    })
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((data: { games?: Game[] }) => {
+        if (cancelled) return
+        const bySlug = new Map((data.games || []).map((g) => [g.slug, g]))
+        setRecentGames(recent.map((s) => bySlug.get(s)).filter((g): g is Game => Boolean(g)))
+        setFavGames(favs.map((s) => bySlug.get(s)).filter((g): g is Game => Boolean(g)))
+      })
+      .catch(() => {
+        /* ignore */
+      })
+
+    return () => {
+      cancelled = true
+      ctrl.abort()
+    }
   }, [])
-
-  const bySlug = useMemo(() => {
-    const m = new Map<string, Game>()
-    for (const g of allGames) m.set(g.slug, g)
-    return m
-  }, [allGames])
-
-  const recentGames = recent.map((s) => bySlug.get(s)).filter((g): g is Game => Boolean(g))
-  const favGames = favs.map((s) => bySlug.get(s)).filter((g): g is Game => Boolean(g))
 
   if (!recentGames.length && !favGames.length) return null
 

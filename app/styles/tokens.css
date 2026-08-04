@@ -63,35 +63,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-bg-base);
   background-image:
-    radial-gradient(ellipse 90% 60% at 0% 0%, rgba(226, 184, 74, 0.09), transparent 55%),
-    radial-gradient(ellipse 80% 55% at 100% 100%, rgba(226, 184, 74, 0.06), transparent 50%),
-    linear-gradient(180deg, #0c0b09 0%, #090807 48%, #0b0a08 100%);
+    radial-gradient(ellipse 90% 55% at 0% 0%, rgba(226, 184, 74, 0.07), transparent 55%),
+    linear-gradient(180deg, #0c0b09 0%, #090807 100%);
 }
 
-/* Fine CSS grain / mesh texture — no image */
+/* Light CSS grid only — keep paint cheap on phones */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.4;
   background-image:
-    linear-gradient(rgba(255, 227, 154, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 227, 154, 0.022) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, #000 15%, transparent 78%);
+    linear-gradient(rgba(255, 227, 154, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 227, 154, 0.02) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
 body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image: radial-gradient(rgba(255, 227, 154, 0.05) 0.55px, transparent 0.65px);
-  background-size: 4px 4px;
+  display: none;
 }
 
 .skip-link {

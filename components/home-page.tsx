@@ -3,6 +3,7 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
 import { HomeDiscover } from '@/components/home-discover'
+import { HomeProviderHubs } from '@/components/home-provider-hubs'
 import { LazyRandomDemo } from '@/components/lazy-random-demo'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
@@ -41,52 +42,15 @@ export function HomePage({ lang }: HomePageProps) {
     (g): g is NonNullable<typeof g> => Boolean(g)
   )
 
-  const byProvider = (name: string) =>
-    games.filter((g) => g.provider === name).sort((a, b) => a.name.localeCompare(b.name))
-
+  /** Home client payload stays tiny — full provider catalogs live on hub pages. */
   const popularGames: Game[] = [
     ...featured,
     ...games.filter((g) => !FEATURED_SLUGS.includes(g.slug)).slice(0, 8),
-  ].filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
+  ]
+    .filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
+    .slice(0, 20)
 
-  const lobbySections = [
-    {
-      id: 'lobby-popular',
-      title: isEn ? 'Popular' : 'Популярные',
-      subtitle: isEn ? 'Instant picks' : 'Быстрый выбор',
-      games: popularGames,
-    },
-    {
-      id: 'lobby-pragmatic-play',
-      title: 'Pragmatic Play',
-      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
-      games: byProvider('Pragmatic Play'),
-    },
-    {
-      id: 'lobby-playn-go',
-      title: "Play'n GO",
-      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
-      games: byProvider("Play'n GO"),
-    },
-    {
-      id: 'lobby-hacksaw-gaming',
-      title: 'Hacksaw Gaming',
-      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
-      games: byProvider('Hacksaw Gaming'),
-    },
-    {
-      id: 'lobby-bgaming',
-      title: 'BGaming',
-      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
-      games: byProvider('BGaming'),
-    },
-    {
-      id: 'lobby-1weapp',
-      title: '1weapp Games',
-      subtitle: isEn ? 'Originals' : 'Оригиналы',
-      games: byProvider('1weapp Games'),
-    },
-  ].filter((s) => s.games.length > 0)
+  const randomPool = featured.slice(0, 16)
 
   const faqItems = isEn
     ? [
@@ -199,18 +163,17 @@ export function HomePage({ lang }: HomePageProps) {
               className="home-brand-banner__photo"
             />
             <div className="home-brand-banner__veil" />
-            <div className="home-brand-banner__shine" />
           </div>
 
           <div className="home-brand-banner__inner">
-            <p className="home-brand-banner__brand anim-fade-up">
+            <p className="home-brand-banner__brand">
               <span className="home-brand-banner__brand-main">1we</span>
               <span className="home-brand-banner__brand-accent">app</span>
             </p>
-            <h1 className="home-brand-banner__title anim-fade-up anim-delay-1">{t.heroTitle}</h1>
-            <p className="home-brand-banner__sub anim-fade-up anim-delay-2">{t.heroSub}</p>
+            <h1 className="home-brand-banner__title">{t.heroTitle}</h1>
+            <p className="home-brand-banner__sub">{t.heroSub}</p>
 
-            <div className="home-brand-banner__actions anim-fade-up anim-delay-3">
+            <div className="home-brand-banner__actions">
               <a href="#lobby" className="btn-cta">
                 {isEn ? 'Browse demos' : 'Смотреть демо'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -229,7 +192,7 @@ export function HomePage({ lang }: HomePageProps) {
               </a>
             </div>
 
-            <p className="home-brand-banner__legal anim-fade-up anim-delay-4">
+            <p className="home-brand-banner__legal">
               {isEn ? (
                 <>
                   18+ ·{' '}
@@ -249,47 +212,24 @@ export function HomePage({ lang }: HomePageProps) {
           </div>
         </section>
 
-        <HomeDiscover lang={lang} catalog={featured} />
-
-        <section className="home-rail home-rail--how" aria-label={isEn ? 'How the demo works' : 'Как работает демо'}>
-          {(isEn
-            ? [
-                { k: '01', title: 'Open a card', desc: 'Pick any title — demo loads in the browser.' },
-                { k: '02', title: 'Play with virtual credits', desc: 'No signup, no deposit, same core mechanics.' },
-                { k: '03', title: 'Decide later', desc: 'If it fits, continue for real money — 18+ with limits.' },
-              ]
-            : [
-                { k: '01', title: 'Откройте карточку', desc: 'Любой тайтл — демо прямо в браузере.' },
-                { k: '02', title: 'Виртуальные кредиты', desc: 'Без регистрации и депозита, та же механика.' },
-                { k: '03', title: 'Решение потом', desc: 'Если зашло — на деньги, только 18+ и с лимитами.' },
-              ]
-          ).map((f) => (
-            <div key={f.k} className="home-rail__item">
-              <span className="home-rail__index">{f.k}</span>
-              <div>
-                <h3 className="home-rail__title">{f.title}</h3>
-                <p className="home-rail__desc">{f.desc}</p>
-              </div>
-            </div>
-          ))}
-        </section>
-
         <section
           id="lobby"
           className="home-games"
-          aria-label={isEn ? 'Demo lobby by provider' : 'Лобби демо по провайдерам'}
+          aria-label={isEn ? 'Popular demos' : 'Популярные демо'}
         >
           <div className="home-section-head">
             <span className="home-section-head__label">
               {isEn ? 'Lobby' : 'Лобби'}
             </span>
             <h2 className="home-section-head__title">
-              {isEn ? 'Demos by provider' : 'Демо по провайдерам'}
+              {isEn ? 'Start with Popular' : 'Начните с популярных'}
             </h2>
-            <p className="home-section-head__count">{games.length}</p>
+            <p className="home-section-head__count">{popularGames.length}</p>
           </div>
 
-          <HomeLobby lang={lang} sections={lobbySections} allGames={games} />
+          <HomeLobby lang={lang} popularGames={popularGames} />
+          <HomeProviderHubs lang={lang} />
+          <HomeDiscover lang={lang} catalog={featured} />
 
           <div className="home-seo">
             {isEn ? (
@@ -469,7 +409,7 @@ export function HomePage({ lang }: HomePageProps) {
           </div>
         </section>
 
-        <LazyRandomDemo games={games} lang={lang} />
+        <LazyRandomDemo games={randomPool} lang={lang} />
       </main>
 
       <SiteFooter lang={lang} />
