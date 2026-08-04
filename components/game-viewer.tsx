@@ -234,7 +234,7 @@ export function GameViewer({
           <div className="game-teaser" aria-hidden="true">
             <Image
               src={avatar}
-              alt=""
+              alt={`${gameName} ${demoBadge} background`}
               fill
               sizes="(max-width: 900px) 100vw, 70vw"
               className="game-teaser__bg"

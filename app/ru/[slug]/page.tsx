@@ -8,6 +8,7 @@ import {
   getSeoTitle,
   getSeoDescription,
 } from '@/lib/games-content'
+import { absoluteUrl } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -44,7 +45,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://www.1weapp.online/ru/${slug}`,
       locale: 'ru_RU',
       type: 'website',
-      images: [{ url: game.avatar, width: 400, height: 533, alt: `${game.name} аватарка` }],
+      images: [
+        {
+          url: absoluteUrl(game.avatar),
+          width: 400,
+          height: 533,
+          alt: `${game.name} обложка демо`,
+        },
+      ],
     },
   }
 }

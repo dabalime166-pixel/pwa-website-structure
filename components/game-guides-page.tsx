@@ -45,7 +45,7 @@ export function GameGuidesIndexPage({ lang }: Props) {
             <ul className="game-guides-hub__hero-fan anim-fade-up anim-delay-3" aria-hidden="true">
               {heroAvatars.map((g, i) => (
                 <li key={g.id} style={{ '--i': i } as CSSProperties}>
-                  <Image src={g.avatar} alt="" width={76} height={102} sizes="(max-width: 639px) 36px, 76px" priority={i < 3} />
+                  <Image src={g.avatar} alt={g.titleEn || g.gameSlug} width={76} height={102} sizes="(max-width: 639px) 36px, 76px" priority={i < 3} />
                 </li>
               ))}
             </ul>
@@ -67,7 +67,11 @@ export function GameGuidesIndexPage({ lang }: Props) {
                 <span className="game-guides-hub__tile-art">
                   <Image
                     src={g.avatar}
-                    alt=""
+                    alt={
+                      isEn
+                        ? `${shortTitle} demo guide cover`
+                        : `Обложка гайда ${shortTitle}`
+                    }
                     width={128}
                     height={170}
                     sizes="(max-width: 639px) 52px, (max-width: 1023px) 40vw, 200px"
@@ -156,7 +160,11 @@ export function GameGuideSinglePage({
           <div className="gg-hero__art">
             <Image
               src={guide.avatar}
-              alt=""
+              alt={
+                isEn
+                  ? `${gameName} demo guide cover`
+                  : `Обложка демо-гайда ${gameName}`
+              }
               width={200}
               height={267}
               sizes="(max-width: 719px) 56px, 200px"

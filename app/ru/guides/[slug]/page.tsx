@@ -4,6 +4,7 @@ import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
 import type { GuideData } from '@/lib/guides-data'
 import { EXPERT } from '@/lib/expert'
+import { clampMetaDescription, withBrandTitle } from '@/lib/seo'
 
 const BASE = 'https://www.1weapp.online/ru'
 
@@ -110,8 +111,12 @@ export async function generateMetadata({
   if (!guide) return {}
 
   // Prefer custom SEO fields + low-frequency keyword list from guides-data
-  const title = guide.titleSeoRu ?? SEO[slug]?.title ?? `${guide.titleRu} — Гайд iGaming | 1weapp`
-  const description = guide.descriptionSeoRu ?? SEO[slug]?.description ?? guide.subtitleRu
+  const title = withBrandTitle(
+    guide.titleSeoRu ?? SEO[slug]?.title ?? `${guide.titleRu} — Гайд iGaming`
+  )
+  const description = clampMetaDescription(
+    guide.descriptionSeoRu ?? SEO[slug]?.description ?? guide.subtitleRu
+  )
   const keywords =
     guide.keywordsRu?.join(', ') || SEO[slug]?.keywords || guide.tagRu
 

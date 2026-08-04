@@ -59,7 +59,11 @@ export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] })
           <div className="home-mood-banner__bg" aria-hidden="true">
             <Image
               src="/banners/mood-demos.webp"
-              alt=""
+              alt={
+                isEn
+                  ? 'Free demo games mood banner on 1weapp'
+                  : 'Баннер бесплатных демо-игр на 1weapp'
+              }
               fill
               sizes="(max-width: 1280px) 100vw, 1280px"
               className="home-mood-banner__photo"
@@ -111,7 +115,16 @@ export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] })
             {guideCards.map((g, i) => (
               <li key={g.id} style={{ '--i': i } as CSSProperties}>
                 <Link href={`${guidesHref}/${g.id}`}>
-                  <Image src={g.avatar} alt="" width={128} height={171} />
+                  <Image
+                    src={g.avatar}
+                    alt={
+                      isEn
+                        ? `${getGame(g.gameSlug)?.name ?? g.gameSlug} demo guide`
+                        : `Гайд по демо ${getGame(g.gameSlug)?.name ?? g.gameSlug}`
+                    }
+                    width={128}
+                    height={171}
+                  />
                 </Link>
               </li>
             ))}

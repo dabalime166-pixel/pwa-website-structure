@@ -321,7 +321,7 @@ export function RandomDemoPromo({ games, lang }: RandomDemoPromoProps) {
                     >
                       <img
                         src={game.avatar}
-                        alt=""
+                        alt={game.name}
                         width={CARD_W}
                         height={Math.round(CARD_W * 1.3)}
                         draggable={false}

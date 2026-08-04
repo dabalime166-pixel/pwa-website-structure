@@ -90,7 +90,17 @@ export function MoodThemeRail({
           <li key={t.id} style={{ '--i': i } as CSSProperties}>
             <Link href={t.href} className="home-mood-banner__tile">
               <span className="home-mood-banner__tile-art">
-                <Image src={t.avatar} alt="" width={120} height={160} sizes="96px" />
+                <Image
+                  src={t.avatar}
+                  alt={
+                    isEn
+                      ? `${t.label} demo theme`
+                      : `Тема демо: ${t.label}`
+                  }
+                  width={120}
+                  height={160}
+                  sizes="96px"
+                />
               </span>
               <span className="home-mood-banner__tile-label">{t.label}</span>
             </Link>

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import GuidesIndexPage from '@/components/guides-index-page'
+import { withBrandTitle } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Strategy Guides — iGaming Mechanics, RTP & Bonuses Explained',
+  title: withBrandTitle('Strategy Guides — iGaming Mechanics, RTP & Bonuses Explained'),
   description:
     'Free strategy guides for crash games and slots: Plinko math, Mines tactics, Crash psychology, RTP analysis, bonus hunting, responsible gambling and debunked myths.',
   openGraph: {

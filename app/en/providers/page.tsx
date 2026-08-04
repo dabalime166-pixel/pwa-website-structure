@@ -42,7 +42,7 @@ export default function EnProvidersIndexPage() {
                 <span className="home-provider-hubs__fan" aria-hidden="true">
                   <Image
                     src={card.previewImage}
-                    alt=""
+                    alt={`${card.titleEn} demo lobby preview`}
                     width={240}
                     height={136}
                     sizes="140px"

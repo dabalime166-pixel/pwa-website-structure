@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { GameGuidesIndexPage } from '@/components/game-guides-page'
+import { withBrandTitle } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Гайды по играм — как работают популярные демо',
+  title: withBrandTitle('Гайды по играм — как работают популярные демо'),
   description:
     'Короткие разборы Lucky Jet, Gates of Olympus, Sweet Bonanza и других хитов — множители, фриспины, кэшаут. Бесплатное демо без регистрации. 18+.',
   alternates: {

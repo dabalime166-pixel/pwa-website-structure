@@ -4,6 +4,7 @@ import { GAME_GUIDES, getGameGuide } from '@/lib/game-guides-data'
 import { GameGuideSinglePage } from '@/components/game-guides-page'
 import { EXPERT } from '@/lib/expert'
 import { getGame } from '@/lib/games'
+import { absoluteUrl, clampMetaDescription, withBrandTitle } from '@/lib/seo'
 
 const BASE = 'https://www.1weapp.online/ru'
 
@@ -19,9 +20,11 @@ export async function generateMetadata({
   const { slug } = await params
   const guide = getGameGuide(slug)
   if (!guide) return {}
+  const title = withBrandTitle(guide.titleSeoRu)
+  const description = clampMetaDescription(guide.descriptionSeoRu)
   return {
-    title: guide.titleSeoRu,
-    description: guide.descriptionSeoRu,
+    title,
+    description,
     keywords: guide.keywordsRu.join(', '),
     alternates: {
       canonical: `${BASE}/guides/games/${slug}`,
@@ -32,12 +35,12 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: guide.titleSeoRu,
-      description: guide.descriptionSeoRu,
+      title,
+      description,
       url: `${BASE}/guides/games/${slug}`,
       locale: 'ru_RU',
       type: 'article',
-      images: [{ url: guide.avatar, width: 400, height: 533, alt: guide.titleRu }],
+      images: [{ url: absoluteUrl(guide.avatar), width: 400, height: 533, alt: guide.titleRu }],
     },
   }
 }
@@ -55,7 +58,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     description: guide.subtitleRu,
     inLanguage: 'ru',
     url: `${BASE}/guides/games/${slug}`,
-    image: `https://www.1weapp.online${guide.avatar}`,
+    image: absoluteUrl(guide.avatar),
     author: {
       '@type': 'Person',
       name: EXPERT.name,
@@ -65,7 +68,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       '@type': 'VideoGame',
       name: game?.name ?? guide.gameSlug,
       url: `https://www.1weapp.online/ru/${guide.gameSlug}`,
-      image: `https://www.1weapp.online${guide.avatar}`,
+      image: absoluteUrl(guide.avatar),
     },
   })
 

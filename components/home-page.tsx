@@ -153,7 +153,11 @@ export function HomePage({ lang }: HomePageProps) {
           <div className="home-brand-banner__media" aria-hidden="true">
             <Image
               src="/banners/home-brand.webp"
-              alt=""
+              alt={
+                isEn
+                  ? '1weapp free crash and slot demos banner'
+                  : 'Баннер бесплатных демо crash и слотов 1weapp'
+              }
               fill
               priority
               sizes="100vw"

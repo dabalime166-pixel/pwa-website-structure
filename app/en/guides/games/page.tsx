@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { GameGuidesIndexPage } from '@/components/game-guides-page'
+import { withBrandTitle } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Game Guides — How Popular Demos Work',
+  title: withBrandTitle('Game Guides — How Popular Demos Work'),
   description:
     'Short guides for Lucky Jet, Gates of Olympus, Sweet Bonanza and more — multipliers, free spins, crash timing. Free demo, no signup. 18+.',
   alternates: {

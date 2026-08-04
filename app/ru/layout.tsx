@@ -1,10 +1,6 @@
-import { HtmlLang } from '@/components/html-lang'
+import { RootDocument } from '@/components/root-document'
+import { fontClassName } from '@/lib/fonts'
 
 export default function RuLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <HtmlLang lang="ru" />
-      {children}
-    </>
-  )
+  return <RootDocument lang="ru" fontClassName={fontClassName}>{children}</RootDocument>
 }

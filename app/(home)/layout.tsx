@@ -1,6 +1,7 @@
 import { RootDocument } from '@/components/root-document'
 import { fontClassName } from '@/lib/fonts'
 
-export default function EnLayout({ children }: { children: React.ReactNode }) {
+/** English document shell for `/` (route group does not affect the URL). */
+export default function HomeGroupLayout({ children }: { children: React.ReactNode }) {
   return <RootDocument lang="en" fontClassName={fontClassName}>{children}</RootDocument>
 }

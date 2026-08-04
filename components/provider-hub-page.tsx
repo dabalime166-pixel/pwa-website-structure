@@ -16,6 +16,7 @@ import {
   providerHref,
   providersIndexHref,
 } from '@/lib/providers'
+import { clampMetaDescription, withBrandTitle } from '@/lib/seo'
 
 export function providerStaticParams() {
   return PROVIDERS.map((p) => ({ provider: p.slug }))
@@ -24,14 +25,16 @@ export function providerStaticParams() {
 export function providerMetadata(lang: Lang, providerSlug: string): Metadata {
   const provider = getProviderBySlug(providerSlug)
   if (!provider) return {}
-  const title =
+  const title = withBrandTitle(
     lang === 'en'
-      ? `${provider.titleEn} demos — play free | 1weapp`
-      : `${provider.titleRu} демо — играть бесплатно | 1weapp`
-  const description =
+      ? `${provider.titleEn} demos — play free`
+      : `${provider.titleRu} демо — играть бесплатно`
+  )
+  const description = clampMetaDescription(
     lang === 'en'
       ? `Browse free ${provider.titleEn} demo games on 1weapp. No signup, instant browser play.`
       : `Смотрите бесплатные демо ${provider.titleRu} на 1weapp. Без регистрации, сразу в браузере.`
+  )
   const url = `https://www.1weapp.online${providerHref(lang, provider.slug)}`
   return {
     title,
@@ -88,7 +91,11 @@ export function ProviderHubPage({
           <div className="provider-hub__collage" aria-hidden="true">
             <Image
               src={previewImage}
-              alt=""
+              alt={
+                isEn
+                  ? `${provider.titleEn} free demo lobby collage`
+                  : `Коллаж бесплатных демо ${provider.titleRu}`
+              }
               width={240}
               height={136}
               sizes="(max-width: 640px) 160px, 200px"

@@ -203,7 +203,7 @@ export default function GuidesIndexPage({ lang }: Props) {
                   >
                     <Image
                       src={g.avatar}
-                      alt=""
+                      alt={g.titleEn || g.id}
                       width={120}
                       height={160}
                       className="game-guides-showcase__avatar"

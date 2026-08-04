@@ -25,6 +25,7 @@ import {
   getGameHighlights,
   getThemeFaqExtra,
 } from '@/lib/game-themes'
+import { absoluteUrl } from '@/lib/seo'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
 import { GAME_GUIDES } from '@/lib/game-guides-data'
@@ -103,22 +104,37 @@ function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string): FaqIte
 
 function buildJsonLd(game: GameFull, lang: Lang, faqItems: FaqItem[]): string {
   const isEn = lang === 'en'
+  const pageUrl = absoluteUrl(`/${lang}/${game.slug}`)
+  const imageUrl = absoluteUrl(game.avatar)
+  const description = isEn
+    ? `Play ${game.name} demo free — no registration needed. Developed by ${game.provider}.`
+    : `Играть в ${game.name} демо бесплатно — без регистрации. Разработчик: ${game.provider}.`
+
   const app = {
     '@type': 'SoftwareApplication',
+    '@id': `${pageUrl}#app`,
     name: `${game.name} Demo`,
     applicationCategory: 'GameApplication',
     operatingSystem: 'Web Browser',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    description: isEn
-      ? `Play ${game.name} demo free — no registration needed. Developed by ${game.provider}.`
-      : `Играть в ${game.name} демо бесплатно — без регистрации. Разработчик: ${game.provider}.`,
-    publisher: { '@type': 'Organization', name: game.provider },
-    image: game.avatar,
-    url: `https://www.1weapp.online/${lang}/${game.slug}`,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    description,
+    publisher: {
+      '@type': 'Organization',
+      name: game.provider,
+    },
+    image: imageUrl,
+    url: pageUrl,
+    inLanguage: lang,
   }
 
   const faq = {
     '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
     mainEntity: faqItems.map((item) => ({
       '@type': 'Question',
       name: item.question,
@@ -169,7 +185,11 @@ export function GamePage({ slug, lang }: GamePageProps) {
         <div className="game-page__atmosphere" aria-hidden="true">
           <Image
             src={game.avatar}
-            alt=""
+            alt={
+              isEn
+                ? `${game.name} demo background`
+                : `Фон демо ${game.name}`
+            }
             fill
             sizes="40vw"
             loading="lazy"
@@ -535,7 +555,11 @@ export function GamePage({ slug, lang }: GamePageProps) {
               >
                 <Image
                   src={relatedGameGuide.avatar}
-                  alt=""
+                  alt={
+                    isEn
+                      ? `${game.name} guide cover`
+                      : `Обложка гайда ${game.name}`
+                  }
                   width={72}
                   height={96}
                   className="game-guides__card-avatar"

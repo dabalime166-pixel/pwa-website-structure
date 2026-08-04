@@ -3,6 +3,7 @@ import 'server-only'
 import seoData from './games-seo.json'
 import { games, getGame } from '@/lib/games'
 import type { GameFull, Lang } from '@/lib/games'
+import { clampMetaDescription, withBrandTitle } from '@/lib/seo'
 
 type SeoRecord = {
   iframeUrl: string
@@ -40,20 +41,24 @@ export function getSeoText(game: GameFull, lang: Lang): string {
 
 export function getSeoTitle(game: GameFull, lang: Lang): string {
   const custom = lang === 'ru' ? game.titleSeoRu : game.titleSeoEn
-  if (custom) return custom
-  return lang === 'ru'
-    ? `${game.name} — Играть в демо онлайн`
-    : `${game.name} Demo — Play Free Online`
+  const raw =
+    custom ||
+    (lang === 'ru'
+      ? `${game.name} — Играть в демо онлайн`
+      : `${game.name} Demo — Play Free Online`)
+  return withBrandTitle(raw)
 }
 
 export function getSeoDescription(game: GameFull, lang: Lang): string {
   const custom = lang === 'ru' ? game.descriptionSeoRu : game.descriptionSeoEn
-  if (custom) return custom
+  if (custom) return clampMetaDescription(custom)
   const type = game.gameType || (lang === 'ru' ? 'игра' : 'game')
   const rtp = game.rtp ? ` RTP ${game.rtp}.` : ''
-  return lang === 'ru'
-    ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}, ${type}.${rtp}`
-    : `Play ${game.name} demo free — no registration needed. ${game.provider} ${type}.${rtp}`
+  const raw =
+    lang === 'ru'
+      ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}, ${type}.${rtp}`
+      : `Play ${game.name} demo free — no registration needed. ${game.provider} ${type}.${rtp}`
+  return clampMetaDescription(raw)
 }
 
 /** Format plain SEO text into semantic HTML paragraphs */
