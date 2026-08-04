@@ -7,6 +7,7 @@ import { GameViewer } from '@/components/game-viewer'
 import { ExpertBanner } from '@/components/expert-banner'
 import { FaqAccordion } from '@/components/faq-accordion'
 import type { FaqItem } from '@/components/faq-accordion'
+import { GameMediaGallery } from '@/components/game-media-gallery'
 import {
   CTA_URL,
   i18n,
@@ -20,6 +21,7 @@ import {
   getSeoText,
   formatSeoText,
 } from '@/lib/games-content'
+import { getGameMedia } from '@/lib/game-media'
 import {
   getDemoChecklist,
   getGameHighlights,
@@ -149,6 +151,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
   const guideIds = getRelatedGuideIds(game.gameType)
   const relatedGameGuide = GAME_GUIDES.find((g) => g.gameSlug === game.slug)
   const relatedGuides = GUIDES.filter((g) => guideIds.includes(g.id)).slice(0, relatedGameGuide ? 3 : 4)
+  const mediaItems = getGameMedia(game)
 
   const typeLabel = game.gameType || (isEn ? 'Slots' : 'Слоты')
   const rtpLabel = game.rtp || '~96%'
@@ -216,7 +219,11 @@ export function GamePage({ slug, lang }: GamePageProps) {
           <div className="gp-hero__cover">
             <Image
               src={game.avatar}
-              alt={game.name}
+              alt={
+                isEn
+                  ? `${game.name} demo free — ${game.provider} cover`
+                  : `${game.name} демо бесплатно — обложка ${game.provider}`
+              }
               width={160}
               height={160}
               priority
@@ -434,6 +441,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
             </div>
           ))}
         </section>
+
+        <GameMediaGallery items={mediaItems} lang={lang} />
 
         <section className="gp-try" aria-labelledby="gp-try-heading">
           <div className="gp-try__head">

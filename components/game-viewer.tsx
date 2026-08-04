@@ -247,7 +247,7 @@ export function GameViewer({
             <div className="game-teaser__cover">
               <Image
                 src={avatar}
-                alt=""
+                alt={`${gameName} ${demoBadge}`}
                 width={160}
                 height={213}
                 className="game-teaser__avatar"

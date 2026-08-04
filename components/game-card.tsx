@@ -19,7 +19,11 @@ function CardInner({ game, lang, priority }: { game: Game; lang: Lang; priority?
       <div className="card-img-wrap">
         <Image
           src={game.avatar}
-          alt={game.name}
+          alt={
+            isEn
+              ? `${game.name} free demo — ${game.provider}`
+              : `${game.name} демо бесплатно — ${game.provider}`
+          }
           fill
           sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 180px"
           loading={priority ? 'eager' : 'lazy'}

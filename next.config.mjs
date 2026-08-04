@@ -2,12 +2,19 @@
 const nextConfig = {
   poweredByHeader: false,
   images: {
+    // Vercel Image Optimization quota returns 402 — serve static assets directly.
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
         pathname: '/dabalime133/ava/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'luckmedia.link',
+        pathname: '/**',
       },
     ],
   },

@@ -167,6 +167,16 @@ function providerAngle(provider, seed, lang) {
       'Официальные demo-ссылки Pragmatic позволяют оценить RTP-ориентир и бонусы без депозита.',
       'Сравнивайте релизы Pragmatic рядом: один провайдер — честнее понять разницу темпа.',
     ],
+    "Play'n GO": [
+      'Play\'n GO демо удобно для проверки фич — фриспины и Blitz-режимы читаются в FUN-режиме.',
+      'У Play\'n GO сравните соседние тайтлы по частоте бонуса, прежде чем судить о волатильности.',
+      'Каталог Play\'n GO на 1weapp рассчитан на длинный скролл без регистрации.',
+    ],
+    NetEnt: [
+      'NetEnt демо удобно сравнивать классику и современные релизы — от Starburst до Megaways.',
+      'В FUN-режиме NetEnt оцените полировку UI и читаемость фич на телефоне до депозита.',
+      'Соседние карточки NetEnt показывают, как студия меняла ощущение сухих серий годами.',
+    ],
     default: [
       'Демо на 1weapp нужно для механики и темпа, а не для поиска «сигнала».',
       'Виртуальный баланс снимает давление депозита — вы смотрите на интерфейс и дисперсию.',
@@ -188,6 +198,16 @@ function providerAngle(provider, seed, lang) {
       'Pragmatic Play demos suit longer virtual-balance sessions — dry stretches become visible.',
       'Official Pragmatic demo links let you judge RTP range and bonuses with no deposit.',
       'Compare neighbouring Pragmatic titles: one studio makes pace differences clearer.',
+    ],
+    "Play'n GO": [
+      "Play'n GO demos are strong for feature-check sessions — free spins and Blitz modes feel clear in FUN mode.",
+      "With Play'n GO, compare neighbouring titles on bonus frequency before you judge volatility.",
+      "The Play'n GO catalog on 1weapp is built for long scrolling sessions without signup friction.",
+    ],
+    NetEnt: [
+      'NetEnt demos are ideal for classic-vs-modern pace checks — Starburst-era titles sit next to Megaways releases.',
+      'Use NetEnt FUN mode to judge UI polish and feature clarity on phone before any deposit.',
+      'Comparing neighbouring NetEnt cards shows how the same studio changes dry-stretch feel over years.',
     ],
     default: [
       '1weapp demos are for mechanics and pace — not for hunting a “signal”.',
@@ -360,9 +380,49 @@ function buildTitles(game) {
   }
 }
 
+function enrichKeywords(game, lang) {
+  const name = game.name
+  const provider = game.provider || 'studio'
+  const type = game.gameType || 'Slots'
+  if (lang === 'ru') {
+    const base = [
+      `${name} демо`,
+      `${name} играть бесплатно`,
+      `${name} демо без регистрации`,
+      `${name} бесплатно`,
+      `${name} слот демо`,
+      `${provider} ${name}`,
+      `${name} без депозита`,
+      `играть в ${name} онлайн`,
+      `${type} демо`,
+      `1weapp ${name}`,
+    ]
+    return [...new Set(base)].join(', ')
+  }
+  const base = [
+    `${name} demo`,
+    `play ${name} free`,
+    `${name} free demo`,
+    `${name} demo no registration`,
+    `${name} slot demo`,
+    `${provider} ${name}`,
+    `${name} no deposit`,
+    `play ${name} online free`,
+    `${type} demo free`,
+    `1weapp ${name}`,
+  ]
+  return [...new Set(base)].join(', ')
+}
+
 let rewritten = 0
 const updated = games.map((game) => {
-  if (KEEP_UNIQUE.has(game.slug)) return game
+  if (KEEP_UNIQUE.has(game.slug)) {
+    return {
+      ...game,
+      keywordsRu: enrichKeywords(game, 'ru'),
+      keywordsEn: enrichKeywords(game, 'en'),
+    }
+  }
 
   const theme = detectTheme(game)
   const seed = hashSeed(game.slug + '|' + game.name + '|' + (game.provider || ''))
@@ -376,14 +436,10 @@ const updated = games.map((game) => {
     descriptionSeoEn: buildDescEn(game, theme, seed),
     titleSeoRu: titles.titleSeoRu,
     titleSeoEn: titles.titleSeoEn,
-    keywordsRu:
-      game.keywordsRu ||
-      `${game.name} демо, ${game.name} играть бесплатно, ${game.name} слот, ${game.provider} демо, 1weapp`,
-    keywordsEn:
-      game.keywordsEn ||
-      `${game.name} demo, play ${game.name} free, ${game.name} slot, ${game.provider} demo, 1weapp`,
+    keywordsRu: enrichKeywords(game, 'ru'),
+    keywordsEn: enrichKeywords(game, 'en'),
   }
 })
 
 writeFileSync(path, JSON.stringify(updated, null, 2), 'utf8')
-console.log(`Rewrote ${rewritten} / ${games.length} games`)
+console.log(`Rewrote ${rewritten} / ${games.length} games (keywords enriched for all)`)
