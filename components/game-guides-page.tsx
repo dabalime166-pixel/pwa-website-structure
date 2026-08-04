@@ -70,7 +70,7 @@ export function GameGuidesIndexPage({ lang }: Props) {
                     alt=""
                     width={128}
                     height={170}
-                    sizes="(max-width: 639px) 64px, (max-width: 1023px) 40vw, 200px"
+                    sizes="(max-width: 639px) 52px, (max-width: 1023px) 40vw, 200px"
                     className="game-guides-hub__tile-avatar"
                     loading="lazy"
                   />
@@ -159,7 +159,7 @@ export function GameGuideSinglePage({
               alt=""
               width={200}
               height={267}
-              sizes="(max-width: 719px) 72px, 200px"
+              sizes="(max-width: 719px) 56px, 200px"
               className="gg-hero__avatar"
               priority
             />
@@ -264,6 +264,12 @@ export function GameGuideSinglePage({
               </p>
             </div>
           </article>
+        </div>
+
+        <div className="gg-sticky-cta">
+          <Link href={playHref} className="gg-sticky-cta__btn">
+            {isEn ? `Open ${gameName} demo` : `Открыть демо ${gameName}`}
+          </Link>
         </div>
       </main>
       <SiteFooter lang={lang} />
