@@ -73,7 +73,7 @@ function resolveCast(slugs: string[], catalog: Game[]): Game[] {
 export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] }) {
   const isEn = lang === 'en'
   const guidesHref = isEn ? '/en/guides/games' : '/ru/guides/games'
-  const guideCards = GAME_GUIDES.slice(0, 6)
+  const guideCards = GAME_GUIDES.slice(0, 4)
 
   return (
     <>
