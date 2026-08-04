@@ -67,7 +67,7 @@
     "slug": "sweet-bonanza",
     "name": "Sweet Bonanza",
     "provider": "Pragmatic Play",
-    "iframeUrl": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=USD&websiteUrl=https%3A%2F%2F1weapp.online&gcpif=2273&gameSymbol=vs20fruitswx&jurisdiction=99&lobbyUrl=https%3A%2F%2F1weapp.online",
+    "iframeUrl": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=USD&websiteUrl=https%3A%2F%2F1weapp.online&gameSymbol=vs20fruitsw&jurisdiction=99&lobbyUrl=https%3A%2F%2F1weapp.online",
     "keywordsRu": "Sweet Bonanza демо, Sweet Bonanza играть бесплатно, Sweet Bonanza демо без регистрации, Sweet Bonanza бесплатно, Sweet Bonanza слот демо, Pragmatic Play Sweet Bonanza, Sweet Bonanza без депозита, играть в Sweet Bonanza онлайн, Slots демо, 1weapp Sweet Bonanza",
     "keywordsEn": "Sweet Bonanza demo, play Sweet Bonanza free, Sweet Bonanza free demo, Sweet Bonanza demo no registration, Sweet Bonanza slot demo, Pragmatic Play Sweet Bonanza, Sweet Bonanza no deposit, play Sweet Bonanza online free, Slots demo free, 1weapp Sweet Bonanza",
     "seoTextRu": "Конфетное безумие Sweet Bonanza от Pragmatic Play привлекает гемблеров сочетанием яркого визуала и колоссального пот��нциала выплат. Здесь реализована функция лавины (Tumble Feature): сыгравшие комбинации взрываются, а сверху падают новые сладости, создавая цепочки выигрышей за один оплаченный раунд. Поймав 4 леденца на палочке (Scatter), игрок переходит в режим бесплатных вращений. Именно во время фриспинов на экране появляется секретное оружие — разноцветная сахарная бомба (Candy Bomb) с множителями до 100х. Если за один каскад падает несколько таких бо��б, их коэффициенты суммируются и умножают общий выигрыш за лавину. Максимальный выигрыш достигает безумных 21100х. Для нетерпеливых доступна функция Bonus Buy, позволяющая мгновенно выкупить бонусный раунд за 100x от ставки. Изучить волатильность автомата можно через Sweet Bonanza демо.",
@@ -75,6 +75,23 @@
     "avatar": "/avatars/sweet-bonanza.webp",
     "rtp": "96.48%",
     "gameType": "Slots"
+  },
+  {
+    "slug": "sweet-bonanza-1000",
+    "name": "Sweet Bonanza 1000",
+    "provider": "Pragmatic Play",
+    "iframeUrl": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=USD&websiteUrl=https%3A%2F%2F1weapp.online&gameSymbol=vs20fruitswx&jurisdiction=99&lobbyUrl=https%3A%2F%2F1weapp.online",
+    "keywordsRu": "Sweet Bonanza 1000 демо, Sweet Bonanza 1000 играть бесплатно, Sweet Bonanza 1000 демо без регистрации, Sweet Bonanza 1000 бесплатно, Sweet Bonanza 1000 слот демо, Pragmatic Play Sweet Bonanza 1000, Sweet Bonanza 1000 без депозита, играть в Sweet Bonanza 1000 онлайн, Sweet Bonanza 1000 vs20fruitswx, 1weapp Sweet Bonanza 1000",
+    "keywordsEn": "Sweet Bonanza 1000 demo, play Sweet Bonanza 1000 free, Sweet Bonanza 1000 free demo, Sweet Bonanza 1000 demo no registration, Sweet Bonanza 1000 slot demo, Pragmatic Play Sweet Bonanza 1000, Sweet Bonanza 1000 no deposit, play Sweet Bonanza 1000 online free, Sweet Bonanza 1000 vs20fruitswx, 1weapp Sweet Bonanza 1000",
+    "seoTextRu": "Sweet Bonanza 1000 от Pragmatic Play — усиленная конфетная версия классики Sweet Bonanza на кластерах с Tumble. Выигрышные связки исчезают, сверху падают новые символы, а сахарные бомбы теперь могут нести множители вплоть до 1000x.\n\nЧетыре скаттера открывают бесплатные спины, где множители особенно опасны для банкролла — и полезны для теста в демо. Заявленный RTP обычно около 96.50%, потолок выигрыша — до 25,000x. Символ демо: vs20fruitswx.\n\nОткройте бесплатное демо Sweet Bonanza 1000 на 1weapp без регистрации: оцените длину tumble-цепочек, частоту бонуса и комфорт ставки на виртуальных кредитах. Запуск сразу в браузере на ПК и телефоне.\n\nИспользуйте демо как тренировку перед любыми решениями о реальных ставках. Только 18+, с лимитом сессии и без догона проигрыша.",
+    "seoTextEn": "Sweet Bonanza 1000 by Pragmatic Play is the powered-up candy follow-up to classic Sweet Bonanza with cluster pays and Tumble. Winning clusters vanish, new symbols drop in, and candy bombs can now carry multipliers up to 1000x.\n\nFour Scatters open Free Spins, where stacked multipliers matter most — perfect to judge in demo first. Published RTP is typically around 96.50%, with a max-win ceiling up to 25,000x. Demo symbol: vs20fruitswx.\n\nLaunch the free Sweet Bonanza 1000 demo on 1weapp with no signup: study tumble-chain length, bonus frequency and stake comfort on virtual credits. It opens instantly in the browser on desktop or phone.\n\nUse the demo as practice before any real-money decision. 18+ only, set a session limit, never chase losses.",
+    "avatar": "/avatars/sweet-bonanza-1000.webp",
+    "rtp": "96.50%",
+    "gameType": "Slots",
+    "descriptionSeoRu": "Sweet Bonanza 1000 демо бесплатно на 1weapp (/sweet-bonanza-1000): Pragmatic Play, RTP 96.50%, множители до 1000x, без регистрации.",
+    "descriptionSeoEn": "Sweet Bonanza 1000 demo free on 1weapp (/sweet-bonanza-1000): Pragmatic Play, RTP 96.50%, multipliers up to 1000x, no signup.",
+    "titleSeoRu": "Sweet Bonanza 1000 демо — играть бесплатно без регистрации | 1weapp",
+    "titleSeoEn": "Sweet Bonanza 1000 Demo — Play Free No Signup | 1weapp"
   },
   {
     "slug": "mines",
