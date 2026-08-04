@@ -278,24 +278,6 @@ export function GameViewer({
             referrerPolicy="no-referrer-when-downgrade"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
           />
-          <div className="game-sticky-play" role="toolbar" aria-label={fullscreenLabel}>
-            <button
-              type="button"
-              className="game-sticky-play__btn"
-              onClick={isFullscreen ? closeFullscreen : openFullscreen}
-            >
-              {isFullscreen ? <ShrinkIcon /> : <FullscreenIcon />}
-              {isFullscreen ? closeLabel : fullscreenLabel}
-            </button>
-            <a
-              href={CTA_URL}
-              className="game-sticky-play__money"
-              rel="noopener noreferrer nofollow sponsored"
-              target="_blank"
-            >
-              18+
-            </a>
-          </div>
         </div>
       )}
 

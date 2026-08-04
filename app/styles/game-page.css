@@ -808,13 +808,13 @@
   letter-spacing: 0.06em;
 }
 
-/* Fullscreen button */
+/* Fullscreen button — single control in the frame title bar */
 .btn-fullscreen {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
   padding: 0.3rem 0.75rem;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
   border: 1px solid var(--color-border-gold);
   background: rgba(201,162,39,0.08);
   color: var(--color-gold-light);
@@ -825,6 +825,12 @@
   transition: background 0.15s, border-color 0.15s, color 0.15s;
   min-height: 32px;
   flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .btn-fullscreen {
+    min-height: 36px;
+    padding: 0.4rem 0.8rem;
+  }
 }
 .btn-fullscreen:hover {
   background: rgba(201,162,39,0.2);
@@ -855,8 +861,8 @@
 }
 @media (max-width: 640px) {
   .game-frame-body:not(.game-frame-body--launch) {
-    padding-bottom: min(120vw, 80dvh);
-    max-height: 80dvh;
+    padding-bottom: min(130vw, 84dvh);
+    max-height: 84dvh;
   }
   .game-frame-body--launch {
     padding-bottom: 0;
@@ -1029,44 +1035,8 @@
 }
 
 
-/* Sticky mobile play toolbar */
-.game-sticky-play {
-  display: none;
-}
-@media (max-width: 768px) {
-  .game-sticky-play {
-    position: sticky;
-    bottom: 0;
-    z-index: 5;
-    display: flex;
-    gap: 0.5rem;
-    padding: 0.55rem 0.65rem;
-    background: linear-gradient(180deg, transparent, rgba(7, 7, 10, 0.92) 30%);
-  }
-  .game-sticky-play__btn,
-  .game-sticky-play__money {
-    flex: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    border-radius: 999px;
-    border: 1px solid rgba(226, 184, 74, 0.35);
-    padding: 0.65rem 0.75rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-decoration: none;
-  }
-  .game-sticky-play__btn {
-    background: rgba(226, 184, 74, 0.16);
-    color: var(--color-gold);
-    cursor: pointer;
-  }
-  .game-sticky-play__money {
-    background: transparent;
-    color: var(--color-text-muted);
-  }
-}
+/* Sticky mobile play toolbar removed — fullscreen lives in .game-frame-bar only */
+
 .faq__cta-wrap {
   display: flex;
   flex-direction: column;
