@@ -157,57 +157,66 @@ export function HomeLobby({ lang, sections, allGames }: HomeLobbyProps) {
 
   return (
     <div className="home-lobby">
-      <div className="lobby-tabs-bar" ref={barRef}>
-        <div className="lobby-tabs-bar__inner">
-          <nav className="lobby-tabs" aria-label={isEn ? 'Providers' : 'Провайдеры'}>
-            {sections.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                className={`lobby-tab${active === s.id && !showSearch ? ' is-active' : ''}`}
-                onClick={() => jump(s.id)}
-                aria-current={active === s.id && !showSearch ? 'true' : undefined}
-              >
-                {s.title}
-                <span className="lobby-tab__count">{s.games.length}</span>
-              </button>
-            ))}
-          </nav>
-
-          <div className="lobby-search">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
+      <div className="lobby-toolbar" ref={barRef}>
+        <div className="lobby-toolbar__panel">
+          <label className="lobby-search">
+            <span className="lobby-search__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </span>
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={isEn ? 'Search name, provider…' : 'Поиск: название, провайдер…'}
+              placeholder={isEn ? 'Search demos…' : 'Поиск демо…'}
               aria-label={isEn ? 'Search demos' : 'Поиск демо'}
               autoComplete="off"
               spellCheck={false}
             />
-            {query && (
-              <button type="button" className="lobby-search__clear" onClick={() => setQuery('')} aria-label={isEn ? 'Clear' : 'Сбросить'}>
+            {query ? (
+              <button
+                type="button"
+                className="lobby-search__clear"
+                onClick={() => setQuery('')}
+                aria-label={isEn ? 'Clear' : 'Сбросить'}
+              >
                 ×
               </button>
-            )}
-          </div>
-        </div>
+            ) : null}
+          </label>
 
-        <div className="lobby-filters" role="group" aria-label={isEn ? 'Game type' : 'Тип игры'}>
-          {typeChips.map((chip) => (
-            <button
-              key={chip.id}
-              type="button"
-              className={`lobby-filter${typeFilter === chip.id ? ' is-active' : ''}`}
-              aria-pressed={typeFilter === chip.id}
-              onClick={() => setTypeFilter(chip.id)}
-            >
-              {chip.label}
-            </button>
-          ))}
+          <div className="lobby-toolbar__rails">
+            <nav className="lobby-providers" aria-label={isEn ? 'Providers' : 'Провайдеры'}>
+              {sections.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  className={`lobby-providers__tab${active === s.id && !showSearch ? ' is-active' : ''}`}
+                  onClick={() => jump(s.id)}
+                  aria-current={active === s.id && !showSearch ? 'true' : undefined}
+                >
+                  <span className="lobby-providers__name">{s.title}</span>
+                  <span className="lobby-providers__count">{s.games.length}</span>
+                </button>
+              ))}
+            </nav>
+
+            <div className="lobby-types" role="group" aria-label={isEn ? 'Game type' : 'Тип игры'}>
+              {typeChips.map((chip) => (
+                <button
+                  key={chip.id}
+                  type="button"
+                  className={`lobby-types__chip${typeFilter === chip.id ? ' is-active' : ''}`}
+                  aria-pressed={typeFilter === chip.id}
+                  onClick={() => setTypeFilter(chip.id)}
+                >
+                  {chip.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -275,11 +284,25 @@ export function HomeLobby({ lang, sections, allGames }: HomeLobbyProps) {
                     <span className="lobby-section-header__count">{section.games.length}</span>
                     {!isOpen && (
                       <div className="lobby-scroll-btns">
-                        <button type="button" className="lobby-scroll-btn" onClick={() => scrollRow(section.id, -1)} aria-label={isEn ? 'Previous' : 'Назад'}>
-                          ‹
+                        <button
+                          type="button"
+                          className="lobby-scroll-btn"
+                          onClick={() => scrollRow(section.id, -1)}
+                          aria-label={isEn ? 'Previous' : 'Назад'}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M14.5 5 L8 12 L14.5 19" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
                         </button>
-                        <button type="button" className="lobby-scroll-btn" onClick={() => scrollRow(section.id, 1)} aria-label={isEn ? 'Next' : 'Вперёд'}>
-                          ›
+                        <button
+                          type="button"
+                          className="lobby-scroll-btn"
+                          onClick={() => scrollRow(section.id, 1)}
+                          aria-label={isEn ? 'Next' : 'Вперёд'}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M9.5 5 L16 12 L9.5 19" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
                         </button>
                       </div>
                     )}
