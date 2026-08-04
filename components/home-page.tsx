@@ -63,6 +63,12 @@ export function HomePage({ lang }: HomePageProps) {
       games: byProvider('Pragmatic Play'),
     },
     {
+      id: 'lobby-playn-go',
+      title: "Play'n GO",
+      subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
+      games: byProvider("Play'n GO"),
+    },
+    {
       id: 'lobby-hacksaw-gaming',
       title: 'Hacksaw Gaming',
       subtitle: isEn ? 'Provider lobby' : 'Лобби провайдера',
