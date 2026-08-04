@@ -1,5 +1,8 @@
 import { games, type Game, type Lang, homeHref } from '@/lib/games'
 
+/** Games per page on provider hubs (and home page chips). */
+export const PROVIDER_PAGE_SIZE = 36
+
 export type ProviderDef = {
   /** URL segment, e.g. play-n-go */
   slug: string
@@ -41,6 +44,7 @@ export function providersIndexHref(lang: Lang): string {
 
 export type ProviderCard = ProviderDef & {
   count: number
+  pages: number
   previews: Game[]
 }
 
@@ -50,9 +54,25 @@ export function getProviderCards(previewCount = 4): ProviderCard[] {
     return {
       ...p,
       count: list.length,
+      pages: Math.max(1, Math.ceil(list.length / PROVIDER_PAGE_SIZE)),
       previews: list.slice(0, previewCount),
     }
   }).filter((p) => p.count > 0)
+}
+
+/** Compact page list for UI chips: 1 … n with optional ellipsis. */
+export function pageChipNumbers(totalPages: number, maxChips = 8): (number | '…')[] {
+  if (totalPages <= maxChips) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1)
+  }
+  const mid = maxChips - 2
+  const nums: (number | '…')[] = [1]
+  const start = 2
+  const end = start + mid - 1
+  for (let i = start; i <= end; i++) nums.push(i)
+  nums.push('…')
+  nums.push(totalPages)
+  return nums
 }
 
 export function homePath(lang: Lang): string {
