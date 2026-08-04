@@ -92,7 +92,7 @@ body {
 }
 
 /* ── Typography hierarchy ── */
-h1, h2, .home-hero__brand {
+h1, h2, .home-brand-banner__brand {
   font-family: var(--font-display);
 }
 h1 { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; }

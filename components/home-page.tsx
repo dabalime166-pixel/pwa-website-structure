@@ -183,81 +183,77 @@ export function HomePage({ lang }: HomePageProps) {
       <SiteHeader lang={lang} />
 
       <main id="main-content" role="main">
-        <section className="home-hero" aria-label="1weapp">
-          <div className="home-hero__stage" aria-hidden="true">
-            <div className="home-hero__glow home-hero__glow--a" />
-            <div className="home-hero__glow home-hero__glow--b" />
-            <div className="home-hero__noise" />
-            <div className="home-hero__art">
+        <section className="home-brand-banner" aria-label="1weapp">
+          <div className="home-brand-banner__media" aria-hidden="true">
+            <div className="home-brand-banner__strip">
               {heroArt.map((game, index) =>
                 game ? (
-                  <div key={game.slug} className={`home-hero__poster home-hero__poster--${index + 1}`}>
+                  <span key={game.slug} className="home-brand-banner__shot">
                     <Image
                       src={game.avatar}
                       alt=""
                       fill
-                      sizes="(max-width: 768px) 40vw, 28vw"
+                      sizes="(max-width: 768px) 28vw, 18vw"
                       priority={index < 2}
                     />
-                  </div>
+                  </span>
                 ) : null
               )}
             </div>
-            <div className="home-hero__veil" />
+            <div className="home-brand-banner__veil" />
           </div>
 
-          <div className="home-hero__inner">
-            <p className="home-hero__brand anim-fade-up">
-              <span className="home-hero__brand-main">1we</span>
-              <span className="home-hero__brand-accent">app</span>
-            </p>
-
-            <h1 className="home-hero__title anim-fade-up anim-delay-1">{t.heroTitle}</h1>
-            <p className="home-hero__sub anim-fade-up anim-delay-2">{t.heroSub}</p>
-
-            <div className="home-hero__actions anim-fade-up anim-delay-3">
-              <a href="#lobby" className="btn-cta">
-                {isEn ? 'Browse demos' : 'Смотреть демо'}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </a>
-
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="btn-ghost"
-                aria-label={t.playReal}
-              >
-                {t.playReal}
-              </a>
+          <div className="home-brand-banner__inner">
+            <div className="home-brand-banner__copy">
+              <p className="home-brand-banner__brand anim-fade-up">
+                <span className="home-brand-banner__brand-main">1we</span>
+                <span className="home-brand-banner__brand-accent">app</span>
+              </p>
+              <h1 className="home-brand-banner__title anim-fade-up anim-delay-1">{t.heroTitle}</h1>
+              <p className="home-brand-banner__sub anim-fade-up anim-delay-2">{t.heroSub}</p>
             </div>
 
-            <p className="home-hero__legal anim-fade-up anim-delay-4">
-              {isEn ? (
-                <>
-                  18+ ·{' '}
-                  <a href="/en/responsible-gaming" className="rg-note__link">
-                    Gamble responsibly
-                  </a>
-                  {' · '}
-                  T&amp;C apply
-                </>
-              ) : (
-                <>
-                  18+ ·{' '}
-                  <a href="/ru/responsible-gaming" className="rg-note__link">
-                    Играйте ответственно
-                  </a>
-                  {' · '}
-                  Применяются условия
-                </>
-              )}
-            </p>
+            <div className="home-brand-banner__side anim-fade-up anim-delay-3">
+              <div className="home-brand-banner__actions">
+                <a href="#lobby" className="btn-cta">
+                  {isEn ? 'Browse demos' : 'Смотреть демо'}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+                <a
+                  href={CTA_URL}
+                  rel="noopener noreferrer nofollow sponsored"
+                  target="_blank"
+                  className="btn-ghost"
+                  aria-label={t.playReal}
+                >
+                  {t.playReal}
+                </a>
+              </div>
+              <p className="home-brand-banner__legal">
+                {isEn ? (
+                  <>
+                    18+ ·{' '}
+                    <a href="/en/responsible-gaming" className="rg-note__link">
+                      Gamble responsibly
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    18+ ·{' '}
+                    <a href="/ru/responsible-gaming" className="rg-note__link">
+                      Играйте ответственно
+                    </a>
+                  </>
+                )}
+              </p>
+            </div>
           </div>
         </section>
+
+        <HomeDiscover lang={lang} catalog={featured} />
 
         <section className="home-rail home-rail--how" aria-label={isEn ? 'How the demo works' : 'Как работает демо'}>
           {(isEn
@@ -281,8 +277,6 @@ export function HomePage({ lang }: HomePageProps) {
             </div>
           ))}
         </section>
-
-        <HomeDiscover lang={lang} catalog={featured} />
 
         <section
           id="lobby"

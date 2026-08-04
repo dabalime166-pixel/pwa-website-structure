@@ -501,12 +501,11 @@
 }
 
 @media (max-width: 720px) {
-  .home-hero__poster--3,
-  .home-hero__poster--4 { display: none; }
-  .home-hero__poster--1,
-  .home-hero__poster--2 {
-    width: min(34vw, 150px);
-    opacity: 0.38;
+  .home-brand-banner__shot:nth-child(n + 3) {
+    display: none;
+  }
+  .home-brand-banner__strip {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -514,9 +513,7 @@
 @media (prefers-reduced-motion: reduce) {
   .anim-fade-up,
   .anim-stagger > .anim-fade-up,
-  .home-hero__glow--a,
-  .home-hero__glow--b,
-  .home-hero__poster { animation: none; }
+  .home-brand-banner__shot { animation: none; }
   .btn-ghost,
   .btn-ghost svg,
   .game-card,
