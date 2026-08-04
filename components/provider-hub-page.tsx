@@ -92,6 +92,7 @@ export function ProviderHubPage({
               height={136}
               sizes="(max-width: 640px) 160px, 200px"
               priority={false}
+              unoptimized
             />
           </div>
         )}

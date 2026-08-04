@@ -1485,7 +1485,33 @@
   color: var(--color-gold-dim);
 }
 
-/* Arrow strip under home provider cards */
+/* Open-lobby CTA under home provider cards */
+.hub-open {
+  display: grid;
+  place-items: center;
+  min-height: 2.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 184, 74, 0.28);
+  background:
+    linear-gradient(165deg, rgba(255, 236, 180, 0.12), transparent 55%),
+    rgba(255, 255, 255, 0.03);
+  color: rgba(255, 227, 154, 0.92);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  transition: border-color 0.16s ease, background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+.hub-open:hover {
+  border-color: rgba(255, 227, 154, 0.5);
+  background: rgba(226, 184, 74, 0.1);
+  color: #fff3c4;
+  transform: translateY(-1px);
+}
+
 .hub-arrows {
   display: grid;
   grid-template-columns: auto 1fr auto;

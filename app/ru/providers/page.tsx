@@ -47,6 +47,7 @@ export default function RuProvidersIndexPage() {
                     height={136}
                     sizes="140px"
                     loading="lazy"
+                    unoptimized
                   />
                 </span>
                 <div className="home-provider-hubs__meta">
