@@ -11,11 +11,6 @@ const nextConfig = {
         hostname: 'raw.githubusercontent.com',
         pathname: '/dabalime133/ava/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'luckmedia.link',
-        pathname: '/**',
-      },
     ],
   },
   async redirects() {
