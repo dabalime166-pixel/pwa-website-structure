@@ -501,11 +501,8 @@
 }
 
 @media (max-width: 720px) {
-  .home-brand-banner__shot:nth-child(n + 3) {
-    display: none;
-  }
-  .home-brand-banner__strip {
-    grid-template-columns: repeat(2, 1fr);
+  .home-brand-banner__photo {
+    object-position: 78% center;
   }
 }
 
@@ -513,7 +510,8 @@
 @media (prefers-reduced-motion: reduce) {
   .anim-fade-up,
   .anim-stagger > .anim-fade-up,
-  .home-brand-banner__shot { animation: none; }
+  .home-brand-banner__photo,
+  .home-brand-banner__shine { animation: none; }
   .btn-ghost,
   .btn-ghost svg,
   .game-card,
