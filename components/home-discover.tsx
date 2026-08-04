@@ -24,9 +24,13 @@ const THEME_TILES: ThemeTile[] = [
   { id: 'megaways', labelEn: 'Megaways', labelRu: 'Megaways', slug: 'buffalo-king-megaways' },
   { id: 'sugar', labelEn: 'Sugar', labelRu: 'Sugar', slug: 'sugar-rush' },
   { id: 'mustang', labelEn: 'Mustang', labelRu: 'Mustang', slug: 'mustang-gold' },
+  { id: 'rocket', labelEn: 'Rocket', labelRu: 'Ракета', slug: 'rocket-queen' },
+  { id: 'fruit', labelEn: 'Fruit', labelRu: 'Фрукты', slug: 'fruit-party' },
+  { id: 'dragon', labelEn: 'Dragon', labelRu: 'Дракон', slug: 'floating-dragon' },
+  { id: 'destiny', labelEn: 'Destiny', labelRu: 'Таро', slug: 'madame-destiny-megaways' },
+  { id: 'gods', labelEn: 'Gods', labelRu: 'Боги', slug: 'zeus-vs-hades-gods-of-war' },
+  { id: 'mines', labelEn: 'Mines', labelRu: 'Mines', slug: 'mines' },
 ]
-
-const BG_SLUGS = ['gates-of-olympus', 'lucky-jet', 'sweet-bonanza', 'wild-west-gold']
 
 function resolveGame(slug: string, catalog: Game[]): Game | undefined {
   return catalog.find((g) => g.slug === slug) ?? getGame(slug)
@@ -39,19 +43,20 @@ export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] })
   const tiles = THEME_TILES.map((t) => ({ ...t, game: resolveGame(t.slug, catalog) })).filter(
     (t): t is ThemeTile & { game: Game } => Boolean(t.game)
   )
-  const bgGames = BG_SLUGS.map((s) => resolveGame(s, catalog)).filter((g): g is Game => Boolean(g))
 
   return (
     <>
       <section className="home-mood-banner" aria-labelledby="home-moods-heading">
         <div className="home-mood-banner__frame">
           <div className="home-mood-banner__bg" aria-hidden="true">
-            {bgGames.map((g, i) => (
-              <div key={g.slug} className={`home-mood-banner__poster home-mood-banner__poster--${i + 1}`}>
-                <Image src={g.avatar} alt="" fill sizes="40vw" />
-              </div>
-            ))}
-            <div className="home-mood-banner__grid" />
+            <Image
+              src="/banners/mood-demos.webp"
+              alt=""
+              fill
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="home-mood-banner__photo"
+              priority={false}
+            />
             <div className="home-mood-banner__veil" />
           </div>
 

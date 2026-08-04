@@ -543,60 +543,17 @@
   inset: 0;
   pointer-events: none;
 }
-.home-mood-banner__poster {
-  position: absolute;
-  width: 38%;
-  aspect-ratio: 3 / 4;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  opacity: 0.38;
-  filter: blur(1px) saturate(1.05);
-}
-.home-mood-banner__poster img {
+.home-mood-banner__photo {
   object-fit: cover;
-}
-.home-mood-banner__poster--1 {
-  left: -4%;
-  top: 8%;
-  transform: rotate(-8deg);
-}
-.home-mood-banner__poster--2 {
-  left: 18%;
-  bottom: -18%;
-  width: 28%;
-  transform: rotate(6deg);
-  opacity: 0.28;
-}
-.home-mood-banner__poster--3 {
-  right: 14%;
-  top: -10%;
-  width: 30%;
-  transform: rotate(7deg);
-  opacity: 0.32;
-}
-.home-mood-banner__poster--4 {
-  right: -6%;
-  bottom: -12%;
-  width: 34%;
-  transform: rotate(-5deg);
-}
-.home-mood-banner__grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(226, 184, 74, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(226, 184, 74, 0.05) 1px, transparent 1px);
-  background-size: 42px 42px;
-  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 45%, #000 20%, transparent 75%);
-          mask-image: radial-gradient(ellipse 75% 70% at 50% 45%, #000 20%, transparent 75%);
-  opacity: 0.7;
+  object-position: center;
+  opacity: 0.88;
 }
 .home-mood-banner__veil {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 55% 50% at 50% 35%, rgba(226, 184, 74, 0.14), transparent 70%),
-    linear-gradient(180deg, rgba(7, 7, 10, 0.55) 0%, rgba(7, 7, 10, 0.72) 45%, rgba(7, 7, 10, 0.92) 100%);
+    radial-gradient(ellipse 55% 48% at 50% 32%, rgba(0, 0, 0, 0.15), transparent 65%),
+    linear-gradient(180deg, rgba(7, 7, 10, 0.42) 0%, rgba(7, 7, 10, 0.55) 40%, rgba(7, 7, 10, 0.88) 100%);
 }
 .home-mood-banner__copy {
   position: relative;
