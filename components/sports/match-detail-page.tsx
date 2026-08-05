@@ -7,6 +7,7 @@ import type { SportScoreIncident, SportScoreMatch, SportScorePlayer } from '@/li
 import { isLiveStatus } from '@/lib/sports-types'
 import { tSports } from '@/lib/sports-i18n'
 import { BallIcon } from '@/components/sports/ball-icon'
+import { buildMatchH1 } from '@/lib/sports-seo'
 
 function scoreText(v: string | null | undefined) {
   if (v === null || v === undefined || v === '') return '–'
@@ -35,7 +36,7 @@ function PlayersList({
   if (!players?.length) return null
   return (
     <>
-      <h4>{title}</h4>
+      <h3 className="sports-lineup__group">{title}</h3>
       <ul>
         {players.map((p, idx) => (
           <li key={`${p.name}-${p.number}-${idx}`}>
@@ -61,7 +62,6 @@ function normalizeStats(stats: SportScoreMatch['stats']) {
       }))
       .filter((s) => s.label)
   }
-  // object map fallback
   return Object.entries(stats).map(([label, value]) => {
     if (value && typeof value === 'object' && ('home' in value || 'away' in value)) {
       const v = value as { home?: unknown; away?: unknown }
@@ -93,9 +93,14 @@ export async function MatchDetailPage({
 
   if (error || !match) {
     return (
-      <div className="page-shell sports-page">
+      <div className="page-shell sports-page sports-match-page">
+        <div className="sports-match-page__bg" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/banners/sports-match-bg.webp" alt="" width={1920} height={1080} />
+          <div className="sports-match-page__veil" />
+        </div>
         <SiteHeader lang={lang} section="sports" matchId={slug} />
-        <main className="sports-main">
+        <main className="sports-main sports-match-main">
           <p className="sports-error">{error || t.error}</p>
           <p className="sports-back">
             <Link href={backHref}>← {t.back}</Link>
@@ -114,11 +119,26 @@ export async function MatchDetailPage({
     live && match.live_minute != null
       ? `${match.status_text || 'Live'} ${match.live_minute}'`
       : match.status_text || match.status
+  const h1 = buildMatchH1(match, lang)
 
   return (
-    <div className="page-shell sports-page">
+    <div className="page-shell sports-page sports-match-page">
+      <div className="sports-match-page__bg" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="sports-match-page__photo"
+          src="/banners/sports-match-bg.webp"
+          alt=""
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+        />
+        <div className="sports-match-page__veil" />
+        <div className="sports-match-page__glow" />
+      </div>
+
       <SiteHeader lang={lang} section="sports" matchId={slug} />
-      <main className="sports-main">
+      <main className="sports-main sports-match-main">
         <p className="sports-back">
           <Link href={backHref}>← {t.back}</Link>
         </p>
@@ -132,11 +152,14 @@ export async function MatchDetailPage({
             {match.competition}
           </p>
 
+          <h1 className="sports-match-hero__title">{h1}</h1>
+
           <div className="sports-match-hero__scoreboard">
             <div className="sports-match-hero__side">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={match.home_logo} alt="" width={64} height={64} />
-              <h1>{match.home}</h1>
+              <img src={match.home_logo} alt="" width={72} height={72} />
+              <p className="sports-match-hero__team">{match.home}</p>
+              <p className="sports-match-hero__side-label">{t.home}</p>
             </div>
             <div className="sports-match-hero__score">
               <p className={`sports-match-hero__status${live ? ' is-live' : ''}`}>{statusLabel}</p>
@@ -151,8 +174,9 @@ export async function MatchDetailPage({
             </div>
             <div className="sports-match-hero__side sports-match-hero__side--away">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={match.away_logo} alt="" width={64} height={64} />
-              <h1>{match.away}</h1>
+              <img src={match.away_logo} alt="" width={72} height={72} />
+              <p className="sports-match-hero__team">{match.away}</p>
+              <p className="sports-match-hero__side-label">{t.away}</p>
             </div>
           </div>
 
@@ -163,7 +187,7 @@ export async function MatchDetailPage({
           </ul>
         </header>
 
-        <section className="sports-section" aria-labelledby="sports-teams-title">
+        <section className="sports-section sports-panel" aria-labelledby="sports-teams-title">
           <h2 id="sports-teams-title">{t.teams}</h2>
           <div className="sports-team-grid">
             <article className="sports-team-card">
@@ -190,7 +214,7 @@ export async function MatchDetailPage({
         </section>
 
         {events.length > 0 ? (
-          <section className="sports-section" aria-labelledby="sports-events-title">
+          <section className="sports-section sports-panel" aria-labelledby="sports-events-title">
             <h2 id="sports-events-title">{t.events}</h2>
             <ol className="sports-events">
               {events.map((ev, idx) => {
@@ -213,7 +237,7 @@ export async function MatchDetailPage({
         ) : null}
 
         {stats.length > 0 ? (
-          <section className="sports-section" aria-labelledby="sports-stats-title">
+          <section className="sports-section sports-panel" aria-labelledby="sports-stats-title">
             <h2 id="sports-stats-title">{t.stats}</h2>
             <div className="sports-stats">
               {stats.map((row) => (
@@ -228,7 +252,7 @@ export async function MatchDetailPage({
         ) : null}
 
         {lineups ? (
-          <section className="sports-section" aria-labelledby="sports-lineups-title">
+          <section className="sports-section sports-panel" aria-labelledby="sports-lineups-title">
             <h2 id="sports-lineups-title">{t.lineups}</h2>
             <div className="sports-lineups">
               <article className="sports-lineup">
