@@ -6,23 +6,39 @@ interface SiteHeaderProps {
   lang: Lang
   /** Current game slug — keeps language switch on the same game page */
   gameSlug?: string
-  /** When true, language switch stays inside /guides */
-  section?: 'guides'
+  /** When true, language switch stays inside /guides or /sports */
+  section?: 'guides' | 'sports'
   /** Current guide id — keeps language switch on the same guide */
   guideSlug?: string
   /** Game-guides hub under /guides/games */
   gameGuides?: boolean
   /** Current game-guide article id */
   gameGuideSlug?: string
+  /** Sports match id — keeps language switch on the same match */
+  matchId?: string
 }
 
-export function SiteHeader({ lang, gameSlug, section, guideSlug, gameGuides, gameGuideSlug }: SiteHeaderProps) {
+export function SiteHeader({
+  lang,
+  gameSlug,
+  section,
+  guideSlug,
+  gameGuides,
+  gameGuideSlug,
+  matchId,
+}: SiteHeaderProps) {
   const t = i18n[lang]
 
   let enHref = '/'
   let ruHref = '/ru'
 
-  if (gameGuideSlug) {
+  if (matchId) {
+    enHref = `/en/sports/match/${matchId}`
+    ruHref = `/ru/sports/match/${matchId}`
+  } else if (section === 'sports') {
+    enHref = '/en/sports'
+    ruHref = '/ru/sports'
+  } else if (gameGuideSlug) {
     enHref = `/en/guides/games/${gameGuideSlug}`
     ruHref = `/ru/guides/games/${gameGuideSlug}`
   } else if (gameGuides) {
@@ -41,6 +57,7 @@ export function SiteHeader({ lang, gameSlug, section, guideSlug, gameGuides, gam
 
   const enGuidesHref = '/en/guides'
   const ruGuidesHref = '/ru/guides'
+  const sportsHref = lang === 'en' ? '/en/sports' : '/ru/sports'
   const homeHref = lang === 'en' ? '/' : '/ru'
 
   return (
@@ -66,6 +83,12 @@ export function SiteHeader({ lang, gameSlug, section, guideSlug, gameGuides, gam
               className={`site-header__nav-link${section === 'guides' || guideSlug ? ' is-active' : ''}`}
             >
               {lang === 'en' ? 'Guides' : 'Гайды'}
+            </Link>
+            <Link
+              href={sportsHref}
+              className={`site-header__nav-link${section === 'sports' || matchId ? ' is-active' : ''}`}
+            >
+              {lang === 'en' ? 'Sports' : 'Спорт'}
             </Link>
           </nav>
 
