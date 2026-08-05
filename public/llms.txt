@@ -1,7 +1,7 @@
 # 1weapp.online — free casino demos (no signup)
 
 > Machine-readable map of https://www.1weapp.online for LLMs and crawlers.
-> Updated: 2026-08-04. Catalog size: 964 demo game pages (EN + RU).
+> Updated: 2026-08-05. Catalog size: 1422 demo game pages (EN + RU).
 
 1weapp is a demo-first catalog of free browser slot, crash and instant-win demos.
 No registration is required to launch demos. Real-money play happens only on external licensed operators via affiliate CTAs. Audience: 18+.
@@ -1064,6 +1064,464 @@ Each title also has a Russian mirror at https://www.1weapp.online/ru/{slug}.
 - Wings of Riches™ — https://www.1weapp.online/en/wings-of-riches
 - Wild-O-Tron 3000™ — https://www.1weapp.online/en/wild-o-tron-3000
 - Starburst — https://www.1weapp.online/en/starburst
+- Apollo Pays — https://www.1weapp.online/en/apollo-pays
+- Beef Lightning — https://www.1weapp.online/en/beef-lightning
+- Big Bad Bison — https://www.1weapp.online/en/big-bad-bison
+- Big Bucks Deluxe — https://www.1weapp.online/en/big-bucks-deluxe
+- Big Bucks Deluxe Tapcards — https://www.1weapp.online/en/big-bucks-deluxe-tapcards
+- Bonanza — https://www.1weapp.online/en/bonanza
+- Bonanza Falls — https://www.1weapp.online/en/bonanza-falls
+- Bonanza Tapcards — https://www.1weapp.online/en/bonanza-tapcards
+- Book Of Gods — https://www.1weapp.online/en/book-of-gods
+- Castle of Terror — https://www.1weapp.online/en/castle-of-terror
+- Castle Of Terror 2 — https://www.1weapp.online/en/castle-of-terror-2
+- Chocolates — https://www.1weapp.online/en/chocolates
+- Christmas Bonanza — https://www.1weapp.online/en/christmas-bonanza
+- Christmas Megapots — https://www.1weapp.online/en/christmas-megapots
+- Crystal Towers — https://www.1weapp.online/en/crystal-towers
+- Cyberslot Megaclusters™ — https://www.1weapp.online/en/cyberslot-megaclusters
+- Danger High Voltage — https://www.1weapp.online/en/danger-high-voltage
+- Diamond Fruits — https://www.1weapp.online/en/diamond-fruits
+- Donuts — https://www.1weapp.online/en/donuts
+- Dragon Born — https://www.1weapp.online/en/dragon-born
+- Extra Chilli — https://www.1weapp.online/en/extra-chilli
+- Extra Chilli Tapcards — https://www.1weapp.online/en/extra-chilli-tapcards
+- Fireworks Megaways™ — https://www.1weapp.online/en/fireworks-megaways
+- Fruit Merge Megapots — https://www.1weapp.online/en/fruit-merge-megapots
+- Gifts of Fortune — https://www.1weapp.online/en/gifts-of-fortune
+- Gold Megaways™ — https://www.1weapp.online/en/gold-megaways
+- Golden Catch — https://www.1weapp.online/en/golden-catch
+- Golden Goose Megaways™ — https://www.1weapp.online/en/golden-goose-megaways
+- Holy Diver — https://www.1weapp.online/en/holy-diver
+- King of Cats — https://www.1weapp.online/en/king-of-cats
+- Kingmaker Fully Loaded — https://www.1weapp.online/en/kingmaker-fully-loaded
+- Lil’ Devil — https://www.1weapp.online/en/lil-devil
+- Lucky Streak Mk2 — https://www.1weapp.online/en/lucky-streak-mk2
+- Max Megaways™ — https://www.1weapp.online/en/max-megaways
+- Max Megaways™ 2 — https://www.1weapp.online/en/max-megaways-2
+- Millionaire Megapots — https://www.1weapp.online/en/millionaire-megapots
+- Millionaire Megaways™ — https://www.1weapp.online/en/millionaire-megaways
+- Millionaire Mystery Box — https://www.1weapp.online/en/millionaire-mystery-box
+- Millionaire Rush — https://www.1weapp.online/en/millionaire-rush
+- Millionaire Tapcards — https://www.1weapp.online/en/millionaire-tapcards
+- Monopoly Deluxe — https://www.1weapp.online/en/monopoly-deluxe
+- Monopoly Megapots — https://www.1weapp.online/en/monopoly-megapots
+- Monopoly Rush Hour — https://www.1weapp.online/en/monopoly-rush-hour
+- Monopoly Tapcards — https://www.1weapp.online/en/monopoly-tapcards
+- Monster Quest — https://www.1weapp.online/en/monster-quest
+- Opal Fruits — https://www.1weapp.online/en/opal-fruits
+- Outlaw — https://www.1weapp.online/en/outlaw
+- Over the Moon — https://www.1weapp.online/en/over-the-moon
+- Panda Money  — https://www.1weapp.online/en/panda-money
+- Pirate Pays Megaways™ — https://www.1weapp.online/en/pirate-pays-megaways
+- Pop — https://www.1weapp.online/en/pop
+- Queen of Riches — https://www.1weapp.online/en/queen-of-riches
+- Rasputin Megaways™ — https://www.1weapp.online/en/rasputin-megaways
+- Royal Mint — https://www.1weapp.online/en/royal-mint
+- Sanctuary — https://www.1weapp.online/en/sanctuary
+- Spicy Meatballs — https://www.1weapp.online/en/spicy-meatballs
+- Star Clusters — https://www.1weapp.online/en/star-clusters
+- Star Clusters 2 — https://www.1weapp.online/en/star-clusters-2
+- Temple Quest Spinfinity — https://www.1weapp.online/en/temple-quest-spinfinity
+- The Final Countdown  — https://www.1weapp.online/en/the-final-countdown
+- The Race — https://www.1weapp.online/en/the-race
+- Trigger Happy — https://www.1weapp.online/en/trigger-happy
+- Vegas Megaways™ — https://www.1weapp.online/en/vegas-megaways
+- Vegas Rush — https://www.1weapp.online/en/vegas-rush
+- Warlocks — https://www.1weapp.online/en/warlocks
+- White Rabbit — https://www.1weapp.online/en/white-rabbit
+- White Rabbit 2 — https://www.1weapp.online/en/white-rabbit-2
+- Wild Flower — https://www.1weapp.online/en/wild-flower
+- Wild Portals — https://www.1weapp.online/en/wild-portals
+- Wild Unicorns — https://www.1weapp.online/en/wild-unicorns
+- AFK Airport Security — https://www.1weapp.online/en/afk-airport-security
+- Apocalypse Super xNudge® — https://www.1weapp.online/en/apocalypse-super-xnudge
+- Bangkok Hilton — https://www.1weapp.online/en/bangkok-hilton
+- Beheaded — https://www.1weapp.online/en/beheaded
+- Benji Killed In Vegas — https://www.1weapp.online/en/benji-killed-in-vegas
+- Bizarre — https://www.1weapp.online/en/bizarre
+- Blood & Shadow — https://www.1weapp.online/en/blood-and-shadow
+- Blood Diamond — https://www.1weapp.online/en/blood-diamond
+- Bounty Hunters — https://www.1weapp.online/en/bounty-hunters
+- Brute Force — https://www.1weapp.online/en/brute-force
+- Brute Force: Alien Onslaught — https://www.1weapp.online/en/brute-force-alien-onslaught
+- Bushido Ways xNudge® — https://www.1weapp.online/en/bushido-ways-xnudge
+- Catfish Hunters — https://www.1weapp.online/en/catfish-hunters
+- D-Day — https://www.1weapp.online/en/d-day
+- Das xBoot — https://www.1weapp.online/en/das-xboot
+- Das xBoot 2wei! — https://www.1weapp.online/en/das-xboot-2wei
+- Dead Canary — https://www.1weapp.online/en/dead-canary
+- Dead Men Walking — https://www.1weapp.online/en/dead-men-walking
+- Deadwood R.I.P — https://www.1weapp.online/en/deadwood-r-i-p
+- Deadwood xNudge® — https://www.1weapp.online/en/deadwood-xnudge
+- Devil's Crossroad — https://www.1weapp.online/en/devil-s-crossroad
+- Disorder — https://www.1weapp.online/en/disorder
+- Disturbed — https://www.1weapp.online/en/disturbed
+- DJ Psycho — https://www.1weapp.online/en/dj-psycho
+- Duck Hunters — https://www.1weapp.online/en/duck-hunters
+- Duck Hunters: Happy Hour — https://www.1weapp.online/en/duck-hunters-happy-hour
+- East Coast VS West Coast — https://www.1weapp.online/en/east-coast-vs-west-coast
+- El Paso Gunfight xNudge® — https://www.1weapp.online/en/el-paso-gunfight-xnudge
+- Evil Goblins xBomb® — https://www.1weapp.online/en/evil-goblins-xbomb
+- Fire In The Hole — https://www.1weapp.online/en/fire-in-the-hole
+- Fire in the Hole 2 — https://www.1weapp.online/en/fire-in-the-hole-2
+- Fire in the Hole 3 — https://www.1weapp.online/en/fire-in-the-hole-3
+- Flight Mode — https://www.1weapp.online/en/flight-mode
+- Folsom Prison — https://www.1weapp.online/en/folsom-prison
+- Gator Hunters — https://www.1weapp.online/en/gator-hunters
+- Gluttony — https://www.1weapp.online/en/gluttony
+- Highway to Hell — https://www.1weapp.online/en/highway-to-hell
+- Home of the Brave — https://www.1weapp.online/en/home-of-the-brave
+- Infectious 5 xWays® — https://www.1weapp.online/en/infectious-5-xways
+- Kenneth Must Die — https://www.1weapp.online/en/kenneth-must-die
+- Kill Em All — https://www.1weapp.online/en/kill-em-all
+- Land Of The Free — https://www.1weapp.online/en/land-of-the-free
+- Legion X — https://www.1weapp.online/en/legion-x
+- Little Bighorn — https://www.1weapp.online/en/little-bighorn
+- Loner — https://www.1weapp.online/en/loner
+- Mental — https://www.1weapp.online/en/mental
+- Mental II — https://www.1weapp.online/en/mental-ii
+- Misery Mining — https://www.1weapp.online/en/misery-mining
+- Munchies — https://www.1weapp.online/en/munchies
+- Nine To Five — https://www.1weapp.online/en/nine-to-five
+- Outsourced — https://www.1weapp.online/en/outsourced
+- Outsourced: Payday — https://www.1weapp.online/en/outsourced-payday
+- Pearl Harbor  — https://www.1weapp.online/en/pearl-harbor
+- Possessed — https://www.1weapp.online/en/possessed
+- Punk Rocker — https://www.1weapp.online/en/punk-rocker
+- Punk Rocker 2 — https://www.1weapp.online/en/punk-rocker-2
+- Punk Rocker 3 — https://www.1weapp.online/en/punk-rocker-3
+- Remember Gulag — https://www.1weapp.online/en/remember-gulag
+- Road Rage — https://www.1weapp.online/en/road-rage
+- Roadkill — https://www.1weapp.online/en/roadkill
+- Rock Bottom — https://www.1weapp.online/en/rock-bottom
+- San Quentin 2: Death Row — https://www.1weapp.online/en/san-quentin-2-death-row
+- San Quentin Manhunt — https://www.1weapp.online/en/san-quentin-manhunt
+- San Quentin xWays® — https://www.1weapp.online/en/san-quentin-xways
+- Skate or Die — https://www.1weapp.online/en/skate-or-die
+- Stockholm Syndrome — https://www.1weapp.online/en/stockholm-syndrome
+- Supersized — https://www.1weapp.online/en/supersized
+- Tanked — https://www.1weapp.online/en/tanked
+- The Border — https://www.1weapp.online/en/the-border
+- The Cage — https://www.1weapp.online/en/the-cage
+- The Crypt — https://www.1weapp.online/en/the-crypt
+- The Crypt 2 — https://www.1weapp.online/en/the-crypt-2
+- Tombstone — https://www.1weapp.online/en/tombstone
+- Tombstone Begins — https://www.1weapp.online/en/tombstone-begins
+- Tombstone R.I.P — https://www.1weapp.online/en/tombstone-r-i-p
+- Tombstone Slaughter: El Gordo's Revenge — https://www.1weapp.online/en/tombstone-slaughter-el-gordo-s-revenge
+- Tombstone: No Mercy — https://www.1weapp.online/en/tombstone-no-mercy
+- True Grit Redemption — https://www.1weapp.online/en/true-grit-redemption
+- True Grit Redemption 2 — https://www.1weapp.online/en/true-grit-redemption-2
+- True Kult — https://www.1weapp.online/en/true-kult
+- Tsar Wars — https://www.1weapp.online/en/tsar-wars
+- Ugliest Catch — https://www.1weapp.online/en/ugliest-catch
+- Warrior Graveyard xNudge® — https://www.1weapp.online/en/warrior-graveyard-xnudge
+- xWays Hoarder 2 — https://www.1weapp.online/en/xways-hoarder-2
+- xWays Hoarder xSplit® — https://www.1weapp.online/en/xways-hoarder-xsplit
+- 10,001 Nights — https://www.1weapp.online/en/10-001-nights
+- 10,001 Nights Megaways™ — https://www.1weapp.online/en/10-001-nights-megaways
+- 1942: Sky Warrior — https://www.1weapp.online/en/1942-sky-warrior
+- 24 Hour Grand Prix — https://www.1weapp.online/en/24-hour-grand-prix
+- 4Squad — https://www.1weapp.online/en/4squad
+- 5 Families — https://www.1weapp.online/en/5-families
+- 7’s Luck — https://www.1weapp.online/en/7-s-luck
+- 777 Diamond Strike — https://www.1weapp.online/en/777-diamond-strike
+- 777 Strike — https://www.1weapp.online/en/777-strike
+- 777 Super Strike — https://www.1weapp.online/en/777-super-strike
+- Age of Akkadia — https://www.1weapp.online/en/age-of-akkadia
+- Agent Royale — https://www.1weapp.online/en/agent-royale
+- Alexander the Great: World Conqueror — https://www.1weapp.online/en/alexander-the-great-world-conqueror
+- Ancient Disco — https://www.1weapp.online/en/ancient-disco
+- Ancient Script — https://www.1weapp.online/en/ancient-script
+- Ancients' Blessing — https://www.1weapp.online/en/ancients-blessing
+- Apache Way — https://www.1weapp.online/en/apache-way
+- Arcade Bomb — https://www.1weapp.online/en/arcade-bomb
+- Archdragon King — https://www.1weapp.online/en/archdragon-king
+- Astronaut — https://www.1weapp.online/en/astronaut
+- Astros — https://www.1weapp.online/en/astros
+- Athens Megaways™ — https://www.1weapp.online/en/athens-megaways
+- Atlantis — https://www.1weapp.online/en/atlantis
+- Aurum Codex — https://www.1weapp.online/en/aurum-codex
+- Aztec Spins — https://www.1weapp.online/en/aztec-spins
+- Aztec Tribute — https://www.1weapp.online/en/aztec-tribute
+- Bass Boss — https://www.1weapp.online/en/bass-boss
+- Bass Boss Megaways™ — https://www.1weapp.online/en/bass-boss-megaways
+- Beriched — https://www.1weapp.online/en/beriched
+- Betty, Boris and Boo — https://www.1weapp.online/en/betty-boris-and-boo
+- Big Cat Rescue Megaways™ — https://www.1weapp.online/en/big-cat-rescue-megaways
+- Big Gains — https://www.1weapp.online/en/big-gains
+- Biggest Vault — https://www.1weapp.online/en/biggest-vault
+- Blazing Clusters — https://www.1weapp.online/en/blazing-clusters
+- Blobsters Clusterbuster™ — https://www.1weapp.online/en/blobsters-clusterbuster
+- Blood Suckers™ Megaways™ — https://www.1weapp.online/en/blood-suckers-megaways
+- Blue Diamond — https://www.1weapp.online/en/blue-diamond
+- Bombuster — https://www.1weapp.online/en/bombuster
+- Bounty Raid — https://www.1weapp.online/en/bounty-raid
+- Bounty Raid 2 — https://www.1weapp.online/en/bounty-raid-2
+- Buffalo Collector — https://www.1weapp.online/en/buffalo-collector
+- Buffalo Mania Megaways™ — https://www.1weapp.online/en/buffalo-mania-megaways
+- Bulls Run Wild — https://www.1weapp.online/en/bulls-run-wild
+- Cai Shen 168 — https://www.1weapp.online/en/cai-shen-168
+- Cake & Ice Cream — https://www.1weapp.online/en/cake-and-ice-cream
+- Cannonball Cash — https://www.1weapp.online/en/cannonball-cash
+- Case Closed — https://www.1weapp.online/en/case-closed
+- Cash Explorer — https://www.1weapp.online/en/cash-explorer
+- Cash Goddess — https://www.1weapp.online/en/cash-goddess
+- Cash Lamps — https://www.1weapp.online/en/cash-lamps
+- Cash or Nothing — https://www.1weapp.online/en/cash-or-nothing
+- Cash Ultimate — https://www.1weapp.online/en/cash-ultimate
+- Cash Volt — https://www.1weapp.online/en/cash-volt
+- Cash Volt Supercharged — https://www.1weapp.online/en/cash-volt-supercharged
+- Chinese Treasures — https://www.1weapp.online/en/chinese-treasures
+- Christmas Morning — https://www.1weapp.online/en/christmas-morning
+- Cirque de la Fortune — https://www.1weapp.online/en/cirque-de-la-fortune
+- Clash of the Beasts — https://www.1weapp.online/en/clash-of-the-beasts
+- Clover Craze — https://www.1weapp.online/en/clover-craze
+- Crazy Genie — https://www.1weapp.online/en/crazy-genie
+- Crystal Mirror — https://www.1weapp.online/en/crystal-mirror
+- Cyber Attack — https://www.1weapp.online/en/cyber-attack
+- Dear Santa — https://www.1weapp.online/en/dear-santa
+- Diamond Blitz — https://www.1weapp.online/en/diamond-blitz
+- Diamond Blitz 2 — https://www.1weapp.online/en/diamond-blitz-2
+- Diamond Blitz 3 — https://www.1weapp.online/en/diamond-blitz-3
+- Diamond Doggies — https://www.1weapp.online/en/diamond-doggies
+- Diamond Royale — https://www.1weapp.online/en/diamond-royale
+- Diamonds Up — https://www.1weapp.online/en/diamonds-up
+- Dice Dice Dice — https://www.1weapp.online/en/dice-dice-dice
+- Digging For Wilds — https://www.1weapp.online/en/digging-for-wilds
+- Divine Ways — https://www.1weapp.online/en/divine-ways
+- Doggy Riches Megaways™ — https://www.1weapp.online/en/doggy-riches-megaways
+- Dracula Awakening — https://www.1weapp.online/en/dracula-awakening
+- Dragon Duo — https://www.1weapp.online/en/dragon-duo
+- Dragon King: Legend of the Seas — https://www.1weapp.online/en/dragon-king-legend-of-the-seas
+- Dragons Clusterbuster™ — https://www.1weapp.online/en/dragons-clusterbuster
+- Dragons' Lock — https://www.1weapp.online/en/dragons-lock
+- Dynamite Riches — https://www.1weapp.online/en/dynamite-riches
+- Dynamite Riches Megaways™ — https://www.1weapp.online/en/dynamite-riches-megaways
+- Dynamite Riches The Mother Lode — https://www.1weapp.online/en/dynamite-riches-the-mother-lode
+- Eagle Riches — https://www.1weapp.online/en/eagle-riches
+- Easy Gold — https://www.1weapp.online/en/easy-gold
+- Egypt Clusterbuster™ — https://www.1weapp.online/en/egypt-clusterbuster
+- Egypt Megaways™ — https://www.1weapp.online/en/egypt-megaways
+- Elven Magic — https://www.1weapp.online/en/elven-magic
+- Emerald Diamond — https://www.1weapp.online/en/emerald-diamond
+- Emperor of India — https://www.1weapp.online/en/emperor-of-india
+- Epic Journey  — https://www.1weapp.online/en/epic-journey
+- Esqueleto Mariachi — https://www.1weapp.online/en/esqueleto-mariachi
+- Fa Fa Babies — https://www.1weapp.online/en/fa-fa-babies
+- Fa Fa Babies 2 — https://www.1weapp.online/en/fa-fa-babies-2
+- Farmtastic — https://www.1weapp.online/en/farmtastic
+- Fishtastic — https://www.1weapp.online/en/fishtastic
+- Five Star — https://www.1weapp.online/en/five-star
+- Five Star Power Reels — https://www.1weapp.online/en/five-star-power-reels
+- Flaming Fox — https://www.1weapp.online/en/flaming-fox
+- Flodder — https://www.1weapp.online/en/flodder
+- Fortune Charm — https://www.1weapp.online/en/fortune-charm
+- Fortune Fest — https://www.1weapp.online/en/fortune-fest
+- Fortune House — https://www.1weapp.online/en/fortune-house
+- Fruit blox — https://www.1weapp.online/en/fruit-blox
+- Fruit Flash — https://www.1weapp.online/en/fruit-flash
+- Fruit Snap — https://www.1weapp.online/en/fruit-snap
+- Gems Gone Wild — https://www.1weapp.online/en/gems-gone-wild
+- Gems Gone Wild Power Reels — https://www.1weapp.online/en/gems-gone-wild-power-reels
+- Gems Inferno Megaways™ — https://www.1weapp.online/en/gems-inferno-megaways
+- Gemtastic — https://www.1weapp.online/en/gemtastic
+- Genie Nights — https://www.1weapp.online/en/genie-nights
+- Get the Gold Infinireels™ — https://www.1weapp.online/en/get-the-gold-infinireels
+- Giga Blast — https://www.1weapp.online/en/giga-blast
+- Gladiator Ways — https://www.1weapp.online/en/gladiator-ways
+- God of Wealth — https://www.1weapp.online/en/god-of-wealth
+- Gods of Troy — https://www.1weapp.online/en/gods-of-troy
+- Gods of Troy Megaways™ — https://www.1weapp.online/en/gods-of-troy-megaways
+- Gold Mine Mistress — https://www.1weapp.online/en/gold-mine-mistress
+- Gold Star — https://www.1weapp.online/en/gold-star
+- Golden Cryptex — https://www.1weapp.online/en/golden-cryptex
+- Golden Leprechaun Megaways™ — https://www.1weapp.online/en/golden-leprechaun-megaways
+- Golden Lotus — https://www.1weapp.online/en/golden-lotus
+- Golden Offer — https://www.1weapp.online/en/golden-offer
+- Golden Temple — https://www.1weapp.online/en/golden-temple
+- Golden Tsar — https://www.1weapp.online/en/golden-tsar
+- Grand Wheel — https://www.1weapp.online/en/grand-wheel
+- Great Gold — https://www.1weapp.online/en/great-gold
+- Hammer Gods — https://www.1weapp.online/en/hammer-gods
+- Happy Apples — https://www.1weapp.online/en/happy-apples
+- Here Kitty Kitty — https://www.1weapp.online/en/here-kitty-kitty
+- Hit The Jungle — https://www.1weapp.online/en/hit-the-jungle
+- Hoard of Poseidon — https://www.1weapp.online/en/hoard-of-poseidon
+- Hot Hot Chilli Pot — https://www.1weapp.online/en/hot-hot-chilli-pot
+- Hustling — https://www.1weapp.online/en/hustling
+- Imperial Palace — https://www.1weapp.online/en/imperial-palace
+- In the Rabbit Hole — https://www.1weapp.online/en/in-the-rabbit-hole
+- Jack in a Pot — https://www.1weapp.online/en/jack-in-a-pot
+- Jackpot Quest — https://www.1weapp.online/en/jackpot-quest
+- Jackpot Train — https://www.1weapp.online/en/jackpot-train
+- Jackrabbit Jackpots — https://www.1weapp.online/en/jackrabbit-jackpots
+- Jade Charms — https://www.1weapp.online/en/jade-charms
+- Jester Spins — https://www.1weapp.online/en/jester-spins
+- Jewel Scarabs — https://www.1weapp.online/en/jewel-scarabs
+- Jingle Bells — https://www.1weapp.online/en/jingle-bells
+- Jingle Bells Power Reels — https://www.1weapp.online/en/jingle-bells-power-reels
+- Jingle Ways Megaways™ — https://www.1weapp.online/en/jingle-ways-megaways
+- Joe Exotic — https://www.1weapp.online/en/joe-exotic
+- Judgement Day Megaways™ — https://www.1weapp.online/en/judgement-day-megaways
+- Knights of Avalon — https://www.1weapp.online/en/knights-of-avalon
+- Land of Riches — https://www.1weapp.online/en/land-of-riches
+- Laser Fruit — https://www.1weapp.online/en/laser-fruit
+- Last Chance Saloon — https://www.1weapp.online/en/last-chance-saloon
+- Legend of Athena — https://www.1weapp.online/en/legend-of-athena
+- Legendary Excalibur — https://www.1weapp.online/en/legendary-excalibur
+- Lion Dance — https://www.1weapp.online/en/lion-dance
+- London Tube — https://www.1weapp.online/en/london-tube
+- Lucky Easter — https://www.1weapp.online/en/lucky-easter
+- Lucky Fortune Cat — https://www.1weapp.online/en/lucky-fortune-cat
+- Lucky Fridays — https://www.1weapp.online/en/lucky-fridays
+- Lucky Halloween — https://www.1weapp.online/en/lucky-halloween
+- Lucky Little Devil — https://www.1weapp.online/en/lucky-little-devil
+- Lucky Oktoberfest — https://www.1weapp.online/en/lucky-oktoberfest
+- Lucky Valentine — https://www.1weapp.online/en/lucky-valentine
+- Lucky Wizard — https://www.1weapp.online/en/lucky-wizard
+- Magic Gate — https://www.1weapp.online/en/magic-gate
+- Magic Powers Megaways — https://www.1weapp.online/en/magic-powers-megaways
+- Magic Tricks — https://www.1weapp.online/en/magic-tricks
+- Masquerade — https://www.1weapp.online/en/masquerade
+- Mayan Gods — https://www.1weapp.online/en/mayan-gods
+- Mayhem — https://www.1weapp.online/en/mayhem
+- Mega Dragon — https://www.1weapp.online/en/mega-dragon
+- Mega Jade — https://www.1weapp.online/en/mega-jade
+- Mega Pyramid — https://www.1weapp.online/en/mega-pyramid
+- Mega Rise — https://www.1weapp.online/en/mega-rise
+- Miami Rise — https://www.1weapp.online/en/miami-rise
+- Midas Gold — https://www.1weapp.online/en/midas-gold
+- Midnight Romance — https://www.1weapp.online/en/midnight-romance
+- MONOPOLY Cash Is King — https://www.1weapp.online/en/monopoly-cash-is-king
+- MONOPOLY Money Magnate — https://www.1weapp.online/en/monopoly-money-magnate
+- MONOPOLY Rent Rush — https://www.1weapp.online/en/monopoly-rent-rush
+- Monsters Unchained — https://www.1weapp.online/en/monsters-unchained
+- Moon Spell — https://www.1weapp.online/en/moon-spell
+- Multiplier Riches — https://www.1weapp.online/en/multiplier-riches
+- Mystery Reels — https://www.1weapp.online/en/mystery-reels
+- Mystery Reels Deluxe — https://www.1weapp.online/en/mystery-reels-deluxe
+- Mystery Reels Megaways™ — https://www.1weapp.online/en/mystery-reels-megaways
+- Mystery Reels Power Reels™ — https://www.1weapp.online/en/mystery-reels-power-reels
+- Mystic Staxx — https://www.1weapp.online/en/mystic-staxx
+- Mystic Wheel — https://www.1weapp.online/en/mystic-wheel
+- Neon Links — https://www.1weapp.online/en/neon-links
+- NFT Megaways™ — https://www.1weapp.online/en/nft-megaways
+- Night Roller — https://www.1weapp.online/en/night-roller
+- Ninja Ways — https://www.1weapp.online/en/ninja-ways
+- Ocean Fortune — https://www.1weapp.online/en/ocean-fortune
+- Panda Goes Boom — https://www.1weapp.online/en/panda-goes-boom
+- Path of Destiny — https://www.1weapp.online/en/path-of-destiny
+- Peggy Sweets — https://www.1weapp.online/en/peggy-sweets
+- Persian Fortune — https://www.1weapp.online/en/persian-fortune
+- Phoenix — https://www.1weapp.online/en/phoenix
+- Phoenix Fire Power Reels™ — https://www.1weapp.online/en/phoenix-fire-power-reels
+- Piggy Pirates — https://www.1weapp.online/en/piggy-pirates
+- Piggy Riches 2 Megaways™ — https://www.1weapp.online/en/piggy-riches-2-megaways
+- Piggy Riches Begins — https://www.1weapp.online/en/piggy-riches-begins
+- Piggy Riches Megaways™ — https://www.1weapp.online/en/piggy-riches-megaways
+- Pirates Plenty — https://www.1weapp.online/en/pirates-plenty
+- Pirates Plenty Battle for Gold — https://www.1weapp.online/en/pirates-plenty-battle-for-gold
+- Pirates Plenty Megaways™ — https://www.1weapp.online/en/pirates-plenty-megaways
+- Pirates' Plenty: Treasures of the Seas — https://www.1weapp.online/en/pirates-plenty-treasures-of-the-seas
+- Play with the Devil — https://www.1weapp.online/en/play-with-the-devil
+- Primate King — https://www.1weapp.online/en/primate-king
+- Primate King Megaways™ — https://www.1weapp.online/en/primate-king-megaways
+- Puss'n Boots — https://www.1weapp.online/en/puss-n-boots
+- Rainbow Jackpots — https://www.1weapp.online/en/rainbow-jackpots
+- Rainbow Jackpots Megaways™ — https://www.1weapp.online/en/rainbow-jackpots-megaways
+- Rainbow Jackpots Power Lines — https://www.1weapp.online/en/rainbow-jackpots-power-lines
+- Reactor — https://www.1weapp.online/en/reactor
+- Red Diamond — https://www.1weapp.online/en/red-diamond
+- Red Hot BBQ — https://www.1weapp.online/en/red-hot-bbq
+- Redline Rush — https://www.1weapp.online/en/redline-rush
+- Reel Heist — https://www.1weapp.online/en/reel-heist
+- Reel Keeper — https://www.1weapp.online/en/reel-keeper
+- Reel Keeper Power Reels™ — https://www.1weapp.online/en/reel-keeper-power-reels
+- Reel King Mega — https://www.1weapp.online/en/reel-king-mega
+- Regal Beasts — https://www.1weapp.online/en/regal-beasts
+- Regal Streak — https://www.1weapp.online/en/regal-streak
+- Reptizillions Power Reels™ — https://www.1weapp.online/en/reptizillions-power-reels
+- Revolvero — https://www.1weapp.online/en/revolvero
+- Riddle of the Sphinx — https://www.1weapp.online/en/riddle-of-the-sphinx
+- Rio Stars — https://www.1weapp.online/en/rio-stars
+- Rise of Cleopatra — https://www.1weapp.online/en/rise-of-cleopatra
+- Risque Megaways™ — https://www.1weapp.online/en/risque-megaways
+- Rock'n'Lock — https://www.1weapp.online/en/rock-n-lock
+- Rocket Men — https://www.1weapp.online/en/rocket-men
+- Roman Emperors — https://www.1weapp.online/en/roman-emperors
+- Royal Gems — https://www.1weapp.online/en/royal-gems
+- Sakura Masks — https://www.1weapp.online/en/sakura-masks
+- Santa Spins — https://www.1weapp.online/en/santa-spins
+- Savannah Pride  — https://www.1weapp.online/en/savannah-pride
+- Serpent King — https://www.1weapp.online/en/serpent-king
+- Shadow Society — https://www.1weapp.online/en/shadow-society
+- Shah Mat — https://www.1weapp.online/en/shah-mat
+- Shark Boss — https://www.1weapp.online/en/shark-boss
+- Sheep Gone Wild  — https://www.1weapp.online/en/sheep-gone-wild
+- Sirens' Riches — https://www.1weapp.online/en/sirens-riches
+- Spin Town — https://www.1weapp.online/en/spin-town
+- Spooky Carnival — https://www.1weapp.online/en/spooky-carnival
+- Stage 888 — https://www.1weapp.online/en/stage-888
+- Stolen Treasures — https://www.1weapp.online/en/stolen-treasures
+- Sugar Monster — https://www.1weapp.online/en/sugar-monster
+- Sugarlicious Everyway™ — https://www.1weapp.online/en/sugarlicious-everyway
+- Sumo Spins — https://www.1weapp.online/en/sumo-spins
+- Sylvan Spirits — https://www.1weapp.online/en/sylvan-spirits
+- Take the Money — https://www.1weapp.online/en/take-the-money
+- Ten Elements — https://www.1weapp.online/en/ten-elements
+- The Equalizer — https://www.1weapp.online/en/the-equalizer
+- The Good, The Bad, and The Rich — https://www.1weapp.online/en/the-good-the-bad-and-the-rich
+- The Greatest Train Robbery — https://www.1weapp.online/en/the-greatest-train-robbery
+- The Wild Hatter — https://www.1weapp.online/en/the-wild-hatter
+- The Wild Kiss — https://www.1weapp.online/en/the-wild-kiss
+- The Wisecracker Lightning — https://www.1weapp.online/en/the-wisecracker-lightning
+- Three Kingdoms — https://www.1weapp.online/en/three-kingdoms
+- Three Musketeers — https://www.1weapp.online/en/three-musketeers
+- Tiki Fruits — https://www.1weapp.online/en/tiki-fruits
+- Tiki Fruits: Totem Frenzy — https://www.1weapp.online/en/tiki-fruits-totem-frenzy
+- Totem Lightning Power Reels™ — https://www.1weapp.online/en/totem-lightning-power-reels
+- Transylvania: Night of Blood — https://www.1weapp.online/en/transylvania-night-of-blood
+- Treasure Mine — https://www.1weapp.online/en/treasure-mine
+- Treasure Mine Power Reels™ — https://www.1weapp.online/en/treasure-mine-power-reels
+- Tricks and Treats — https://www.1weapp.online/en/tricks-and-treats
+- Trillionaire — https://www.1weapp.online/en/trillionaire
+- Trillionaire Megaways™ — https://www.1weapp.online/en/trillionaire-megaways
+- Trophy Fish — https://www.1weapp.online/en/trophy-fish
+- Turtle Paradise — https://www.1weapp.online/en/turtle-paradise
+- Ultra Rich — https://www.1weapp.online/en/ultra-rich
+- Vault Cracker — https://www.1weapp.online/en/vault-cracker
+- Vault Cracker Megaways™ — https://www.1weapp.online/en/vault-cracker-megaways
+- Vault of Anubis — https://www.1weapp.online/en/vault-of-anubis
+- Vicky Ventura — https://www.1weapp.online/en/vicky-ventura
+- Viral Spiral — https://www.1weapp.online/en/viral-spiral
+- War of Gods — https://www.1weapp.online/en/war-of-gods
+- Well of Wilds Megaways™ — https://www.1weapp.online/en/well-of-wilds-megaways
+- Well of Wishes — https://www.1weapp.online/en/well-of-wishes
+- What the Fox Megaways™ — https://www.1weapp.online/en/what-the-fox-megaways
+- Wild Cats Multiline — https://www.1weapp.online/en/wild-cats-multiline
+- Wild Circus — https://www.1weapp.online/en/wild-circus
+- Wild Elements — https://www.1weapp.online/en/wild-elements
+- Wild Expedition — https://www.1weapp.online/en/wild-expedition
+- Wild Fight — https://www.1weapp.online/en/wild-fight
+- Wild Hot Chilli Reels — https://www.1weapp.online/en/wild-hot-chilli-reels
+- Wild Hot Chilli Reels 2 — https://www.1weapp.online/en/wild-hot-chilli-reels-2
+- Wild Nords — https://www.1weapp.online/en/wild-nords
+- Wild Spartans — https://www.1weapp.online/en/wild-spartans
+- Wild Tundra — https://www.1weapp.online/en/wild-tundra
+- Wild Wild Chest — https://www.1weapp.online/en/wild-wild-chest
+- Win Escalator — https://www.1weapp.online/en/win-escalator
+- Wings of Ra — https://www.1weapp.online/en/wings-of-ra
+- Wings of Ra Megaways™ — https://www.1weapp.online/en/wings-of-ra-megaways
+- Winter Wonders — https://www.1weapp.online/en/winter-wonders
+- Wolf Stacks Megaways™ — https://www.1weapp.online/en/wolf-stacks-megaways
+- Wolfkin — https://www.1weapp.online/en/wolfkin
+- Zeus Lightning Megaways™ — https://www.1weapp.online/en/zeus-lightning-megaways
+- Zeus Lightning Power Reels™ — https://www.1weapp.online/en/zeus-lightning-power-reels
+- Zillard King Megaways™ — https://www.1weapp.online/en/zillard-king-megaways
+- Zillard King™ — https://www.1weapp.online/en/zillard-king
+- Breakout — https://www.1weapp.online/en/breakout
 
 ## Notes for agents
 

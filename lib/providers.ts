@@ -18,6 +18,9 @@ export const PROVIDERS: ProviderDef[] = [
   { slug: 'netent', name: 'NetEnt', titleEn: 'NetEnt', titleRu: 'NetEnt' },
   { slug: 'hacksaw-gaming', name: 'Hacksaw Gaming', titleEn: 'Hacksaw Gaming', titleRu: 'Hacksaw Gaming' },
   { slug: 'bgaming', name: 'BGaming', titleEn: 'BGaming', titleRu: 'BGaming' },
+  { slug: 'nolimit-city', name: 'Nolimit City', titleEn: 'Nolimit City', titleRu: 'Nolimit City' },
+  { slug: 'big-time-gaming', name: 'Big Time Gaming', titleEn: 'Big Time Gaming', titleRu: 'Big Time Gaming' },
+  { slug: 'red-tiger', name: 'Red Tiger', titleEn: 'Red Tiger', titleRu: 'Red Tiger' },
   { slug: '1weapp-games', name: '1weapp Games', titleEn: '1weapp Games', titleRu: '1weapp Games' },
 ]
 

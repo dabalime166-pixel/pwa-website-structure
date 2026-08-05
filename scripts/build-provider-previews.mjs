@@ -13,6 +13,9 @@ const PROVIDERS = [
   { slug: 'netent', name: 'NetEnt' },
   { slug: 'hacksaw-gaming', name: 'Hacksaw Gaming' },
   { slug: 'bgaming', name: 'BGaming' },
+  { slug: 'nolimit-city', name: 'Nolimit City' },
+  { slug: 'big-time-gaming', name: 'Big Time Gaming' },
+  { slug: 'red-tiger', name: 'Red Tiger' },
   { slug: '1weapp-games', name: '1weapp Games' },
 ]
 
