@@ -43,6 +43,7 @@ export const sportsCopy = {
     error: 'Could not load sports data. Try again in a minute.',
     powered: 'Powered by SportScore',
     goal: 'Goal',
+    placeBet: 'Place a bet',
   },
   ru: {
     nav: 'Спорт',
@@ -86,8 +87,12 @@ export const sportsCopy = {
     error: 'Не удалось загрузить спорт-данные. Попробуйте чуть позже.',
     powered: 'Данные: SportScore',
     goal: 'Гол',
+    placeBet: 'Сделать ставку',
   },
 } as const
+
+/** Affiliate sports betting CTA for match pages */
+export const SPORTS_BET_URL = 'https://lkqz.cc/174114'
 
 export function tSports(lang: Lang) {
   return sportsCopy[lang]

@@ -5,7 +5,7 @@ import type { Lang } from '@/lib/games'
 import { getFootballMatch } from '@/lib/sportscore'
 import type { SportScoreIncident, SportScoreMatch, SportScorePlayer } from '@/lib/sports-types'
 import { isLiveStatus } from '@/lib/sports-types'
-import { tSports } from '@/lib/sports-i18n'
+import { tSports, SPORTS_BET_URL } from '@/lib/sports-i18n'
 import { BallIcon } from '@/components/sports/ball-icon'
 import { buildMatchH1 } from '@/lib/sports-seo'
 
@@ -185,6 +185,17 @@ export async function MatchDetailPage({
               <strong>{t.kickoff}:</strong> {new Date(match.time).toUTCString()}
             </li>
           </ul>
+
+          <div className="sports-match-hero__cta">
+            <a
+              href={SPORTS_BET_URL}
+              className="sports-bet-cta"
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+            >
+              {t.placeBet}
+            </a>
+          </div>
         </header>
 
         <section className="sports-section sports-panel" aria-labelledby="sports-teams-title">
