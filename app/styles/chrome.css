@@ -339,6 +339,19 @@
   background: linear-gradient(90deg, transparent, var(--color-border-gold), transparent);
   margin-bottom: 1.25rem;
 }
+.site-footer__rg {
+  margin: 0 0 0.65rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.site-footer__rg a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.site-footer__rg a:hover {
+  color: var(--color-gold);
+}
 .site-footer__copy {
   font-size: 0.75rem;
   color: var(--color-text-muted);
