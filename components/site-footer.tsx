@@ -96,6 +96,18 @@ export function SiteFooter({ lang }: SiteFooterProps) {
 
         <div className="site-footer__rule" aria-hidden="true" />
 
+        <p className="site-footer__rg">
+          <a
+            href="https://www.begambleaware.org/"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+          >
+            BeGambleAware
+          </a>
+          <span aria-hidden="true"> · </span>
+          18+
+        </p>
+
         <p className="site-footer__copy">
           &copy; {year} 1weapp. {isEn ? 'All rights reserved.' : 'Все права защищены.'}
         </p>

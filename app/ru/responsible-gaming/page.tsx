@@ -36,7 +36,15 @@ export default function ResponsibleGamingPage() {
         <section style={{ marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', marginTop: '2rem' }}>Ресурсы поддержки</h2>
           <p style={{ lineHeight: 1.6, marginBottom: '1rem' }}>
-            Если вы или кто-то из ваших знакомых испытывает проблемы с игровыми привычками, обратитесь за профессиональной помощью через консультационные сервисы или организации поддержки в вашей стране.
+            Если вы или кто-то из ваших знакомых испытывает проблемы с игровыми привычками, обратитесь за профессиональной помощью через консультационные сервисы или организации поддержки в вашей стране. Полезный ресурс:{' '}
+            <a
+              href="https://www.begambleaware.org/"
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+            >
+              BeGambleAware.org
+            </a>
+            .
           </p>
         </section>
 

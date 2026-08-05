@@ -36,7 +36,15 @@ export default function ResponsibleGamingPage() {
         <section style={{ marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', marginTop: '2rem' }}>Support Resources</h2>
           <p style={{ lineHeight: 1.6, marginBottom: '1rem' }}>
-            If you or someone you know is struggling with gaming habits, seek professional help through counseling services or support organizations in your country.
+            If you or someone you know is struggling with gaming habits, seek professional help through counseling services or support organizations in your country. A starting point:{' '}
+            <a
+              href="https://www.begambleaware.org/"
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+            >
+              BeGambleAware.org
+            </a>
+            .
           </p>
         </section>
 
