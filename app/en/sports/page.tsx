@@ -5,7 +5,7 @@ import { withBrandTitle, clampMetaDescription } from '@/lib/seo'
 export const metadata: Metadata = {
   title: withBrandTitle('Football livescore — live scores & fixtures'),
   description: clampMetaDescription(
-    'Live football scores, today’s fixtures, match events, lineups and team info on 1weapp. Powered by API-Sports.',
+    'Live football scores, today’s fixtures, match events, lineups and team info on 1weapp. Powered by SportScore.',
     'en',
   ),
   robots: { index: false, follow: false },

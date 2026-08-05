@@ -2,106 +2,93 @@ import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import type { Lang } from '@/lib/games'
-import {
-  getFixtureById,
-  getTeamById,
-  isLiveStatus,
-  type FixtureEvent,
-  type FixtureItem,
-  type TeamProfile,
-} from '@/lib/api-sports'
+import { getFootballMatch } from '@/lib/sportscore'
+import type { SportScoreIncident, SportScoreMatch, SportScorePlayer } from '@/lib/sports-types'
+import { isLiveStatus } from '@/lib/sports-types'
 import { tSports } from '@/lib/sports-i18n'
 
-function scoreText(v: number | null | undefined) {
-  return v === null || v === undefined ? '–' : String(v)
+function scoreText(v: string | null | undefined) {
+  if (v === null || v === undefined || v === '') return '–'
+  return String(v)
 }
 
-function eventLabel(ev: FixtureEvent, lang: Lang) {
-  const min = ev.time.elapsed != null ? `${ev.time.elapsed}'` : '—'
-  const extra = ev.time.extra != null ? `+${ev.time.extra}` : ''
-  const who = ev.player?.name || '—'
-  const assist = ev.assist?.name ? ` (${ev.assist.name})` : ''
-  if (lang === 'ru') {
-    return `${min}${extra} · ${ev.detail} — ${who}${assist}`
-  }
-  return `${min}${extra} · ${ev.detail} — ${who}${assist}`
+function eventLabel(ev: SportScoreIncident) {
+  const min = ev.time != null ? `${ev.time}'` : '—'
+  const who = ev.player || '—'
+  const assist = ev.assist ? ` (${ev.assist})` : ''
+  return `${min} · ${ev.type} — ${who}${assist}`
 }
 
-function TeamCard({
-  profile,
-  lang,
-  side,
+function PlayersList({
+  title,
+  players,
 }: {
-  profile: TeamProfile | null
-  lang: Lang
-  side: 'home' | 'away'
+  title: string
+  players?: SportScorePlayer[]
 }) {
-  const t = tSports(lang)
-  if (!profile) return null
-  const { team, venue } = profile
+  if (!players?.length) return null
   return (
-    <article className="sports-team-card">
-      <div className="sports-team-card__head">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={team.logo} alt="" width={48} height={48} />
-        <div>
-          <p className="sports-team-card__side">{side === 'home' ? t.home : t.away}</p>
-          <h3>{team.name}</h3>
-          <p className="sports-muted">
-            {team.country}
-            {team.founded ? ` · ${t.founded} ${team.founded}` : ''}
-          </p>
-        </div>
-      </div>
-      {venue?.name ? (
-        <p className="sports-team-card__venue">
-          <strong>{t.venue}:</strong> {venue.name}
-          {venue.city ? `, ${venue.city}` : ''}
-          {venue.capacity ? ` · ${t.capacity} ${venue.capacity.toLocaleString()}` : ''}
-        </p>
-      ) : null}
-    </article>
+    <>
+      <h4>{title}</h4>
+      <ul>
+        {players.map((p, idx) => (
+          <li key={`${p.name}-${p.number}-${idx}`}>
+            <span className="sports-lineup__num">{p.number ?? '–'}</span>
+            {p.name}
+            {p.captain ? ' ©' : ''}
+            <span className="sports-muted">{p.position}</span>
+          </li>
+        ))}
+      </ul>
+    </>
   )
+}
+
+function normalizeStats(stats: SportScoreMatch['stats']) {
+  if (!stats) return [] as { label: string; home: string; away: string }[]
+  if (Array.isArray(stats)) {
+    return stats
+      .map((s) => ({
+        label: String(s.type || s.name || 'Stat'),
+        home: String(s.home ?? '–'),
+        away: String(s.away ?? '–'),
+      }))
+      .filter((s) => s.label)
+  }
+  // object map fallback
+  return Object.entries(stats).map(([label, value]) => {
+    if (value && typeof value === 'object' && ('home' in value || 'away' in value)) {
+      const v = value as { home?: unknown; away?: unknown }
+      return { label, home: String(v.home ?? '–'), away: String(v.away ?? '–') }
+    }
+    return { label, home: String(value ?? '–'), away: '–' }
+  })
 }
 
 export async function MatchDetailPage({
   lang,
-  id,
+  slug,
 }: {
   lang: Lang
-  id: string
+  slug: string
 }) {
   const t = tSports(lang)
   const backHref = lang === 'en' ? '/en/sports' : '/ru/sports'
 
-  let fixture: FixtureItem | null = null
-  let homeTeam: TeamProfile | null = null
-  let awayTeam: TeamProfile | null = null
+  let match: SportScoreMatch | null = null
   let error: string | null = null
 
   try {
-    if (!process.env.APISPORTS_KEY?.trim()) {
-      error = t.missingKey
-    } else {
-      const res = await getFixtureById(id)
-      fixture = res.response?.[0] || null
-      if (fixture) {
-        const [home, away] = await Promise.all([
-          getTeamById(fixture.teams.home.id).catch(() => null),
-          getTeamById(fixture.teams.away.id).catch(() => null),
-        ])
-        homeTeam = home?.response?.[0] || null
-        awayTeam = away?.response?.[0] || null
-      }
-    }
+    const res = await getFootballMatch(slug)
+    match = res.match || null
   } catch {
     error = t.error
   }
 
-  if (error || !fixture) {
+  if (error || !match) {
     return (
       <div className="page-shell sports-page">
-        <SiteHeader lang={lang} section="sports" matchId={id} />
+        <SiteHeader lang={lang} section="sports" matchId={slug} />
         <main className="sports-main">
           <p className="sports-error">{error || t.error}</p>
           <p className="sports-back">
@@ -113,14 +100,18 @@ export async function MatchDetailPage({
     )
   }
 
-  const live = isLiveStatus(fixture.fixture.status.short)
-  const events = fixture.events || []
-  const lineups = fixture.lineups || []
-  const stats = fixture.statistics || []
+  const live = isLiveStatus(match.status)
+  const events = match.incidents || []
+  const lineups = match.lineups
+  const stats = normalizeStats(match.stats)
+  const statusLabel =
+    live && match.live_minute != null
+      ? `${match.status_text || 'Live'} ${match.live_minute}'`
+      : match.status_text || match.status
 
   return (
     <div className="page-shell sports-page">
-      <SiteHeader lang={lang} section="sports" matchId={id} />
+      <SiteHeader lang={lang} section="sports" matchId={slug} />
       <main className="sports-main">
         <p className="sports-back">
           <Link href={backHref}>← {t.back}</Link>
@@ -129,62 +120,66 @@ export async function MatchDetailPage({
         <header className="sports-match-hero">
           <p className="sports-match-hero__league">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            {fixture.league.logo ? <img src={fixture.league.logo} alt="" width={20} height={20} /> : null}
-            {fixture.league.country} · {fixture.league.name}
-            {fixture.league.round ? ` · ${fixture.league.round}` : ''}
+            {match.competition_logo ? (
+              <img src={match.competition_logo} alt="" width={20} height={20} />
+            ) : null}
+            {match.competition}
           </p>
 
           <div className="sports-match-hero__scoreboard">
             <div className="sports-match-hero__side">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={fixture.teams.home.logo} alt="" width={64} height={64} />
-              <h1>{fixture.teams.home.name}</h1>
+              <img src={match.home_logo} alt="" width={64} height={64} />
+              <h1>{match.home}</h1>
             </div>
             <div className="sports-match-hero__score">
-              <p className={`sports-match-hero__status${live ? ' is-live' : ''}`}>
-                {live && fixture.fixture.status.elapsed != null
-                  ? `${fixture.fixture.status.short} ${fixture.fixture.status.elapsed}'`
-                  : fixture.fixture.status.long}
-              </p>
+              <p className={`sports-match-hero__status${live ? ' is-live' : ''}`}>{statusLabel}</p>
               <p className="sports-match-hero__numbers">
-                <span>{scoreText(fixture.goals.home)}</span>
+                <span>{scoreText(match.home_score)}</span>
                 <span>:</span>
-                <span>{scoreText(fixture.goals.away)}</span>
+                <span>{scoreText(match.away_score)}</span>
               </p>
               <p className="sports-muted">
-                HT {scoreText(fixture.score.halftime.home)}:{scoreText(fixture.score.halftime.away)}
+                HT {scoreText(match.home_ht_score)}:{scoreText(match.away_ht_score)}
               </p>
             </div>
             <div className="sports-match-hero__side sports-match-hero__side--away">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={fixture.teams.away.logo} alt="" width={64} height={64} />
-              <h1>{fixture.teams.away.name}</h1>
+              <img src={match.away_logo} alt="" width={64} height={64} />
+              <h1>{match.away}</h1>
             </div>
           </div>
 
           <ul className="sports-match-meta">
             <li>
-              <strong>{t.kickoff}:</strong> {new Date(fixture.fixture.date).toUTCString()}
+              <strong>{t.kickoff}:</strong> {new Date(match.time).toUTCString()}
             </li>
-            {fixture.fixture.venue?.name ? (
-              <li>
-                <strong>{t.venue}:</strong> {fixture.fixture.venue.name}
-                {fixture.fixture.venue.city ? `, ${fixture.fixture.venue.city}` : ''}
-              </li>
-            ) : null}
-            {fixture.fixture.referee ? (
-              <li>
-                <strong>{t.referee}:</strong> {fixture.fixture.referee}
-              </li>
-            ) : null}
           </ul>
         </header>
 
         <section className="sports-section" aria-labelledby="sports-teams-title">
           <h2 id="sports-teams-title">{t.teams}</h2>
           <div className="sports-team-grid">
-            <TeamCard profile={homeTeam} lang={lang} side="home" />
-            <TeamCard profile={awayTeam} lang={lang} side="away" />
+            <article className="sports-team-card">
+              <div className="sports-team-card__head">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={match.home_logo} alt="" width={48} height={48} />
+                <div>
+                  <p className="sports-team-card__side">{t.home}</p>
+                  <h3>{match.home}</h3>
+                </div>
+              </div>
+            </article>
+            <article className="sports-team-card">
+              <div className="sports-team-card__head">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={match.away_logo} alt="" width={48} height={48} />
+                <div>
+                  <p className="sports-team-card__side">{t.away}</p>
+                  <h3>{match.away}</h3>
+                </div>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -193,10 +188,11 @@ export async function MatchDetailPage({
             <h2 id="sports-events-title">{t.events}</h2>
             <ol className="sports-events">
               {events.map((ev, idx) => (
-                <li key={`${ev.time.elapsed}-${ev.type}-${idx}`}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={ev.team.logo} alt="" width={18} height={18} />
-                  <span>{eventLabel(ev, lang)}</span>
+                <li key={`${ev.time}-${ev.type}-${idx}`}>
+                  <span className={`sports-events__side sports-events__side--${ev.side || 'home'}`}>
+                    {ev.side === 'away' ? t.away : t.home}
+                  </span>
+                  <span>{eventLabel(ev)}</span>
                 </li>
               ))}
             </ol>
@@ -207,76 +203,68 @@ export async function MatchDetailPage({
           <section className="sports-section" aria-labelledby="sports-stats-title">
             <h2 id="sports-stats-title">{t.stats}</h2>
             <div className="sports-stats">
-              {(() => {
-                const home = stats[0]
-                const away = stats[1]
-                const types = home?.statistics?.map((s) => s.type) || []
-                return types.map((type) => {
-                  const hv = home?.statistics?.find((s) => s.type === type)?.value ?? '–'
-                  const av = away?.statistics?.find((s) => s.type === type)?.value ?? '–'
-                  return (
-                    <div key={type} className="sports-stats__row">
-                      <span>{hv ?? '–'}</span>
-                      <span className="sports-muted">{type}</span>
-                      <span>{av ?? '–'}</span>
-                    </div>
-                  )
-                })
-              })()}
-            </div>
-          </section>
-        ) : null}
-
-        {lineups.length > 0 ? (
-          <section className="sports-section" aria-labelledby="sports-lineups-title">
-            <h2 id="sports-lineups-title">{t.lineups}</h2>
-            <div className="sports-lineups">
-              {lineups.map((lu) => (
-                <article key={lu.team.id} className="sports-lineup">
-                  <header>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={lu.team.logo} alt="" width={24} height={24} />
-                    <h3>{lu.team.name}</h3>
-                    {lu.formation ? (
-                      <span className="sports-muted">
-                        {t.formation}: {lu.formation}
-                      </span>
-                    ) : null}
-                  </header>
-                  {lu.coach?.name ? (
-                    <p className="sports-muted">
-                      {t.coach}: {lu.coach.name}
-                    </p>
-                  ) : null}
-                  <h4>{t.starters}</h4>
-                  <ul>
-                    {lu.startXI.map((row) => (
-                      <li key={row.player.id}>
-                        <span className="sports-lineup__num">{row.player.number}</span>
-                        {row.player.name}
-                        <span className="sports-muted">{row.player.pos}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {lu.substitutes?.length ? (
-                    <>
-                      <h4>{t.bench}</h4>
-                      <ul>
-                        {lu.substitutes.map((row) => (
-                          <li key={row.player.id}>
-                            <span className="sports-lineup__num">{row.player.number}</span>
-                            {row.player.name}
-                            <span className="sports-muted">{row.player.pos}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : null}
-                </article>
+              {stats.map((row) => (
+                <div key={row.label} className="sports-stats__row">
+                  <span>{row.home}</span>
+                  <span className="sports-muted">{row.label}</span>
+                  <span>{row.away}</span>
+                </div>
               ))}
             </div>
           </section>
         ) : null}
+
+        {lineups ? (
+          <section className="sports-section" aria-labelledby="sports-lineups-title">
+            <h2 id="sports-lineups-title">{t.lineups}</h2>
+            <div className="sports-lineups">
+              <article className="sports-lineup">
+                <header>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={match.home_logo} alt="" width={24} height={24} />
+                  <h3>{match.home}</h3>
+                  {lineups.home_formation ? (
+                    <span className="sports-muted">
+                      {t.formation}: {lineups.home_formation}
+                    </span>
+                  ) : null}
+                </header>
+                {lineups.home_coach ? (
+                  <p className="sports-muted">
+                    {t.coach}: {lineups.home_coach}
+                  </p>
+                ) : null}
+                <PlayersList title={t.starters} players={lineups.home_xi} />
+                <PlayersList title={t.bench} players={lineups.home_subs} />
+              </article>
+              <article className="sports-lineup">
+                <header>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={match.away_logo} alt="" width={24} height={24} />
+                  <h3>{match.away}</h3>
+                  {lineups.away_formation ? (
+                    <span className="sports-muted">
+                      {t.formation}: {lineups.away_formation}
+                    </span>
+                  ) : null}
+                </header>
+                {lineups.away_coach ? (
+                  <p className="sports-muted">
+                    {t.coach}: {lineups.away_coach}
+                  </p>
+                ) : null}
+                <PlayersList title={t.starters} players={lineups.away_xi} />
+                <PlayersList title={t.bench} players={lineups.away_subs} />
+              </article>
+            </div>
+          </section>
+        ) : null}
+
+        <p className="sports-attribution">
+          <a href="https://sportscore.com/" rel="noopener follow" target="_blank">
+            {t.powered}
+          </a>
+        </p>
       </main>
       <SiteFooter lang={lang} />
     </div>

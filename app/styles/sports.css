@@ -365,6 +365,35 @@
   font-variant-numeric: tabular-nums;
 }
 
+.sports-events__side {
+  flex-shrink: 0;
+  min-width: 3.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.sports-events__side--away {
+  color: var(--color-gold);
+}
+
+.sports-attribution {
+  margin-top: 2.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.sports-attribution a {
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.sports-attribution a:hover {
+  color: var(--color-gold-light);
+}
+
 @media (max-width: 720px) {
   .sports-match-hero__scoreboard {
     grid-template-columns: 1fr;

@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect, useState, useTransition } from 'react'
-import type { FixtureItem } from '@/lib/sports-types'
+import type { SportScoreMatch } from '@/lib/sports-types'
 import type { Lang } from '@/lib/games'
 import { MatchCard } from '@/components/sports/match-card'
+import { isLiveStatus } from '@/lib/sports-types'
 
 export function LiveMatchesPanel({
   lang,
@@ -12,11 +13,11 @@ export function LiveMatchesPanel({
   refreshLabel,
 }: {
   lang: Lang
-  initial: FixtureItem[]
+  initial: SportScoreMatch[]
   emptyLabel: string
   refreshLabel: string
 }) {
-  const [items, setItems] = useState(initial)
+  const [items, setItems] = useState(initial.filter((m) => isLiveStatus(m.status)))
   const [pending, startTransition] = useTransition()
   const [updatedAt, setUpdatedAt] = useState<string | null>(null)
 
@@ -26,7 +27,7 @@ export function LiveMatchesPanel({
       try {
         const res = await fetch('/api/sports/live', { cache: 'no-store' })
         if (!res.ok) return
-        const data = (await res.json()) as { response?: FixtureItem[] }
+        const data = (await res.json()) as { response?: SportScoreMatch[] }
         if (cancelled) return
         startTransition(() => {
           setItems(Array.isArray(data.response) ? data.response : [])
@@ -58,8 +59,8 @@ export function LiveMatchesPanel({
         <p className="sports-empty">{emptyLabel}</p>
       ) : (
         <div className="sports-match-grid">
-          {items.map((f) => (
-            <MatchCard key={f.fixture.id} fixture={f} lang={lang} />
+          {items.map((m) => (
+            <MatchCard key={m.url} match={m} lang={lang} />
           ))}
         </div>
       )}

@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import type { Lang } from '@/lib/games'
-import type { FixtureItem } from '@/lib/sports-types'
-import { isLiveStatus } from '@/lib/sports-types'
+import type { SportScoreMatch } from '@/lib/sports-types'
+import { isLiveStatus, matchSlugFromUrl } from '@/lib/sports-types'
 import { tSports } from '@/lib/sports-i18n'
 
-function scoreText(v: number | null | undefined) {
-  return v === null || v === undefined ? '–' : String(v)
+function scoreText(v: string | null | undefined) {
+  if (v === null || v === undefined || v === '') return '–'
+  return String(v)
 }
 
 function formatKickoff(iso: string, lang: Lang) {
@@ -24,52 +25,57 @@ function formatKickoff(iso: string, lang: Lang) {
 }
 
 export function MatchCard({
-  fixture,
+  match,
   lang,
 }: {
-  fixture: FixtureItem
+  match: SportScoreMatch
   lang: Lang
 }) {
   const t = tSports(lang)
-  const live = isLiveStatus(fixture.fixture.status.short)
-  const href = lang === 'en' ? `/en/sports/match/${fixture.fixture.id}` : `/ru/sports/match/${fixture.fixture.id}`
-  const elapsed = fixture.fixture.status.elapsed
+  const live = isLiveStatus(match.status)
+  const slug = matchSlugFromUrl(match.url)
+  const href = lang === 'en' ? `/en/sports/match/${slug}` : `/ru/sports/match/${slug}`
+  const statusLabel =
+    live && match.live_minute != null
+      ? `${match.status_text || 'Live'} ${match.live_minute}'`
+      : match.status_text || match.status
 
   return (
     <Link href={href} className="sports-match-card">
       <div className="sports-match-card__meta">
         <span className="sports-match-card__league">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          {fixture.league.logo ? <img src={fixture.league.logo} alt="" width={16} height={16} /> : null}
-          {fixture.league.country ? `${fixture.league.country} · ` : ''}
-          {fixture.league.name}
+          {match.competition_logo ? (
+            <img src={match.competition_logo} alt="" width={16} height={16} />
+          ) : null}
+          {match.competition}
         </span>
-        <span className={`sports-match-card__status${live ? ' is-live' : ''}`}>
-          {live && elapsed != null ? `${fixture.fixture.status.short} ${elapsed}'` : fixture.fixture.status.short}
-        </span>
+        <span className={`sports-match-card__status${live ? ' is-live' : ''}`}>{statusLabel}</span>
       </div>
 
       <div className="sports-match-card__row">
         <div className="sports-match-card__team">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={fixture.teams.home.logo} alt="" width={28} height={28} />
-          <span>{fixture.teams.home.name}</span>
+          <img src={match.home_logo} alt="" width={28} height={28} />
+          <span>{match.home}</span>
         </div>
-        <div className="sports-match-card__score" aria-label={`${t.home} ${scoreText(fixture.goals.home)} ${t.away} ${scoreText(fixture.goals.away)}`}>
-          <strong>{scoreText(fixture.goals.home)}</strong>
+        <div
+          className="sports-match-card__score"
+          aria-label={`${t.home} ${scoreText(match.home_score)} ${t.away} ${scoreText(match.away_score)}`}
+        >
+          <strong>{scoreText(match.home_score)}</strong>
           <span>:</span>
-          <strong>{scoreText(fixture.goals.away)}</strong>
+          <strong>{scoreText(match.away_score)}</strong>
         </div>
         <div className="sports-match-card__team sports-match-card__team--away">
-          <span>{fixture.teams.away.name}</span>
+          <span>{match.away}</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={fixture.teams.away.logo} alt="" width={28} height={28} />
+          <img src={match.away_logo} alt="" width={28} height={28} />
         </div>
       </div>
 
       <div className="sports-match-card__foot">
-        <span>{formatKickoff(fixture.fixture.date, lang)}</span>
-        {fixture.league.round ? <span>{fixture.league.round}</span> : null}
+        <span>{formatKickoff(match.time, lang)}</span>
       </div>
     </Link>
   )
