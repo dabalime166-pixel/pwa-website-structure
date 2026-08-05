@@ -61,12 +61,76 @@ export function getSeoDescription(game: GameFull, lang: Lang): string {
   return clampMetaDescription(raw, lang)
 }
 
-/** Format plain SEO text into semantic HTML paragraphs */
+/** Format SEO article text into semantic HTML (headings, lists, paragraphs). */
 export function formatSeoText(text: string): string {
-  return text
-    .split(/\n{2,}/)
-    .map((para) => para.trim())
-    .filter(Boolean)
-    .map((para) => `<p>${para}</p>`)
-    .join('\n')
+  const lines = String(text || '')
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+
+  const html: string[] = []
+  let paragraph: string[] = []
+  let listItems: string[] = []
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return
+    const body = paragraph.join(' ').trim()
+    if (body) html.push(`<p>${inlineFormat(body)}</p>`)
+    paragraph = []
+  }
+
+  const flushList = () => {
+    if (!listItems.length) return
+    html.push(`<ul>${listItems.map((item) => `<li>${inlineFormat(item)}</li>`).join('')}</ul>`)
+    listItems = []
+  }
+
+  for (const raw of lines) {
+    const line = raw.trimEnd()
+    const trimmed = line.trim()
+
+    if (!trimmed) {
+      flushList()
+      flushParagraph()
+      continue
+    }
+
+    const h3 = trimmed.match(/^###\s+(.+)$/)
+    if (h3) {
+      flushList()
+      flushParagraph()
+      html.push(`<h3>${inlineFormat(h3[1].trim())}</h3>`)
+      continue
+    }
+
+    const h2 = trimmed.match(/^##\s+(.+)$/)
+    if (h2) {
+      flushList()
+      flushParagraph()
+      html.push(`<h2>${inlineFormat(h2[1].trim())}</h2>`)
+      continue
+    }
+
+    const li = trimmed.match(/^[-*•]\s+(.+)$/)
+    if (li) {
+      flushParagraph()
+      listItems.push(li[1].trim())
+      continue
+    }
+
+    flushList()
+    paragraph.push(trimmed)
+  }
+
+  flushList()
+  flushParagraph()
+  return html.join('\n')
 }
+
+function inlineFormat(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+}
+

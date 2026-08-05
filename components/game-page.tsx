@@ -536,9 +536,9 @@ export function GamePage({ slug, lang }: GamePageProps) {
 
         <article className="gp-about" aria-label={isEn ? 'Game description' : 'Описание игры'}>
           <div className="gp-about__head">
-            <span className="gp-about__label">{isEn ? 'Overview' : 'Обзор'}</span>
+            <span className="gp-about__label">{isEn ? 'Guide' : 'Гайд'}</span>
             <h2 className="gp-about__title">
-              {isEn ? `About ${game.name}` : `О ${game.name}`}
+              {isEn ? `${game.name} demo guide` : `Гайд по демо ${game.name}`}
             </h2>
           </div>
           <div className="seo-body" dangerouslySetInnerHTML={{ __html: formattedSeo }} />
