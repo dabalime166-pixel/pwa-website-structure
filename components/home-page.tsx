@@ -9,12 +9,13 @@ import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
 import { games, i18n, CTA_URL } from '@/lib/games'
 import type { Game, Lang } from '@/lib/games'
+import { getPopularGamesPerProvider } from '@/lib/popular-games'
 
 interface HomePageProps {
   lang: Lang
 }
 
-/** Hero art + carousel order — Mines kept out of the very top */
+/** Hero carousel order — Mines kept out of the very top */
 const FEATURED_SLUGS = [
   'lucky-jet',
   'gates-of-olympus',
@@ -41,13 +42,11 @@ export function HomePage({ lang }: HomePageProps) {
     (g): g is NonNullable<typeof g> => Boolean(g)
   )
 
-  /** Home client payload stays tiny — full provider catalogs live on hub pages. */
-  const popularGames: Game[] = [
-    ...featured,
-    ...games.filter((g) => !FEATURED_SLUGS.includes(g.slug)).slice(0, 8),
-  ]
+  /** Top 10 demos from each provider, hero hits first. */
+  const providerPopular = getPopularGamesPerProvider(10)
+  const popularGames: Game[] = [...featured, ...providerPopular]
     .filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
-    .slice(0, 20)
+
 
   const faqItems = isEn
     ? [

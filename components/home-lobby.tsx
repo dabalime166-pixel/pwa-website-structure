@@ -7,11 +7,12 @@ import type { Game, Lang } from '@/lib/games'
 
 interface HomeLobbyProps {
   lang: Lang
-  /** Keep this list small (Popular only) — large catalogs live on provider hubs. */
+  /** Popular demos: top titles per provider (full catalogs stay on provider hubs). */
   popularGames: Game[]
 }
 
-const PREVIEW = 10
+/** Show enough tiles to surface multiple providers before “Show more”. */
+const PREVIEW = 40
 
 type TypeFilter = 'all' | 'Slots' | 'Crash Games' | 'Megaways' | 'Mines'
 
