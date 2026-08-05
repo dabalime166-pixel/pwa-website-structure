@@ -5,12 +5,20 @@ import { isLiveStatus } from '@/lib/sports-types'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const data = await getFootballMatches(40)
-    const live = (data.matches || []).filter((m) => isLiveStatus(m.status))
+    const { searchParams } = new URL(request.url)
+    const wantAll = searchParams.get('all') === '1'
+    const data = await getFootballMatches(wantAll ? 80 : 40)
+    const all = data.matches || []
+    const live = all.filter((m) => isLiveStatus(m.status))
     return NextResponse.json(
-      { response: live, results: live.length, updated: data.updated },
+      {
+        response: live,
+        all: wantAll ? all : undefined,
+        results: live.length,
+        updated: data.updated,
+      },
       {
         headers: {
           'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30',
@@ -19,7 +27,7 @@ export async function GET() {
     )
   } catch (err) {
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Sports API error', response: [] },
+      { error: err instanceof Error ? err.message : 'Sports API error', response: [], all: [] },
       { status: 502 },
     )
   }

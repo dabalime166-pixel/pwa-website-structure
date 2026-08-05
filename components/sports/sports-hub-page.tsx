@@ -1,11 +1,9 @@
 import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
-import { MatchCard } from '@/components/sports/match-card'
-import { LiveMatchesPanel } from '@/components/sports/live-matches-panel'
+import { SportsMatchesBrowser } from '@/components/sports/sports-matches-browser'
 import type { Lang } from '@/lib/games'
 import { getFootballMatches } from '@/lib/sportscore'
-import { isLiveStatus } from '@/lib/sports-types'
 import { tSports } from '@/lib/sports-i18n'
 
 export async function SportsHubPage({ lang }: { lang: Lang }) {
@@ -15,63 +13,67 @@ export async function SportsHubPage({ lang }: { lang: Lang }) {
   let error: string | null = null
 
   try {
-    const res = await getFootballMatches(40)
+    const res = await getFootballMatches(80)
     matches = res.matches || []
   } catch {
     error = t.error
   }
 
-  const live = matches.filter((m) => isLiveStatus(m.status))
-  const rest = matches.filter((m) => !isLiveStatus(m.status)).slice(0, 30)
-
   return (
     <div className="page-shell sports-page">
       <SiteHeader lang={lang} section="sports" />
-      <main className="sports-main">
-        <header className="sports-hero">
-          <p className="sports-hero__eyebrow">SportScore · Football</p>
-          <h1>{t.title}</h1>
-          <p className="sports-hero__blurb">{t.blurb}</p>
-          <p className="sports-hero__note">{t.freePlanNote}</p>
-        </header>
-
-        {error ? <p className="sports-error">{error}</p> : null}
-
-        {!error ? (
-          <>
-            <LiveMatchesPanel
-              lang={lang}
-              initial={live}
-              emptyLabel={t.noLive}
-              refreshLabel={t.refresh}
+      <main>
+        <section className="sports-hero" aria-labelledby="sports-hero-title">
+          <div className="sports-hero__media" aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="sports-hero__photo"
+              src="/banners/sports-hub-hero.webp"
+              alt=""
+              width={1920}
+              height={1080}
+              fetchPriority="high"
             />
+            <div className="sports-hero__veil" />
+            <div className="sports-hero__shine" />
+          </div>
 
-            <section className="sports-section" aria-labelledby="sports-today-title">
-              <div className="sports-section__head">
-                <h2 id="sports-today-title">{t.today}</h2>
-              </div>
-              {rest.length === 0 ? (
-                <p className="sports-empty">{t.noToday}</p>
-              ) : (
-                <div className="sports-match-grid">
-                  {rest.map((m) => (
-                    <MatchCard key={m.url} match={m} lang={lang} />
-                  ))}
-                </div>
-              )}
-            </section>
-          </>
-        ) : null}
+          <div className="sports-hero__inner">
+            <p className="sports-hero__brand">
+              <span className="sports-hero__brand-plain">1we</span>
+              <span className="sports-hero__brand-accent">app</span>
+              <span className="sports-hero__brand-sep" aria-hidden="true">
+                /
+              </span>
+              <span className="sports-hero__brand-sport">{t.nav}</span>
+            </p>
+            <h1 id="sports-hero-title">{t.title}</h1>
+            <p className="sports-hero__blurb">{t.blurb}</p>
+            <div className="sports-hero__actions">
+              <a className="sports-hero__cta" href="#sports-fixtures">
+                {t.browseCta}
+              </a>
+            </div>
+          </div>
+        </section>
 
-        <p className="sports-attribution">
-          <a href="https://sportscore.com/" rel="noopener follow" target="_blank">
-            {t.powered}
-          </a>
-        </p>
+        <div className="sports-main" id="sports-fixtures">
+          {error ? <p className="sports-error">{error}</p> : null}
 
-        <p className="sports-back">
-          <Link href={lang === 'en' ? '/' : '/ru'}>{lang === 'en' ? '← Home' : '← На главную'}</Link>
-        </p>
+          {!error ? <SportsMatchesBrowser lang={lang} initial={matches} /> : null}
+
+          <p className="sports-attribution">
+            <a href="https://sportscore.com/" rel="noopener follow" target="_blank">
+              {t.powered}
+            </a>
+          </p>
+
+          <p className="sports-back">
+            <Link href={lang === 'en' ? '/' : '/ru'}>
+              {lang === 'en' ? '← Home' : '← На главную'}
+            </Link>
+          </p>
+        </div>
       </main>
       <SiteFooter lang={lang} />
     </div>

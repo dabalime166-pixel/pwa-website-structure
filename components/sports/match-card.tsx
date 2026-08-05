@@ -3,6 +3,7 @@ import type { Lang } from '@/lib/games'
 import type { SportScoreMatch } from '@/lib/sports-types'
 import { isLiveStatus, matchSlugFromUrl } from '@/lib/sports-types'
 import { tSports } from '@/lib/sports-i18n'
+import { BallIcon } from '@/components/sports/ball-icon'
 
 function scoreText(v: string | null | undefined) {
   if (v === null || v === undefined || v === '') return '–'
@@ -64,7 +65,7 @@ export function MatchCard({
           aria-label={`${t.home} ${scoreText(match.home_score)} ${t.away} ${scoreText(match.away_score)}`}
         >
           <strong>{scoreText(match.home_score)}</strong>
-          <span>:</span>
+          <BallIcon className="sports-ball" size={15} title={t.goal} />
           <strong>{scoreText(match.away_score)}</strong>
         </div>
         <div className="sports-match-card__team sports-match-card__team--away">

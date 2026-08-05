@@ -6,10 +6,16 @@ import { getFootballMatch } from '@/lib/sportscore'
 import type { SportScoreIncident, SportScoreMatch, SportScorePlayer } from '@/lib/sports-types'
 import { isLiveStatus } from '@/lib/sports-types'
 import { tSports } from '@/lib/sports-i18n'
+import { BallIcon } from '@/components/sports/ball-icon'
 
 function scoreText(v: string | null | undefined) {
   if (v === null || v === undefined || v === '') return '–'
   return String(v)
+}
+
+function isGoalEvent(ev: SportScoreIncident) {
+  if (ev.is_goal) return true
+  return /goal|гол/i.test(String(ev.type || ''))
 }
 
 function eventLabel(ev: SportScoreIncident) {
@@ -136,7 +142,7 @@ export async function MatchDetailPage({
               <p className={`sports-match-hero__status${live ? ' is-live' : ''}`}>{statusLabel}</p>
               <p className="sports-match-hero__numbers">
                 <span>{scoreText(match.home_score)}</span>
-                <span>:</span>
+                <BallIcon className="sports-ball sports-ball--lg" size={28} title={t.goal} />
                 <span>{scoreText(match.away_score)}</span>
               </p>
               <p className="sports-muted">
@@ -187,14 +193,21 @@ export async function MatchDetailPage({
           <section className="sports-section" aria-labelledby="sports-events-title">
             <h2 id="sports-events-title">{t.events}</h2>
             <ol className="sports-events">
-              {events.map((ev, idx) => (
-                <li key={`${ev.time}-${ev.type}-${idx}`}>
-                  <span className={`sports-events__side sports-events__side--${ev.side || 'home'}`}>
-                    {ev.side === 'away' ? t.away : t.home}
-                  </span>
-                  <span>{eventLabel(ev)}</span>
-                </li>
-              ))}
+              {events.map((ev, idx) => {
+                const goal = isGoalEvent(ev)
+                return (
+                  <li
+                    key={`${ev.time}-${ev.type}-${idx}`}
+                    className={goal ? 'sports-events__item--goal' : undefined}
+                  >
+                    {goal ? <BallIcon className="sports-ball" size={16} title={t.goal} /> : null}
+                    <span className={`sports-events__side sports-events__side--${ev.side || 'home'}`}>
+                      {ev.side === 'away' ? t.away : t.home}
+                    </span>
+                    <span>{eventLabel(ev)}</span>
+                  </li>
+                )
+              })}
             </ol>
           </section>
         ) : null}
