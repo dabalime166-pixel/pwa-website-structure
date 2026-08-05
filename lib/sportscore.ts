@@ -1,6 +1,10 @@
 import 'server-only'
 
-import type { SportScoreMatch, SportScoreTeam } from '@/lib/sports-types'
+import type {
+  SportScoreMatch,
+  SportScoreStandingsResponse,
+  SportScoreTeam,
+} from '@/lib/sports-types'
 
 const BASE = 'https://sportscore.com'
 /** Attribution / source tag required by SportScore free API */
@@ -25,6 +29,7 @@ export type SportScoreTeamResponse = {
   team: SportScoreTeam
   count?: number
   matches?: SportScoreMatch[]
+  updated?: string
 }
 
 type FetchOpts = {
@@ -71,16 +76,16 @@ export async function getFootballMatch(slug: string) {
   })
 }
 
-export async function getFootballTeam(slug: string, limit = 8) {
+export async function getFootballTeam(slug: string, limit = 12) {
   return sportscoreGet<SportScoreTeamResponse>('/api/widget/team/', {
     searchParams: { sport: 'football', slug, limit },
     revalidate: 300,
   })
 }
 
-export async function getPremierLeagueStandings() {
-  return sportscoreGet<unknown>('/api/widget/standings/', {
-    searchParams: { sport: 'football', slug: 'premier-league' },
-    revalidate: 300,
+export async function getFootballStandings(slug: string) {
+  return sportscoreGet<SportScoreStandingsResponse>('/api/widget/standings/', {
+    searchParams: { sport: 'football', slug },
+    revalidate: 600,
   })
 }

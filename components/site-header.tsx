@@ -16,6 +16,10 @@ interface SiteHeaderProps {
   gameGuideSlug?: string
   /** Sports match id — keeps language switch on the same match */
   matchId?: string
+  /** Sports league slug */
+  leagueSlug?: string
+  /** Sports team slug */
+  teamSlug?: string
 }
 
 export function SiteHeader({
@@ -26,6 +30,8 @@ export function SiteHeader({
   gameGuides,
   gameGuideSlug,
   matchId,
+  leagueSlug,
+  teamSlug,
 }: SiteHeaderProps) {
   const t = i18n[lang]
 
@@ -35,6 +41,12 @@ export function SiteHeader({
   if (matchId) {
     enHref = `/en/sports/match/${matchId}`
     ruHref = `/ru/sports/match/${matchId}`
+  } else if (leagueSlug) {
+    enHref = `/en/sports/league/${leagueSlug}`
+    ruHref = `/ru/sports/league/${leagueSlug}`
+  } else if (teamSlug) {
+    enHref = `/en/sports/team/${teamSlug}`
+    ruHref = `/ru/sports/team/${teamSlug}`
   } else if (section === 'sports') {
     enHref = '/en/sports'
     ruHref = '/ru/sports'
@@ -86,7 +98,7 @@ export function SiteHeader({
             </Link>
             <Link
               href={sportsHref}
-              className={`site-header__nav-link${section === 'sports' || matchId ? ' is-active' : ''}`}
+              className={`site-header__nav-link${section === 'sports' || matchId || leagueSlug || teamSlug ? ' is-active' : ''}`}
             >
               {lang === 'en' ? 'Sports' : 'Спорт'}
             </Link>

@@ -3,12 +3,20 @@ import { SportsHubPage } from '@/components/sports/sports-hub-page'
 import { withBrandTitle, clampMetaDescription } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: withBrandTitle('Футбол live — счёт и матчи'),
+  title: withBrandTitle('Футбол live — таблицы и профили клубов'),
   description: clampMetaDescription(
-    'Live-счёт футбольных матчей, расписание на сегодня, события, составы и команды на 1weapp. Данные SportScore.',
+    'Live-счёт, таблицы АПЛ и Лиги чемпионов, профили клубов, таймлайн матчей и составы на 1weapp. Данные SportScore.',
     'ru',
   ),
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
+  alternates: {
+    canonical: 'https://www.1weapp.online/ru/sports',
+    languages: {
+      en: 'https://www.1weapp.online/en/sports',
+      ru: 'https://www.1weapp.online/ru/sports',
+      'x-default': 'https://www.1weapp.online/en/sports',
+    },
+  },
 }
 
 export default function RuSportsPage() {

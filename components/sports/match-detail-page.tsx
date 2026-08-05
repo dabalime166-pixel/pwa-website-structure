@@ -4,7 +4,12 @@ import { SiteFooter } from '@/components/site-footer'
 import type { Lang } from '@/lib/games'
 import { getFootballMatch } from '@/lib/sportscore'
 import type { SportScoreIncident, SportScoreMatch, SportScorePlayer } from '@/lib/sports-types'
-import { isLiveStatus } from '@/lib/sports-types'
+import {
+  isGoalIncident,
+  isLiveStatus,
+  pickMatchHero,
+  teamSlugFromName,
+} from '@/lib/sports-types'
 import { tSports, SPORTS_BET_URL } from '@/lib/sports-i18n'
 import { BallIcon } from '@/components/sports/ball-icon'
 import { buildMatchH1 } from '@/lib/sports-seo'
@@ -12,11 +17,6 @@ import { buildMatchH1 } from '@/lib/sports-seo'
 function scoreText(v: string | null | undefined) {
   if (v === null || v === undefined || v === '') return '–'
   return String(v)
-}
-
-function isGoalEvent(ev: SportScoreIncident) {
-  if (ev.is_goal) return true
-  return /goal|гол/i.test(String(ev.type || ''))
 }
 
 function eventLabel(ev: SportScoreIncident) {
@@ -44,6 +44,9 @@ function PlayersList({
             {p.name}
             {p.captain ? ' ©' : ''}
             <span className="sports-muted">{p.position}</span>
+            {p.rating && Number(p.rating) > 0 ? (
+              <span className="sports-pill">{p.rating}</span>
+            ) : null}
           </li>
         ))}
       </ul>
@@ -69,6 +72,10 @@ function normalizeStats(stats: SportScoreMatch['stats']) {
     }
     return { label, home: String(value ?? '–'), away: '–' }
   })
+}
+
+function collectByType(events: SportScoreIncident[], pred: (ev: SportScoreIncident) => boolean) {
+  return events.filter(pred)
 }
 
 export async function MatchDetailPage({
@@ -120,6 +127,28 @@ export async function MatchDetailPage({
       ? `${match.status_text || 'Live'} ${match.live_minute}'`
       : match.status_text || match.status
   const h1 = buildMatchH1(match, lang)
+  const hero = pickMatchHero(match, lang)
+  const goals = collectByType(events, isGoalIncident)
+  const cards = collectByType(events, (ev) => Boolean(ev.is_card) || /card|карточ/i.test(String(ev.type || '')))
+  const subs = collectByType(events, (ev) => /sub/i.test(String(ev.type || '')))
+  const homeSlug = teamSlugFromName(match.home)
+  const awaySlug = teamSlugFromName(match.away)
+  const homeHref = lang === 'en' ? `/en/sports/team/${homeSlug}` : `/ru/sports/team/${homeSlug}`
+  const awayHref = lang === 'en' ? `/en/sports/team/${awaySlug}` : `/ru/sports/team/${awaySlug}`
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SportsEvent',
+    name: `${match.home} vs ${match.away}`,
+    startDate: match.time,
+    eventStatus: live
+      ? 'https://schema.org/EventScheduled'
+      : 'https://schema.org/EventScheduled',
+    homeTeam: { '@type': 'SportsTeam', name: match.home },
+    awayTeam: { '@type': 'SportsTeam', name: match.away },
+    organizer: match.competition,
+    url: `https://www.1weapp.online/${lang}/sports/match/${slug}`,
+  }
 
   return (
     <div className="page-shell sports-page sports-match-page">
@@ -139,6 +168,8 @@ export async function MatchDetailPage({
 
       <SiteHeader lang={lang} section="sports" matchId={slug} />
       <main className="sports-main sports-match-main">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
         <p className="sports-back">
           <Link href={backHref}>← {t.back}</Link>
         </p>
@@ -155,12 +186,12 @@ export async function MatchDetailPage({
           <h1 className="sports-match-hero__title">{h1}</h1>
 
           <div className="sports-match-hero__scoreboard">
-            <div className="sports-match-hero__side">
+            <Link href={homeHref} className="sports-match-hero__side">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={match.home_logo} alt="" width={72} height={72} />
               <p className="sports-match-hero__team">{match.home}</p>
               <p className="sports-match-hero__side-label">{t.home}</p>
-            </div>
+            </Link>
             <div className="sports-match-hero__score">
               <p className={`sports-match-hero__status${live ? ' is-live' : ''}`}>{statusLabel}</p>
               <p className="sports-match-hero__numbers">
@@ -172,12 +203,12 @@ export async function MatchDetailPage({
                 HT {scoreText(match.home_ht_score)}:{scoreText(match.away_ht_score)}
               </p>
             </div>
-            <div className="sports-match-hero__side sports-match-hero__side--away">
+            <Link href={awayHref} className="sports-match-hero__side sports-match-hero__side--away">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={match.away_logo} alt="" width={72} height={72} />
               <p className="sports-match-hero__team">{match.away}</p>
               <p className="sports-match-hero__side-label">{t.away}</p>
-            </div>
+            </Link>
           </div>
 
           <ul className="sports-match-meta">
@@ -198,10 +229,28 @@ export async function MatchDetailPage({
           </div>
         </header>
 
+        {hero ? (
+          <section className="sports-section sports-panel sports-hero-card" aria-labelledby="sports-hero-player">
+            <h2 id="sports-hero-player">{t.matchHero}</h2>
+            <div className="sports-hero-card__body">
+              <BallIcon className="sports-ball sports-ball--lg" size={28} title={t.goal} />
+              <div>
+                <p className="sports-hero-card__name">{hero.name}</p>
+                <p className="sports-muted">
+                  {hero.side === 'away' ? match.away : match.home} · {hero.reason}
+                  {hero.goals || hero.assists
+                    ? ` · ${t.goals} ${hero.goals} / ${t.assists} ${hero.assists}`
+                    : ''}
+                </p>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         <section className="sports-section sports-panel" aria-labelledby="sports-teams-title">
           <h2 id="sports-teams-title">{t.teams}</h2>
           <div className="sports-team-grid">
-            <article className="sports-team-card">
+            <Link href={homeHref} className="sports-team-card">
               <div className="sports-team-card__head">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={match.home_logo} alt="" width={48} height={48} />
@@ -210,8 +259,8 @@ export async function MatchDetailPage({
                   <h3>{match.home}</h3>
                 </div>
               </div>
-            </article>
-            <article className="sports-team-card">
+            </Link>
+            <Link href={awayHref} className="sports-team-card">
               <div className="sports-team-card__head">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={match.away_logo} alt="" width={48} height={48} />
@@ -220,16 +269,65 @@ export async function MatchDetailPage({
                   <h3>{match.away}</h3>
                 </div>
               </div>
-            </article>
+            </Link>
           </div>
         </section>
+
+        {(goals.length > 0 || cards.length > 0 || subs.length > 0) && (
+          <section className="sports-section sports-panel" aria-labelledby="sports-report-title">
+            <h2 id="sports-report-title">{t.matchReport}</h2>
+            <div className="sports-report-grid">
+              {goals.length > 0 ? (
+                <div>
+                  <h3>{t.scorers}</h3>
+                  <ul className="sports-report-list">
+                    {goals.map((ev, idx) => (
+                      <li key={`g-${idx}`}>
+                        <BallIcon className="sports-ball" size={14} />
+                        {ev.time != null ? `${ev.time}' ` : ''}
+                        {ev.player || '—'}
+                        {ev.assist ? ` ← ${ev.assist}` : ''}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {cards.length > 0 ? (
+                <div>
+                  <h3>{t.cards}</h3>
+                  <ul className="sports-report-list">
+                    {cards.map((ev, idx) => (
+                      <li key={`c-${idx}`}>
+                        {ev.time != null ? `${ev.time}' ` : ''}
+                        {ev.type} — {ev.player || '—'}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {subs.length > 0 ? (
+                <div>
+                  <h3>{t.substitutions}</h3>
+                  <ul className="sports-report-list">
+                    {subs.map((ev, idx) => (
+                      <li key={`s-${idx}`}>
+                        {ev.time != null ? `${ev.time}' ` : ''}
+                        {ev.player || '—'}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          </section>
+        )}
 
         {events.length > 0 ? (
           <section className="sports-section sports-panel" aria-labelledby="sports-events-title">
             <h2 id="sports-events-title">{t.events}</h2>
             <ol className="sports-events">
               {events.map((ev, idx) => {
-                const goal = isGoalEvent(ev)
+                const goal = isGoalIncident(ev)
                 return (
                   <li
                     key={`${ev.time}-${ev.type}-${idx}`}
