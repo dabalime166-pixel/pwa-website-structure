@@ -3,6 +3,8 @@ import { LeagueDetailPage } from '@/components/sports/league-detail-page'
 import { buildLeagueMetadata } from '@/lib/sports-seo'
 import { SPORTS_LEAGUES } from '@/lib/sports-leagues'
 
+export const revalidate = 900
+
 type Props = { params: Promise<{ slug: string }> }
 
 export function generateStaticParams() {

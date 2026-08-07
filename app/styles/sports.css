@@ -314,6 +314,75 @@
 
 .sports-browser__head {
   margin-top: 0.25rem;
+  align-items: center;
+}
+
+.sports-browser__head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.sports-back-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.sports-back-row .sports-back {
+  margin: 0;
+}
+
+.sports-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.15rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border-gold);
+  background: rgba(226, 184, 74, 0.08);
+  color: var(--color-gold-light);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+}
+
+.sports-refresh-btn:hover:not(:disabled) {
+  background: rgba(226, 184, 74, 0.16);
+  border-color: var(--color-border-gold-bright);
+}
+
+.sports-refresh-btn:disabled,
+.sports-refresh-btn.is-pending {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.sports-refresh-btn svg {
+  flex-shrink: 0;
+}
+
+.sports-refresh-btn.is-pending svg {
+  animation: sports-refresh-spin 0.8s linear infinite;
+}
+
+.sports-refresh-btn__time {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes sports-refresh-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .sports-section {
@@ -762,6 +831,16 @@
     grid-template-columns: 1fr;
   }
 
+  .sports-browser__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sports-browser__head-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .sports-match-hero__scoreboard {
     grid-template-columns: 1fr;
   }
@@ -784,7 +863,8 @@
 @media (prefers-reduced-motion: reduce) {
   .sports-hero__photo,
   .sports-hero__shine,
-  .sports-browser__chip.is-live.is-active {
+  .sports-browser__chip.is-live.is-active,
+  .sports-refresh-btn.is-pending svg {
     animation: none;
   }
 }

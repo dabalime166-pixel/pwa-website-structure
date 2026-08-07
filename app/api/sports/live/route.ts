@@ -3,7 +3,8 @@ import { getFootballMatches } from '@/lib/sportscore'
 import { isLiveStatus } from '@/lib/sports-types'
 
 export const runtime = 'nodejs'
-export const dynamic = 'force-dynamic'
+/** Cache the live feed — hub no longer polls; manual refresh busts with ?t= */
+export const revalidate = 180
 
 export async function GET(request: Request) {
   try {
@@ -21,7 +22,7 @@ export async function GET(request: Request) {
       },
       {
         headers: {
-          'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30',
+          'Cache-Control': 'public, s-maxage=180, stale-while-revalidate=300',
         },
       },
     )

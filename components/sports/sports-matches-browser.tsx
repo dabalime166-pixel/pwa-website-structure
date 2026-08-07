@@ -1,6 +1,6 @@
 'use client'
 
-import { useDeferredValue, useEffect, useMemo, useState, useTransition } from 'react'
+import { useDeferredValue, useMemo, useState } from 'react'
 import type { Lang } from '@/lib/games'
 import type { SportScoreMatch } from '@/lib/sports-types'
 import { isFinishedStatus, isLiveStatus } from '@/lib/sports-types'
@@ -34,39 +34,32 @@ export function SportsMatchesBrowser({
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<StatusFilter>('all')
   const [competition, setCompetition] = useState('all')
-  const [pending, startTransition] = useTransition()
+  const [pending, setPending] = useState(false)
   const [updatedAt, setUpdatedAt] = useState<string | null>(null)
   const deferredQuery = useDeferredValue(query.trim().toLowerCase())
 
-  useEffect(() => {
-    let cancelled = false
-    const tick = async () => {
-      try {
-        const res = await fetch('/api/sports/live?all=1', { cache: 'no-store' })
-        if (!res.ok) return
-        const data = (await res.json()) as { response?: SportScoreMatch[]; all?: SportScoreMatch[] }
-        if (cancelled) return
-        const next = Array.isArray(data.all)
-          ? data.all
-          : Array.isArray(data.response)
-            ? data.response
-            : null
-        if (!next) return
-        startTransition(() => {
-          setMatches(next)
-          setUpdatedAt(new Date().toLocaleTimeString())
-        })
-      } catch {
-        /* keep last good payload */
-      }
+  const refresh = async () => {
+    if (pending) return
+    setPending(true)
+    try {
+      // Bust CDN / browser cache — only on explicit user action
+      const res = await fetch(`/api/sports/live?all=1&t=${Date.now()}`, { cache: 'no-store' })
+      if (!res.ok) return
+      const data = (await res.json()) as { response?: SportScoreMatch[]; all?: SportScoreMatch[] }
+      const next = Array.isArray(data.all)
+        ? data.all
+        : Array.isArray(data.response)
+          ? data.response
+          : null
+      if (!next) return
+      setMatches(next)
+      setUpdatedAt(new Date().toLocaleTimeString())
+    } catch {
+      /* keep last good payload */
+    } finally {
+      setPending(false)
     }
-
-    const id = window.setInterval(tick, 20000)
-    return () => {
-      cancelled = true
-      window.clearInterval(id)
-    }
-  }, [])
+  }
 
   const competitions = useMemo(() => {
     const set = new Set<string>()
@@ -150,13 +143,38 @@ export function SportsMatchesBrowser({
 
       <div className="sports-section__head sports-browser__head">
         <h2 id="sports-fixtures-title">{t.fixtures}</h2>
-        <p className="sports-section__hint">
-          {t.showing
-            .replace('{shown}', String(filtered.length))
-            .replace('{total}', String(matches.length))}
-          {updatedAt ? ` · ${updatedAt}` : ''}
-          {pending ? '…' : ''}
-        </p>
+        <div className="sports-browser__head-actions">
+          <p className="sports-section__hint">
+            {t.showing
+              .replace('{shown}', String(filtered.length))
+              .replace('{total}', String(matches.length))}
+            {updatedAt ? ` · ${updatedAt}` : ''}
+          </p>
+          <button
+            type="button"
+            className={`sports-refresh-btn${pending ? ' is-pending' : ''}`}
+            disabled={pending}
+            aria-busy={pending}
+            onClick={refresh}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M20 12a8 8 0 1 1-2.34-5.66"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+              />
+              <path
+                d="M20 4v5h-5"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span>{pending ? t.refreshing : t.refresh}</span>
+          </button>
+        </div>
       </div>
 
       {filtered.length === 0 ? (

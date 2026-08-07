@@ -62,30 +62,36 @@ async function sportscoreGet<T>(path: string, { revalidate = 30, searchParams }:
   return (await res.json()) as T
 }
 
+/** Segment / fetch cache windows — keep high to protect Vercel Fluid limits. */
+export const SPORTS_MATCHES_REVALIDATE = 180
+export const SPORTS_MATCH_REVALIDATE = 180
+export const SPORTS_TEAM_REVALIDATE = 600
+export const SPORTS_STANDINGS_REVALIDATE = 900
+
 export async function getFootballMatches(limit = 40) {
   return sportscoreGet<SportScoreMatchesResponse>('/api/widget/matches/', {
     searchParams: { sport: 'football', limit },
-    revalidate: 20,
+    revalidate: SPORTS_MATCHES_REVALIDATE,
   })
 }
 
 export async function getFootballMatch(slug: string) {
   return sportscoreGet<SportScoreMatchResponse>('/api/widget/match/', {
     searchParams: { sport: 'football', slug },
-    revalidate: 20,
+    revalidate: SPORTS_MATCH_REVALIDATE,
   })
 }
 
 export async function getFootballTeam(slug: string, limit = 12) {
   return sportscoreGet<SportScoreTeamResponse>('/api/widget/team/', {
     searchParams: { sport: 'football', slug, limit },
-    revalidate: 300,
+    revalidate: SPORTS_TEAM_REVALIDATE,
   })
 }
 
 export async function getFootballStandings(slug: string) {
   return sportscoreGet<SportScoreStandingsResponse>('/api/widget/standings/', {
     searchParams: { sport: 'football', slug },
-    revalidate: 600,
+    revalidate: SPORTS_STANDINGS_REVALIDATE,
   })
 }

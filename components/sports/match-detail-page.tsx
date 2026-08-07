@@ -12,6 +12,7 @@ import {
 } from '@/lib/sports-types'
 import { tSports, SPORTS_BET_URL } from '@/lib/sports-i18n'
 import { BallIcon } from '@/components/sports/ball-icon'
+import { SportsRefreshButton } from '@/components/sports/sports-refresh-button'
 import { buildMatchH1 } from '@/lib/sports-seo'
 
 function scoreText(v: string | null | undefined) {
@@ -170,9 +171,12 @@ export async function MatchDetailPage({
       <main className="sports-main sports-match-main">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        <p className="sports-back">
-          <Link href={backHref}>← {t.back}</Link>
-        </p>
+        <div className="sports-back-row">
+          <p className="sports-back">
+            <Link href={backHref}>← {t.back}</Link>
+          </p>
+          <SportsRefreshButton lang={lang} />
+        </div>
 
         <header className="sports-match-hero">
           <p className="sports-match-hero__league">

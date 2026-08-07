@@ -11,6 +11,7 @@ import {
   type SportScorePlayer,
 } from '@/lib/sports-types'
 import { tSports } from '@/lib/sports-i18n'
+import { SportsRefreshButton } from '@/components/sports/sports-refresh-button'
 
 export async function TeamDetailPage({ lang, slug }: { lang: Lang; slug: string }) {
   const t = tSports(lang)
@@ -73,9 +74,12 @@ export async function TeamDetailPage({ lang, slug }: { lang: Lang; slug: string 
       <main className="sports-main sports-match-main">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        <p className="sports-back">
-          <Link href={backHref}>← {t.backSports}</Link>
-        </p>
+        <div className="sports-back-row">
+          <p className="sports-back">
+            <Link href={backHref}>← {t.backSports}</Link>
+          </p>
+          <SportsRefreshButton lang={lang} />
+        </div>
 
         {error ? (
           <p className="sports-error">{error}</p>

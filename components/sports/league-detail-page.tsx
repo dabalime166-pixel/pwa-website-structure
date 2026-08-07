@@ -6,6 +6,7 @@ import type { Lang } from '@/lib/games'
 import { getFootballStandings } from '@/lib/sportscore'
 import { getLeague, leagueName, leagueRegion } from '@/lib/sports-leagues'
 import { tSports } from '@/lib/sports-i18n'
+import { SportsRefreshButton } from '@/components/sports/sports-refresh-button'
 import { notFound } from 'next/navigation'
 
 export async function LeagueDetailPage({ lang, slug }: { lang: Lang; slug: string }) {
@@ -49,9 +50,12 @@ export async function LeagueDetailPage({ lang, slug }: { lang: Lang; slug: strin
       <main className="sports-main sports-match-main">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        <p className="sports-back">
-          <Link href={backHref}>← {t.backSports}</Link>
-        </p>
+        <div className="sports-back-row">
+          <p className="sports-back">
+            <Link href={backHref}>← {t.backSports}</Link>
+          </p>
+          <SportsRefreshButton lang={lang} />
+        </div>
 
         <header className="sports-league-hero">
           <p className="sports-match-hero__league">

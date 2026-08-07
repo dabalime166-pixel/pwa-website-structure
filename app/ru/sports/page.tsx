@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { SportsHubPage } from '@/components/sports/sports-hub-page'
 import { withBrandTitle, clampMetaDescription } from '@/lib/seo'
 
+export const revalidate = 180
+
 export const metadata: Metadata = {
   title: withBrandTitle('Футбол live — таблицы и профили клубов'),
   description: clampMetaDescription(
