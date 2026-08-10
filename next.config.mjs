@@ -85,6 +85,15 @@ const nextConfig = {
         ],
       },
       {
+        source: '/banners/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
         source: '/avatars/:path*',
         headers: [
           {

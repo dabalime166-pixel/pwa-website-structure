@@ -5,6 +5,7 @@ import type {
   SportScoreStandingsResponse,
   SportScoreTeam,
 } from '@/lib/sports-types'
+import { matchSlugFromUrl, teamSlugFromName } from '@/lib/sports-types'
 
 const BASE = 'https://sportscore.com'
 /** Attribution / source tag required by SportScore free API */
@@ -52,6 +53,8 @@ async function sportscoreGet<T>(path: string, { revalidate = 30, searchParams }:
       Accept: 'application/json',
       'User-Agent': UA,
     },
+    // Next 16 defaults fetch to uncached; force-cache + revalidate enables ISR data cache.
+    cache: 'force-cache',
     next: { revalidate },
   })
 
@@ -94,4 +97,45 @@ export async function getFootballStandings(slug: string) {
     searchParams: { sport: 'football', slug },
     revalidate: SPORTS_STANDINGS_REVALIDATE,
   })
+}
+
+/**
+ * Build-time / on-demand ISR seeds for match & team detail routes.
+ * Without generateStaticParams, Next marks these as ƒ Dynamic and ignores
+ * `export const revalidate` — every hit becomes a function invocation.
+ */
+export async function listFootballMatchStaticParams(): Promise<{ slug: string }[]> {
+  try {
+    const data = await getFootballMatches(80)
+    const seen = new Set<string>()
+    const out: { slug: string }[] = []
+    for (const match of data.matches || []) {
+      const slug = matchSlugFromUrl(match.url)
+      if (!slug || seen.has(slug)) continue
+      seen.add(slug)
+      out.push({ slug })
+    }
+    return out
+  } catch {
+    return []
+  }
+}
+
+export async function listFootballTeamStaticParams(): Promise<{ slug: string }[]> {
+  try {
+    const data = await getFootballMatches(80)
+    const seen = new Set<string>()
+    const out: { slug: string }[] = []
+    for (const match of data.matches || []) {
+      for (const name of [match.home, match.away]) {
+        const slug = teamSlugFromName(name)
+        if (!slug || seen.has(slug)) continue
+        seen.add(slug)
+        out.push({ slug })
+      }
+    }
+    return out
+  } catch {
+    return []
+  }
 }
