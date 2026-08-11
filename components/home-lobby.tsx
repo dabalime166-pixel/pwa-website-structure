@@ -7,8 +7,10 @@ import type { Game, Lang } from '@/lib/games'
 
 interface HomeLobbyProps {
   lang: Lang
-  /** Popular demos: top titles per provider (full catalogs stay on provider hubs). */
+  /** Popular demos shown by default (before search). */
   popularGames: Game[]
+  /** Full catalog — search looks here, not only in popular. */
+  allGames: Game[]
 }
 
 /** Show enough tiles to surface multiple providers before “Show more”. */
@@ -41,7 +43,7 @@ function matchesType(game: Game, type: TypeFilter) {
   return gt === type
 }
 
-export function HomeLobby({ lang, popularGames }: HomeLobbyProps) {
+export function HomeLobby({ lang, popularGames, allGames }: HomeLobbyProps) {
   const isEn = lang === 'en'
   const [query, setQuery] = useState('')
   const [debouncedQ, setDebouncedQ] = useState('')
@@ -53,14 +55,16 @@ export function HomeLobby({ lang, popularGames }: HomeLobbyProps) {
     return () => window.clearTimeout(t)
   }, [query])
 
-  const filtered = useMemo(() => {
-    return popularGames.filter(
-      (g) => matchesType(g, typeFilter) && matchesQuery(g, debouncedQ),
-    )
-  }, [popularGames, typeFilter, debouncedQ])
+  const isSearching = Boolean(debouncedQ)
 
-  const list = expanded || debouncedQ || typeFilter !== 'all' ? filtered : filtered.slice(0, PREVIEW)
-  const canExpand = !debouncedQ && typeFilter === 'all' && filtered.length > PREVIEW
+  const filtered = useMemo(() => {
+    // Search the full catalog; idle browse stays on popular picks.
+    const pool = isSearching ? allGames : popularGames
+    return pool.filter((g) => matchesType(g, typeFilter) && matchesQuery(g, debouncedQ))
+  }, [allGames, popularGames, typeFilter, debouncedQ, isSearching])
+
+  const list = expanded || isSearching || typeFilter !== 'all' ? filtered : filtered.slice(0, PREVIEW)
+  const canExpand = !isSearching && typeFilter === 'all' && filtered.length > PREVIEW
 
   const typeChips: { id: TypeFilter; label: string }[] = [
     { id: 'all', label: isEn ? 'All' : 'Все' },
@@ -91,8 +95,8 @@ export function HomeLobby({ lang, popularGames }: HomeLobbyProps) {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={isEn ? 'Search popular…' : 'Поиск в популярных…'}
-              aria-label={isEn ? 'Search popular demos' : 'Поиск популярных демо'}
+              placeholder={isEn ? 'Search all demos…' : 'Поиск по всем демо…'}
+              aria-label={isEn ? 'Search all demos' : 'Поиск по всем демо'}
               autoComplete="off"
               spellCheck={false}
             />
@@ -134,21 +138,33 @@ export function HomeLobby({ lang, popularGames }: HomeLobbyProps) {
         <div className="lobby-section-header">
           <div className="lobby-section-header__brand">
             <span className="lobby-section-mark" aria-hidden="true">
-              P
+              {isSearching ? 'S' : 'P'}
             </span>
             <div>
               <p className="lobby-section-header__subtitle">
-                {isEn ? 'Instant picks' : 'Быстрый выбор'}
+                {isSearching
+                  ? isEn
+                    ? 'Full catalog'
+                    : 'Весь каталог'
+                  : isEn
+                    ? 'Instant picks'
+                    : 'Быстрый выбор'}
               </p>
               <h2 id="lobby-popular-title" className="lobby-section-header__title">
-                {isEn ? 'Popular' : 'Популярные'}
+                {isSearching
+                  ? isEn
+                    ? 'Search results'
+                    : 'Результаты поиска'
+                  : isEn
+                    ? 'Popular'
+                    : 'Популярные'}
               </h2>
             </div>
           </div>
 
           <div className="lobby-section-header__actions">
             <span className="lobby-section-header__count">{filtered.length}</span>
-            {!expanded && !(debouncedQ || typeFilter !== 'all') && (
+            {!expanded && !isSearching && typeFilter === 'all' && (
               <div className="lobby-scroll-btns">
                 <button
                   type="button"
@@ -188,7 +204,7 @@ export function HomeLobby({ lang, popularGames }: HomeLobbyProps) {
         {list.length > 0 ? (
           <div
             id="lobby-popular-row"
-            className={expanded || debouncedQ || typeFilter !== 'all' ? 'lobby-section__grid' : 'lobby-section__row'}
+            className={expanded || isSearching || typeFilter !== 'all' ? 'lobby-section__grid' : 'lobby-section__row'}
             role="list"
           >
             {list.map((game, i) => (

@@ -227,7 +227,7 @@ export function HomePage({ lang }: HomePageProps) {
             <p className="home-section-head__count">{popularGames.length}</p>
           </div>
 
-          <HomeLobby lang={lang} popularGames={popularGames} />
+          <HomeLobby lang={lang} popularGames={popularGames} allGames={games} />
           <HomeProviderHubs lang={lang} />
           <HomeDiscover lang={lang} catalog={featured} />
 
