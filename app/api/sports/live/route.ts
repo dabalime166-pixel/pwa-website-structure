@@ -4,7 +4,7 @@ import { isLiveStatus } from '@/lib/sports-types'
 
 export const runtime = 'nodejs'
 /** Cache the live feed — hub no longer polls; manual refresh busts with ?t= */
-export const revalidate = 180
+export const revalidate = 86400
 
 export async function GET(request: Request) {
   try {
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
       },
       {
         headers: {
-          'Cache-Control': 'public, s-maxage=180, stale-while-revalidate=300',
+          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=3600',
         },
       },
     )

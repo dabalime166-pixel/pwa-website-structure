@@ -3,7 +3,7 @@ import { TeamDetailPage } from '@/components/sports/team-detail-page'
 import { listFootballTeamStaticParams } from '@/lib/sportscore'
 import { buildTeamMetadata } from '@/lib/sports-seo'
 
-export const revalidate = 600
+export const revalidate = 86400
 /** Allow on-demand ISR for teams not known at build time */
 export const dynamicParams = true
 

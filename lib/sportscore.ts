@@ -65,11 +65,11 @@ async function sportscoreGet<T>(path: string, { revalidate = 30, searchParams }:
   return (await res.json()) as T
 }
 
-/** Segment / fetch cache windows — keep high to protect Vercel Fluid limits. */
-export const SPORTS_MATCHES_REVALIDATE = 180
-export const SPORTS_MATCH_REVALIDATE = 180
-export const SPORTS_TEAM_REVALIDATE = 600
-export const SPORTS_STANDINGS_REVALIDATE = 900
+/** Segment / fetch cache windows — 24h to protect Vercel ISR limits. */
+export const SPORTS_MATCHES_REVALIDATE = 86400
+export const SPORTS_MATCH_REVALIDATE = 86400
+export const SPORTS_TEAM_REVALIDATE = 86400
+export const SPORTS_STANDINGS_REVALIDATE = 86400
 
 export async function getFootballMatches(limit = 40) {
   return sportscoreGet<SportScoreMatchesResponse>('/api/widget/matches/', {
