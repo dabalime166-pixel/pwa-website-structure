@@ -14,6 +14,8 @@
   --db-pad: clamp(1rem, 3vw, 1.5rem);
   background: var(--db-bg);
   color: var(--db-text);
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .db-home .sr-only {
@@ -161,6 +163,8 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0.75rem var(--db-pad) 3.5rem;
+  min-width: 0;
+  overflow-x: clip;
 }
 
 .db-toolbar {
@@ -185,8 +189,10 @@
   display: flex;
   gap: 0.45rem;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
   padding-bottom: 0.15rem;
+  -webkit-overflow-scrolling: touch;
 }
 .db-chips::-webkit-scrollbar { display: none; }
 .db-chip {
@@ -247,13 +253,18 @@
 /* Horizontal game rows */
 .db-row {
   margin-bottom: 1.65rem;
-  content-visibility: auto;
-  contain-intrinsic-size: 280px;
+  min-width: 0;
 }
 .db-row-lazy {
   margin-bottom: 1.65rem;
-  content-visibility: auto;
-  contain-intrinsic-size: 280px;
+  min-width: 0;
+}
+@media (min-width: 901px) {
+  .db-row,
+  .db-row-lazy {
+    content-visibility: auto;
+    contain-intrinsic-size: 280px;
+  }
 }
 .db-row-lazy__slot {
   min-height: 220px;
@@ -319,24 +330,62 @@
 .db-row__nav:hover {
   border-color: rgba(255, 255, 255, 0.25);
 }
-.db-row__track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(132px, 148px);
+.db-row__track,
+.db-home .lobby-section__row {
+  display: flex;
   gap: 0.75rem;
   overflow-x: auto;
-  padding-bottom: 0.35rem;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
+  scroll-behavior: auto;
+  touch-action: pan-x pan-y;
+  margin-inline: calc(-1 * var(--db-pad));
+  padding-inline: var(--db-pad);
+  scroll-padding-inline: var(--db-pad);
+  padding-bottom: 0.35rem;
+  scrollbar-width: none;
+}
+.db-row__track::-webkit-scrollbar,
+.db-home .lobby-section__row::-webkit-scrollbar {
+  display: none;
 }
 @media (min-width: 900px) {
-  .db-row__track {
-    grid-auto-columns: minmax(148px, 168px);
+  .db-row__track,
+  .db-home .lobby-section__row {
     gap: 0.9rem;
+    scrollbar-width: thin;
+  }
+  .db-row__track::-webkit-scrollbar,
+  .db-home .lobby-section__row::-webkit-scrollbar {
+    display: block;
+    height: 5px;
+  }
+  .db-row__track::-webkit-scrollbar-thumb,
+  .db-home .lobby-section__row::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.28);
+    border-radius: 999px;
   }
 }
-.db-row__tile {
+.db-row__tile,
+.db-home .lobby-tile {
+  flex: 0 0 auto;
+  width: clamp(140px, 42vw, 168px);
   scroll-snap-align: start;
+  min-width: 0;
+}
+@media (min-width: 720px) {
+  .db-row__tile,
+  .db-home .lobby-tile {
+    width: 176px;
+  }
+}
+@media (min-width: 1100px) {
+  .db-row__tile,
+  .db-home .lobby-tile {
+    width: 188px;
+  }
 }
 .db-row__tile .game-card {
   width: 100%;
@@ -395,44 +444,6 @@
   color: var(--db-mute);
   font-size: 0.82rem;
   font-weight: 600;
-}
-.db-home .lobby-section__row {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding: 0.1rem 0.15rem 0.45rem;
-  margin: 0 -0.15rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-}
-.db-home .lobby-section__row::-webkit-scrollbar {
-  height: 5px;
-}
-.db-home .lobby-section__row::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.28);
-  border-radius: 999px;
-}
-.db-home .lobby-tile {
-  flex: 0 0 auto;
-  width: min(44vw, 156px);
-  scroll-snap-align: start;
-  min-width: 0;
-}
-@media (min-width: 480px) {
-  .db-home .lobby-tile {
-    width: min(38vw, 168px);
-  }
-}
-@media (min-width: 720px) {
-  .db-home .lobby-tile {
-    width: 176px;
-  }
-}
-@media (min-width: 1100px) {
-  .db-home .lobby-tile {
-    width: 188px;
-  }
 }
 .db-home .lobby-tile .game-card {
   width: 100%;

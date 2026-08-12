@@ -50,12 +50,15 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   background-color: var(--color-bg-base);
+  overflow-x: clip;
 }
 
 body {
   position: relative;
   isolation: isolate;
   min-height: 100dvh;
+  max-width: 100%;
+  overflow-x: clip;
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   line-height: 1.6;
@@ -190,14 +193,34 @@ img { display: block; max-width: 100%; height: auto; }
   pointer-events: none;
   z-index: 2;
 }
-.game-card:hover {
-  transform: translateY(-7px) scale(1.01);
-  box-shadow:
-    0 0 0 1px var(--color-border-gold-bright),
-    0 18px 48px rgba(226, 184, 74, 0.16),
-    0 8px 24px rgba(0,0,0,0.45);
+
+@media (hover: hover) and (pointer: fine) {
+  .game-card:hover {
+    transform: translateY(-7px) scale(1.01);
+    box-shadow:
+      0 0 0 1px var(--color-border-gold-bright),
+      0 18px 48px rgba(226, 184, 74, 0.16),
+      0 8px 24px rgba(0,0,0,0.45);
+  }
+  .game-card:hover::before { opacity: 1; }
+  .game-card:hover .card-img-wrap img {
+    transform: scale(1.08);
+  }
+  .game-card:hover .card-overlay { opacity: 1; }
 }
-.game-card:hover::before { opacity: 1; }
+
+/* Touch devices: no hover lift — avoids horizontal overflow while scrolling */
+@media (hover: none), (pointer: coarse) {
+  .game-card:hover {
+    transform: none;
+    box-shadow:
+      0 0 0 1px var(--color-border-gold),
+      0 10px 30px rgba(0,0,0,0.35);
+  }
+  .game-card:hover::before { opacity: 0; }
+  .game-card:hover .card-img-wrap img { transform: none; }
+  .game-card:hover .card-overlay { opacity: 0; }
+}
 
 /* Image container — cover crop for denser catalog */
 .card-img-wrap {
@@ -225,9 +248,6 @@ img { display: block; max-width: 100%; height: auto; }
   object-fit: cover;
   object-position: center;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.game-card:hover .card-img-wrap img {
-  transform: scale(1.08);
 }
 
 .card-badges {
@@ -299,7 +319,6 @@ img { display: block; max-width: 100%; height: auto; }
   transition: opacity 0.25s ease;
   z-index: 2;
 }
-.game-card:hover .card-overlay { opacity: 1; }
 .card-overlay__cta {
   background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
   color: #0a0a0b;
