@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { startTransition, useDeferredValue, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { GameCard } from '@/components/game-card'
 import { RecentFavorites } from '@/components/recent-favorites'
@@ -11,23 +11,9 @@ import { providerHref } from '@/lib/providers'
 
 type ChipId = 'top' | string
 
-function normalize(s: string) {
-  return s
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9а-яё\s-]/gi, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
-
-function matchesQuery(game: Game, q: string) {
-  if (!q) return true
-  const hay = normalize(`${game.name} ${game.provider} ${game.slug} ${game.gameType || ''}`)
-  const tokens = normalize(q).split(' ').filter(Boolean)
-  if (!tokens.length) return true
-  return tokens.every((t) => hay.includes(t))
-}
+const ROW_LIMIT = 10
+const PROVIDER_VIEW_LIMIT = 24
+const SEARCH_LIMIT = 24
 
 function GameRow({
   games,
@@ -36,6 +22,7 @@ function GameRow({
   subtitle,
   moreHref,
   moreLabel,
+  eager,
 }: {
   games: Game[]
   lang: Lang
@@ -43,6 +30,8 @@ function GameRow({
   subtitle?: string
   moreHref?: string
   moreLabel?: string
+  /** Only the first visible row should eager-load a couple images */
+  eager?: boolean
 }) {
   const rowRef = useRef<HTMLDivElement>(null)
   if (!games.length) return null
@@ -77,7 +66,7 @@ function GameRow({
       <div className="db-row__track" ref={rowRef} role="list">
         {games.map((game, i) => (
           <div key={game.slug} className="db-row__tile" role="listitem">
-            <GameCard game={game} lang={lang} priority={i < 3} />
+            <GameCard game={game} lang={lang} priority={Boolean(eager && i < 2)} />
           </div>
         ))}
       </div>
@@ -85,42 +74,108 @@ function GameRow({
   )
 }
 
+/** Mount row only when near viewport — cuts image/DOM work on first paint */
+function LazyGameRow(props: {
+  games: Game[]
+  lang: Lang
+  title: string
+  subtitle?: string
+  moreHref?: string
+  moreLabel?: string
+}) {
+  const hostRef = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = hostRef.current
+    if (!el || visible) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setVisible(true)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '240px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [visible])
+
+  return (
+    <div ref={hostRef} className="db-row-lazy">
+      {visible ? (
+        <GameRow {...props} />
+      ) : (
+        <div className="db-row-lazy__slot" aria-hidden="true">
+          <div className="db-row__head">
+            <div>
+              <h2 className="db-row__title">{props.title}</h2>
+            </div>
+          </div>
+          <div className="db-row-lazy__bones" />
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function HomeLobby({
   lang,
   topGames,
-  allGames,
   providers,
   gamesByProvider,
 }: {
   lang: Lang
   topGames: Game[]
-  allGames: Game[]
   providers: ProviderDef[]
   gamesByProvider: Record<string, Game[]>
 }) {
   const isEn = lang === 'en'
   const [query, setQuery] = useState('')
-  const [debouncedQ, setDebouncedQ] = useState('')
+  const deferredQuery = useDeferredValue(query.trim())
   const [chip, setChip] = useState<ChipId>('top')
+  const [searchResults, setSearchResults] = useState<Game[]>([])
+  const [searchPending, setSearchPending] = useState(false)
 
   useEffect(() => {
-    const t = window.setTimeout(() => setDebouncedQ(query), 140)
-    return () => window.clearTimeout(t)
-  }, [query])
+    if (deferredQuery.length < 2) {
+      setSearchResults([])
+      setSearchPending(false)
+      return
+    }
 
-  const searching = Boolean(debouncedQ)
+    const ctrl = new AbortController()
+    setSearchPending(true)
+    const t = window.setTimeout(() => {
+      fetch(`/api/games-search?q=${encodeURIComponent(deferredQuery)}&limit=${SEARCH_LIMIT}`, {
+        signal: ctrl.signal,
+      })
+        .then((r) => (r.ok ? r.json() : Promise.reject()))
+        .then((data: { games?: Game[] }) => {
+          setSearchResults(Array.isArray(data.games) ? data.games : [])
+        })
+        .catch(() => {
+          if (!ctrl.signal.aborted) setSearchResults([])
+        })
+        .finally(() => {
+          if (!ctrl.signal.aborted) setSearchPending(false)
+        })
+    }, 160)
 
-  const searchResults = useMemo(() => {
-    if (!searching) return []
-    return allGames.filter((g) => matchesQuery(g, debouncedQ)).slice(0, 60)
-  }, [allGames, debouncedQ, searching])
+    return () => {
+      ctrl.abort()
+      window.clearTimeout(t)
+    }
+  }, [deferredQuery])
 
+  const searching = deferredQuery.length >= 2
   const chips: { id: ChipId; label: string }[] = [
     { id: 'top', label: isEn ? 'Top' : 'Топ' },
     ...providers.slice(0, 8).map((p) => ({ id: p.slug, label: p.titleEn.split(' ')[0] })),
   ]
-
   const activeProvider = providers.find((p) => p.slug === chip)
+  const topSlice = topGames.slice(0, ROW_LIMIT)
 
   return (
     <div className="db-lobby">
@@ -133,7 +188,7 @@ export function HomeLobby({
               role="tab"
               aria-selected={chip === c.id}
               className={`db-chip${chip === c.id ? ' is-active' : ''}`}
-              onClick={() => setChip(c.id)}
+              onClick={() => startTransition(() => setChip(c.id))}
             >
               {c.label}
             </button>
@@ -163,7 +218,9 @@ export function HomeLobby({
           <div className="db-row__head">
             <div>
               <h2 className="db-row__title">{isEn ? 'Search results' : 'Результаты поиска'}</h2>
-              <p className="db-row__sub">{searchResults.length}</p>
+              <p className="db-row__sub">
+                {searchPending ? (isEn ? 'Searching…' : 'Ищем…') : searchResults.length}
+              </p>
             </div>
           </div>
           {searchResults.length ? (
@@ -174,38 +231,40 @@ export function HomeLobby({
                 </div>
               ))}
             </div>
-          ) : (
+          ) : searchPending ? null : (
             <p className="db-empty">{isEn ? 'No demos found' : 'Ничего не найдено'}</p>
           )}
         </section>
       ) : chip !== 'top' && activeProvider ? (
         <GameRow
-          games={gamesByProvider[activeProvider.name] || []}
+          games={(gamesByProvider[activeProvider.name] || []).slice(0, PROVIDER_VIEW_LIMIT)}
           lang={lang}
           title={isEn ? activeProvider.titleEn : activeProvider.titleRu}
           subtitle={isEn ? 'Studio demos' : 'Демо студии'}
           moreHref={providerHref(lang, activeProvider.slug)}
           moreLabel={isEn ? 'More' : 'Ещё'}
+          eager
         />
       ) : (
         <>
           <RecentFavorites lang={lang} />
 
           <GameRow
-            games={topGames}
+            games={topSlice}
             lang={lang}
             title={isEn ? 'Top picks' : 'Топ демо'}
             subtitle={isEn ? 'Most played demos' : 'Самые играемые демо'}
+            eager
           />
 
           <div className="db-random">
-            <LazyRandomDemo games={topGames.slice(0, 24)} lang={lang} />
+            <LazyRandomDemo games={topSlice} lang={lang} />
           </div>
 
           {providers.map((p) => (
-            <GameRow
+            <LazyGameRow
               key={p.slug}
-              games={(gamesByProvider[p.name] || []).slice(0, 16)}
+              games={(gamesByProvider[p.name] || []).slice(0, ROW_LIMIT)}
               lang={lang}
               title={isEn ? p.titleEn : p.titleRu}
               moreHref={providerHref(lang, p.slug)}

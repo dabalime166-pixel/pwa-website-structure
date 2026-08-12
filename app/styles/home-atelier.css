@@ -207,7 +207,25 @@
 /* Horizontal game rows */
 .db-row {
   margin-bottom: 1.65rem;
+  content-visibility: auto;
+  contain-intrinsic-size: 280px;
 }
+.db-row-lazy {
+  margin-bottom: 1.65rem;
+  content-visibility: auto;
+  contain-intrinsic-size: 280px;
+}
+.db-row-lazy__slot {
+  min-height: 220px;
+}
+.db-row-lazy__bones {
+  height: 190px;
+  border-radius: 0.85rem;
+  background: linear-gradient(90deg, #121212 0%, #1a1a1a 50%, #121212 100%);
+  background-size: 200% 100%;
+  opacity: 0.55;
+}
+
 .db-row__head {
   display: flex;
   align-items: flex-end;

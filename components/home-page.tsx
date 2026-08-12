@@ -42,16 +42,17 @@ export function HomePage({ lang }: HomePageProps) {
   )
 
   const providerPopular = getPopularGamesPerProvider(10)
-  const topGames: Game[] = [...featured, ...providerPopular].filter(
-    (g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i,
-  )
+  const topGames: Game[] = [...featured, ...providerPopular]
+    .filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
+    .slice(0, 12)
 
   const activeProviders = PROVIDERS.filter((p) => getGamesByProvider(p.name).length > 0)
+  /** Only ship a small row per provider to the client — full hubs stay on /providers. */
   const gamesByProvider: Record<string, Game[]> = {}
   for (const p of activeProviders) {
     const popular = providerPopular.filter((g) => g.provider === p.name)
     const rest = getGamesByProvider(p.name).filter((g) => !popular.some((x) => x.slug === g.slug))
-    gamesByProvider[p.name] = [...popular, ...rest]
+    gamesByProvider[p.name] = [...popular, ...rest].slice(0, 24)
   }
 
   const faqItems = isEn
@@ -187,8 +188,7 @@ export function HomePage({ lang }: HomePageProps) {
         <section id="lobby" className="db-main" aria-label={isEn ? 'Demo catalog' : 'Каталог демо'}>
           <HomeLobby
             lang={lang}
-            topGames={topGames.slice(0, 24)}
-            allGames={games}
+            topGames={topGames}
             providers={activeProviders}
             gamesByProvider={gamesByProvider}
           />
