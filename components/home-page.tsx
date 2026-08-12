@@ -147,8 +147,8 @@ export function HomePage({ lang }: HomePageProps) {
       <JsonLd data={faqSchema} />
       <SiteHeader lang={lang} />
 
-      <main id="main-content" role="main">
-        <section className="home-brand-banner" aria-label="1weapp">
+      <main id="main-content" role="main" className="home-premium">
+        <section className="home-brand-banner home-brand-banner--luxe" aria-label="1weapp">
           <div className="home-brand-banner__media" aria-hidden="true">
             <Image
               src="/banners/home-brand.webp"
@@ -163,19 +163,20 @@ export function HomePage({ lang }: HomePageProps) {
               className="home-brand-banner__photo"
             />
             <div className="home-brand-banner__veil" />
+            <div className="home-brand-banner__grain" />
           </div>
 
           <div className="home-brand-banner__inner">
-            <p className="home-brand-banner__brand">
+            <p className="home-brand-banner__brand anim-fade-up">
               <span className="home-brand-banner__brand-main">1we</span>
               <span className="home-brand-banner__brand-accent">app</span>
             </p>
-            <h1 className="home-brand-banner__title">{t.heroTitle}</h1>
-            <p className="home-brand-banner__sub">{t.heroSub}</p>
+            <h1 className="home-brand-banner__title anim-fade-up anim-delay-1">{t.heroTitle}</h1>
+            <p className="home-brand-banner__sub anim-fade-up anim-delay-2">{t.heroSub}</p>
 
-            <div className="home-brand-banner__actions">
-              <a href="#lobby" className="btn-cta">
-                {isEn ? 'Browse demos' : 'Смотреть демо'}
+            <div className="home-brand-banner__actions anim-fade-up anim-delay-3">
+              <a href="#lobby" className="btn-cta home-brand-banner__cta">
+                {isEn ? 'Enter the lounge' : 'Войти в зал'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -185,14 +186,14 @@ export function HomePage({ lang }: HomePageProps) {
                 href={CTA_URL}
                 rel="noopener noreferrer nofollow sponsored"
                 target="_blank"
-                className="btn-ghost"
+                className="btn-ghost home-brand-banner__ghost"
                 aria-label={t.playReal}
               >
                 {t.playReal}
               </a>
             </div>
 
-            <p className="home-brand-banner__legal">
+            <p className="home-brand-banner__legal anim-fade-up anim-delay-4">
               {isEn ? (
                 <>
                   18+ ·{' '}
@@ -214,15 +215,15 @@ export function HomePage({ lang }: HomePageProps) {
 
         <section
           id="lobby"
-          className="home-games"
+          className="home-games home-games--luxe"
           aria-label={isEn ? 'Popular demos' : 'Популярные демо'}
         >
-          <div className="home-section-head">
+          <div className="home-section-head home-section-head--luxe">
             <span className="home-section-head__label">
-              {isEn ? 'Lobby' : 'Лобби'}
+              {isEn ? 'Collection' : 'Коллекция'}
             </span>
             <h2 className="home-section-head__title">
-              {isEn ? 'Start with Popular' : 'Начните с популярных'}
+              {isEn ? 'Curated demos' : 'Избранные демо'}
             </h2>
             <p className="home-section-head__count">{popularGames.length}</p>
           </div>
