@@ -5,6 +5,17 @@ import { assertAdminSecret, sendPushToSubscriptions, type PushPayload } from '@/
 export const runtime = 'nodejs'
 export const maxDuration = 60
 
+function absolutize(input: string | undefined, origin: string): string | undefined {
+  if (!input) return undefined
+  const value = input.trim()
+  if (!value) return undefined
+  try {
+    return new URL(value, origin).toString()
+  } catch {
+    return undefined
+  }
+}
+
 export async function GET(request: Request) {
   if (!assertAdminSecret(request.headers.get('authorization'))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -24,6 +35,7 @@ export async function POST(request: Request) {
   }
 
   try {
+    const origin = new URL(request.url).origin
     const body = (await request.json()) as PushPayload
     const title = body.title?.trim()
     const text = body.body?.trim()
@@ -35,10 +47,10 @@ export async function POST(request: Request) {
     const payload: PushPayload = {
       title,
       body: text,
-      url: body.url?.trim() || '/',
-      icon: body.icon?.trim() || '/icon-192.png',
-      badge: body.badge?.trim() || '/icon-192.png',
-      image: body.image?.trim() || undefined,
+      url: absolutize(body.url, origin) || origin,
+      icon: absolutize(body.icon, origin) || `${origin}/icon.svg`,
+      badge: absolutize(body.badge, origin) || `${origin}/icon.svg`,
+      image: absolutize(body.image, origin),
       tag: body.tag?.trim() || '1weapp-broadcast',
     }
 

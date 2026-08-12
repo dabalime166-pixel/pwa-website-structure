@@ -43,6 +43,7 @@ const title = arg('title')
 const body = arg('body')
 const url = arg('url', '/')
 const icon = arg('icon', '/icon-192.png')
+const image = arg('image', '')
 const tag = arg('tag', '1weapp-broadcast')
 const fromLocal = arg('from-local', '')
 
@@ -92,7 +93,7 @@ if (subscribers.length === 0) {
   process.exit(0)
 }
 
-const payload = JSON.stringify({ title, body, url, icon, badge: icon, tag })
+const payload = JSON.stringify({ title, body, url, icon, badge: icon, image: image || undefined, tag })
 
 let sent = 0
 let failed = 0

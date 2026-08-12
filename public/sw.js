@@ -34,6 +34,7 @@ self.addEventListener('push', (event) => {
     body: data.body,
     icon: data.icon || '/icon-192.png',
     badge: data.badge || '/icon-192.png',
+    image: data.image || undefined,
     tag: data.tag || '1weapp',
     renotify: true,
     data: { url: data.url || '/' },

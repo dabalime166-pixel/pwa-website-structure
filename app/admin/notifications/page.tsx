@@ -324,7 +324,7 @@ export default function AdminNotificationsPage() {
               value={form.image}
               onChange={onChange('image')}
               style={fieldStyle}
-              placeholder="https://… или /promo.jpg"
+              placeholder="https://... или /banners/promo.webp"
             />
           </div>
 
@@ -342,6 +342,9 @@ export default function AdminNotificationsPage() {
           <PreviewCard form={form} />
           <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
             На iPhone уведомления работают только если сайт добавлен на домашний экран (PWA). Chrome/Android — сразу.
+          </p>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
+            Для фото используйте публичный HTTPS URL или путь вида /banners/.... Форматы: JPG/PNG/WebP.
           </p>
         </aside>
       </div>
