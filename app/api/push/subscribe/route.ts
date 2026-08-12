@@ -9,10 +9,18 @@ type Body = {
   gameSlug?: string
 }
 
-/** Accepts push subscriptions when a backend is configured; otherwise no-ops successfully. */
+/**
+ * Saves push subscriptions only when persistence is explicitly enabled.
+ * Without DATABASE_URL + NEXT_PUBLIC_PUSH_PERSIST_SUBSCRIPTIONS=true on the client,
+ * the client never calls this route.
+ */
 export async function POST(request: Request) {
+  if (process.env.NEXT_PUBLIC_PUSH_PERSIST_SUBSCRIPTIONS !== 'true') {
+    return NextResponse.json({ ok: true, persisted: false, reason: 'persistence_disabled' })
+  }
+
   if (!process.env.DATABASE_URL) {
-    return NextResponse.json({ ok: true, persisted: false })
+    return NextResponse.json({ ok: true, persisted: false, reason: 'no_database' })
   }
 
   try {
@@ -28,8 +36,8 @@ export async function POST(request: Request) {
       )
     }
 
-    // Persistence hook — wire DATABASE_URL + lib/db when ready.
-    return NextResponse.json({ ok: true, persisted: false })
+    // Wire lib/db upsert here when DATABASE_URL is configured.
+    return NextResponse.json({ ok: true, persisted: false, reason: 'db_not_wired' })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Subscribe failed'
     return NextResponse.json({ error: message }, { status: 500 })
