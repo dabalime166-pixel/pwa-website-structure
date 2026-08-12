@@ -8,59 +8,52 @@ export function HomeProviderHubs({ lang }: { lang: Lang }) {
   const cards = getProviderCards()
 
   return (
-    <section className="home-provider-hubs" aria-labelledby="home-providers-title">
-      <div className="home-provider-hubs__head">
-        <h2 id="home-providers-title">
+    <div className="atelier-studios">
+      <header className="atelier-head">
+        <p className="atelier-head__eyebrow">{isEn ? 'Studios' : 'Студии'}</p>
+        <h2 id="atelier-providers-title" className="atelier-head__title">
           {isEn ? 'Browse by provider' : 'Каталог по провайдерам'}
         </h2>
-        <p>
+        <p className="atelier-head__sub">
           {isEn
-            ? 'Full studio lobbies on their own pages — lighter home, faster phone.'
-            : 'Полные лобби студий на отдельных страницах — легче главная, быстрее телефон.'}
+            ? 'Full lobbies live on their own pages — keep the home light.'
+            : 'Полные лобби на отдельных страницах — главная остаётся лёгкой.'}
         </p>
-      </div>
+      </header>
 
-      <ul className="home-provider-hubs__grid">
+      <ul className="atelier-studios__list">
         {cards.map((card) => {
           const hub = providerHref(lang, card.slug)
           return (
-            <li key={card.slug} className="home-provider-hubs__item">
-              <Link href={hub} className="home-provider-hubs__card">
-                <span className="home-provider-hubs__fan" aria-hidden="true">
+            <li key={card.slug}>
+              <Link href={hub} className="atelier-studios__link">
+                <span className="atelier-studios__thumb" aria-hidden="true">
                   <Image
                     src={card.previewImage}
-                    alt={
-                      isEn
-                        ? `${card.titleEn} demo lobby preview`
-                        : `Превью лобби ${card.titleRu}`
-                    }
-                    width={240}
-                    height={136}
-                    sizes="140px"
+                    alt=""
+                    width={160}
+                    height={90}
+                    sizes="120px"
                     loading="lazy"
                     unoptimized
                   />
                 </span>
-                <div className="home-provider-hubs__meta">
-                  <span className="home-provider-hubs__name">
+                <span className="atelier-studios__text">
+                  <span className="atelier-studios__name">
                     {isEn ? card.titleEn : card.titleRu}
                   </span>
-                  <span className="home-provider-hubs__count">
+                  <span className="atelier-studios__count">
                     {card.count} {isEn ? 'demos' : 'демо'}
-                    {card.pages > 1
-                      ? ` · ${card.pages} ${isEn ? 'pages' : 'стр.'}`
-                      : ''}
                   </span>
-                </div>
-              </Link>
-
-              <Link href={hub} className="hub-open" prefetch={false}>
-                {isEn ? 'Open lobby' : 'Открыть лобби'}
+                </span>
+                <span className="atelier-studios__go" aria-hidden="true">
+                  →
+                </span>
               </Link>
             </li>
           )
         })}
       </ul>
-    </section>
+    </div>
   )
 }

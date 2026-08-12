@@ -7,14 +7,11 @@ import type { Game, Lang } from '@/lib/games'
 
 interface HomeLobbyProps {
   lang: Lang
-  /** Popular demos shown by default (before search). */
   popularGames: Game[]
-  /** Full catalog — search looks here, not only in popular. */
   allGames: Game[]
 }
 
-/** Show enough tiles to surface multiple providers before “Show more”. */
-const PREVIEW = 40
+const PREVIEW = 24
 
 type TypeFilter = 'all' | 'Slots' | 'Crash Games' | 'Megaways' | 'Mines'
 
@@ -58,12 +55,12 @@ export function HomeLobby({ lang, popularGames, allGames }: HomeLobbyProps) {
   const isSearching = Boolean(debouncedQ)
 
   const filtered = useMemo(() => {
-    // Search the full catalog; idle browse stays on popular picks.
     const pool = isSearching ? allGames : popularGames
     return pool.filter((g) => matchesType(g, typeFilter) && matchesQuery(g, debouncedQ))
   }, [allGames, popularGames, typeFilter, debouncedQ, isSearching])
 
-  const list = expanded || isSearching || typeFilter !== 'all' ? filtered : filtered.slice(0, PREVIEW)
+  const list =
+    expanded || isSearching || typeFilter !== 'all' ? filtered : filtered.slice(0, PREVIEW)
   const canExpand = !isSearching && typeFilter === 'all' && filtered.length > PREVIEW
 
   const typeChips: { id: TypeFilter; label: string }[] = [
@@ -74,149 +71,91 @@ export function HomeLobby({ lang, popularGames, allGames }: HomeLobbyProps) {
     { id: 'Mines', label: 'Mines' },
   ]
 
-  function scrollRow(dir: -1 | 1) {
-    const row = document.getElementById('lobby-popular-row')
-    if (!row) return
-    row.scrollBy({ left: dir * Math.min(640, row.clientWidth * 0.85), behavior: 'smooth' })
-  }
-
   return (
-    <div className="home-lobby">
-      <div className="lobby-toolbar">
-        <div className="lobby-toolbar__panel lobby-toolbar__panel--simple">
-          <label className="lobby-search">
-            <span className="lobby-search__icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </span>
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={isEn ? 'Search all demos…' : 'Поиск по всем демо…'}
-              aria-label={isEn ? 'Search all demos' : 'Поиск по всем демо'}
-              autoComplete="off"
-              spellCheck={false}
-            />
-            {query ? (
-              <button
-                type="button"
-                className="lobby-search__clear"
-                onClick={() => setQuery('')}
-                aria-label={isEn ? 'Clear' : 'Сбросить'}
-              >
-                ×
-              </button>
-            ) : null}
-          </label>
+    <div className="atelier-lobby">
+      <div className="atelier-lobby__controls">
+        <label className="atelier-search">
+          <span className="atelier-search__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" />
+            </svg>
+          </span>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={isEn ? 'Search all demos…' : 'Поиск по всем демо…'}
+            aria-label={isEn ? 'Search all demos' : 'Поиск по всем демо'}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {query ? (
+            <button
+              type="button"
+              className="atelier-search__clear"
+              onClick={() => setQuery('')}
+              aria-label={isEn ? 'Clear' : 'Сбросить'}
+            >
+              ×
+            </button>
+          ) : null}
+        </label>
 
-          <div className="lobby-types" role="group" aria-label={isEn ? 'Game type' : 'Тип игры'}>
-            {typeChips.map((chip) => (
-              <button
-                key={chip.id}
-                type="button"
-                className={`lobby-types__chip${typeFilter === chip.id ? ' is-active' : ''}`}
-                aria-pressed={typeFilter === chip.id}
-                onClick={() => setTypeFilter(chip.id)}
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div>
+        <div className="atelier-filters" role="group" aria-label={isEn ? 'Game type' : 'Тип игры'}>
+          {typeChips.map((chip) => (
+            <button
+              key={chip.id}
+              type="button"
+              className={`atelier-filters__chip${typeFilter === chip.id ? ' is-active' : ''}`}
+              aria-pressed={typeFilter === chip.id}
+              onClick={() => setTypeFilter(chip.id)}
+            >
+              {chip.label}
+            </button>
+          ))}
         </div>
       </div>
 
       <RecentFavorites lang={lang} />
 
-      <section
-        id="lobby-popular"
-        className="lobby-section lobby-section--popular is-ready"
-        aria-labelledby="lobby-popular-title"
-      >
-        <div className="lobby-section-header">
-          <div className="lobby-section-header__brand">
-            <span className="lobby-section-mark" aria-hidden="true">
-              {isSearching ? 'S' : 'P'}
-            </span>
-            <div>
-              <p className="lobby-section-header__subtitle">
-                {isSearching
-                  ? isEn
-                    ? 'Full catalog'
-                    : 'Весь каталог'
-                  : isEn
-                    ? 'Instant picks'
-                    : 'Быстрый выбор'}
-              </p>
-              <h2 id="lobby-popular-title" className="lobby-section-header__title">
-                {isSearching
-                  ? isEn
-                    ? 'Search results'
-                    : 'Результаты поиска'
-                  : isEn
-                    ? 'Popular'
-                    : 'Популярные'}
-              </h2>
+      <div className="atelier-lobby__meta">
+        <p className="atelier-lobby__label">
+          {isSearching
+            ? isEn
+              ? 'Search results'
+              : 'Результаты'
+            : isEn
+              ? 'Popular picks'
+              : 'Популярное'}
+        </p>
+        <span className="atelier-lobby__count">{filtered.length}</span>
+      </div>
+
+      {list.length > 0 ? (
+        <div className="atelier-lobby__grid" role="list">
+          {list.map((game, i) => (
+            <div key={game.slug} className="atelier-lobby__tile" role="listitem">
+              <GameCard game={game} lang={lang} priority={i < 4} />
             </div>
-          </div>
-
-          <div className="lobby-section-header__actions">
-            <span className="lobby-section-header__count">{filtered.length}</span>
-            {!expanded && !isSearching && typeFilter === 'all' && (
-              <div className="lobby-scroll-btns">
-                <button
-                  type="button"
-                  className="lobby-scroll-btn"
-                  onClick={() => scrollRow(-1)}
-                  aria-label={isEn ? 'Previous' : 'Назад'}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M14.5 5 L8 12 L14.5 19" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  className="lobby-scroll-btn"
-                  onClick={() => scrollRow(1)}
-                  aria-label={isEn ? 'Next' : 'Вперёд'}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M9.5 5 L16 12 L9.5 19" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-            )}
-            {canExpand && (
-              <button
-                type="button"
-                className="lobby-section-more"
-                aria-expanded={expanded}
-                onClick={() => setExpanded((v) => !v)}
-              >
-                {expanded ? (isEn ? 'Collapse' : 'Свернуть') : isEn ? 'More' : 'Ещё'}
-              </button>
-            )}
-          </div>
+          ))}
         </div>
+      ) : (
+        <p className="atelier-lobby__empty">{isEn ? 'No demos found' : 'Ничего не найдено'}</p>
+      )}
 
-        {list.length > 0 ? (
-          <div
-            id="lobby-popular-row"
-            className={expanded || isSearching || typeFilter !== 'all' ? 'lobby-section__grid' : 'lobby-section__row'}
-            role="list"
+      {canExpand ? (
+        <div className="atelier-lobby__more">
+          <button
+            type="button"
+            className="atelier-btn atelier-btn--ghost"
+            aria-expanded={expanded}
+            onClick={() => setExpanded((v) => !v)}
           >
-            {list.map((game, i) => (
-              <div key={game.slug} className="lobby-tile" role="listitem">
-                <GameCard game={game} lang={lang} priority={i < 2} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="lobby-empty">{isEn ? 'No demos found' : 'Ничего не найдено'}</p>
-        )}
-      </section>
+            {expanded ? (isEn ? 'Show less' : 'Свернуть') : isEn ? 'Show more' : 'Показать ещё'}
+          </button>
+        </div>
+      ) : null}
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
@@ -7,6 +8,7 @@ import { HomeProviderHubs } from '@/components/home-provider-hubs'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
+import { GameCard } from '@/components/game-card'
 import { games, i18n, CTA_URL } from '@/lib/games'
 import type { Game, Lang } from '@/lib/games'
 import { getPopularGamesPerProvider } from '@/lib/popular-games'
@@ -15,7 +17,6 @@ interface HomePageProps {
   lang: Lang
 }
 
-/** Hero carousel order — Mines kept out of the very top */
 const FEATURED_SLUGS = [
   'lucky-jet',
   'gates-of-olympus',
@@ -39,14 +40,15 @@ export function HomePage({ lang }: HomePageProps) {
   const t = i18n[lang]
   const isEn = lang === 'en'
   const featured = FEATURED_SLUGS.map((slug) => games.find((g) => g.slug === slug)).filter(
-    (g): g is NonNullable<typeof g> => Boolean(g)
+    (g): g is NonNullable<typeof g> => Boolean(g),
   )
 
-  /** Top 10 demos from each provider, hero hits first. */
   const providerPopular = getPopularGamesPerProvider(10)
-  const popularGames: Game[] = [...featured, ...providerPopular]
-    .filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
+  const popularGames: Game[] = [...featured, ...providerPopular].filter(
+    (g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i,
+  )
 
+  const spotlight = featured.slice(0, 4)
 
   const faqItems = isEn
     ? [
@@ -147,266 +149,211 @@ export function HomePage({ lang }: HomePageProps) {
       <JsonLd data={faqSchema} />
       <SiteHeader lang={lang} />
 
-      <main id="main-content" role="main" className="home-premium">
-        <section className="home-brand-banner home-brand-banner--luxe" aria-label="1weapp">
-          <div className="home-brand-banner__media" aria-hidden="true">
+      <main id="main-content" role="main" className="atelier">
+        {/* 1 — Hero: one composition */}
+        <section className="atelier-hero" aria-label="1weapp">
+          <div className="atelier-hero__media" aria-hidden="true">
             <Image
               src="/banners/home-brand.webp"
-              alt={
-                isEn
-                  ? '1weapp free crash and slot demos banner'
-                  : 'Баннер бесплатных демо crash и слотов 1weapp'
-              }
+              alt=""
               fill
               priority
               sizes="100vw"
-              className="home-brand-banner__photo"
+              className="atelier-hero__photo"
             />
-            <div className="home-brand-banner__veil" />
-            <div className="home-brand-banner__grain" />
+            <div className="atelier-hero__veil" />
           </div>
 
-          <div className="home-brand-banner__inner">
-            <p className="home-brand-banner__brand anim-fade-up">
-              <span className="home-brand-banner__brand-main">1we</span>
-              <span className="home-brand-banner__brand-accent">app</span>
+          <div className="atelier-hero__content">
+            <p className="atelier-hero__brand atelier-rise">
+              <span>1we</span>
+              <span className="atelier-hero__brand-accent">app</span>
             </p>
-            <h1 className="home-brand-banner__title anim-fade-up anim-delay-1">{t.heroTitle}</h1>
-            <p className="home-brand-banner__sub anim-fade-up anim-delay-2">{t.heroSub}</p>
-
-            <div className="home-brand-banner__actions anim-fade-up anim-delay-3">
-              <a href="#lobby" className="btn-cta home-brand-banner__cta">
-                {isEn ? 'Enter the lounge' : 'Войти в зал'}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
+            <h1 className="atelier-hero__title atelier-rise atelier-rise--2">{t.heroTitle}</h1>
+            <p className="atelier-hero__sub atelier-rise atelier-rise--3">{t.heroSub}</p>
+            <div className="atelier-hero__actions atelier-rise atelier-rise--4">
+              <a href="#catalog" className="atelier-btn atelier-btn--primary">
+                {isEn ? 'Browse demos' : 'Смотреть демо'}
               </a>
               <a
                 href={CTA_URL}
                 rel="noopener noreferrer nofollow sponsored"
                 target="_blank"
-                className="btn-ghost home-brand-banner__ghost"
-                aria-label={t.playReal}
+                className="atelier-btn atelier-btn--ghost"
               >
                 {t.playReal}
               </a>
             </div>
-
-            <p className="home-brand-banner__legal anim-fade-up anim-delay-4">
-              {isEn ? (
-                <>
-                  18+ ·{' '}
-                  <a href="/en/responsible-gaming" className="rg-note__link">
-                    Gamble responsibly
-                  </a>
-                </>
-              ) : (
-                <>
-                  18+ ·{' '}
-                  <a href="/ru/responsible-gaming" className="rg-note__link">
-                    Играйте ответственно
-                  </a>
-                </>
-              )}
+            <p className="atelier-hero__legal atelier-rise atelier-rise--5">
+              18+ ·{' '}
+              <Link href={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}>
+                {isEn ? 'Gamble responsibly' : 'Играйте ответственно'}
+              </Link>
             </p>
           </div>
         </section>
 
-        <section
-          id="lobby"
-          className="home-games home-games--luxe"
-          aria-label={isEn ? 'Popular demos' : 'Популярные демо'}
-        >
-          <div className="home-section-head home-section-head--luxe">
-            <span className="home-section-head__label">
-              {isEn ? 'Collection' : 'Коллекция'}
-            </span>
-            <h2 className="home-section-head__title">
-              {isEn ? 'Curated demos' : 'Избранные демо'}
-            </h2>
-            <p className="home-section-head__count">{popularGames.length}</p>
+        {/* 2 — Spotlight: one job */}
+        <section className="atelier-spot" aria-labelledby="atelier-spot-title">
+          <div className="atelier-wrap">
+            <header className="atelier-head">
+              <p className="atelier-head__eyebrow">{isEn ? 'Tonight' : 'Сейчас'}</p>
+              <h2 id="atelier-spot-title" className="atelier-head__title">
+                {isEn ? 'Four demos to open first' : 'Четыре демо, с которых начать'}
+              </h2>
+              <p className="atelier-head__sub">
+                {isEn
+                  ? 'Hand-picked titles — crash and slots, ready in the browser.'
+                  : 'Отобранные тайтлы — краш и слоты, сразу в браузере.'}
+              </p>
+            </header>
+
+            <div className="atelier-spot__grid" role="list">
+              {spotlight.map((game, i) => (
+                <div key={game.slug} className="atelier-spot__item" role="listitem" data-i={i}>
+                  <GameCard game={game} lang={lang} priority={i < 2} />
+                </div>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <HomeLobby lang={lang} popularGames={popularGames} allGames={games} />
-          <HomeProviderHubs lang={lang} />
-          <HomeDiscover lang={lang} catalog={featured} />
+        {/* 3 — Catalog + search */}
+        <section
+          id="catalog"
+          className="atelier-catalog"
+          aria-label={isEn ? 'Demo catalog' : 'Каталог демо'}
+        >
+          <div className="atelier-wrap">
+            <header className="atelier-head">
+              <p className="atelier-head__eyebrow">{isEn ? 'Library' : 'Библиотека'}</p>
+              <h2 className="atelier-head__title">
+                {isEn ? 'Find any demo' : 'Найди любое демо'}
+              </h2>
+              <p className="atelier-head__sub">
+                {isEn
+                  ? 'Search the full catalog, then filter by type.'
+                  : 'Ищи по всему каталогу, затем фильтруй по типу.'}
+              </p>
+            </header>
 
-          <div className="home-seo">
-            {isEn ? (
-              <>
-                <h2 className="home-seo__title">
-                  Free slot demos no registration — crash, mines and browser play
-                </h2>
-                <p className="seo-body">
-                  1weapp is a demo-first catalog for players who want free slot demos no
-                  registration, a crash game demo online free, and mines practice before any
-                  deposit. Every title opens in the browser with virtual credits, so you can
-                  learn paytables, bonus triggers, cashout timing and published RTP without
-                  creating an account. When a format fits your style, you can continue for real
-                  money — still 18+, still with limits.
-                </p>
-                <p className="seo-body">
-                  The library mixes instant-win crash titles, cluster and lines slots, and grid
-                  games. Search by name or filter by type and provider to jump straight to Lucky
-                  Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen and dozens of other demos.
-                  Free online casino demo games here are built for short learning sessions on
-                  phone or desktop.
-                </p>
+            <HomeLobby lang={lang} popularGames={popularGames} allGames={games} />
+          </div>
+        </section>
 
-                <h3 className="seo-h3">Crash game demo online free</h3>
-                <p className="seo-body">
-                  Looking for a crash game demo online free? Start with Lucky Jet demo play free
-                  or Rocket Queen: watch the multiplier climb, set an auto-cashout target, and
-                  compare flat staking vs emotional exits. A crash round is short, so demo mode
-                  is the safest place to test when to cash out crash games without burning a
-                  bankroll. Use the same target for 20–30 rounds and log how often early crashes
-                  hit — that sample teaches more than any “hot streak” tip.
-                </p>
+        {/* 4 — Providers */}
+        <section className="atelier-providers" aria-labelledby="atelier-providers-title">
+          <div className="atelier-wrap">
+            <HomeProviderHubs lang={lang} />
+          </div>
+        </section>
 
-                <h3 className="seo-h3">Pragmatic Play slots demo and free online slot machines</h3>
-                <p className="seo-body">
-                  If you want Pragmatic Play slots demo access, open Gates of Olympus, Sweet
-                  Bonanza, Sugar Rush, Starlight Princess, Big Bass Bonanza and other catalog
-                  hits. Free online slot machines demo mode shows tumble features, free-spin
-                  frequency feel and volatility pace on virtual credits. Pair a high-RTP card
-                  with a short demo sample before you judge whether the slot fits a small session
-                  bankroll. Slot rtp explained simply still applies: RTP is a long-run average;
-                  volatility decides how rough a short session feels.
-                </p>
+        {/* 5 — Themes + guides */}
+        <section className="atelier-explore" aria-label={isEn ? 'Explore' : 'Обзор'}>
+          <div className="atelier-wrap">
+            <HomeDiscover lang={lang} catalog={featured} />
+          </div>
+        </section>
 
-                <h3 className="seo-h3">Mines demo no deposit</h3>
-                <p className="seo-body">
-                  Mines demo no deposit is ideal for learning tile risk. Set three bombs, open a
-                  few safe cells, and practice cashout timing on a written target — for example
-                  1.5x–2.5x — instead of “one more click.” The same combinatorics appear in
-                  real-money mines; demo only changes the currency. After a calm 3-bomb sample,
-                  you can try higher mine counts and see how quickly dry streaks grow.
-                </p>
+        {/* 6 — Journal / SEO */}
+        <section className="atelier-journal" aria-labelledby="atelier-journal-title">
+          <div className="atelier-wrap atelier-journal__inner">
+            <header className="atelier-head">
+              <p className="atelier-head__eyebrow">{isEn ? 'Notes' : 'Заметки'}</p>
+              <h2 id="atelier-journal-title" className="atelier-head__title home-seo__title">
+                {isEn
+                  ? 'Free slot demos no registration — crash, mines and browser play'
+                  : 'Бесплатные демо слоты без регистрации — краш, mines и игра в браузере'}
+              </h2>
+            </header>
 
-                <h3 className="seo-h3">Why start with free online casino demo games</h3>
-                <ul className="seo-list">
-                  <li className="seo-list-item">
-                    Instant browser launch — free slot demos no registration and no app install.
-                  </li>
-                  <li className="seo-list-item">
-                    Virtual credits to explore bonuses, paytables and crash cashout rules.
-                  </li>
-                  <li className="seo-list-item">
-                    Filters by crash, slots, mines and provider across the full catalog.
-                  </li>
-                  <li className="seo-list-item">
-                    Same published RTP ranges as real versions — only the balance is fake.
-                  </li>
-                </ul>
+            <div className="home-seo atelier-journal__body">
+              {isEn ? (
+                <>
+                  <p className="seo-body">
+                    1weapp is a demo-first catalog for players who want free slot demos no
+                    registration, a crash game demo online free, and mines practice before any
+                    deposit. Every title opens in the browser with virtual credits, so you can
+                    learn paytables, bonus triggers, cashout timing and published RTP without
+                    creating an account. When a format fits your style, you can continue for real
+                    money — still 18+, still with limits.
+                  </p>
+                  <p className="seo-body">
+                    The library mixes instant-win crash titles, cluster and lines slots, and grid
+                    games. Search by name or filter by type and provider to jump straight to Lucky
+                    Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen and dozens of other demos.
+                  </p>
+                  <h3 className="seo-h3">Crash game demo online free</h3>
+                  <p className="seo-body">
+                    Looking for a crash game demo online free? Start with Lucky Jet demo play free
+                    or Rocket Queen: watch the multiplier climb, set an auto-cashout target, and
+                    compare flat staking vs emotional exits.
+                  </p>
+                  <h3 className="seo-h3">Pragmatic Play slots demo</h3>
+                  <p className="seo-body">
+                    Open Gates of Olympus, Sweet Bonanza, Sugar Rush, Starlight Princess and more.
+                    Free online slot machines demo mode shows tumble features and volatility pace
+                    on virtual credits.
+                  </p>
+                  <h3 className="seo-h3">Mines demo no deposit</h3>
+                  <p className="seo-body">
+                    Mines demo no deposit lets you set bomb count, open tiles, and practice cashout
+                    timing on a written target before any real-money decision.
+                  </p>
+                  <p className="seo-body">
+                    Then read our{' '}
+                    <a href="/en/guides" className="seo-inline-link">
+                      strategy guides
+                    </a>
+                    . Demo first, decisions second — play responsibly, 18+ only.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="seo-body">
+                    1weapp — каталог для тех, кому нужны бесплатные демо слоты без регистрации,
+                    краш игры демо онлайн и тренировка mines до любого депозита. Каждый тайтл
+                    открывается в браузере на виртуальных кредитах.
+                  </p>
+                  <p className="seo-body">
+                    Ищите по названию или фильтруйте по типу и провайдеру, чтобы сразу открыть
+                    Lucky Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen и десятки других
+                    демо.
+                  </p>
+                  <h3 className="seo-h3">Краш игры демо онлайн</h3>
+                  <p className="seo-body">
+                    Начните с Lucky Jet демо играть бесплатно или Rocket Queen: следите за ростом
+                    множителя и задайте цель автокэшаута.
+                  </p>
+                  <h3 className="seo-h3">Слоты Pragmatic Play демо</h3>
+                  <p className="seo-body">
+                    Откройте Gates of Olympus, Sweet Bonanza, Sugar Rush и другие хиты — тумблы и
+                    волатильность на виртуальных кредитах.
+                  </p>
+                  <h3 className="seo-h3">Mines демо без депозита</h3>
+                  <p className="seo-body">
+                    Задайте число мин, открывайте клетки и тренируйте кэшаут по заранее записанной
+                    цели.
+                  </p>
+                  <p className="seo-body">
+                    Затем читайте{' '}
+                    <a href="/ru/guides" className="seo-inline-link">
+                      гайды
+                    </a>
+                    . Сначала демо — потом решения. Только 18+.
+                  </p>
+                </>
+              )}
 
-                <h3 className="seo-h3">How to use the 1weapp catalog</h3>
-                <p className="seo-body">
-                  Pick a genre, open the demo, and run a fixed sample: 50–100 slot spins or 20–30
-                  crash rounds with one cashout rule. Note dry streaks, bonus feel and whether
-                  your planned stake size survives the volatility. Then read our{' '}
-                  <a href="/en/guides" className="seo-inline-link">
-                    strategy guides
-                  </a>{' '}
-                  on crash auto cashout, mines 3 bombs strategy, slot RTP, wagering terms and
-                  responsible deposit limits. Demo first, decisions second — play responsibly,
-                  18+ only.
-                </p>
-              </>
-            ) : (
-              <>
-                <h2 className="home-seo__title">
-                  Бесплатные демо слоты без регистрации — краш, mines и игра в браузере
-                </h2>
-                <p className="seo-body">
-                  1weapp — каталог для тех, кому нужны бесплатные демо слоты без регистрации,
-                  краш игры демо онлайн и тренировка mines до любого депозита. Каждый тайтл
-                  открывается в браузере на виртуальных кредитах: изучайте таблицы выплат,
-                  бонусные раунды, момент кэшаута и заявленный RTP без создания аккаунта. Если
-                  формат подошёл — можно продолжить на деньги, оставаясь в рамках 18+ и заранее
-                  заданных лимитов.
-                </p>
-                <p className="seo-body">
-                  В библиотеке — instant-win краш, каскадные и классические слоты, а также
-                  grid-игры. Ищите по названию или фильтруйте по типу и провайдеру, чтобы сразу
-                  открыть Lucky Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen и десятки
-                  других демо. Бесплатные игровые автоматы онлайн демо здесь рассчитаны на
-                  короткие учебные сессии с телефона или ПК.
-                </p>
+              <ExpertBanner lang={lang} />
 
-                <h3 className="seo-h3">Краш игры демо онлайн</h3>
-                <p className="seo-body">
-                  Нужны краш игры демо онлайн? Начните с Lucky Jet демо играть бесплатно или
-                  Rocket Queen: следите за ростом множителя, задайте цель автокэшаута и сравните
-                  ровную ставку с эмоциональным выходом. Раунд краша короткий, поэтому демо —
-                  лучшее место отработать, когда выводить, не сжигая банкролл. Зафиксируйте одну
-                  цель на 20–30 раундов и запишите, как часто случаются ранние краши — такая
-                  выборка полезнее любых советов про «горячую серию».
-                </p>
-
-                <h3 className="seo-h3">Слоты Pragmatic Play демо и бесплатные автоматы</h3>
-                <p className="seo-body">
-                  Если нужны слоты Pragmatic Play демо, откройте Gates of Olympus, Sweet Bonanza,
-                  Sugar Rush, Starlight Princess, Big Bass Bonanza и другие хиты каталога.
-                  Бесплатные игровые автоматы онлайн демо показывают тумблы, ощущение частоты
-                  фриспинов и темп волатильности на виртуальных кредитах. Сверьте карточку с
-                  высоким RTP и короткий демо-прогон, прежде чем решать, подходит ли слот
-                  небольшому банку. Помните: RTP — длинная дистанция; волатильность решает,
-                  насколько жёсткой будет короткая сессия.
-                </p>
-
-                <h3 className="seo-h3">Mines демо без депозита</h3>
-                <p className="seo-body">
-                  Mines демо без депозита удобно для разбора риска клеток. Поставьте три мины,
-                  откройте несколько безопасных полей и тренируйте кэшаут по заранее записанной
-                  цели — например 1.5x–2.5x — а не по принципу «ещё один клик». Та же
-                  комбинаторика работает в режиме на деньги; в демо меняется только валюта.
-                  После спокойной серии на 3 минах можно поднять число бомб и увидеть, как
-                  быстро растут сухие отрезки.
-                </p>
-
-                <h3 className="seo-h3">Зачем начинать с бесплатных демо казино</h3>
-                <ul className="seo-list">
-                  <li className="seo-list-item">
-                    Мгновенный запуск в браузере — бесплатные демо слоты без регистрации и без
-                    установки приложения.
-                  </li>
-                  <li className="seo-list-item">
-                    Виртуальные кредиты для изучения бонусов, таблиц выплат и правил кэшаута в
-                    краше.
-                  </li>
-                  <li className="seo-list-item">
-                    Фильтры по крашу, слотам, mines и провайдеру по всему каталогу.
-                  </li>
-                  <li className="seo-list-item">
-                    Тот же заявленный RTP, что у версий на деньги — отличается только баланс.
-                  </li>
-                </ul>
-
-                <h3 className="seo-h3">Как пользоваться каталогом 1weapp</h3>
-                <p className="seo-body">
-                  Выберите жанр, откройте демо и прогоните фиксированную выборку: 50–100 спинов
-                  слота или 20–30 краш-раундов с одним правилом кэшаута. Отметьте сухие серии,
-                  ощущение бонусов и выдерживает ли запланированная ставка волатильность. Затем
-                  читайте{' '}
-                  <a href="/ru/guides" className="seo-inline-link">
-                    гайды
-                  </a>{' '}
-                  по автокэшауту в краше, стратегии mines на 3 мины, RTP слотов, вейджеру бонусов
-                  и лимитам депозита. Сначала демо — потом решения. Играйте ответственно, только
-                  18+.
-                </p>
-              </>
-            )}
-
-            <ExpertBanner lang={lang} />
-
-            <FaqAccordion
-              title={isEn ? 'Frequently asked questions' : 'Частые вопросы'}
-              items={faqItems}
-              responsibleHref={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}
-              responsibleLabel={isEn ? 'Responsible gaming' : 'Ответственная игра'}
-            />
+              <FaqAccordion
+                title={isEn ? 'Frequently asked questions' : 'Частые вопросы'}
+                items={faqItems}
+                responsibleHref={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}
+                responsibleLabel={isEn ? 'Responsible gaming' : 'Ответственная игра'}
+              />
+            </div>
           </div>
         </section>
       </main>
