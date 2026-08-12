@@ -1,21 +1,20 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
-import { HomeDiscover } from '@/components/home-discover'
-import { HomeProviderHubs } from '@/components/home-provider-hubs'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
 import { games, i18n, CTA_URL } from '@/lib/games'
 import type { Game, Lang } from '@/lib/games'
 import { getPopularGamesPerProvider } from '@/lib/popular-games'
+import { PROVIDERS, getGamesByProvider } from '@/lib/providers'
 
 interface HomePageProps {
   lang: Lang
 }
 
-/** Hero carousel order — Mines kept out of the very top */
 const FEATURED_SLUGS = [
   'lucky-jet',
   'gates-of-olympus',
@@ -39,14 +38,22 @@ export function HomePage({ lang }: HomePageProps) {
   const t = i18n[lang]
   const isEn = lang === 'en'
   const featured = FEATURED_SLUGS.map((slug) => games.find((g) => g.slug === slug)).filter(
-    (g): g is NonNullable<typeof g> => Boolean(g)
+    (g): g is NonNullable<typeof g> => Boolean(g),
   )
 
-  /** Top 10 demos from each provider, hero hits first. */
   const providerPopular = getPopularGamesPerProvider(10)
-  const popularGames: Game[] = [...featured, ...providerPopular]
+  const topGames: Game[] = [...featured, ...providerPopular]
     .filter((g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i)
+    .slice(0, 12)
 
+  const activeProviders = PROVIDERS.filter((p) => getGamesByProvider(p.name).length > 0)
+  /** Only ship a small row per provider to the client — full hubs stay on /providers. */
+  const gamesByProvider: Record<string, Game[]> = {}
+  for (const p of activeProviders) {
+    const popular = providerPopular.filter((g) => g.provider === p.name)
+    const rest = getGamesByProvider(p.name).filter((g) => !popular.some((x) => x.slug === g.slug))
+    gamesByProvider[p.name] = [...popular, ...rest].slice(0, 24)
+  }
 
   const faqItems = isEn
     ? [
@@ -118,14 +125,6 @@ export function HomePage({ lang }: HomePageProps) {
       priceCurrency: 'USD',
       description: 'Free demo games',
     },
-    author: {
-      '@type': 'Person',
-      name: 'Dr. Henrik Adler',
-      jobTitle: isEn
-        ? 'Demo Mechanics & Responsible Play Reviewer'
-        : 'Рецензент демо-механик и ответственной игры',
-      image: 'https://www.1weapp.online/experts/dr-henrik-adler.webp',
-    },
   }
 
   const faqSchema = {
@@ -134,10 +133,7 @@ export function HomePage({ lang }: HomePageProps) {
     mainEntity: faqItems.map((item) => ({
       '@type': 'Question',
       name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
     })),
   }
 
@@ -147,91 +143,57 @@ export function HomePage({ lang }: HomePageProps) {
       <JsonLd data={faqSchema} />
       <SiteHeader lang={lang} />
 
-      <main id="main-content" role="main">
-        <section className="home-brand-banner" aria-label="1weapp">
-          <div className="home-brand-banner__media" aria-hidden="true">
-            <Image
-              src="/banners/home-brand.webp"
-              alt={
-                isEn
-                  ? '1weapp free crash and slot demos banner'
-                  : 'Баннер бесплатных демо crash и слотов 1weapp'
-              }
-              fill
-              priority
-              sizes="100vw"
-              className="home-brand-banner__photo"
-            />
-            <div className="home-brand-banner__veil" />
-          </div>
-
-          <div className="home-brand-banner__inner">
-            <p className="home-brand-banner__brand">
-              <span className="home-brand-banner__brand-main">1we</span>
-              <span className="home-brand-banner__brand-accent">app</span>
-            </p>
-            <h1 className="home-brand-banner__title">{t.heroTitle}</h1>
-            <p className="home-brand-banner__sub">{t.heroSub}</p>
-
-            <div className="home-brand-banner__actions">
-              <a href="#lobby" className="btn-cta">
-                {isEn ? 'Browse demos' : 'Смотреть демо'}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </a>
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="btn-ghost"
-                aria-label={t.playReal}
-              >
-                {t.playReal}
-              </a>
+      <main id="main-content" role="main" className="db-home">
+        {/* Compact banner — demo.black style, not full-viewport */}
+        <section className="db-hero" aria-label="1weapp">
+          <div className="db-hero__frame">
+            <div className="db-hero__media" aria-hidden="true">
+              <Image
+                src="/banners/home-brand.webp"
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 1280px) 100vw, 1200px"
+                className="db-hero__photo"
+              />
+              <div className="db-hero__veil" />
             </div>
-
-            <p className="home-brand-banner__legal">
-              {isEn ? (
-                <>
-                  18+ ·{' '}
-                  <a href="/en/responsible-gaming" className="rg-note__link">
-                    Gamble responsibly
-                  </a>
-                </>
-              ) : (
-                <>
-                  18+ ·{' '}
-                  <a href="/ru/responsible-gaming" className="rg-note__link">
-                    Играйте ответственно
-                  </a>
-                </>
-              )}
-            </p>
+            <div className="db-hero__copy">
+              <p className="db-hero__badge">1WEAPP</p>
+              <h1 className="db-hero__title">{t.heroTitle}</h1>
+              <p className="db-hero__sub">{t.heroSub}</p>
+              <div className="db-hero__actions">
+                <a href="#lobby" className="btn-cta db-hero__cta">
+                  {isEn ? 'Browse demos' : 'Смотреть демо'}
+                </a>
+                <a
+                  href={CTA_URL}
+                  rel="noopener noreferrer nofollow sponsored"
+                  target="_blank"
+                  className="btn-ghost"
+                >
+                  {t.playReal}
+                </a>
+              </div>
+              <p className="db-hero__legal">
+                18+ ·{' '}
+                <Link href={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}>
+                  {isEn ? 'Gamble responsibly' : 'Играйте ответственно'}
+                </Link>
+              </p>
+            </div>
           </div>
         </section>
 
-        <section
-          id="lobby"
-          className="home-games"
-          aria-label={isEn ? 'Popular demos' : 'Популярные демо'}
-        >
-          <div className="home-section-head">
-            <span className="home-section-head__label">
-              {isEn ? 'Lobby' : 'Лобби'}
-            </span>
-            <h2 className="home-section-head__title">
-              {isEn ? 'Start with Popular' : 'Начните с популярных'}
-            </h2>
-            <p className="home-section-head__count">{popularGames.length}</p>
-          </div>
+        <section id="lobby" className="db-main" aria-label={isEn ? 'Demo catalog' : 'Каталог демо'}>
+          <HomeLobby
+            lang={lang}
+            topGames={topGames}
+            providers={activeProviders}
+            gamesByProvider={gamesByProvider}
+          />
 
-          <HomeLobby lang={lang} popularGames={popularGames} allGames={games} />
-          <HomeProviderHubs lang={lang} />
-          <HomeDiscover lang={lang} catalog={featured} />
-
-          <div className="home-seo">
+          <div className="db-seo home-seo">
             {isEn ? (
               <>
                 <h2 className="home-seo__title">
@@ -399,7 +361,6 @@ export function HomePage({ lang }: HomePageProps) {
             )}
 
             <ExpertBanner lang={lang} />
-
             <FaqAccordion
               title={isEn ? 'Frequently asked questions' : 'Частые вопросы'}
               items={faqItems}

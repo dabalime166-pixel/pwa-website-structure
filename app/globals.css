@@ -1,6 +1,7 @@
 /* Split styles — entry point */
 @import './styles/tokens.css';
 @import './styles/home.css';
+@import './styles/home-atelier.css';
 @import './styles/expert-faq.css';
 @import './styles/game-page.css';
 @import './styles/chrome.css';

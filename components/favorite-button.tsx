@@ -9,7 +9,15 @@ export function FavoriteButton({ slug, lang }: { slug: string; lang: Lang }) {
   const [on, setOn] = useState(false)
 
   useEffect(() => {
-    setOn(isFavorite(slug))
+    let alive = true
+    // Defer localStorage so first paint isn't blocked by N card effects.
+    const id = window.requestAnimationFrame(() => {
+      if (alive) setOn(isFavorite(slug))
+    })
+    return () => {
+      alive = false
+      window.cancelAnimationFrame(id)
+    }
   }, [slug])
 
   return (

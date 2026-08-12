@@ -1,0 +1,386 @@
+/* ═══════════════════════════════════════════
+   HOME — demo.black inspired catalog
+   Compact banner + chips + horizontal rows
+═══════════════════════════════════════════ */
+
+.db-home {
+  --db-bg: #070707;
+  --db-panel: #121212;
+  --db-line: rgba(255, 255, 255, 0.08);
+  --db-gold: #d4af37;
+  --db-gold-soft: rgba(212, 175, 55, 0.35);
+  --db-text: #f5f5f5;
+  --db-mute: #9a9a9a;
+  --db-pad: clamp(1rem, 3vw, 1.5rem);
+  background: var(--db-bg);
+  color: var(--db-text);
+}
+
+.db-home .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Compact hero frame — NOT full viewport */
+.db-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.85rem var(--db-pad) 0.35rem;
+}
+.db-hero__frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(148px, 22vw, 200px);
+  border-radius: 1rem;
+  border: 1px solid var(--db-line);
+  background: var(--db-panel);
+  display: flex;
+  align-items: center;
+  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 1.75rem);
+}
+.db-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.db-hero__photo {
+  object-fit: cover;
+  object-position: 65% center;
+}
+.db-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.55) 42%, rgba(0, 0, 0, 0.28) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45));
+}
+.db-hero__copy {
+  position: relative;
+  z-index: 1;
+  max-width: 36rem;
+}
+.db-hero__badge {
+  margin: 0 0 0.45rem;
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--db-gold);
+}
+.db-hero__title {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3.2vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #fff;
+  text-wrap: balance;
+}
+.db-hero__sub {
+  margin: 0 0 0.9rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(0.88rem, 1.8vw, 1rem);
+  line-height: 1.45;
+  max-width: 38ch;
+}
+.db-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 0.55rem;
+}
+.db-hero__cta,
+.db-hero__actions .btn-ghost {
+  min-height: 42px;
+  padding: 0.65rem 1.15rem;
+  font-size: 0.88rem;
+  border-radius: 0.7rem;
+}
+.db-hero__legal {
+  margin: 0;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+.db-hero__legal a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Main catalog */
+.db-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.75rem var(--db-pad) 3.5rem;
+}
+
+.db-toolbar {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+  position: sticky;
+  top: 3.6rem;
+  z-index: 30;
+  padding: 0.55rem 0 0.65rem;
+  background: linear-gradient(180deg, rgba(7, 7, 7, 0.97), rgba(7, 7, 7, 0.92));
+  border-bottom: 1px solid var(--db-line);
+}
+@media (min-width: 900px) {
+  .db-toolbar {
+    grid-template-columns: 1fr minmax(200px, 280px);
+    align-items: center;
+  }
+}
+
+.db-chips {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 0.15rem;
+}
+.db-chips::-webkit-scrollbar { display: none; }
+.db-chip {
+  flex: 0 0 auto;
+  min-height: 2.2rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--db-line);
+  background: transparent;
+  color: #ddd;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.db-chip.is-active {
+  background: #1c1c1c;
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+.db-chip:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.db-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.db-search input {
+  width: 100%;
+  min-height: 2.35rem;
+  padding: 0.45rem 2rem 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--db-line);
+  background: #111;
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+.db-search input:focus {
+  border-color: var(--db-gold-soft);
+}
+.db-search input::placeholder {
+  color: #777;
+}
+.db-search__clear {
+  position: absolute;
+  right: 0.55rem;
+  border: 0;
+  background: transparent;
+  color: #999;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* Horizontal game rows */
+.db-row {
+  margin-bottom: 1.65rem;
+  content-visibility: auto;
+  contain-intrinsic-size: 280px;
+}
+.db-row-lazy {
+  margin-bottom: 1.65rem;
+  content-visibility: auto;
+  contain-intrinsic-size: 280px;
+}
+.db-row-lazy__slot {
+  min-height: 220px;
+}
+.db-row-lazy__bones {
+  height: 190px;
+  border-radius: 0.85rem;
+  background: linear-gradient(90deg, #121212 0%, #1a1a1a 50%, #121212 100%);
+  background-size: 200% 100%;
+  opacity: 0.55;
+}
+
+.db-row__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.db-row__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.db-row__sub {
+  margin: 0.2rem 0 0;
+  font-size: 0.84rem;
+  color: var(--db-mute);
+}
+.db-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+.db-row__more {
+  color: #ddd;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--db-line);
+  border-radius: 999px;
+}
+.db-row__more:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.db-row__nav {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--db-line);
+  background: #141414;
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.db-row__nav:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.db-row__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(132px, 148px);
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+@media (min-width: 900px) {
+  .db-row__track {
+    grid-auto-columns: minmax(148px, 168px);
+    gap: 0.9rem;
+  }
+}
+.db-row__tile {
+  scroll-snap-align: start;
+}
+.db-row__tile .game-card {
+  width: 100%;
+}
+
+.db-search-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .db-search-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 960px) {
+  .db-search-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .db-search-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+.db-empty {
+  color: var(--db-mute);
+  margin: 1rem 0 2rem;
+}
+
+.db-random {
+  margin: 0.5rem 0 1.75rem;
+}
+
+/* Personal rows inside db home */
+.db-home .lobby-personal {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.db-home .lobby-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+}
+.db-home .lobby-section-header__subtitle {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--db-gold);
+}
+.db-home .lobby-section-header__title {
+  margin: 0.15rem 0 0;
+  font-size: 1.05rem;
+}
+.db-home .lobby-section-header__count {
+  color: var(--db-mute);
+}
+.db-home .lobby-section__row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(132px, 148px);
+  gap: 0.75rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.db-home .lobby-tile .game-card {
+  width: 100%;
+}
+
+.db-seo {
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--db-line);
+}
+.db-home .home-seo {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.db-home .home-seo__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  font-weight: 600;
+  margin: 0 0 0.85rem;
+}
+.db-home .seo-body {
+  color: var(--db-mute);
+  line-height: 1.65;
+}
