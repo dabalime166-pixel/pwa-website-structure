@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { games } from '@/lib/games'
 import { GUIDES } from '@/lib/guides-data'
-import { GAME_GUIDES } from '@/lib/game-guides-data'
 import { REVIEWS } from '@/lib/reviews-data'
 import { getProviderCards } from '@/lib/providers'
 import { SPORTS_LEAGUES } from '@/lib/sports-leagues'
@@ -151,44 +150,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]
   })
 
-  const gameGuideIndexEntries: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE}/en/guides/games`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.88,
-      alternates: hreflang('/en/guides/games', '/ru/guides/games'),
-    },
-    {
-      url: `${BASE}/ru/guides/games`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.88,
-      alternates: hreflang('/en/guides/games', '/ru/guides/games'),
-    },
-  ]
-
-  const gameGuideEntries: MetadataRoute.Sitemap = GAME_GUIDES.flatMap((g) => {
-    const enPath = `/en/guides/games/${g.id}`
-    const ruPath = `/ru/guides/games/${g.id}`
-    return [
-      {
-        url: `${BASE}${enPath}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.86,
-        alternates: hreflang(enPath, ruPath),
-      },
-      {
-        url: `${BASE}${ruPath}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.86,
-        alternates: hreflang(enPath, ruPath),
-      },
-    ]
-  })
-
   const reviewIndexEntries: MetadataRoute.Sitemap = [
     {
       url: `${BASE}/en/reviews`,
@@ -293,8 +254,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...providerHubEntries,
     ...guideIndexEntries,
     ...guideEntries,
-    ...gameGuideIndexEntries,
-    ...gameGuideEntries,
     ...reviewIndexEntries,
     ...reviewEntries,
     ...sportsHubEntries,

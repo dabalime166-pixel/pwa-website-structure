@@ -13,7 +13,7 @@ const outPath = join(root, 'public/llms.txt')
 const games = JSON.parse(readFileSync(join(root, 'lib/games-catalog.json'), 'utf8'))
 const guides = (await import(join(root, 'lib/guides-data.ts')).catch(() => null)) || null
 
-// guides-data is TS — read GAME_GUIDES / GUIDES via lightweight JSON-ish parse fallback
+// guides-data is TS — parse GUIDES ids via lightweight regex fallback
 function loadGuides() {
   try {
     const src = readFileSync(join(root, 'lib/guides-data.ts'), 'utf8')
@@ -31,10 +31,12 @@ function loadGuides() {
   }
 }
 
-function loadGameGuideIds() {
+function loadReviewIds() {
   try {
-    const src = readFileSync(join(root, 'lib/game-guides-data.ts'), 'utf8')
-    const ids = [...src.matchAll(/\bid:\s*['"]([^'"]+)['"]/g)].map((m) => m[1])
+    const src = readFileSync(join(root, 'lib/reviews-data.ts'), 'utf8')
+    const start = src.indexOf('export const REVIEWS')
+    const chunk = start >= 0 ? src.slice(start) : src
+    const ids = [...chunk.matchAll(/^\s{4}id:\s*['"]([^'"]+)['"]/gm)].map((m) => m[1])
     const seen = new Set()
     const list = []
     for (const id of ids) {
@@ -87,7 +89,7 @@ const featured = featuredSlugs
   .filter(Boolean)
 
 const guideIds = loadGuides()
-const gameGuideIds = loadGameGuideIds()
+const reviewIds = loadReviewIds()
 
 const today = new Date().toISOString().slice(0, 10)
 
@@ -109,7 +111,6 @@ const lines = [
   `- Home (RU): ${BASE}/ru`,
   `- Providers index: ${BASE}/en/providers | ${BASE}/ru/providers`,
   `- Strategy guides: ${BASE}/en/guides | ${BASE}/ru/guides`,
-  `- Game guides hub: ${BASE}/en/guides/games | ${BASE}/ru/guides/games`,
   `- Game reviews (no demo): ${BASE}/en/reviews | ${BASE}/ru/reviews`,
   `- Game page pattern: ${BASE}/en/{slug} and ${BASE}/ru/{slug}`,
   `- Provider lobby pattern: ${BASE}/en/providers/{provider} and ${BASE}/ru/providers/{provider}`,
@@ -130,16 +131,11 @@ const lines = [
   '',
   ...guideIds.map((id) => `- ${BASE}/en/guides/${id} | ${BASE}/ru/guides/${id}`),
   '',
-  '## Popular game guides',
-  '',
-  ...(gameGuideIds.length
-    ? gameGuideIds.map((id) => `- ${BASE}/en/guides/games/${id} | ${BASE}/ru/guides/games/${id}`)
-    : ['- (see /en/guides/games)']),
-  '',
   '## Game reviews (text + casino redirect, no demo iframe)',
   '',
-  `- ${BASE}/en/reviews/mine-slot | ${BASE}/ru/reviews/mine-slot`,
-  `- ${BASE}/en/reviews/mine-slot-2 | ${BASE}/ru/reviews/mine-slot-2`,
+  ...(reviewIds.length
+    ? reviewIds.map((id) => `- ${BASE}/en/reviews/${id} | ${BASE}/ru/reviews/${id}`)
+    : ['- (see /en/reviews)']),
   '',
   '## Legal',
   '',

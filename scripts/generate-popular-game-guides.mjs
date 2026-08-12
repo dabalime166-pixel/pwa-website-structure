@@ -1,3 +1,4 @@
+/** @deprecated Game guides migrated to lib/reviews-data.ts (/reviews). */
 /**
  * Generate SEO game guides for all Popular (FEATURED) titles.
  * Output matches lib/game-guides-data.ts GameGuide shape (+ avatar).

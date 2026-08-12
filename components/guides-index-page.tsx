@@ -7,11 +7,11 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
-import { GAME_GUIDES } from '@/lib/game-guides-data'
+import { REVIEWS } from '@/lib/reviews-data'
 import type { Lang } from '@/lib/games'
 import { CTA_URL } from '@/lib/games'
 
-const PROMO_AVATARS = GAME_GUIDES.slice(0, 8)
+const PROMO_AVATARS = REVIEWS.filter((r) => r.avatar).slice(0, 8)
 
 const TOPICS = {
   en: [
@@ -171,22 +171,22 @@ export default function GuidesIndexPage({ lang }: Props) {
 
         <section className="game-guides-showcase" aria-labelledby="game-guides-heading">
           <Link
-            href={isEn ? '/en/guides/games' : '/ru/guides/games'}
+            href={isEn ? '/en/reviews' : '/ru/reviews'}
             className="game-guides-showcase__link"
           >
             <div className="game-guides-showcase__glow" aria-hidden="true" />
             <div className="game-guides-showcase__copy">
-              <p className="game-guides-showcase__eyebrow">{ui.gamesSection}</p>
+              <p className="game-guides-showcase__eyebrow">{isEn ? 'Reviews' : 'Обзоры'}</p>
               <h2 id="game-guides-heading" className="game-guides-showcase__title">
-                {ui.gamesSectionSub}
+                {isEn ? 'Game reviews & where to play' : 'Обзоры игр и где играть'}
               </h2>
               <p className="game-guides-showcase__sub">
                 {isEn
-                  ? 'Short playbooks for Lucky Jet, Gates of Olympus, Sweet Bonanza and 13 more — free demo, no signup.'
-                  : 'Короткие разборы Lucky Jet, Gates of Olympus, Sweet Bonanza и ещё 13 хитов — бесплатное демо без регистрации.'}
+                  ? 'Lucky Jet, Gates of Olympus, Sweet Bonanza, Mine Slot and more — unique review copy with casino redirects, no demo iframe.'
+                  : 'Lucky Jet, Gates of Olympus, Sweet Bonanza, Mine Slot и другие — уникальные обзоры с редиректом в казино, без демо iframe.'}
               </p>
               <span className="game-guides-showcase__cta">
-                {isEn ? 'Browse game guides' : 'Смотреть гайды по играм'}
+                {isEn ? 'Browse reviews' : 'Смотреть обзоры'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -212,7 +212,7 @@ export default function GuidesIndexPage({ lang }: Props) {
                 ))}
               </ul>
               <p className="game-guides-showcase__count">
-                {GAME_GUIDES.length} {isEn ? 'guides' : 'гайдов'}
+                {REVIEWS.length} {isEn ? 'reviews' : 'обзоров'}
               </p>
             </div>
           </Link>

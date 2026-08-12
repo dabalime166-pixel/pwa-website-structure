@@ -55,11 +55,6 @@ export function SiteFooter({ lang }: SiteFooterProps) {
                   </Link>
                 </li>
                 <li>
-                  <Link href={isEn ? '/en/guides/games' : '/ru/guides/games'}>
-                    {isEn ? 'Game guides' : 'Гайды по играм'}
-                  </Link>
-                </li>
-                <li>
                   <Link href={isEn ? '/en/reviews' : '/ru/reviews'}>
                     {isEn ? 'Reviews' : 'Обзоры'}
                   </Link>

@@ -29,7 +29,7 @@ import { absoluteUrl } from '@/lib/seo'
 import { getProviderByName, providerHref, providersIndexHref } from '@/lib/providers'
 import { notFound } from 'next/navigation'
 import { GUIDES } from '@/lib/guides-data'
-import { GAME_GUIDES } from '@/lib/game-guides-data'
+import { getReviewByGameSlug } from '@/lib/reviews-data'
 
 interface GamePageProps {
   slug: string
@@ -184,8 +184,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
   const jsonLd = buildJsonLd(game, lang, faqItems)
   const related = getRelatedGames(slug, 8)
   const guideIds = getRelatedGuideIds(game.gameType)
-  const relatedGameGuide = GAME_GUIDES.find((g) => g.gameSlug === game.slug)
-  const relatedGuides = GUIDES.filter((g) => guideIds.includes(g.id)).slice(0, relatedGameGuide ? 3 : 4)
+  const relatedReview = getReviewByGameSlug(game.slug)
+  const relatedGuides = GUIDES.filter((g) => guideIds.includes(g.id)).slice(0, relatedReview ? 3 : 4)
   const providerDef = getProviderByName(game.provider)
 
   const typeLabel = game.gameType || (isEn ? 'Slots' : 'Слоты')
@@ -587,30 +587,30 @@ export function GamePage({ slug, lang }: GamePageProps) {
                 {isEn ? 'Learn more' : 'Узнать больше'}
               </span>
               <h2 id="game-guides-heading" className="game-guides__title">
-                {isEn ? 'Related guides' : 'Полезные гайды'}
+                {isEn ? 'Related reviews & guides' : 'Обзоры и гайды'}
               </h2>
             </div>
-            <Link href={`/${lang}/guides`} className="game-guides__all-link">
-              {isEn ? 'All guides →' : 'Все гайды →'}
+            <Link href={`/${lang}/reviews`} className="game-guides__all-link">
+              {isEn ? 'All reviews →' : 'Все обзоры →'}
             </Link>
           </div>
           <p className="game-guides__sub">
             {isEn
-              ? 'Mechanics, RTP, bonuses and responsible play'
-              : 'Механики, RTP, бонусы и ответственная игра'}
+              ? 'Reviews with casino redirects, plus strategy guides'
+              : 'Обзоры с редиректом в казино и стратегические гайды'}
           </p>
           <div className="game-guides__grid">
-            {relatedGameGuide && (
+            {relatedReview && (
               <Link
-                href={`/${lang}/guides/games/${relatedGameGuide.id}`}
+                href={`/${lang}/reviews/${relatedReview.id}`}
                 className="game-guides__card game-guides__card--avatar"
               >
                 <Image
-                  src={relatedGameGuide.avatar}
+                  src={relatedReview.avatar}
                   alt={
                     isEn
-                      ? `${game.name} guide cover`
-                      : `Обложка гайда ${game.name}`
+                      ? `${game.name} review cover`
+                      : `Обложка обзора ${game.name}`
                   }
                   width={72}
                   height={96}
@@ -618,13 +618,13 @@ export function GamePage({ slug, lang }: GamePageProps) {
                 />
                 <span className="game-guides__card-text">
                   <span className="game-guides__card-tag">
-                    {isEn ? relatedGameGuide.tagEn : relatedGameGuide.tagRu}
+                    {isEn ? relatedReview.tagEn : relatedReview.tagRu}
                   </span>
                   <span className="game-guides__card-title">
-                    {isEn ? relatedGameGuide.titleEn : relatedGameGuide.titleRu}
+                    {isEn ? relatedReview.titleEn : relatedReview.titleRu}
                   </span>
                   <span className="game-guides__card-sub">
-                    {isEn ? relatedGameGuide.subtitleEn : relatedGameGuide.subtitleRu}
+                    {isEn ? relatedReview.subtitleEn : relatedReview.subtitleRu}
                   </span>
                 </span>
               </Link>

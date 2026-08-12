@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { MoodThemeRail } from '@/components/mood-theme-rail'
 import type { Game, Lang } from '@/lib/games'
-import { GAME_GUIDES } from '@/lib/game-guides-data'
+import { REVIEWS } from '@/lib/reviews-data'
 import { getGame } from '@/lib/games'
 
 type ThemeTile = {
@@ -33,8 +33,8 @@ function resolveGame(slug: string, catalog: Game[]): Game | undefined {
 
 export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] }) {
   const isEn = lang === 'en'
-  const guidesHref = isEn ? '/en/guides/games' : '/ru/guides/games'
-  const guideCards = GAME_GUIDES.slice(0, 5)
+  const reviewsHref = isEn ? '/en/reviews' : '/ru/reviews'
+  const reviewCards = REVIEWS.filter((r) => r.legacyGuideId || r.relatedDemoSlug).slice(0, 5)
   const tiles = THEME_TILES.map((t) => ({ ...t, game: resolveGame(t.slug, catalog) })).filter(
     (t): t is ThemeTile & { game: Game } => Boolean(t.game),
   )
@@ -75,31 +75,27 @@ export function HomeDiscover({ lang, catalog }: { lang: Lang; catalog: Game[] })
 
       <section className="atelier-guides" aria-labelledby="atelier-guides-heading">
         <div className="atelier-guides__copy">
-          <p className="atelier-head__eyebrow">{isEn ? 'Guides' : 'Гайды'}</p>
+          <p className="atelier-head__eyebrow">{isEn ? 'Reviews' : 'Обзоры'}</p>
           <h2 id="atelier-guides-heading" className="atelier-head__title">
-            {isEn ? 'Learn the hit before you spin' : 'Разбери хит до первого спина'}
+            {isEn ? 'Read the review before you deposit' : 'Прочитай обзор до депозита'}
           </h2>
           <p className="atelier-head__sub">
             {isEn
-              ? 'Short playbooks — multipliers, free spins, crash timing.'
-              : 'Короткие разборы — множители, фриспины, момент кэшаута.'}
+              ? 'Mechanics, RTP and casino shortlists — no demo iframe on review pages.'
+              : 'Механика, RTP и шортлист казино — на страницах обзоров без демо iframe.'}
           </p>
-          <Link href={guidesHref} className="atelier-btn atelier-btn--ghost">
-            {isEn ? 'Browse guides' : 'Смотреть гайды'}
+          <Link href={reviewsHref} className="atelier-btn atelier-btn--ghost">
+            {isEn ? 'Browse reviews' : 'Смотреть обзоры'}
           </Link>
         </div>
 
         <ul className="atelier-guides__row">
-          {guideCards.map((g) => (
+          {reviewCards.map((g) => (
             <li key={g.id}>
-              <Link href={`${guidesHref}/${g.id}`} className="atelier-guides__card">
+              <Link href={`${reviewsHref}/${g.id}`} className="atelier-guides__card">
                 <Image
                   src={g.avatar}
-                  alt={
-                    isEn
-                      ? `${getGame(g.gameSlug)?.name ?? g.gameSlug} demo guide`
-                      : `Гайд по демо ${getGame(g.gameSlug)?.name ?? g.gameSlug}`
-                  }
+                  alt={isEn ? `${g.titleEn} cover` : `Обложка ${g.titleRu}`}
                   width={120}
                   height={160}
                 />

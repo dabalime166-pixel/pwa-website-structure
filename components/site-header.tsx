@@ -12,10 +12,6 @@ interface SiteHeaderProps {
   guideSlug?: string
   /** Current review id — keeps language switch on the same review */
   reviewSlug?: string
-  /** Game-guides hub under /guides/games */
-  gameGuides?: boolean
-  /** Current game-guide article id */
-  gameGuideSlug?: string
   /** Sports match id — keeps language switch on the same match */
   matchId?: string
   /** Sports league slug */
@@ -30,8 +26,6 @@ export function SiteHeader({
   section,
   guideSlug,
   reviewSlug,
-  gameGuides,
-  gameGuideSlug,
   matchId,
   leagueSlug,
   teamSlug,
@@ -53,12 +47,6 @@ export function SiteHeader({
   } else if (section === 'sports') {
     enHref = '/en/sports'
     ruHref = '/ru/sports'
-  } else if (gameGuideSlug) {
-    enHref = `/en/guides/games/${gameGuideSlug}`
-    ruHref = `/ru/guides/games/${gameGuideSlug}`
-  } else if (gameGuides) {
-    enHref = '/en/guides/games'
-    ruHref = '/ru/guides/games'
   } else if (guideSlug) {
     enHref = `/en/guides/${guideSlug}`
     ruHref = `/ru/guides/${guideSlug}`
