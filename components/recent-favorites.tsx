@@ -64,10 +64,10 @@ export function RecentFavorites({ lang }: RecentFavoritesProps) {
 
   const closeRecent = () => {
     dismissRecentSection()
-    setRecentHidden(true)
+    setRecentDismissed(true)
   }
 
-  const showRecent = recentGames.length > 0 && !recentHidden
+  const showRecent = recentGames.length > 0 && recentDismissed === false
 
   if (!showRecent && !favGames.length) return null
 

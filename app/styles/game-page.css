@@ -1025,9 +1025,6 @@
   .game-frame-bar__badge {
     display: none;
   }
-  .btn-fullscreen span:not(svg) {
-    /* keep icon-only on very narrow if needed */
-  }
 }
 
 /* Title bar of game frame */
