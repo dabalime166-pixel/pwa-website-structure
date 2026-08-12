@@ -2,6 +2,7 @@
 
 const RECENT_KEY = '1weapp-recent-demos'
 const FAV_KEY = '1weapp-favorite-demos'
+const RECENT_SECTION_DISMISSED_KEY = '1weapp-recent-section-dismissed'
 const MAX_RECENT = 12
 
 export function readRecentSlugs(): string[] {
@@ -20,6 +21,25 @@ export function pushRecentSlug(slug: string) {
   try {
     const next = [slug, ...readRecentSlugs().filter((s) => s !== slug)].slice(0, MAX_RECENT)
     localStorage.setItem(RECENT_KEY, JSON.stringify(next))
+    localStorage.removeItem(RECENT_SECTION_DISMISSED_KEY)
+  } catch {
+    /* private mode */
+  }
+}
+
+export function isRecentSectionDismissed(): boolean {
+  if (typeof window === 'undefined') return false
+  try {
+    return localStorage.getItem(RECENT_SECTION_DISMISSED_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+export function dismissRecentSection(): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.setItem(RECENT_SECTION_DISMISSED_KEY, '1')
   } catch {
     /* private mode */
   }

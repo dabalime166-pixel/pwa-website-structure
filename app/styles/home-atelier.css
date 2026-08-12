@@ -423,10 +423,33 @@
 }
 .db-home .lobby-section-header {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 0.55rem;
+}
+.db-home .lobby-section-header__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+.db-home .lobby-section-header__close {
+  width: 2rem;
+  height: 2rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--db-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--db-mute);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.db-home .lobby-section-header__close:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
 }
 .db-home .lobby-section-header__subtitle {
   margin: 0;

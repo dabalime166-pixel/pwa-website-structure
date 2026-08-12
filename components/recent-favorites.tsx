@@ -2,17 +2,36 @@
 
 import { useEffect, useState } from 'react'
 import { GameCard } from '@/components/game-card'
-import { readFavoriteSlugs, readRecentSlugs } from '@/lib/player-prefs'
+import {
+  dismissRecentSection,
+  isRecentSectionDismissed,
+  readFavoriteSlugs,
+  readRecentSlugs,
+} from '@/lib/player-prefs'
 import type { Game, Lang } from '@/lib/games'
 
 interface RecentFavoritesProps {
   lang: Lang
 }
 
+function CloseIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
+
 export function RecentFavorites({ lang }: RecentFavoritesProps) {
   const isEn = lang === 'en'
   const [recentGames, setRecentGames] = useState<Game[]>([])
   const [favGames, setFavGames] = useState<Game[]>([])
+  const [recentDismissed, setRecentDismissed] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    setRecentDismissed(isRecentSectionDismissed())
+  }, [])
 
   useEffect(() => {
     const recent = readRecentSlugs().slice(0, 8)
@@ -43,18 +62,35 @@ export function RecentFavorites({ lang }: RecentFavoritesProps) {
     }
   }, [])
 
-  if (!recentGames.length && !favGames.length) return null
+  const closeRecent = () => {
+    dismissRecentSection()
+    setRecentHidden(true)
+  }
+
+  const showRecent = recentGames.length > 0 && !recentHidden
+
+  if (!showRecent && !favGames.length) return null
 
   return (
     <div className="lobby-personal">
-      {recentGames.length > 0 && (
+      {showRecent ? (
         <section className="lobby-section lobby-section--recent" aria-label={isEn ? 'Recently viewed' : 'Недавно смотрели'}>
           <div className="lobby-section-header">
             <div>
               <p className="lobby-section-header__subtitle">{isEn ? 'For you' : 'Для вас'}</p>
               <h2 className="lobby-section-header__title">{isEn ? 'Recently viewed' : 'Недавно смотрели'}</h2>
             </div>
-            <span className="lobby-section-header__count">{recentGames.length}</span>
+            <div className="lobby-section-header__actions">
+              <span className="lobby-section-header__count">{recentGames.length}</span>
+              <button
+                type="button"
+                className="lobby-section-header__close"
+                onClick={closeRecent}
+                aria-label={isEn ? 'Hide recently viewed' : 'Скрыть недавно смотрели'}
+              >
+                <CloseIcon />
+              </button>
+            </div>
           </div>
           <div className="lobby-section__row" role="list">
             {recentGames.map((game) => (
@@ -64,7 +100,7 @@ export function RecentFavorites({ lang }: RecentFavoritesProps) {
             ))}
           </div>
         </section>
-      )}
+      ) : null}
 
       {favGames.length > 0 && (
         <section className="lobby-section lobby-section--favorites" aria-label={isEn ? 'Favorites' : 'Избранное'}>
