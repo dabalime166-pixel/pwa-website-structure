@@ -61,6 +61,8 @@ export const i18n = {
     filterAll: 'All',
     heroTitle: 'Play Demo Games',
     heroSub: 'No registration · Instant play · Mobile optimized',
+    startDemo: 'Start Demo',
+    startDemoHint: 'Allow notifications to get bonus alerts and new demos. You can deny and still play.',
   },
   ru: {
     playDemo: 'Играть Бесплатно',
@@ -76,5 +78,8 @@ export const i18n = {
     filterAll: 'Все',
     heroTitle: 'Играть в демо',
     heroSub: 'Без регистрации · Мгновенно · Оптимизировано для мобильных',
+    startDemo: 'Запустить демо',
+    startDemoHint:
+      'Разрешите уведомления, чтобы получать бонусы и новые демо. Можно отказать — игра всё равно запустится.',
   },
 } as const

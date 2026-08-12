@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { requestPushAndSubscribe } from '@/lib/push-client'
 
 interface GameViewerProps {
   iframeUrl: string
@@ -8,6 +9,10 @@ interface GameViewerProps {
   demoBadge: string
   fullscreenLabel: string
   closeLabel: string
+  startLabel: string
+  startHint: string
+  lang?: string
+  gameSlug?: string
 }
 
 export function GameViewer({
@@ -16,11 +21,29 @@ export function GameViewer({
   demoBadge,
   fullscreenLabel,
   closeLabel,
+  startLabel,
+  startHint,
+  lang,
+  gameSlug,
 }: GameViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [started, setStarted] = useState(false)
+  const [starting, setStarting] = useState(false)
 
   const openFullscreen = useCallback(() => setIsFullscreen(true), [])
   const closeFullscreen = useCallback(() => setIsFullscreen(false), [])
+
+  const handleStartDemo = useCallback(async () => {
+    if (starting) return
+    setStarting(true)
+    try {
+      // Permission prompt must run from a user gesture; do not block demo on failure.
+      await requestPushAndSubscribe({ lang, gameSlug })
+    } finally {
+      setStarted(true)
+      setStarting(false)
+    }
+  }, [starting, lang, gameSlug])
 
   const IframeEl = (
     <iframe
@@ -63,7 +86,7 @@ export function GameViewer({
   )
 
   /* ── Fullscreen overlay ── */
-  if (isFullscreen) {
+  if (isFullscreen && started) {
     return (
       <div className="game-fullscreen-overlay" role="dialog" aria-modal="true" aria-label={`${gameName} fullscreen`}>
         <div className="game-frame-bar">
@@ -120,19 +143,62 @@ export function GameViewer({
             {demoBadge}
           </span>
         </span>
-        <button
-          onClick={openFullscreen}
-          className="btn-fullscreen"
-          aria-label={fullscreenLabel}
-        >
-          <FullscreenIcon />
-          {fullscreenLabel}
-        </button>
+        {started && (
+          <button
+            onClick={openFullscreen}
+            className="btn-fullscreen"
+            aria-label={fullscreenLabel}
+          >
+            <FullscreenIcon />
+            {fullscreenLabel}
+          </button>
+        )}
       </div>
 
-      {/* Iframe body */}
-      <div className="game-frame-body">
-        {IframeEl}
+      {/* Iframe body or start gate */}
+      <div className="game-frame-body" style={{ position: 'relative' }}>
+        {started ? (
+          IframeEl
+        ) : (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '1rem',
+              padding: '1.5rem',
+              textAlign: 'center',
+              background:
+                'radial-gradient(ellipse at 50% 40%, rgba(201,162,39,0.12) 0%, transparent 55%), linear-gradient(180deg, #0d0e12 0%, #161618 100%)',
+            }}
+          >
+            <p
+              style={{
+                color: 'var(--color-text-secondary)',
+                fontSize: '0.9375rem',
+                maxWidth: '22rem',
+                lineHeight: 1.6,
+              }}
+            >
+              {startHint}
+            </p>
+            <button
+              type="button"
+              className="btn-cta"
+              onClick={handleStartDemo}
+              disabled={starting}
+              aria-busy={starting}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              {starting ? '…' : startLabel}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

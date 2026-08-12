@@ -155,6 +155,10 @@ export function GamePage({ slug, lang }: GamePageProps) {
           demoBadge={t.demo}
           fullscreenLabel={isEn ? 'Full Screen' : 'На весь экран'}
           closeLabel={isEn ? 'Exit' : 'Выйти'}
+          startLabel={t.startDemo}
+          startHint={t.startDemoHint}
+          lang={lang}
+          gameSlug={slug}
         />
 
         {/* ── CTA block ── */}
