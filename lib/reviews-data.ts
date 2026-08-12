@@ -16,19 +16,6 @@ export interface ReviewSection {
   steps?: string[]
 }
 
-export interface CasinoOffer {
-  id: string
-  badgeEn: string
-  badgeRu: string
-  name: string
-  rating: string
-  bonusEn: string
-  bonusRu: string
-  noteEn: string
-  noteRu: string
-  highlight?: boolean
-}
-
 export interface ReviewData {
   id: string
   /** Optional link to catalog demo page slug */
@@ -67,44 +54,6 @@ export interface ReviewData {
   faq: { en: ReviewFaq[]; ru: ReviewFaq[] }
   relatedIds: string[]
 }
-
-/** Affiliate shortlist — all offers route through CTA_URL on the page. */
-export const REVIEW_CASINO_OFFERS: CasinoOffer[] = [
-  {
-    id: 'top',
-    badgeEn: 'Top pick',
-    badgeRu: 'Топ выбор',
-    name: '1win',
-    rating: '4.9',
-    bonusEn: '500% + 70 FS',
-    bonusRu: '500% + 70 FS',
-    noteEn: 'Welcome pack · fast lobby search',
-    noteRu: 'Приветственный пакет · быстрый поиск в лобби',
-    highlight: true,
-  },
-  {
-    id: 'new',
-    badgeEn: 'New',
-    badgeRu: 'Новый',
-    name: 'JetTon',
-    rating: '4.88',
-    bonusEn: '425% + 250 FS',
-    bonusRu: '425% + 250 FS',
-    noteEn: 'Promo code path · crypto-friendly',
-    noteRu: 'Промокод · удобно с криптой',
-  },
-  {
-    id: 'classic',
-    badgeEn: 'Classic',
-    badgeRu: 'Классика',
-    name: 'Stake-style lobby',
-    rating: '4.85',
-    bonusEn: 'VIP rakeback',
-    bonusRu: 'VIP rakeback',
-    noteEn: 'Bonuses without a promo code',
-    noteRu: 'Бонусы без промокода',
-  },
-]
 
 export const REVIEWS: ReviewData[] = [
   {

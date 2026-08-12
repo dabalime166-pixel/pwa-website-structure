@@ -6,7 +6,6 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { ExpertBanner } from '@/components/expert-banner'
 import {
-  REVIEW_CASINO_OFFERS,
   REVIEWS,
   getReviewById,
   reviewHref,
@@ -166,8 +165,13 @@ export default function ReviewSinglePage({
               ))}
             </div>
             <div className="review-hero__actions">
-              <a href="#top-casino" className="btn-cta">
-                {isEn ? 'Play for real money' : 'Играть на деньги'}
+              <a
+                href={CTA_URL}
+                rel="noopener noreferrer nofollow sponsored"
+                target="_blank"
+                className="btn-cta"
+              >
+                {isEn ? 'Go to casino' : 'Перейти в казино'}
               </a>
               <p className="review-hero__note">
                 {isEn
@@ -194,18 +198,13 @@ export default function ReviewSinglePage({
                 </li>
               ))}
               <li>
-                <a href="#top-casino">{isEn ? 'Top casinos' : 'Топ казино'}</a>
+                <a href="#play-casino">{isEn ? 'Play for real' : 'Играть на деньги'}</a>
               </li>
               <li>
                 <a href="#faq">FAQ</a>
               </li>
             </ol>
             <div className="review-toc__cta">
-              <p>
-                {isEn
-                  ? 'Ready to play for real? Open a licensed casino below.'
-                  : 'Готовы играть на деньги? Откройте лицензированное казино ниже.'}
-              </p>
               <a
                 href={CTA_URL}
                 rel="noopener noreferrer nofollow sponsored"
@@ -247,46 +246,26 @@ export default function ReviewSinglePage({
               </div>
             </section>
 
-            <section className="review-casinos" id="top-casino" aria-labelledby="casino-heading">
+            <section className="review-casinos" id="play-casino" aria-labelledby="casino-heading">
               <h2 id="casino-heading">
-                {isEn ? 'Top casinos to play for real money' : 'Топ казино для игры на деньги'}
+                {isEn ? 'Play for real money' : 'Играть на деньги'}
               </h2>
               <p className="review-casinos__lead">
                 {isEn
-                  ? `Pick a shortlisted casino, claim a welcome path, search “${review.titleEn.replace(' Review', '')}” in the lobby, and launch on a real balance.`
-                  : `Выберите казино из шортлиста, заберите welcome, найдите «${review.titleRu.replace('Обзор ', '')}» в лобби и запустите на реальном балансе.`}
+                  ? `Open a licensed casino, find “${review.titleEn.replace(' Review', '')}” in the lobby, and launch on a real balance.`
+                  : `Откройте лицензированное казино, найдите «${review.titleRu.replace('Обзор ', '')}» в лобби и запустите на реальном балансе.`}
               </p>
-              <div className="review-casinos__grid">
-                {REVIEW_CASINO_OFFERS.map((offer) => (
-                  <a
-                    key={offer.id}
-                    href={CTA_URL}
-                    rel="noopener noreferrer nofollow sponsored"
-                    target="_blank"
-                    className={`review-casino-card${offer.highlight ? ' review-casino-card--hot' : ''}`}
-                  >
-                    <div className="review-casino-card__top">
-                      <span className="review-casino-card__badge">
-                        {isEn ? offer.badgeEn : offer.badgeRu}
-                      </span>
-                      <span className="review-casino-card__rating">{offer.rating}</span>
-                    </div>
-                    <p className="review-casino-card__name">{offer.name}</p>
-                    <p className="review-casino-card__bonus">
-                      {isEn ? offer.bonusEn : offer.bonusRu}
-                    </p>
-                    <p className="review-casino-card__note">
-                      {isEn ? offer.noteEn : offer.noteRu}
-                    </p>
-                    <span className="review-casino-card__cta">
-                      {isEn ? 'Play now' : 'Играть'}
-                    </span>
-                    <span className="review-casino-card__legal">
-                      {isEn ? '18+ · Play responsibly · T&C apply' : '18+ · Играйте ответственно · Условия'}
-                    </span>
-                  </a>
-                ))}
-              </div>
+              <a
+                href={CTA_URL}
+                rel="noopener noreferrer nofollow sponsored"
+                target="_blank"
+                className="review-casinos__single-cta"
+              >
+                {isEn ? 'Go to casino' : 'Перейти в казино'}
+              </a>
+              <p className="review-casinos__legal">
+                {isEn ? '18+ · Play responsibly · T&C apply' : '18+ · Играйте ответственно · Условия'}
+              </p>
             </section>
 
             <section className="review-faq" id="faq" aria-labelledby="faq-heading">
