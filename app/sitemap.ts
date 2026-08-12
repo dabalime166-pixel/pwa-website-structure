@@ -3,7 +3,6 @@ import { games } from '@/lib/games'
 import { GUIDES } from '@/lib/guides-data'
 import { REVIEWS } from '@/lib/reviews-data'
 import { getProviderCards } from '@/lib/providers'
-import { SPORTS_LEAGUES } from '@/lib/sports-leagues'
 
 const BASE = 'https://www.1weapp.online'
 
@@ -209,44 +208,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]
   })
 
-  const sportsHubEntries: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE}/en/sports`,
-      lastModified: new Date(),
-      changeFrequency: 'hourly',
-      priority: 0.9,
-      alternates: hreflang('/en/sports', '/ru/sports'),
-    },
-    {
-      url: `${BASE}/ru/sports`,
-      lastModified: new Date(),
-      changeFrequency: 'hourly',
-      priority: 0.9,
-      alternates: hreflang('/en/sports', '/ru/sports'),
-    },
-  ]
-
-  const sportsLeagueEntries: MetadataRoute.Sitemap = SPORTS_LEAGUES.flatMap((league) => {
-    const enPath = `/en/sports/league/${league.slug}`
-    const ruPath = `/ru/sports/league/${league.slug}`
-    return [
-      {
-        url: `${BASE}${enPath}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily' as const,
-        priority: 0.86,
-        alternates: hreflang(enPath, ruPath),
-      },
-      {
-        url: `${BASE}${ruPath}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily' as const,
-        priority: 0.86,
-        alternates: hreflang(enPath, ruPath),
-      },
-    ]
-  })
-
   return [
     ...homeEntries,
     ...gameEntries,
@@ -256,8 +217,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...guideEntries,
     ...reviewIndexEntries,
     ...reviewEntries,
-    ...sportsHubEntries,
-    ...sportsLeagueEntries,
     ...legalEntries,
   ]
 }

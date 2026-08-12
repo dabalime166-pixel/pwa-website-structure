@@ -16,6 +16,36 @@ const nextConfig = {
   async redirects() {
     return [
         {
+          source: "/sports",
+          destination: "/",
+          permanent: true
+        },
+        {
+          source: "/sports/:path*",
+          destination: "/",
+          permanent: true
+        },
+        {
+          source: "/en/sports",
+          destination: "/",
+          permanent: true
+        },
+        {
+          source: "/en/sports/:path*",
+          destination: "/",
+          permanent: true
+        },
+        {
+          source: "/ru/sports",
+          destination: "/ru",
+          permanent: true
+        },
+        {
+          source: "/ru/sports/:path*",
+          destination: "/ru",
+          permanent: true
+        },
+        {
           source: "/en",
           destination: "/",
           permanent: true

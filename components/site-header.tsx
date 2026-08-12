@@ -6,18 +6,12 @@ interface SiteHeaderProps {
   lang: Lang
   /** Current game slug — keeps language switch on the same game page */
   gameSlug?: string
-  /** When true, language switch stays inside /guides, /sports or /reviews */
-  section?: 'guides' | 'sports' | 'reviews'
+  /** When true, language switch stays inside /guides or /reviews */
+  section?: 'guides' | 'reviews'
   /** Current guide id — keeps language switch on the same guide */
   guideSlug?: string
   /** Current review id — keeps language switch on the same review */
   reviewSlug?: string
-  /** Sports match id — keeps language switch on the same match */
-  matchId?: string
-  /** Sports league slug */
-  leagueSlug?: string
-  /** Sports team slug */
-  teamSlug?: string
 }
 
 export function SiteHeader({
@@ -26,28 +20,13 @@ export function SiteHeader({
   section,
   guideSlug,
   reviewSlug,
-  matchId,
-  leagueSlug,
-  teamSlug,
 }: SiteHeaderProps) {
   const t = i18n[lang]
 
   let enHref = '/'
   let ruHref = '/ru'
 
-  if (matchId) {
-    enHref = `/en/sports/match/${matchId}`
-    ruHref = `/ru/sports/match/${matchId}`
-  } else if (leagueSlug) {
-    enHref = `/en/sports/league/${leagueSlug}`
-    ruHref = `/ru/sports/league/${leagueSlug}`
-  } else if (teamSlug) {
-    enHref = `/en/sports/team/${teamSlug}`
-    ruHref = `/ru/sports/team/${teamSlug}`
-  } else if (section === 'sports') {
-    enHref = '/en/sports'
-    ruHref = '/ru/sports'
-  } else if (guideSlug) {
+  if (guideSlug) {
     enHref = `/en/guides/${guideSlug}`
     ruHref = `/ru/guides/${guideSlug}`
   } else if (section === 'guides') {
@@ -67,7 +46,6 @@ export function SiteHeader({
   const enGuidesHref = '/en/guides'
   const ruGuidesHref = '/ru/guides'
   const reviewsHref = lang === 'en' ? '/en/reviews' : '/ru/reviews'
-  const sportsHref = lang === 'en' ? '/en/sports' : '/ru/sports'
   const homeHref = lang === 'en' ? '/' : '/ru'
 
   return (
@@ -99,12 +77,6 @@ export function SiteHeader({
               className={`site-header__nav-link${section === 'reviews' || reviewSlug ? ' is-active' : ''}`}
             >
               {lang === 'en' ? 'Reviews' : 'Обзоры'}
-            </Link>
-            <Link
-              href={sportsHref}
-              className={`site-header__nav-link${section === 'sports' || matchId || leagueSlug || teamSlug ? ' is-active' : ''}`}
-            >
-              {lang === 'en' ? 'Sports' : 'Спорт'}
             </Link>
           </nav>
 
