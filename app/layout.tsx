@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     icon: '/favicon.svg',
     apple: '/apple-touch-icon.png',
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'CrashGames',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

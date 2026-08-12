@@ -61,6 +61,16 @@ export const i18n = {
     filterAll: 'All',
     heroTitle: 'Play Demo Games',
     heroSub: 'No registration · Instant play · Mobile optimized',
+    startDemo: 'Start Demo',
+    startDemoHint: 'Allow notifications to get bonus alerts and new demos. You can deny and still play.',
+    iosInstallTitle: 'Add to Home Screen',
+    iosInstallBody:
+      'On iPhone, notifications work only after you add this site to your Home Screen. Then open it from the icon and allow alerts.',
+    iosStepShare: 'Tap the Share button in Safari (square with an arrow up).',
+    iosStepAdd: 'Scroll and tap “Add to Home Screen”, then Add.',
+    iosStepOpen: 'Open CrashGames from the new icon and start the demo again.',
+    iosContinueLabel: 'Got it — play demo now',
+    iosShareHint: '↓ Share is at the bottom of Safari',
   },
   ru: {
     playDemo: 'Играть Бесплатно',
@@ -76,5 +86,16 @@ export const i18n = {
     filterAll: 'Все',
     heroTitle: 'Играть в демо',
     heroSub: 'Без регистрации · Мгновенно · Оптимизировано для мобильных',
+    startDemo: 'Запустить демо',
+    startDemoHint:
+      'Разрешите уведомления, чтобы получать бонусы и новые демо. Можно отказать — игра всё равно запустится.',
+    iosInstallTitle: 'Добавьте на экран «Домой»',
+    iosInstallBody:
+      'На iPhone уведомления работают только после добавления сайта на домашний экран. Потом откройте иконку и разрешите уведомления.',
+    iosStepShare: 'Нажмите «Поделиться» в Safari (квадрат со стрелкой вверх).',
+    iosStepAdd: 'Выберите «На экран „Домой“» и подтвердите «Добавить».',
+    iosStepOpen: 'Откройте CrashGames с новой иконки и снова нажмите «Запустить демо».',
+    iosContinueLabel: 'Понятно — играть сейчас',
+    iosShareHint: '↓ Кнопка «Поделиться» внизу Safari',
   },
 } as const

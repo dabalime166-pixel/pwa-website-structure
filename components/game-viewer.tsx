@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { requestPushAndSubscribe } from '@/lib/push-client'
+import { IosInstallSheet } from '@/components/ios-install-sheet'
 
 interface GameViewerProps {
   iframeUrl: string
@@ -8,6 +10,17 @@ interface GameViewerProps {
   demoBadge: string
   fullscreenLabel: string
   closeLabel: string
+  startLabel: string
+  startHint: string
+  iosInstallTitle: string
+  iosInstallBody: string
+  iosStepShare: string
+  iosStepAdd: string
+  iosStepOpen: string
+  iosContinueLabel: string
+  iosShareHint: string
+  lang?: string
+  gameSlug?: string
 }
 
 export function GameViewer({
@@ -16,11 +29,44 @@ export function GameViewer({
   demoBadge,
   fullscreenLabel,
   closeLabel,
+  startLabel,
+  startHint,
+  iosInstallTitle,
+  iosInstallBody,
+  iosStepShare,
+  iosStepAdd,
+  iosStepOpen,
+  iosContinueLabel,
+  iosShareHint,
+  lang,
+  gameSlug,
 }: GameViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [started, setStarted] = useState(false)
+  const [starting, setStarting] = useState(false)
+  const [showIosInstall, setShowIosInstall] = useState(false)
 
   const openFullscreen = useCallback(() => setIsFullscreen(true), [])
   const closeFullscreen = useCallback(() => setIsFullscreen(false), [])
+
+  const launchDemo = useCallback(() => {
+    setShowIosInstall(false)
+    setStarted(true)
+    setStarting(false)
+  }, [])
+
+  const onStartClick = useCallback(async () => {
+    if (starting || started) return
+    setStarting(true)
+    const result = await requestPushAndSubscribe({ lang, gameSlug })
+    if (result.status === 'needs_ios_install') {
+      setShowIosInstall(true)
+      setStarting(false)
+      return
+    }
+    setStarted(true)
+    setStarting(false)
+  }, [starting, started, lang, gameSlug])
 
   const IframeEl = (
     <iframe
@@ -62,8 +108,7 @@ export function GameViewer({
     </div>
   )
 
-  /* ── Fullscreen overlay ── */
-  if (isFullscreen) {
+  if (isFullscreen && started) {
     return (
       <div className="game-fullscreen-overlay" role="dialog" aria-modal="true" aria-label={`${gameName} fullscreen`}>
         <div className="game-frame-bar">
@@ -78,11 +123,7 @@ export function GameViewer({
           >
             {gameName}
           </span>
-          <button
-            onClick={closeFullscreen}
-            className="btn-fullscreen"
-            aria-label={closeLabel}
-          >
+          <button onClick={closeFullscreen} className="btn-fullscreen" aria-label={closeLabel}>
             <ShrinkIcon />
             {closeLabel}
           </button>
@@ -92,48 +133,98 @@ export function GameViewer({
     )
   }
 
-  /* ── Normal embedded view ── */
   return (
-    <div className="game-frame-shell" role="region" aria-label={`${gameName} game window`}>
-      {/* Title bar */}
-      <div className="game-frame-bar">
-        <GoldDots />
-        <span
-          style={{
-            fontSize: '0.8125rem',
-            fontWeight: 700,
-            color: 'var(--color-gold)',
-            letterSpacing: '0.04em',
-          }}
-        >
-          {gameName}
+    <>
+      <div className="game-frame-shell" role="region" aria-label={`${gameName} game window`}>
+        <div className="game-frame-bar">
+          <GoldDots />
           <span
             style={{
-              marginLeft: '0.5rem',
-              fontSize: '0.6875rem',
-              fontWeight: 400,
-              color: 'var(--color-text-muted)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
+              fontSize: '0.8125rem',
+              fontWeight: 700,
+              color: 'var(--color-gold)',
+              letterSpacing: '0.04em',
             }}
           >
-            {demoBadge}
+            {gameName}
+            <span
+              style={{
+                marginLeft: '0.5rem',
+                fontSize: '0.6875rem',
+                fontWeight: 400,
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              {demoBadge}
+            </span>
           </span>
-        </span>
-        <button
-          onClick={openFullscreen}
-          className="btn-fullscreen"
-          aria-label={fullscreenLabel}
-        >
-          <FullscreenIcon />
-          {fullscreenLabel}
-        </button>
+          {started && (
+            <button onClick={openFullscreen} className="btn-fullscreen" aria-label={fullscreenLabel}>
+              <FullscreenIcon />
+              {fullscreenLabel}
+            </button>
+          )}
+        </div>
+
+        <div className="game-frame-body" style={{ position: 'relative' }}>
+          {started ? (
+            IframeEl
+          ) : (
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1rem',
+                padding: '1.5rem',
+                textAlign: 'center',
+                background:
+                  'radial-gradient(ellipse at 50% 40%, rgba(201,162,39,0.12) 0%, transparent 55%), linear-gradient(180deg, #0d0e12 0%, #161618 100%)',
+              }}
+            >
+              <p
+                style={{
+                  color: 'var(--color-text-secondary)',
+                  fontSize: '0.9375rem',
+                  maxWidth: '22rem',
+                  lineHeight: 1.6,
+                }}
+              >
+                {startHint}
+              </p>
+              <button
+                type="button"
+                className="btn-cta"
+                onClick={onStartClick}
+                disabled={starting}
+                aria-busy={starting}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                {starting ? '…' : startLabel}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Iframe body */}
-      <div className="game-frame-body">
-        {IframeEl}
-      </div>
-    </div>
+      <IosInstallSheet
+        open={showIosInstall}
+        title={iosInstallTitle}
+        body={iosInstallBody}
+        stepShare={iosStepShare}
+        stepAdd={iosStepAdd}
+        stepOpen={iosStepOpen}
+        continueLabel={iosContinueLabel}
+        shareHint={iosShareHint}
+        onContinue={launchDemo}
+      />
+    </>
   )
 }
