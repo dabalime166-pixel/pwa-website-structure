@@ -58,9 +58,6 @@ Robots: https://www.1weapp.online/robots.txt
 
 ## Game reviews (text + casino redirect, no demo iframe)
 
-- https://www.1weapp.online/en/reviews/top | https://www.1weapp.online/ru/reviews/top
-- https://www.1weapp.online/en/reviews/new | https://www.1weapp.online/ru/reviews/new
-- https://www.1weapp.online/en/reviews/classic | https://www.1weapp.online/ru/reviews/classic
 - https://www.1weapp.online/en/reviews/mine-slot | https://www.1weapp.online/ru/reviews/mine-slot
 - https://www.1weapp.online/en/reviews/mine-slot-2 | https://www.1weapp.online/ru/reviews/mine-slot-2
 - https://www.1weapp.online/en/reviews/lucky-jet | https://www.1weapp.online/ru/reviews/lucky-jet
