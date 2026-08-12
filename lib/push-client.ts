@@ -1,5 +1,31 @@
 'use client'
 
+export function isIosDevice(): boolean {
+  if (typeof window === 'undefined') return false
+  const ua = window.navigator.userAgent
+  const iOS = /iPad|iPhone|iPod/.test(ua)
+  // iPadOS 13+ reports as MacIntel with touch
+  const iPadOs =
+    ua.includes('Mac') && 'maxTouchPoints' in navigator && navigator.maxTouchPoints > 1
+  return iOS || iPadOs
+}
+
+/** True when opened from Home Screen icon (standalone PWA). */
+export function isStandalonePwa(): boolean {
+  if (typeof window === 'undefined') return false
+  const nav = window.navigator as Navigator & { standalone?: boolean }
+  if (nav.standalone === true) return true
+  return window.matchMedia('(display-mode: standalone)').matches
+}
+
+/**
+ * iOS Safari in browser tab: push is unavailable until the site is
+ * installed to Home Screen. In that case we should show the A2HS guide.
+ */
+export function needsIosHomeScreenInstall(): boolean {
+  return isIosDevice() && !isStandalonePwa()
+}
+
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
@@ -21,7 +47,7 @@ export function isPushSupported(): boolean {
 }
 
 export async function registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
-  if (!isPushSupported()) return null
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return null
   try {
     return await navigator.serviceWorker.register('/sw.js', { scope: '/' })
   } catch {
@@ -33,25 +59,29 @@ export type SubscribeResult =
   | { status: 'subscribed' }
   | { status: 'denied' }
   | { status: 'unsupported' }
+  | { status: 'needs_ios_install' }
   | { status: 'skipped' }
   | { status: 'error'; message: string }
 
 /**
  * Ask for notification permission and save the Web Push subscription.
- * Safe to call from a button click (user gesture). Never blocks gameplay
- * if the user denies or the stack is unavailable.
+ * On iPhone Safari (not installed to Home Screen) returns needs_ios_install
+ * so the UI can show the Add to Home Screen guide.
  */
 export async function requestPushAndSubscribe(opts?: {
   lang?: string
   gameSlug?: string
 }): Promise<SubscribeResult> {
+  if (needsIosHomeScreenInstall()) {
+    return { status: 'needs_ios_install' }
+  }
+
   if (!isPushSupported()) return { status: 'unsupported' }
 
   try {
     const registration = await registerServiceWorker()
     if (!registration) return { status: 'unsupported' }
 
-    // Wait until SW is ready
     await navigator.serviceWorker.ready
 
     let permission = Notification.permission

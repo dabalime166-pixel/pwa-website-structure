@@ -157,6 +157,13 @@ export function GamePage({ slug, lang }: GamePageProps) {
           closeLabel={isEn ? 'Exit' : 'Выйти'}
           startLabel={t.startDemo}
           startHint={t.startDemoHint}
+          iosInstallTitle={t.iosInstallTitle}
+          iosInstallBody={t.iosInstallBody}
+          iosStepShare={t.iosStepShare}
+          iosStepAdd={t.iosStepAdd}
+          iosStepOpen={t.iosStepOpen}
+          iosContinueLabel={t.iosContinueLabel}
+          iosShareHint={t.iosShareHint}
           lang={lang}
           gameSlug={slug}
         />
