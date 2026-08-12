@@ -30,9 +30,10 @@ export function getVapidPublicKey(): string | null {
 }
 
 export function assertAdminSecret(headerValue: string | null): boolean {
-  const secret = process.env.ADMIN_PUSH_SECRET
-  if (!secret) return false
-  return headerValue === secret || headerValue === `Bearer ${secret}`
+  const secret = process.env.ADMIN_PUSH_SECRET?.trim()
+  if (!secret || !headerValue) return false
+  const provided = headerValue.trim()
+  return provided === secret || provided === `Bearer ${secret}`
 }
 
 export async function sendPushToSubscriptions(
