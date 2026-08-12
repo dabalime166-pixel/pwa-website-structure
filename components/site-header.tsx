@@ -6,10 +6,12 @@ interface SiteHeaderProps {
   lang: Lang
   /** Current game slug — keeps language switch on the same game page */
   gameSlug?: string
-  /** When true, language switch stays inside /guides or /sports */
-  section?: 'guides' | 'sports'
+  /** When true, language switch stays inside /guides, /sports or /reviews */
+  section?: 'guides' | 'sports' | 'reviews'
   /** Current guide id — keeps language switch on the same guide */
   guideSlug?: string
+  /** Current review id — keeps language switch on the same review */
+  reviewSlug?: string
   /** Game-guides hub under /guides/games */
   gameGuides?: boolean
   /** Current game-guide article id */
@@ -27,6 +29,7 @@ export function SiteHeader({
   gameSlug,
   section,
   guideSlug,
+  reviewSlug,
   gameGuides,
   gameGuideSlug,
   matchId,
@@ -62,6 +65,12 @@ export function SiteHeader({
   } else if (section === 'guides') {
     enHref = '/en/guides'
     ruHref = '/ru/guides'
+  } else if (reviewSlug) {
+    enHref = `/en/reviews/${reviewSlug}`
+    ruHref = `/ru/reviews/${reviewSlug}`
+  } else if (section === 'reviews') {
+    enHref = '/en/reviews'
+    ruHref = '/ru/reviews'
   } else if (gameSlug) {
     enHref = `/en/${gameSlug}`
     ruHref = `/ru/${gameSlug}`
@@ -69,6 +78,7 @@ export function SiteHeader({
 
   const enGuidesHref = '/en/guides'
   const ruGuidesHref = '/ru/guides'
+  const reviewsHref = lang === 'en' ? '/en/reviews' : '/ru/reviews'
   const sportsHref = lang === 'en' ? '/en/sports' : '/ru/sports'
   const homeHref = lang === 'en' ? '/' : '/ru'
 
@@ -95,6 +105,12 @@ export function SiteHeader({
               className={`site-header__nav-link${section === 'guides' || guideSlug ? ' is-active' : ''}`}
             >
               {lang === 'en' ? 'Guides' : 'Гайды'}
+            </Link>
+            <Link
+              href={reviewsHref}
+              className={`site-header__nav-link${section === 'reviews' || reviewSlug ? ' is-active' : ''}`}
+            >
+              {lang === 'en' ? 'Reviews' : 'Обзоры'}
             </Link>
             <Link
               href={sportsHref}

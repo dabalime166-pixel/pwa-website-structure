@@ -55,6 +55,21 @@ const nextConfig = {
         destination: '/en/guides/:slug',
         permanent: true,
       },
+      {
+        source: '/reviews',
+        destination: '/en/reviews',
+        permanent: true,
+      },
+      {
+        source: '/reviews/',
+        destination: '/en/reviews',
+        permanent: true,
+      },
+      {
+        source: '/reviews/:slug',
+        destination: '/en/reviews/:slug',
+        permanent: true,
+      },
     ]
   },
   async headers() {

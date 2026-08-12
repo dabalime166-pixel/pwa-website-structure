@@ -16,8 +16,10 @@ Robots: https://www.1weapp.online/robots.txt
 - Providers index: https://www.1weapp.online/en/providers | https://www.1weapp.online/ru/providers
 - Strategy guides: https://www.1weapp.online/en/guides | https://www.1weapp.online/ru/guides
 - Game guides hub: https://www.1weapp.online/en/guides/games | https://www.1weapp.online/ru/guides/games
+- Game reviews (no demo): https://www.1weapp.online/en/reviews | https://www.1weapp.online/ru/reviews
 - Game page pattern: https://www.1weapp.online/en/{slug} and https://www.1weapp.online/ru/{slug}
 - Provider lobby pattern: https://www.1weapp.online/en/providers/{provider} and https://www.1weapp.online/ru/providers/{provider}
+- Review page pattern: https://www.1weapp.online/en/reviews/{slug} and https://www.1weapp.online/ru/reviews/{slug}
 
 ## Provider lobbies
 
@@ -73,6 +75,11 @@ Robots: https://www.1weapp.online/robots.txt
 - https://www.1weapp.online/en/guides/games/madame-destiny-megaways-demo | https://www.1weapp.online/ru/guides/games/madame-destiny-megaways-demo
 - https://www.1weapp.online/en/guides/games/mustang-gold-demo | https://www.1weapp.online/ru/guides/games/mustang-gold-demo
 - https://www.1weapp.online/en/guides/games/wild-west-gold-demo | https://www.1weapp.online/ru/guides/games/wild-west-gold-demo
+
+## Game reviews (text + casino redirect, no demo iframe)
+
+- https://www.1weapp.online/en/reviews/mine-slot | https://www.1weapp.online/ru/reviews/mine-slot
+- https://www.1weapp.online/en/reviews/mine-slot-2 | https://www.1weapp.online/ru/reviews/mine-slot-2
 
 ## Legal
 

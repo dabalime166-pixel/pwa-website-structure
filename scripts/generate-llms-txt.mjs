@@ -110,8 +110,10 @@ const lines = [
   `- Providers index: ${BASE}/en/providers | ${BASE}/ru/providers`,
   `- Strategy guides: ${BASE}/en/guides | ${BASE}/ru/guides`,
   `- Game guides hub: ${BASE}/en/guides/games | ${BASE}/ru/guides/games`,
+  `- Game reviews (no demo): ${BASE}/en/reviews | ${BASE}/ru/reviews`,
   `- Game page pattern: ${BASE}/en/{slug} and ${BASE}/ru/{slug}`,
   `- Provider lobby pattern: ${BASE}/en/providers/{provider} and ${BASE}/ru/providers/{provider}`,
+  `- Review page pattern: ${BASE}/en/reviews/{slug} and ${BASE}/ru/reviews/{slug}`,
   '',
   '## Provider lobbies',
   '',
@@ -133,6 +135,11 @@ const lines = [
   ...(gameGuideIds.length
     ? gameGuideIds.map((id) => `- ${BASE}/en/guides/games/${id} | ${BASE}/ru/guides/games/${id}`)
     : ['- (see /en/guides/games)']),
+  '',
+  '## Game reviews (text + casino redirect, no demo iframe)',
+  '',
+  `- ${BASE}/en/reviews/mine-slot | ${BASE}/ru/reviews/mine-slot`,
+  `- ${BASE}/en/reviews/mine-slot-2 | ${BASE}/ru/reviews/mine-slot-2`,
   '',
   '## Legal',
   '',

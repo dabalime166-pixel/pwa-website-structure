@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { games } from '@/lib/games'
 import { GUIDES } from '@/lib/guides-data'
 import { GAME_GUIDES } from '@/lib/game-guides-data'
+import { REVIEWS } from '@/lib/reviews-data'
 import { getProviderCards } from '@/lib/providers'
 import { SPORTS_LEAGUES } from '@/lib/sports-leagues'
 
@@ -188,6 +189,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]
   })
 
+  const reviewIndexEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE}/en/reviews`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+      alternates: hreflang('/en/reviews', '/ru/reviews'),
+    },
+    {
+      url: `${BASE}/ru/reviews`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+      alternates: hreflang('/en/reviews', '/ru/reviews'),
+    },
+  ]
+
+  const reviewEntries: MetadataRoute.Sitemap = REVIEWS.flatMap((r) => {
+    const enPath = `/en/reviews/${r.id}`
+    const ruPath = `/ru/reviews/${r.id}`
+    return [
+      {
+        url: `${BASE}${enPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.92,
+        alternates: hreflang(enPath, ruPath),
+      },
+      {
+        url: `${BASE}${ruPath}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.92,
+        alternates: hreflang(enPath, ruPath),
+      },
+    ]
+  })
+
   const legalEntries: MetadataRoute.Sitemap = LEGAL_PATHS.flatMap((path) => {
     const enPath = `/en/${path}`
     const ruPath = `/ru/${path}`
@@ -256,6 +295,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...guideEntries,
     ...gameGuideIndexEntries,
     ...gameGuideEntries,
+    ...reviewIndexEntries,
+    ...reviewEntries,
     ...sportsHubEntries,
     ...sportsLeagueEntries,
     ...legalEntries,
