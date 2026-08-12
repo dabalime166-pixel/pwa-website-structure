@@ -4,121 +4,110 @@ import { i18n } from '@/lib/games'
 
 interface SiteHeaderProps {
   lang: Lang
+  /** Current game slug — keeps language switch on the same game page */
   gameSlug?: string
+  /** When true, language switch stays inside /guides or /sports */
+  section?: 'guides' | 'sports'
+  /** Current guide id — keeps language switch on the same guide */
+  guideSlug?: string
+  /** Game-guides hub under /guides/games */
+  gameGuides?: boolean
+  /** Current game-guide article id */
+  gameGuideSlug?: string
+  /** Sports match id — keeps language switch on the same match */
+  matchId?: string
+  /** Sports league slug */
+  leagueSlug?: string
+  /** Sports team slug */
+  teamSlug?: string
 }
 
-export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
+export function SiteHeader({
+  lang,
+  gameSlug,
+  section,
+  guideSlug,
+  gameGuides,
+  gameGuideSlug,
+  matchId,
+  leagueSlug,
+  teamSlug,
+}: SiteHeaderProps) {
   const t = i18n[lang]
 
-  const enHref = gameSlug ? `/en/${gameSlug}` : '/en'
-  const ruHref = gameSlug ? `/ru/${gameSlug}` : '/ru'
+  let enHref = '/'
+  let ruHref = '/ru'
+
+  if (matchId) {
+    enHref = `/en/sports/match/${matchId}`
+    ruHref = `/ru/sports/match/${matchId}`
+  } else if (leagueSlug) {
+    enHref = `/en/sports/league/${leagueSlug}`
+    ruHref = `/ru/sports/league/${leagueSlug}`
+  } else if (teamSlug) {
+    enHref = `/en/sports/team/${teamSlug}`
+    ruHref = `/ru/sports/team/${teamSlug}`
+  } else if (section === 'sports') {
+    enHref = '/en/sports'
+    ruHref = '/ru/sports'
+  } else if (gameGuideSlug) {
+    enHref = `/en/guides/games/${gameGuideSlug}`
+    ruHref = `/ru/guides/games/${gameGuideSlug}`
+  } else if (gameGuides) {
+    enHref = '/en/guides/games'
+    ruHref = '/ru/guides/games'
+  } else if (guideSlug) {
+    enHref = `/en/guides/${guideSlug}`
+    ruHref = `/ru/guides/${guideSlug}`
+  } else if (section === 'guides') {
+    enHref = '/en/guides'
+    ruHref = '/ru/guides'
+  } else if (gameSlug) {
+    enHref = `/en/${gameSlug}`
+    ruHref = `/ru/${gameSlug}`
+  }
+
+  const enGuidesHref = '/en/guides'
+  const ruGuidesHref = '/ru/guides'
+  const sportsHref = lang === 'en' ? '/en/sports' : '/ru/sports'
+  const homeHref = lang === 'en' ? '/' : '/ru'
 
   return (
     <header className="site-header" role="banner">
-      <div
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0 1rem',
-          height: '58px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-        }}
-      >
-        {/* Logo */}
-        <Link
-          href={`/${lang}`}
-          aria-label="CrashGames Demo — Home"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexShrink: 0 }}
-        >
-          {/* Gold coin icon */}
-          <span
-            aria-hidden="true"
-            style={{
-              width: 34,
-              height: 34,
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 55%, #8a6d14 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 12px rgba(201,162,39,0.45)',
-              flexShrink: 0,
-            }}
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
-                stroke="#0a0a0b"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+      <div className="site-header__inner">
+        <Link href={homeHref} aria-label="1weapp — Home" className="site-header__logo">
+          <span aria-hidden="true" className="site-header__logo-mark">
+            1
           </span>
-          <span
-            style={{
-              fontWeight: 800,
-              fontSize: '1.0625rem',
-              letterSpacing: '-0.01em',
-              lineHeight: 1,
-            }}
-          >
-            <span style={{ color: 'var(--color-text-primary)' }}>Crash</span>
-            <span
-              style={{
-                background: 'linear-gradient(90deg, var(--color-gold-light), var(--color-gold))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Games
-            </span>
+          <span className="site-header__logo-text">
+            <span className="site-header__logo-plain">1we</span>
+            <span className="site-header__logo-accent">app</span>
           </span>
         </Link>
 
-        {/* Nav + Lang switcher */}
-        <nav
-          aria-label="Primary navigation"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}
-        >
-          <Link
-            href={`/${lang}`}
-            style={{
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              color: 'var(--color-text-secondary)',
-              padding: '0.375rem 0.75rem',
-              borderRadius: '0.375rem',
-              minHeight: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'color 0.15s',
-            }}
-          >
-            {t.games}
-          </Link>
+        <div className="site-header__right">
+          <nav aria-label="Primary navigation" className="site-header__nav">
+            <Link href={homeHref} className="site-header__nav-link">
+              {t.games}
+            </Link>
+            <Link
+              href={lang === 'en' ? enGuidesHref : ruGuidesHref}
+              className={`site-header__nav-link${section === 'guides' || guideSlug ? ' is-active' : ''}`}
+            >
+              {lang === 'en' ? 'Guides' : 'Гайды'}
+            </Link>
+            <Link
+              href={sportsHref}
+              className={`site-header__nav-link${section === 'sports' || matchId || leagueSlug || teamSlug ? ' is-active' : ''}`}
+            >
+              {lang === 'en' ? 'Sports' : 'Спорт'}
+            </Link>
+          </nav>
 
-          {/* Divider */}
-          <span
-            aria-hidden="true"
-            style={{ width: 1, height: 20, background: 'var(--color-border-gold)', opacity: 0.6 }}
-          />
-
-          {/* Language switcher */}
           <div
             role="navigation"
             aria-label="Language switcher"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+            className="site-header__lang"
           >
             <Link
               href={enHref}
@@ -139,18 +128,8 @@ export function SiteHeader({ lang, gameSlug }: SiteHeaderProps) {
               RU
             </Link>
           </div>
-        </nav>
+        </div>
       </div>
-
-      {/* Gold bottom line */}
-      <div
-        aria-hidden="true"
-        style={{
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent, var(--color-gold-dim) 30%, var(--color-gold) 50%, var(--color-gold-dim) 70%, transparent)',
-          opacity: 0.6,
-        }}
-      />
     </header>
   )
 }
