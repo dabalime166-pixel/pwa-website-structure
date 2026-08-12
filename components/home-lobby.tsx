@@ -1,19 +1,15 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
 import { GameCard } from '@/components/game-card'
 import { RecentFavorites } from '@/components/recent-favorites'
+import { LazyRandomDemo } from '@/components/lazy-random-demo'
 import type { Game, Lang } from '@/lib/games'
+import type { ProviderDef } from '@/lib/providers'
+import { providerHref } from '@/lib/providers'
 
-interface HomeLobbyProps {
-  lang: Lang
-  popularGames: Game[]
-  allGames: Game[]
-}
-
-const PREVIEW = 24
-
-type TypeFilter = 'all' | 'Slots' | 'Crash Games' | 'Megaways' | 'Mines'
+type ChipId = 'top' | string
 
 function normalize(s: string) {
   return s
@@ -33,129 +29,191 @@ function matchesQuery(game: Game, q: string) {
   return tokens.every((t) => hay.includes(t))
 }
 
-function matchesType(game: Game, type: TypeFilter) {
-  if (type === 'all') return true
-  const gt = game.gameType || 'Slots'
-  if (type === 'Slots') return gt === 'Slots' || !game.gameType
-  return gt === type
+function GameRow({
+  games,
+  lang,
+  title,
+  subtitle,
+  moreHref,
+  moreLabel,
+}: {
+  games: Game[]
+  lang: Lang
+  title: string
+  subtitle?: string
+  moreHref?: string
+  moreLabel?: string
+}) {
+  const rowRef = useRef<HTMLDivElement>(null)
+  if (!games.length) return null
+
+  function scroll(dir: -1 | 1) {
+    const el = rowRef.current
+    if (!el) return
+    el.scrollBy({ left: dir * Math.min(720, el.clientWidth * 0.85), behavior: 'smooth' })
+  }
+
+  return (
+    <section className="db-row">
+      <div className="db-row__head">
+        <div>
+          <h2 className="db-row__title">{title}</h2>
+          {subtitle ? <p className="db-row__sub">{subtitle}</p> : null}
+        </div>
+        <div className="db-row__actions">
+          {moreHref ? (
+            <Link href={moreHref} className="db-row__more">
+              {moreLabel || 'More'} <span aria-hidden="true">→</span>
+            </Link>
+          ) : null}
+          <button type="button" className="db-row__nav" onClick={() => scroll(-1)} aria-label="Prev">
+            ‹
+          </button>
+          <button type="button" className="db-row__nav" onClick={() => scroll(1)} aria-label="Next">
+            ›
+          </button>
+        </div>
+      </div>
+      <div className="db-row__track" ref={rowRef} role="list">
+        {games.map((game, i) => (
+          <div key={game.slug} className="db-row__tile" role="listitem">
+            <GameCard game={game} lang={lang} priority={i < 3} />
+          </div>
+        ))}
+      </div>
+    </section>
+  )
 }
 
-export function HomeLobby({ lang, popularGames, allGames }: HomeLobbyProps) {
+export function HomeLobby({
+  lang,
+  topGames,
+  allGames,
+  providers,
+  gamesByProvider,
+}: {
+  lang: Lang
+  topGames: Game[]
+  allGames: Game[]
+  providers: ProviderDef[]
+  gamesByProvider: Record<string, Game[]>
+}) {
   const isEn = lang === 'en'
   const [query, setQuery] = useState('')
   const [debouncedQ, setDebouncedQ] = useState('')
-  const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
-  const [expanded, setExpanded] = useState(false)
+  const [chip, setChip] = useState<ChipId>('top')
 
   useEffect(() => {
-    const t = window.setTimeout(() => setDebouncedQ(query), 160)
+    const t = window.setTimeout(() => setDebouncedQ(query), 140)
     return () => window.clearTimeout(t)
   }, [query])
 
-  const isSearching = Boolean(debouncedQ)
+  const searching = Boolean(debouncedQ)
 
-  const filtered = useMemo(() => {
-    const pool = isSearching ? allGames : popularGames
-    return pool.filter((g) => matchesType(g, typeFilter) && matchesQuery(g, debouncedQ))
-  }, [allGames, popularGames, typeFilter, debouncedQ, isSearching])
+  const searchResults = useMemo(() => {
+    if (!searching) return []
+    return allGames.filter((g) => matchesQuery(g, debouncedQ)).slice(0, 60)
+  }, [allGames, debouncedQ, searching])
 
-  const list =
-    expanded || isSearching || typeFilter !== 'all' ? filtered : filtered.slice(0, PREVIEW)
-  const canExpand = !isSearching && typeFilter === 'all' && filtered.length > PREVIEW
-
-  const typeChips: { id: TypeFilter; label: string }[] = [
-    { id: 'all', label: isEn ? 'All' : 'Все' },
-    { id: 'Slots', label: isEn ? 'Slots' : 'Слоты' },
-    { id: 'Crash Games', label: isEn ? 'Crash' : 'Краш' },
-    { id: 'Megaways', label: 'Megaways' },
-    { id: 'Mines', label: 'Mines' },
+  const chips: { id: ChipId; label: string }[] = [
+    { id: 'top', label: isEn ? 'Top' : 'Топ' },
+    ...providers.slice(0, 8).map((p) => ({ id: p.slug, label: p.titleEn.split(' ')[0] })),
   ]
 
+  const activeProvider = providers.find((p) => p.slug === chip)
+
   return (
-    <div className="atelier-lobby">
-      <div className="atelier-lobby__controls">
-        <label className="atelier-search">
-          <span className="atelier-search__icon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3.5-3.5" />
-            </svg>
-          </span>
+    <div className="db-lobby">
+      <div className="db-toolbar">
+        <div className="db-chips" role="tablist" aria-label={isEn ? 'Catalog' : 'Каталог'}>
+          {chips.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              role="tab"
+              aria-selected={chip === c.id}
+              className={`db-chip${chip === c.id ? ' is-active' : ''}`}
+              onClick={() => setChip(c.id)}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        <label className="db-search">
+          <span className="sr-only">{isEn ? 'Search demos' : 'Поиск демо'}</span>
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={isEn ? 'Search all demos…' : 'Поиск по всем демо…'}
-            aria-label={isEn ? 'Search all demos' : 'Поиск по всем демо'}
+            placeholder={isEn ? 'Search demos…' : 'Поиск демо…'}
             autoComplete="off"
             spellCheck={false}
           />
           {query ? (
-            <button
-              type="button"
-              className="atelier-search__clear"
-              onClick={() => setQuery('')}
-              aria-label={isEn ? 'Clear' : 'Сбросить'}
-            >
+            <button type="button" className="db-search__clear" onClick={() => setQuery('')} aria-label="Clear">
               ×
             </button>
           ) : null}
         </label>
-
-        <div className="atelier-filters" role="group" aria-label={isEn ? 'Game type' : 'Тип игры'}>
-          {typeChips.map((chip) => (
-            <button
-              key={chip.id}
-              type="button"
-              className={`atelier-filters__chip${typeFilter === chip.id ? ' is-active' : ''}`}
-              aria-pressed={typeFilter === chip.id}
-              onClick={() => setTypeFilter(chip.id)}
-            >
-              {chip.label}
-            </button>
-          ))}
-        </div>
       </div>
 
-      <RecentFavorites lang={lang} />
-
-      <div className="atelier-lobby__meta">
-        <p className="atelier-lobby__label">
-          {isSearching
-            ? isEn
-              ? 'Search results'
-              : 'Результаты'
-            : isEn
-              ? 'Popular picks'
-              : 'Популярное'}
-        </p>
-        <span className="atelier-lobby__count">{filtered.length}</span>
-      </div>
-
-      {list.length > 0 ? (
-        <div className="atelier-lobby__grid" role="list">
-          {list.map((game, i) => (
-            <div key={game.slug} className="atelier-lobby__tile" role="listitem">
-              <GameCard game={game} lang={lang} priority={i < 4} />
+      {searching ? (
+        <section className="db-search-results" aria-label={isEn ? 'Search results' : 'Результаты'}>
+          <div className="db-row__head">
+            <div>
+              <h2 className="db-row__title">{isEn ? 'Search results' : 'Результаты поиска'}</h2>
+              <p className="db-row__sub">{searchResults.length}</p>
             </div>
-          ))}
-        </div>
+          </div>
+          {searchResults.length ? (
+            <div className="db-search-grid" role="list">
+              {searchResults.map((game) => (
+                <div key={game.slug} className="db-row__tile" role="listitem">
+                  <GameCard game={game} lang={lang} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="db-empty">{isEn ? 'No demos found' : 'Ничего не найдено'}</p>
+          )}
+        </section>
+      ) : chip !== 'top' && activeProvider ? (
+        <GameRow
+          games={gamesByProvider[activeProvider.name] || []}
+          lang={lang}
+          title={isEn ? activeProvider.titleEn : activeProvider.titleRu}
+          subtitle={isEn ? 'Studio demos' : 'Демо студии'}
+          moreHref={providerHref(lang, activeProvider.slug)}
+          moreLabel={isEn ? 'More' : 'Ещё'}
+        />
       ) : (
-        <p className="atelier-lobby__empty">{isEn ? 'No demos found' : 'Ничего не найдено'}</p>
-      )}
+        <>
+          <RecentFavorites lang={lang} />
 
-      {canExpand ? (
-        <div className="atelier-lobby__more">
-          <button
-            type="button"
-            className="atelier-btn atelier-btn--ghost"
-            aria-expanded={expanded}
-            onClick={() => setExpanded((v) => !v)}
-          >
-            {expanded ? (isEn ? 'Show less' : 'Свернуть') : isEn ? 'Show more' : 'Показать ещё'}
-          </button>
-        </div>
-      ) : null}
+          <GameRow
+            games={topGames}
+            lang={lang}
+            title={isEn ? 'Top picks' : 'Топ демо'}
+            subtitle={isEn ? 'Most played demos' : 'Самые играемые демо'}
+          />
+
+          <div className="db-random">
+            <LazyRandomDemo games={topGames.slice(0, 24)} lang={lang} />
+          </div>
+
+          {providers.map((p) => (
+            <GameRow
+              key={p.slug}
+              games={(gamesByProvider[p.name] || []).slice(0, 16)}
+              lang={lang}
+              title={isEn ? p.titleEn : p.titleRu}
+              moreHref={providerHref(lang, p.slug)}
+              moreLabel={isEn ? 'More' : 'Ещё'}
+            />
+          ))}
+        </>
+      )}
     </div>
   )
 }

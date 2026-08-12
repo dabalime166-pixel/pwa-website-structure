@@ -3,15 +3,13 @@ import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { HomeLobby } from '@/components/home-lobby'
-import { HomeDiscover } from '@/components/home-discover'
-import { HomeProviderHubs } from '@/components/home-provider-hubs'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
-import { GameCard } from '@/components/game-card'
 import { games, i18n, CTA_URL } from '@/lib/games'
 import type { Game, Lang } from '@/lib/games'
 import { getPopularGamesPerProvider } from '@/lib/popular-games'
+import { PROVIDERS, getGamesByProvider } from '@/lib/providers'
 
 interface HomePageProps {
   lang: Lang
@@ -44,11 +42,17 @@ export function HomePage({ lang }: HomePageProps) {
   )
 
   const providerPopular = getPopularGamesPerProvider(10)
-  const popularGames: Game[] = [...featured, ...providerPopular].filter(
+  const topGames: Game[] = [...featured, ...providerPopular].filter(
     (g, i, arr) => arr.findIndex((x) => x.slug === g.slug) === i,
   )
 
-  const spotlight = featured.slice(0, 4)
+  const activeProviders = PROVIDERS.filter((p) => getGamesByProvider(p.name).length > 0)
+  const gamesByProvider: Record<string, Game[]> = {}
+  for (const p of activeProviders) {
+    const popular = providerPopular.filter((g) => g.provider === p.name)
+    const rest = getGamesByProvider(p.name).filter((g) => !popular.some((x) => x.slug === g.slug))
+    gamesByProvider[p.name] = [...popular, ...rest]
+  }
 
   const faqItems = isEn
     ? [
@@ -120,14 +124,6 @@ export function HomePage({ lang }: HomePageProps) {
       priceCurrency: 'USD',
       description: 'Free demo games',
     },
-    author: {
-      '@type': 'Person',
-      name: 'Dr. Henrik Adler',
-      jobTitle: isEn
-        ? 'Demo Mechanics & Responsible Play Reviewer'
-        : 'Рецензент демо-механик и ответственной игры',
-      image: 'https://www.1weapp.online/experts/dr-henrik-adler.webp',
-    },
   }
 
   const faqSchema = {
@@ -136,10 +132,7 @@ export function HomePage({ lang }: HomePageProps) {
     mainEntity: faqItems.map((item) => ({
       '@type': 'Question',
       name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
     })),
   }
 
@@ -149,211 +142,95 @@ export function HomePage({ lang }: HomePageProps) {
       <JsonLd data={faqSchema} />
       <SiteHeader lang={lang} />
 
-      <main id="main-content" role="main" className="atelier">
-        {/* 1 — Hero: one composition */}
-        <section className="atelier-hero" aria-label="1weapp">
-          <div className="atelier-hero__media" aria-hidden="true">
-            <Image
-              src="/banners/home-brand.webp"
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              className="atelier-hero__photo"
-            />
-            <div className="atelier-hero__veil" />
-          </div>
-
-          <div className="atelier-hero__content">
-            <p className="atelier-hero__brand atelier-rise">
-              <span>1we</span>
-              <span className="atelier-hero__brand-accent">app</span>
-            </p>
-            <h1 className="atelier-hero__title atelier-rise atelier-rise--2">{t.heroTitle}</h1>
-            <p className="atelier-hero__sub atelier-rise atelier-rise--3">{t.heroSub}</p>
-            <div className="atelier-hero__actions atelier-rise atelier-rise--4">
-              <a href="#catalog" className="atelier-btn atelier-btn--primary">
-                {isEn ? 'Browse demos' : 'Смотреть демо'}
-              </a>
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="atelier-btn atelier-btn--ghost"
-              >
-                {t.playReal}
-              </a>
-            </div>
-            <p className="atelier-hero__legal atelier-rise atelier-rise--5">
-              18+ ·{' '}
-              <Link href={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}>
-                {isEn ? 'Gamble responsibly' : 'Играйте ответственно'}
-              </Link>
-            </p>
-          </div>
-        </section>
-
-        {/* 2 — Spotlight: one job */}
-        <section className="atelier-spot" aria-labelledby="atelier-spot-title">
-          <div className="atelier-wrap">
-            <header className="atelier-head">
-              <p className="atelier-head__eyebrow">{isEn ? 'Tonight' : 'Сейчас'}</p>
-              <h2 id="atelier-spot-title" className="atelier-head__title">
-                {isEn ? 'Four demos to open first' : 'Четыре демо, с которых начать'}
-              </h2>
-              <p className="atelier-head__sub">
-                {isEn
-                  ? 'Hand-picked titles — crash and slots, ready in the browser.'
-                  : 'Отобранные тайтлы — краш и слоты, сразу в браузере.'}
-              </p>
-            </header>
-
-            <div className="atelier-spot__grid" role="list">
-              {spotlight.map((game, i) => (
-                <div key={game.slug} className="atelier-spot__item" role="listitem" data-i={i}>
-                  <GameCard game={game} lang={lang} priority={i < 2} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 3 — Catalog + search */}
-        <section
-          id="catalog"
-          className="atelier-catalog"
-          aria-label={isEn ? 'Demo catalog' : 'Каталог демо'}
-        >
-          <div className="atelier-wrap">
-            <header className="atelier-head">
-              <p className="atelier-head__eyebrow">{isEn ? 'Library' : 'Библиотека'}</p>
-              <h2 className="atelier-head__title">
-                {isEn ? 'Find any demo' : 'Найди любое демо'}
-              </h2>
-              <p className="atelier-head__sub">
-                {isEn
-                  ? 'Search the full catalog, then filter by type.'
-                  : 'Ищи по всему каталогу, затем фильтруй по типу.'}
-              </p>
-            </header>
-
-            <HomeLobby lang={lang} popularGames={popularGames} allGames={games} />
-          </div>
-        </section>
-
-        {/* 4 — Providers */}
-        <section className="atelier-providers" aria-labelledby="atelier-providers-title">
-          <div className="atelier-wrap">
-            <HomeProviderHubs lang={lang} />
-          </div>
-        </section>
-
-        {/* 5 — Themes + guides */}
-        <section className="atelier-explore" aria-label={isEn ? 'Explore' : 'Обзор'}>
-          <div className="atelier-wrap">
-            <HomeDiscover lang={lang} catalog={featured} />
-          </div>
-        </section>
-
-        {/* 6 — Journal / SEO */}
-        <section className="atelier-journal" aria-labelledby="atelier-journal-title">
-          <div className="atelier-wrap atelier-journal__inner">
-            <header className="atelier-head">
-              <p className="atelier-head__eyebrow">{isEn ? 'Notes' : 'Заметки'}</p>
-              <h2 id="atelier-journal-title" className="atelier-head__title home-seo__title">
-                {isEn
-                  ? 'Free slot demos no registration — crash, mines and browser play'
-                  : 'Бесплатные демо слоты без регистрации — краш, mines и игра в браузере'}
-              </h2>
-            </header>
-
-            <div className="home-seo atelier-journal__body">
-              {isEn ? (
-                <>
-                  <p className="seo-body">
-                    1weapp is a demo-first catalog for players who want free slot demos no
-                    registration, a crash game demo online free, and mines practice before any
-                    deposit. Every title opens in the browser with virtual credits, so you can
-                    learn paytables, bonus triggers, cashout timing and published RTP without
-                    creating an account. When a format fits your style, you can continue for real
-                    money — still 18+, still with limits.
-                  </p>
-                  <p className="seo-body">
-                    The library mixes instant-win crash titles, cluster and lines slots, and grid
-                    games. Search by name or filter by type and provider to jump straight to Lucky
-                    Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen and dozens of other demos.
-                  </p>
-                  <h3 className="seo-h3">Crash game demo online free</h3>
-                  <p className="seo-body">
-                    Looking for a crash game demo online free? Start with Lucky Jet demo play free
-                    or Rocket Queen: watch the multiplier climb, set an auto-cashout target, and
-                    compare flat staking vs emotional exits.
-                  </p>
-                  <h3 className="seo-h3">Pragmatic Play slots demo</h3>
-                  <p className="seo-body">
-                    Open Gates of Olympus, Sweet Bonanza, Sugar Rush, Starlight Princess and more.
-                    Free online slot machines demo mode shows tumble features and volatility pace
-                    on virtual credits.
-                  </p>
-                  <h3 className="seo-h3">Mines demo no deposit</h3>
-                  <p className="seo-body">
-                    Mines demo no deposit lets you set bomb count, open tiles, and practice cashout
-                    timing on a written target before any real-money decision.
-                  </p>
-                  <p className="seo-body">
-                    Then read our{' '}
-                    <a href="/en/guides" className="seo-inline-link">
-                      strategy guides
-                    </a>
-                    . Demo first, decisions second — play responsibly, 18+ only.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="seo-body">
-                    1weapp — каталог для тех, кому нужны бесплатные демо слоты без регистрации,
-                    краш игры демо онлайн и тренировка mines до любого депозита. Каждый тайтл
-                    открывается в браузере на виртуальных кредитах.
-                  </p>
-                  <p className="seo-body">
-                    Ищите по названию или фильтруйте по типу и провайдеру, чтобы сразу открыть
-                    Lucky Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen и десятки других
-                    демо.
-                  </p>
-                  <h3 className="seo-h3">Краш игры демо онлайн</h3>
-                  <p className="seo-body">
-                    Начните с Lucky Jet демо играть бесплатно или Rocket Queen: следите за ростом
-                    множителя и задайте цель автокэшаута.
-                  </p>
-                  <h3 className="seo-h3">Слоты Pragmatic Play демо</h3>
-                  <p className="seo-body">
-                    Откройте Gates of Olympus, Sweet Bonanza, Sugar Rush и другие хиты — тумблы и
-                    волатильность на виртуальных кредитах.
-                  </p>
-                  <h3 className="seo-h3">Mines демо без депозита</h3>
-                  <p className="seo-body">
-                    Задайте число мин, открывайте клетки и тренируйте кэшаут по заранее записанной
-                    цели.
-                  </p>
-                  <p className="seo-body">
-                    Затем читайте{' '}
-                    <a href="/ru/guides" className="seo-inline-link">
-                      гайды
-                    </a>
-                    . Сначала демо — потом решения. Только 18+.
-                  </p>
-                </>
-              )}
-
-              <ExpertBanner lang={lang} />
-
-              <FaqAccordion
-                title={isEn ? 'Frequently asked questions' : 'Частые вопросы'}
-                items={faqItems}
-                responsibleHref={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}
-                responsibleLabel={isEn ? 'Responsible gaming' : 'Ответственная игра'}
+      <main id="main-content" role="main" className="db-home">
+        {/* Compact banner — demo.black style, not full-viewport */}
+        <section className="db-hero" aria-label="1weapp">
+          <div className="db-hero__frame">
+            <div className="db-hero__media" aria-hidden="true">
+              <Image
+                src="/banners/home-brand.webp"
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 1280px) 100vw, 1200px"
+                className="db-hero__photo"
               />
+              <div className="db-hero__veil" />
             </div>
+            <div className="db-hero__copy">
+              <p className="db-hero__badge">1WEAPP</p>
+              <h1 className="db-hero__title">{t.heroTitle}</h1>
+              <p className="db-hero__sub">{t.heroSub}</p>
+              <div className="db-hero__actions">
+                <a href="#lobby" className="btn-cta db-hero__cta">
+                  {isEn ? 'Browse demos' : 'Смотреть демо'}
+                </a>
+                <a
+                  href={CTA_URL}
+                  rel="noopener noreferrer nofollow sponsored"
+                  target="_blank"
+                  className="btn-ghost"
+                >
+                  {t.playReal}
+                </a>
+              </div>
+              <p className="db-hero__legal">
+                18+ ·{' '}
+                <Link href={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}>
+                  {isEn ? 'Gamble responsibly' : 'Играйте ответственно'}
+                </Link>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="lobby" className="db-main" aria-label={isEn ? 'Demo catalog' : 'Каталог демо'}>
+          <HomeLobby
+            lang={lang}
+            topGames={topGames.slice(0, 24)}
+            allGames={games}
+            providers={activeProviders}
+            gamesByProvider={gamesByProvider}
+          />
+
+          <div className="db-seo home-seo">
+            <h2 className="home-seo__title">
+              {isEn
+                ? 'Free slot demos no registration — crash, mines and browser play'
+                : 'Бесплатные демо слоты без регистрации — краш, mines и игра в браузере'}
+            </h2>
+            {isEn ? (
+              <>
+                <p className="seo-body">
+                  1weapp is a demo-first catalog for free slot demos no registration, crash game demos
+                  online free, and mines practice before any deposit. Every title opens in the browser
+                  with virtual credits.
+                </p>
+                <p className="seo-body">
+                  Browse Top picks or jump by provider — Pragmatic Play, Hacksaw, Nolimit City and more.
+                  Search the full catalog anytime. Demo first, decisions second — 18+ only.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="seo-body">
+                  1weapp — каталог бесплатных демо слотов без регистрации, краш-игр и mines до депозита.
+                  Каждый тайтл открывается в браузере на виртуальных кредитах.
+                </p>
+                <p className="seo-body">
+                  Смотрите топ или переходите по провайдерам. Поиск работает по всему каталогу. Сначала
+                  демо — потом решения. Только 18+.
+                </p>
+              </>
+            )}
+
+            <ExpertBanner lang={lang} />
+            <FaqAccordion
+              title={isEn ? 'Frequently asked questions' : 'Частые вопросы'}
+              items={faqItems}
+              responsibleHref={isEn ? '/en/responsible-gaming' : '/ru/responsible-gaming'}
+              responsibleLabel={isEn ? 'Responsible gaming' : 'Ответственная игра'}
+            />
           </div>
         </section>
       </main>
