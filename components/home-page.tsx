@@ -194,32 +194,168 @@ export function HomePage({ lang }: HomePageProps) {
           />
 
           <div className="db-seo home-seo">
-            <h2 className="home-seo__title">
-              {isEn
-                ? 'Free slot demos no registration — crash, mines and browser play'
-                : 'Бесплатные демо слоты без регистрации — краш, mines и игра в браузере'}
-            </h2>
             {isEn ? (
               <>
+                <h2 className="home-seo__title">
+                  Free slot demos no registration — crash, mines and browser play
+                </h2>
                 <p className="seo-body">
-                  1weapp is a demo-first catalog for free slot demos no registration, crash game demos
-                  online free, and mines practice before any deposit. Every title opens in the browser
-                  with virtual credits.
+                  1weapp is a demo-first catalog for players who want free slot demos no
+                  registration, a crash game demo online free, and mines practice before any
+                  deposit. Every title opens in the browser with virtual credits, so you can
+                  learn paytables, bonus triggers, cashout timing and published RTP without
+                  creating an account. When a format fits your style, you can continue for real
+                  money — still 18+, still with limits.
                 </p>
                 <p className="seo-body">
-                  Browse Top picks or jump by provider — Pragmatic Play, Hacksaw, Nolimit City and more.
-                  Search the full catalog anytime. Demo first, decisions second — 18+ only.
+                  The library mixes instant-win crash titles, cluster and lines slots, and grid
+                  games. Search by name or filter by type and provider to jump straight to Lucky
+                  Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen and dozens of other demos.
+                  Free online casino demo games here are built for short learning sessions on
+                  phone or desktop.
+                </p>
+
+                <h3 className="seo-h3">Crash game demo online free</h3>
+                <p className="seo-body">
+                  Looking for a crash game demo online free? Start with Lucky Jet demo play free
+                  or Rocket Queen: watch the multiplier climb, set an auto-cashout target, and
+                  compare flat staking vs emotional exits. A crash round is short, so demo mode
+                  is the safest place to test when to cash out crash games without burning a
+                  bankroll. Use the same target for 20–30 rounds and log how often early crashes
+                  hit — that sample teaches more than any “hot streak” tip.
+                </p>
+
+                <h3 className="seo-h3">Pragmatic Play slots demo and free online slot machines</h3>
+                <p className="seo-body">
+                  If you want Pragmatic Play slots demo access, open Gates of Olympus, Sweet
+                  Bonanza, Sugar Rush, Starlight Princess, Big Bass Bonanza and other catalog
+                  hits. Free online slot machines demo mode shows tumble features, free-spin
+                  frequency feel and volatility pace on virtual credits. Pair a high-RTP card
+                  with a short demo sample before you judge whether the slot fits a small session
+                  bankroll. Slot rtp explained simply still applies: RTP is a long-run average;
+                  volatility decides how rough a short session feels.
+                </p>
+
+                <h3 className="seo-h3">Mines demo no deposit</h3>
+                <p className="seo-body">
+                  Mines demo no deposit is ideal for learning tile risk. Set three bombs, open a
+                  few safe cells, and practice cashout timing on a written target — for example
+                  1.5x–2.5x — instead of “one more click.” The same combinatorics appear in
+                  real-money mines; demo only changes the currency. After a calm 3-bomb sample,
+                  you can try higher mine counts and see how quickly dry streaks grow.
+                </p>
+
+                <h3 className="seo-h3">Why start with free online casino demo games</h3>
+                <ul className="seo-list">
+                  <li className="seo-list-item">
+                    Instant browser launch — free slot demos no registration and no app install.
+                  </li>
+                  <li className="seo-list-item">
+                    Virtual credits to explore bonuses, paytables and crash cashout rules.
+                  </li>
+                  <li className="seo-list-item">
+                    Filters by crash, slots, mines and provider across the full catalog.
+                  </li>
+                  <li className="seo-list-item">
+                    Same published RTP ranges as real versions — only the balance is fake.
+                  </li>
+                </ul>
+
+                <h3 className="seo-h3">How to use the 1weapp catalog</h3>
+                <p className="seo-body">
+                  Pick a genre, open the demo, and run a fixed sample: 50–100 slot spins or 20–30
+                  crash rounds with one cashout rule. Note dry streaks, bonus feel and whether
+                  your planned stake size survives the volatility. Then read our{' '}
+                  <a href="/en/guides" className="seo-inline-link">
+                    strategy guides
+                  </a>{' '}
+                  on crash auto cashout, mines 3 bombs strategy, slot RTP, wagering terms and
+                  responsible deposit limits. Demo first, decisions second — play responsibly,
+                  18+ only.
                 </p>
               </>
             ) : (
               <>
+                <h2 className="home-seo__title">
+                  Бесплатные демо слоты без регистрации — краш, mines и игра в браузере
+                </h2>
                 <p className="seo-body">
-                  1weapp — каталог бесплатных демо слотов без регистрации, краш-игр и mines до депозита.
-                  Каждый тайтл открывается в браузере на виртуальных кредитах.
+                  1weapp — каталог для тех, кому нужны бесплатные демо слоты без регистрации,
+                  краш игры демо онлайн и тренировка mines до любого депозита. Каждый тайтл
+                  открывается в браузере на виртуальных кредитах: изучайте таблицы выплат,
+                  бонусные раунды, момент кэшаута и заявленный RTP без создания аккаунта. Если
+                  формат подошёл — можно продолжить на деньги, оставаясь в рамках 18+ и заранее
+                  заданных лимитов.
                 </p>
                 <p className="seo-body">
-                  Смотрите топ или переходите по провайдерам. Поиск работает по всему каталогу. Сначала
-                  демо — потом решения. Только 18+.
+                  В библиотеке — instant-win краш, каскадные и классические слоты, а также
+                  grid-игры. Ищите по названию или фильтруйте по типу и провайдеру, чтобы сразу
+                  открыть Lucky Jet, Gates of Olympus, Sweet Bonanza, Rocket Queen и десятки
+                  других демо. Бесплатные игровые автоматы онлайн демо здесь рассчитаны на
+                  короткие учебные сессии с телефона или ПК.
+                </p>
+
+                <h3 className="seo-h3">Краш игры демо онлайн</h3>
+                <p className="seo-body">
+                  Нужны краш игры демо онлайн? Начните с Lucky Jet демо играть бесплатно или
+                  Rocket Queen: следите за ростом множителя, задайте цель автокэшаута и сравните
+                  ровную ставку с эмоциональным выходом. Раунд краша короткий, поэтому демо —
+                  лучшее место отработать, когда выводить, не сжигая банкролл. Зафиксируйте одну
+                  цель на 20–30 раундов и запишите, как часто случаются ранние краши — такая
+                  выборка полезнее любых советов про «горячую серию».
+                </p>
+
+                <h3 className="seo-h3">Слоты Pragmatic Play демо и бесплатные автоматы</h3>
+                <p className="seo-body">
+                  Если нужны слоты Pragmatic Play демо, откройте Gates of Olympus, Sweet Bonanza,
+                  Sugar Rush, Starlight Princess, Big Bass Bonanza и другие хиты каталога.
+                  Бесплатные игровые автоматы онлайн демо показывают тумблы, ощущение частоты
+                  фриспинов и темп волатильности на виртуальных кредитах. Сверьте карточку с
+                  высоким RTP и короткий демо-прогон, прежде чем решать, подходит ли слот
+                  небольшому банку. Помните: RTP — длинная дистанция; волатильность решает,
+                  насколько жёсткой будет короткая сессия.
+                </p>
+
+                <h3 className="seo-h3">Mines демо без депозита</h3>
+                <p className="seo-body">
+                  Mines демо без депозита удобно для разбора риска клеток. Поставьте три мины,
+                  откройте несколько безопасных полей и тренируйте кэшаут по заранее записанной
+                  цели — например 1.5x–2.5x — а не по принципу «ещё один клик». Та же
+                  комбинаторика работает в режиме на деньги; в демо меняется только валюта.
+                  После спокойной серии на 3 минах можно поднять число бомб и увидеть, как
+                  быстро растут сухие отрезки.
+                </p>
+
+                <h3 className="seo-h3">Зачем начинать с бесплатных демо казино</h3>
+                <ul className="seo-list">
+                  <li className="seo-list-item">
+                    Мгновенный запуск в браузере — бесплатные демо слоты без регистрации и без
+                    установки приложения.
+                  </li>
+                  <li className="seo-list-item">
+                    Виртуальные кредиты для изучения бонусов, таблиц выплат и правил кэшаута в
+                    краше.
+                  </li>
+                  <li className="seo-list-item">
+                    Фильтры по крашу, слотам, mines и провайдеру по всему каталогу.
+                  </li>
+                  <li className="seo-list-item">
+                    Тот же заявленный RTP, что у версий на деньги — отличается только баланс.
+                  </li>
+                </ul>
+
+                <h3 className="seo-h3">Как пользоваться каталогом 1weapp</h3>
+                <p className="seo-body">
+                  Выберите жанр, откройте демо и прогоните фиксированную выборку: 50–100 спинов
+                  слота или 20–30 краш-раундов с одним правилом кэшаута. Отметьте сухие серии,
+                  ощущение бонусов и выдерживает ли запланированная ставка волатильность. Затем
+                  читайте{' '}
+                  <a href="/ru/guides" className="seo-inline-link">
+                    гайды
+                  </a>{' '}
+                  по автокэшауту в краше, стратегии mines на 3 мины, RTP слотов, вейджеру бонусов
+                  и лимитам депозита. Сначала демо — потом решения. Играйте ответственно, только
+                  18+.
                 </p>
               </>
             )}
