@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { upsertSubscription } from '@/lib/db'
 
 export const runtime = 'nodejs'
 
@@ -9,18 +10,13 @@ type Body = {
   gameSlug?: string
 }
 
-/**
- * Saves push subscriptions only when persistence is explicitly enabled.
- * Without DATABASE_URL + NEXT_PUBLIC_PUSH_PERSIST_SUBSCRIPTIONS=true on the client,
- * the client never calls this route.
- */
 export async function POST(request: Request) {
   if (process.env.NEXT_PUBLIC_PUSH_PERSIST_SUBSCRIPTIONS !== 'true') {
     return NextResponse.json({ ok: true, persisted: false, reason: 'persistence_disabled' })
   }
 
   if (!process.env.DATABASE_URL) {
-    return NextResponse.json({ ok: true, persisted: false, reason: 'no_database' })
+    return NextResponse.json({ error: 'DATABASE_URL is not configured' }, { status: 503 })
   }
 
   try {
@@ -36,10 +32,19 @@ export async function POST(request: Request) {
       )
     }
 
-    // Wire lib/db upsert here when DATABASE_URL is configured.
-    return NextResponse.json({ ok: true, persisted: false, reason: 'db_not_wired' })
+    await upsertSubscription({
+      endpoint,
+      p256dh,
+      auth,
+      userAgent: request.headers.get('user-agent'),
+      lang: body.lang ?? null,
+      gameSlug: body.gameSlug ?? null,
+    })
+
+    return NextResponse.json({ ok: true, persisted: true })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Subscribe failed'
-    return NextResponse.json({ error: message }, { status: 500 })
+    const status = message.includes('DATABASE_URL') ? 503 : 500
+    return NextResponse.json({ error: message }, { status })
   }
 }
