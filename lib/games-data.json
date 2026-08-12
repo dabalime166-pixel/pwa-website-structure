@@ -24158,5 +24158,39 @@
     "descriptionSeoEn": "Breakout free demo (no signup): Nolimit City slot with RTP ~96%. Open the browser demo to try high-volatility Nolimit slot before real-money play.",
     "titleSeoRu": "Breakout демо — играть бесплатно без регистрации",
     "titleSeoEn": "Breakout Demo Free No Deposit"
+  },
+  {
+    "slug": "mine-slot",
+    "name": "Mine Slot",
+    "titleSeoEn": "Mine Slot Demo — Play Free No Signup | 1weapp",
+    "titleSeoRu": "Mine Slot демо — играть бесплатно без регистрации | 1weapp",
+    "provider": "InOut Games",
+    "iframeUrl": "https://mine-slot.inout.games/api/modes/game?gameMode=mine-slot&operatorId=ee2013ed-e1f0-4d6e-97d2-f36619e2eb52&authToken=dd58acc1-4f93-ae3a-3341-13b6c480628a&currency=USD&lang=en&theme=&gameCustomizationId=&lobbyUrl=https://www.1weapp.online",
+    "keywordsRu": "Mine Slot демо, Mine Slot играть бесплатно, Mine Slot демо без регистрации, Mine Slot бесплатно, Mine Slot слот демо, InOut Games Mine Slot, Mine Slot без депозита, играть в Mine Slot онлайн, Mines демо, 1weapp Mine Slot",
+    "keywordsEn": "Mine Slot demo, play Mine Slot free, Mine Slot free demo, Mine Slot demo no registration, Mine Slot slot demo, InOut Games Mine Slot, Mine Slot no deposit, play Mine Slot online free, Mines demo free, 1weapp Mine Slot",
+    "seoTextRu": "**Mine Slot** — оригинальная игра InOut Games на стыке мин и слота: открывайте клетки, ловите множители и решайте, когда фиксировать выигрыш. На 1weapp демо Mine Slot открывается прямо в браузере — без регистрации и без депозита.\n\nКак тестировать Mine Slot бесплатно: откройте iframe на этой странице, выберите виртуальную ставку и пройдите 40–80 раундов с одной стратегией риска. Сравнивайте частоту мелких множителей, длину «сухих» серий и момент cash-out. Не меняйте ставку посередине теста — так честнее оценить дисперсию.\n\nInOut Games делает компактные original-тайтлы с быстрым темпом; Mine Slot удобно смотреть на телефоне и на десктопе. Рядом в каталоге — **Mine Slot 2** и другие демо с механикой Mines. Только 18+; страница информационная, FUN-режим без реальных денег.",
+    "seoTextEn": "**Mine Slot** is an InOut Games original that blends mines risk with slot-style multipliers: open tiles, chase multipliers, and decide when to cash out. On 1weapp the Mine Slot demo loads in your browser — no signup and no deposit.\n\nHow to test Mine Slot for free: open the embed on this page, pick one virtual stake, and run 40–80 rounds with a consistent risk plan. Compare small-multiplier frequency, dry streaks, and cash-out timing. Keep the stake fixed during the session so volatility reads cleanly.\n\nInOut Games focuses on fast original titles; Mine Slot stays readable on phone and desktop. Nearby in the catalog: **Mine Slot 2** and other Mines-style demos. 18+ only; this page is an informational FUN demo overview.",
+    "avatar": "/avatars/mine-slot.webp",
+    "rtp": "~96%",
+    "gameType": "Mines",
+    "descriptionSeoRu": "Mine Slot демо бесплатно на 1weapp (/mine-slot): InOut Games, RTP ~96%. Протестируйте мины + множители без регистрации.",
+    "descriptionSeoEn": "Mine Slot free demo on 1weapp (/mine-slot): InOut Games, RTP ~96%. Try mines + multipliers — no signup."
+  },
+  {
+    "slug": "mine-slot-2",
+    "name": "Mine Slot 2",
+    "titleSeoEn": "Mine Slot 2 Demo — Play Free No Signup | 1weapp",
+    "titleSeoRu": "Mine Slot 2 демо — играть бесплатно без регистрации | 1weapp",
+    "provider": "InOut Games",
+    "iframeUrl": "https://mine-slot-two.inout.games/api/modes/game?gameMode=mine-slot-two&operatorId=ee2013ed-e1f0-4d6e-97d2-f36619e2eb52&authToken=15eda9bdf4dfd26357157510fe17dc69&currency=USD&lang=en&theme=&gameCustomizationId=&lobbyUrl=https://www.1weapp.online",
+    "keywordsRu": "Mine Slot 2 демо, Mine Slot 2 играть бесплатно, Mine Slot 2 демо без регистрации, Mine Slot 2 бесплатно, Mine Slot Two демо, InOut Games Mine Slot 2, Mine Slot 2 без депозита, играть в Mine Slot 2 онлайн, Mines демо, 1weapp Mine Slot 2",
+    "keywordsEn": "Mine Slot 2 demo, play Mine Slot 2 free, Mine Slot 2 free demo, Mine Slot 2 demo no registration, Mine Slot Two demo, InOut Games Mine Slot 2, Mine Slot 2 no deposit, play Mine Slot 2 online free, Mines demo free, 1weapp Mine Slot 2",
+    "seoTextRu": "**Mine Slot 2** (Mine Slot Two) — продолжение линейки InOut Games: та же идея мин и множителей, но с обновлённым темпом и визуалом. Демо Mine Slot 2 на 1weapp работает без аккаунта и без депозита — сразу в iframe.\n\nПрактичный тест: откройте /mine-slot-2, зафиксируйте виртуальную ставку и сыграйте ~50–90 раундов. Сравните с первой частью (**Mine Slot**): насколько чаще приходят средние множители, удобнее ли UI на мобильном, когда хочется выйти из раунда. Записывайте длину сухих серий — так проще понять волатильность сиквела.\n\nПровайдер InOut Games ориентирован на быстрые original-игры; обе части доступны в каталоге 1weapp рядом с другими Mines-демо. 18+; только FUN-режим для ознакомления.",
+    "seoTextEn": "**Mine Slot 2** (Mine Slot Two) continues the InOut Games mines-and-multipliers formula with a refreshed pace and look. The Mine Slot 2 demo on 1weapp needs no account and no deposit — it loads straight in the iframe.\n\nPractical test: open /mine-slot-2, lock one virtual stake, and play about 50–90 rounds. Compare it with **Mine Slot**: mid-multiplier frequency, mobile UI comfort, and when you want to cash out. Track dry-streak length so sequel volatility is easier to judge.\n\nInOut Games builds fast original titles; both parts sit in the 1weapp catalog next to other Mines demos. 18+; FUN mode for familiarization only.",
+    "avatar": "/avatars/mine-slot-2.webp",
+    "rtp": "~96%",
+    "gameType": "Mines",
+    "descriptionSeoRu": "Mine Slot 2 демо бесплатно на 1weapp (/mine-slot-2): InOut Games, RTP ~96%. Сиквел мин + множителей без регистрации.",
+    "descriptionSeoEn": "Mine Slot 2 free demo on 1weapp (/mine-slot-2): InOut Games, RTP ~96%. Sequel mines + multipliers — no signup."
   }
 ]

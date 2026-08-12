@@ -55,6 +55,7 @@ const PROVIDERS = [
   { slug: 'hacksaw-gaming', name: 'Hacksaw Gaming' },
   { slug: 'bgaming', name: 'BGaming' },
   { slug: '1weapp-games', name: '1weapp Games' },
+  { slug: 'inout-games', name: 'InOut Games' },
 ]
 
 const byProvider = {}

@@ -103,6 +103,7 @@ const POPULAR_BY_PROVIDER: Record<string, string[]> = {
     'pirates-plenty-megaways',
   ],
   '1weapp Games': ['lucky-jet', 'rocket-queen', 'mines', 'tower-rush'],
+  'InOut Games': ['mine-slot', 'mine-slot-2'],
 }
 
 const PER_PROVIDER = 10

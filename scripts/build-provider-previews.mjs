@@ -17,6 +17,7 @@ const PROVIDERS = [
   { slug: 'big-time-gaming', name: 'Big Time Gaming' },
   { slug: 'red-tiger', name: 'Red Tiger' },
   { slug: '1weapp-games', name: '1weapp Games' },
+  { slug: 'inout-games', name: 'InOut Games' },
 ]
 
 const OUT_DIR = path.resolve('public/banners/providers')

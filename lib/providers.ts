@@ -22,6 +22,7 @@ export const PROVIDERS: ProviderDef[] = [
   { slug: 'big-time-gaming', name: 'Big Time Gaming', titleEn: 'Big Time Gaming', titleRu: 'Big Time Gaming' },
   { slug: 'red-tiger', name: 'Red Tiger', titleEn: 'Red Tiger', titleRu: 'Red Tiger' },
   { slug: '1weapp-games', name: '1weapp Games', titleEn: '1weapp Games', titleRu: '1weapp Games' },
+  { slug: 'inout-games', name: 'InOut Games', titleEn: 'InOut Games', titleRu: 'InOut Games' },
 ]
 
 export function getProviderBySlug(slug: string): ProviderDef | undefined {

@@ -1,7 +1,7 @@
 # 1weapp.online — free casino demos (no signup)
 
 > Machine-readable map of https://www.1weapp.online for LLMs and crawlers.
-> Updated: 2026-08-05. Catalog size: 1422 demo game pages (EN + RU).
+> Updated: 2026-08-12. Catalog size: 1424 demo game pages (EN + RU).
 
 1weapp is a demo-first catalog of free browser slot, crash and instant-win demos.
 No registration is required to launch demos. Real-money play happens only on external licensed operators via affiliate CTAs. Audience: 18+.
@@ -27,6 +27,7 @@ Robots: https://www.1weapp.online/robots.txt
 - [Hacksaw Gaming lobby (167 demos)](https://www.1weapp.online/en/providers/hacksaw-gaming): https://www.1weapp.online/ru/providers/hacksaw-gaming
 - [BGaming lobby (76 demos)](https://www.1weapp.online/en/providers/bgaming): https://www.1weapp.online/ru/providers/bgaming
 - [1weapp Games lobby (4 demos)](https://www.1weapp.online/en/providers/1weapp-games): https://www.1weapp.online/ru/providers/1weapp-games
+- [InOut Games lobby (2 demos)](https://www.1weapp.online/en/providers/inout-games): https://www.1weapp.online/ru/providers/inout-games
 
 ## Featured demos
 
@@ -1522,6 +1523,8 @@ Each title also has a Russian mirror at https://www.1weapp.online/ru/{slug}.
 - Zillard King Megaways™ — https://www.1weapp.online/en/zillard-king-megaways
 - Zillard King™ — https://www.1weapp.online/en/zillard-king
 - Breakout — https://www.1weapp.online/en/breakout
+- Mine Slot — https://www.1weapp.online/en/mine-slot
+- Mine Slot 2 — https://www.1weapp.online/en/mine-slot-2
 
 ## Notes for agents
 
