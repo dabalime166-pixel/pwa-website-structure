@@ -11,6 +11,23 @@ type FormState = {
   tag: string
 }
 
+function normalizePublicPath(input: string): string {
+  const value = input.trim()
+  if (value.startsWith('/workspace/public/')) {
+    return value.replace('/workspace/public', '')
+  }
+  return value
+}
+
+function isDirectImageRef(input: string): boolean {
+  const value = input.trim()
+  if (!value) return true
+  if (value.startsWith('/')) {
+    return /\.(png|jpe?g|webp|gif|avif)$/i.test(value)
+  }
+  return /^https:\/\/.+\.(png|jpe?g|webp|gif|avif)(\?.*)?$/i.test(value)
+}
+
 const DEFAULTS: FormState = {
   title: '🔥 Новое демо',
   body: 'Зайди на 1weapp — свежее демо и бонусы уже в каталоге.',
@@ -123,6 +140,10 @@ export default function AdminNotificationsPage() {
   const send = async (e: React.FormEvent) => {
     e.preventDefault()
     if (sending) return
+    if (form.image && !isDirectImageRef(form.image)) {
+      setStatus('Картинка должна быть прямой ссылкой на файл (png/jpg/webp), а не страницей')
+      return
+    }
     setSending(true)
     setStatus(null)
     try {
@@ -136,8 +157,8 @@ export default function AdminNotificationsPage() {
           title: form.title,
           body: form.body,
           url: form.url || '/',
-          icon: form.icon || '/icon-192.png',
-          image: form.image || undefined,
+          icon: normalizePublicPath(form.icon || '/icon-192.png'),
+          image: normalizePublicPath(form.image) || undefined,
           tag: form.tag || '1weapp-broadcast',
         }),
       })

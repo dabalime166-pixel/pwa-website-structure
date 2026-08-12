@@ -7,13 +7,21 @@ export const maxDuration = 60
 
 function absolutize(input: string | undefined, origin: string): string | undefined {
   if (!input) return undefined
-  const value = input.trim()
+  let value = input.trim()
   if (!value) return undefined
+  if (value.startsWith('/workspace/public/')) {
+    value = value.replace('/workspace/public', '')
+  }
   try {
     return new URL(value, origin).toString()
   } catch {
     return undefined
   }
+}
+
+function looksLikeDirectImageUrl(url: string | undefined): boolean {
+  if (!url) return false
+  return /\.(png|jpe?g|webp|gif|avif)(\?.*)?$/i.test(url)
 }
 
 export async function GET(request: Request) {
@@ -44,13 +52,30 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'title and body are required' }, { status: 400 })
     }
 
+    const imageUrl = absolutize(body.image, origin)
+    const iconUrl = absolutize(body.icon, origin) || `${origin}/icon.svg`
+    const badgeUrl = absolutize(body.badge, origin) || `${origin}/icon.svg`
+
+    if (!iconUrl) {
+      return NextResponse.json({ error: 'icon URL is invalid' }, { status: 400 })
+    }
+    if (imageUrl && !looksLikeDirectImageUrl(imageUrl)) {
+      return NextResponse.json(
+        {
+          error:
+            'image must be a direct file URL (png/jpg/webp/gif/avif), not a page link',
+        },
+        { status: 400 },
+      )
+    }
+
     const payload: PushPayload = {
       title,
       body: text,
       url: absolutize(body.url, origin) || origin,
-      icon: absolutize(body.icon, origin) || `${origin}/icon.svg`,
-      badge: absolutize(body.badge, origin) || `${origin}/icon.svg`,
-      image: absolutize(body.image, origin),
+      icon: iconUrl,
+      badge: badgeUrl,
+      image: imageUrl,
       tag: body.tag?.trim() || '1weapp-broadcast',
     }
 
