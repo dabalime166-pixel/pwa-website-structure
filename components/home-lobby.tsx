@@ -89,17 +89,31 @@ function LazyGameRow(props: {
   useEffect(() => {
     const el = hostRef.current
     if (!el || visible) return
+
+    // Fallback: never leave empty skeleton forever if IO/hydration is flaky
+    const fallback = window.setTimeout(() => setVisible(true), 800)
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setVisible(true)
+      window.clearTimeout(fallback)
+      return
+    }
+
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
           setVisible(true)
+          window.clearTimeout(fallback)
           io.disconnect()
         }
       },
-      { rootMargin: '240px 0px' },
+      { rootMargin: '400px 0px', threshold: 0.01 },
     )
     io.observe(el)
-    return () => io.disconnect()
+    return () => {
+      window.clearTimeout(fallback)
+      io.disconnect()
+    }
   }, [visible])
 
   return (
