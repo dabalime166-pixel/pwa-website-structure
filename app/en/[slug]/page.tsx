@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { GamePage } from '@/components/game-page'
-import { games, getGame, getKeywords } from '@/lib/games'
+import { games } from '@/lib/games'
+import {
+  getGameFull,
+  getKeywords,
+  getSeoTitle,
+  getSeoDescription,
+} from '@/lib/games-content'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -13,37 +19,44 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const game = getGame(slug)
+  const game = getGameFull(slug)
   if (!game) return {}
 
   const keywords = getKeywords(game, 'en').join(', ')
-  const title = `${game.name} Demo — Play Free Online`
-  const description = `Play ${game.name} demo free — no registration needed. ${game.provider} slot. ${keywords.slice(0, 120)}.`
+  const title = getSeoTitle(game, 'en')
+  const description = getSeoDescription(game, 'en')
 
   return {
     title,
     description,
     keywords,
     alternates: {
-      canonical: `https://crashgames.demo/en/${slug}`,
+      canonical: `https://www.1weapp.online/en/${slug}`,
       languages: {
-        en: `https://crashgames.demo/en/${slug}`,
-        ru: `https://crashgames.demo/ru/${slug}`,
+        en: `https://www.1weapp.online/en/${slug}`,
+        ru: `https://www.1weapp.online/ru/${slug}`,
+        'x-default': `https://www.1weapp.online/en/${slug}`,
       },
     },
     openGraph: {
       title,
       description,
-      url: `https://crashgames.demo/en/${slug}`,
+      url: `https://www.1weapp.online/en/${slug}`,
       locale: 'en_US',
-      images: [{ url: game.avatar, width: 400, height: 533, alt: `${game.name} avatar` }],
+      type: 'website',
+      siteName: '1weapp',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   }
 }
 
 export default async function EnGamePage({ params }: Props) {
   const { slug } = await params
-  const game = getGame(slug)
+  const game = getGameFull(slug)
   if (!game) notFound()
   return <GamePage slug={slug} lang="en" />
 }
