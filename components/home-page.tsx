@@ -154,7 +154,15 @@ export function HomePage({ lang }: HomePageProps) {
                 fill
                 priority
                 sizes="(max-width: 1280px) 100vw, 1200px"
-                className="db-hero__photo"
+                className="db-hero__photo db-hero__photo--desktop"
+              />
+              <Image
+                src="/banners/home-brand-mobile.webp"
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="db-hero__photo db-hero__photo--mobile"
               />
               <div className="db-hero__veil" />
             </div>

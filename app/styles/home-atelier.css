@@ -55,6 +55,46 @@
   object-fit: cover;
   object-position: 65% center;
 }
+.db-hero__photo--mobile {
+  display: none;
+}
+@media (max-width: 640px) {
+  .db-hero {
+    padding-top: 0.65rem;
+  }
+  .db-hero__frame {
+    min-height: clamp(168px, 42vw, 210px);
+    padding: 1rem 1rem 1.05rem;
+  }
+  .db-hero__photo--desktop {
+    display: none;
+  }
+  .db-hero__photo--mobile {
+    display: block;
+    object-position: center 40%;
+  }
+  .db-hero__veil {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.62) 55%, rgba(0, 0, 0, 0.35) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.5));
+  }
+  .db-hero__title {
+    font-size: clamp(1.2rem, 5.2vw, 1.45rem);
+  }
+  .db-hero__sub {
+    font-size: 0.84rem;
+    margin-bottom: 0.75rem;
+  }
+  .db-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .db-hero__cta,
+  .db-hero__actions .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
 .db-hero__veil {
   position: absolute;
   inset: 0;
@@ -336,6 +376,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  gap: 0.75rem;
   margin-bottom: 0.55rem;
 }
 .db-home .lobby-section-header__subtitle {
@@ -350,18 +391,58 @@
   font-size: 1.05rem;
 }
 .db-home .lobby-section-header__count {
+  flex-shrink: 0;
   color: var(--db-mute);
+  font-size: 0.82rem;
+  font-weight: 600;
 }
 .db-home .lobby-section__row {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(132px, 148px);
+  display: flex;
   gap: 0.75rem;
   overflow-x: auto;
+  padding: 0.1rem 0.15rem 0.45rem;
+  margin: 0 -0.15rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
+}
+.db-home .lobby-section__row::-webkit-scrollbar {
+  height: 5px;
+}
+.db-home .lobby-section__row::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.28);
+  border-radius: 999px;
+}
+.db-home .lobby-tile {
+  flex: 0 0 auto;
+  width: min(44vw, 156px);
+  scroll-snap-align: start;
+  min-width: 0;
+}
+@media (min-width: 480px) {
+  .db-home .lobby-tile {
+    width: min(38vw, 168px);
+  }
+}
+@media (min-width: 720px) {
+  .db-home .lobby-tile {
+    width: 176px;
+  }
+}
+@media (min-width: 1100px) {
+  .db-home .lobby-tile {
+    width: 188px;
+  }
 }
 .db-home .lobby-tile .game-card {
   width: 100%;
+}
+.db-home .lobby-tile .game-card__name {
+  font-size: 0.82rem;
+}
+.db-home .lobby-tile .card-badge {
+  font-size: 0.58rem;
+  padding: 0.2rem 0.42rem;
 }
 
 .db-seo {
