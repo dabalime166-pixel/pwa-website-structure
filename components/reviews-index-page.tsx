@@ -9,9 +9,10 @@ import { CTA_URL, homeHref } from '@/lib/games'
 
 export default function ReviewsIndexPage({ lang }: { lang: 'en' | 'ru' }) {
   const isEn = lang === 'en'
+  const heading = isEn ? 'Game reviews' : 'Обзоры игр'
 
   return (
-    <>
+    <div className="review-shell">
       <SiteHeader lang={lang} section="reviews" />
       <main id="main-content" className="review-page review-index">
         <nav aria-label="Breadcrumb" className="review-page__breadcrumb">
@@ -31,27 +32,42 @@ export default function ReviewsIndexPage({ lang }: { lang: 'en' | 'ru' }) {
         </nav>
 
         <header className="review-index__hero">
-          <h1>{isEn ? 'Game reviews' : 'Обзоры игр'}</h1>
-          <p>
-            {isEn
-              ? 'Detailed write-ups with keywords, RTP notes and casino redirects — no demo iframes on these pages.'
-              : 'Подробные тексты с ключами, RTP и редиректом в казино — без демо iframe на этих страницах.'}
-          </p>
-          <a
-            href={CTA_URL}
-            rel="noopener noreferrer nofollow sponsored"
-            target="_blank"
-            className="btn-cta"
-          >
-            {isEn ? 'Open casino' : 'Открыть казино'}
-          </a>
+          <div className="review-index__hero-stack">
+            <p className="review-index__watermark" aria-hidden="true">
+              {heading}
+            </p>
+            <div className="review-index__hero-copy">
+              <h1 className="visually-hidden">{heading}</h1>
+              <p className="review-index__lead">
+                {isEn
+                  ? 'Detailed write-ups with keywords, RTP notes and casino redirects — no demo iframes on these pages.'
+                  : 'Подробные тексты с ключами, RTP и редиректом в казино — без демо iframe на этих страницах.'}
+              </p>
+              <a
+                href={CTA_URL}
+                rel="noopener noreferrer nofollow sponsored"
+                target="_blank"
+                className="review-index__cta"
+              >
+                {isEn ? 'Open casino' : 'Открыть казино'}
+              </a>
+            </div>
+          </div>
         </header>
 
         <div className="review-index__grid">
           {REVIEWS.map((r) => (
             <Link key={r.id} href={reviewHref(lang, r.id)} className="review-index__card">
-              <Image src={r.avatar} alt="" width={96} height={96} />
-              <div>
+              <div className="review-index__thumb">
+                <Image
+                  src={r.avatar}
+                  alt=""
+                  width={128}
+                  height={128}
+                  sizes="(max-width: 640px) 88px, 128px"
+                />
+              </div>
+              <div className="review-index__body">
                 <span className="review-index__tag">{isEn ? r.tagEn : r.tagRu}</span>
                 <h2>{isEn ? r.titleEn : r.titleRu}</h2>
                 <p>{isEn ? r.subtitleEn : r.subtitleRu}</p>
@@ -64,6 +80,6 @@ export default function ReviewsIndexPage({ lang }: { lang: 'en' | 'ru' }) {
         </div>
       </main>
       <SiteFooter lang={lang} />
-    </>
+    </div>
   )
 }

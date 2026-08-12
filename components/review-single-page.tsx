@@ -96,7 +96,7 @@ export default function ReviewSinglePage({
   })()
 
   return (
-    <>
+    <div className="review-shell">
       {jsonLd && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       )}
@@ -324,6 +324,6 @@ export default function ReviewSinglePage({
       </main>
 
       <SiteFooter lang={lang} />
-    </>
+    </div>
   )
 }
