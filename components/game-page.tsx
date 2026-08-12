@@ -396,6 +396,48 @@ export function GamePage({ slug, lang }: GamePageProps) {
                         perk3: 'Бонусы для новых игроков',
                       }
                 }
+                notifyCopy={
+                  isEn
+                    ? {
+                        eyebrow: 'Stay in the loop',
+                        title: 'Get demo alerts for {game}',
+                        text: 'Allow notifications and we will ping you when fresh demos and bonus drops go live. You can mute them anytime in browser settings.',
+                        allowLabel: 'Allow notifications',
+                        skipLabel: 'Not now — launch demo',
+                        legal: 'Only sends updates you opt into · 18+ entertainment',
+                        perk1: 'New demo & game alerts',
+                        perk2: 'Bonus drops & promos',
+                        perk3: 'One tap to turn off later',
+                        iosTitle: 'Add to Home Screen for alerts',
+                        iosBody:
+                          'On iPhone, notifications work after you add 1weapp to your Home Screen and open {game} from the icon.',
+                        iosStepShare: 'Tap Share in Safari (bottom bar)',
+                        iosStepAdd: 'Choose “Add to Home Screen”',
+                        iosStepOpen: 'Open the icon, then tap Launch Demo again',
+                        iosContinueLabel: 'Launch demo without alerts',
+                        iosShareHint: '↓ Share button is at the bottom of Safari',
+                      }
+                    : {
+                        eyebrow: 'Будьте в курсе',
+                        title: 'Уведомления о демо {game}',
+                        text: 'Разрешите уведомления — сообщим о новых демо и бонусах. Отключить можно в настройках браузера в любой момент.',
+                        allowLabel: 'Разрешить уведомления',
+                        skipLabel: 'Не сейчас — запустить демо',
+                        legal: 'Только выбранные вами обновления · 18+ развлечение',
+                        perk1: 'Алерты о новых демо',
+                        perk2: 'Бонусы и акции',
+                        perk3: 'Можно отключить одним тапом',
+                        iosTitle: 'Добавьте на экран «Домой»',
+                        iosBody:
+                          'На iPhone уведомления работают после добавления 1weapp на экран «Домой» и запуска {game} с иконки.',
+                        iosStepShare: 'Нажмите «Поделиться» в Safari (внизу)',
+                        iosStepAdd: 'Выберите «На экран «Домой»»',
+                        iosStepOpen: 'Откройте с иконки и снова нажмите «Запустить демо»',
+                        iosContinueLabel: 'Запустить демо без уведомлений',
+                        iosShareHint: '↓ Кнопка «Поделиться» внизу Safari',
+                      }
+                }
+                lang={isEn ? 'en' : 'ru'}
               />
             ) : (
               <div className="gp-coming-soon">

@@ -4,7 +4,15 @@ import Image from 'next/image'
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { CasinoInviteModal } from '@/components/casino-invite-modal'
 import type { CasinoInviteCopy } from '@/components/casino-invite-modal'
+import { DemoNotifyPrompt, type DemoNotifyCopy } from '@/components/demo-notify-prompt'
 import { CTA_URL } from '@/lib/games'
+import { getNotifyUiVariant } from '@/lib/device-profile'
+import type { NotifyUiVariant } from '@/lib/device-profile'
+import {
+  markNotifyPromptDismissed,
+  requestNotificationPermission,
+  shouldShowNotifyPrompt,
+} from '@/lib/push-client'
 import { pushRecentSlug } from '@/lib/player-prefs'
 
 const INVITE_DELAY_MS = 2 * 60 * 1000
@@ -21,6 +29,8 @@ interface GameViewerProps {
   readyTitle?: string
   readyDescription?: string
   inviteCopy: CasinoInviteCopy
+  notifyCopy: DemoNotifyCopy
+  lang?: 'en' | 'ru'
 }
 
 function FullscreenIcon() {
@@ -102,11 +112,16 @@ export function GameViewer({
   readyTitle = 'Ready to Play?',
   readyDescription = 'Click the button below to launch the demo',
   inviteCopy,
+  notifyCopy,
+  lang = 'en',
 }: GameViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [iframeLaunched, setIframeLaunched] = useState(false)
   const [cssFallback, setCssFallback] = useState(false)
   const [inviteOpen, setInviteOpen] = useState(false)
+  const [notifyOpen, setNotifyOpen] = useState(false)
+  const [notifyBusy, setNotifyBusy] = useState(false)
+  const [notifyVariant, setNotifyVariant] = useState<NotifyUiVariant>('desktop')
   const shellRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -185,6 +200,36 @@ export function GameViewer({
     pushRecentSlug(gameSlug)
   }, [gameSlug])
 
+  const finishNotifyAndLaunch = useCallback(() => {
+    markNotifyPromptDismissed()
+    setNotifyOpen(false)
+    setNotifyBusy(false)
+    launchDemo()
+  }, [launchDemo])
+
+  const onLaunchClick = useCallback(() => {
+    if (!shouldShowNotifyPrompt()) {
+      launchDemo()
+      return
+    }
+    setNotifyVariant(getNotifyUiVariant())
+    setNotifyOpen(true)
+  }, [launchDemo])
+
+  const onNotifyAllow = useCallback(async () => {
+    if (notifyVariant === 'ios-browser') {
+      finishNotifyAndLaunch()
+      return
+    }
+    setNotifyBusy(true)
+    await requestNotificationPermission({ lang, gameSlug })
+    finishNotifyAndLaunch()
+  }, [finishNotifyAndLaunch, gameSlug, lang, notifyVariant])
+
+  const onNotifySkip = useCallback(() => {
+    finishNotifyAndLaunch()
+  }, [finishNotifyAndLaunch])
+
   const dismissInvite = useCallback(() => {
     setInviteOpen(false)
     try {
@@ -258,7 +303,7 @@ export function GameViewer({
               <p className="game-teaser__kicker">{demoBadge}</p>
               <h3 className="game-teaser__title">{readyTitle}</h3>
               <p className="game-teaser__desc">{readyDescription}</p>
-              <button type="button" className="game-teaser__btn" onClick={launchDemo}>
+              <button type="button" className="game-teaser__btn" onClick={onLaunchClick}>
                 <svg width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
@@ -288,6 +333,16 @@ export function GameViewer({
         copy={inviteCopy}
         inline={nativeFs || cssFallback}
         onDismiss={dismissInvite}
+      />
+
+      <DemoNotifyPrompt
+        open={notifyOpen}
+        variant={notifyVariant}
+        gameName={gameName}
+        copy={notifyCopy}
+        busy={notifyBusy}
+        onAllow={onNotifyAllow}
+        onSkip={onNotifySkip}
       />
     </div>
   )
