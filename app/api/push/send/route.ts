@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server'
 import { countSubscriptions, deleteSubscription, listSubscriptions } from '@/lib/db'
-import { authorizeAdminRequest, sendPushToSubscriptions, type PushPayload } from '@/lib/web-push-server'
+import { authorizeAdminRequest } from '@/lib/admin-auth'
+import { sendPushToSubscriptions, type PushPayload } from '@/lib/web-push-server'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 export const maxDuration = 60
+
+type SendBody = Partial<PushPayload> & { secret?: string }
 
 function absolutize(input: string | undefined, origin: string): string | undefined {
   if (!input) return undefined
@@ -27,7 +32,7 @@ function looksLikeDirectImageUrl(url: string | undefined): boolean {
 export async function GET(request: Request) {
   const auth = authorizeAdminRequest(request)
   if (!auth.ok) {
-    return NextResponse.json({ error: auth.error }, { status: auth.status })
+    return NextResponse.json({ error: auth.error, code: auth.code }, { status: auth.status })
   }
   try {
     const count = await countSubscriptions()
@@ -39,14 +44,20 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const auth = authorizeAdminRequest(request)
+  let body: SendBody = {}
+  try {
+    body = (await request.json()) as SendBody
+  } catch {
+    body = {}
+  }
+
+  const auth = authorizeAdminRequest(request, body.secret)
   if (!auth.ok) {
-    return NextResponse.json({ error: auth.error }, { status: auth.status })
+    return NextResponse.json({ error: auth.error, code: auth.code }, { status: auth.status })
   }
 
   try {
     const origin = new URL(request.url).origin
-    const body = (await request.json()) as PushPayload
     const title = body.title?.trim()
     const text = body.body?.trim()
 
@@ -64,8 +75,7 @@ export async function POST(request: Request) {
     if (imageUrl && !looksLikeDirectImageUrl(imageUrl)) {
       return NextResponse.json(
         {
-          error:
-            'image must be a direct file URL (png/jpg/webp/gif/avif), not a page link',
+          error: 'image must be a direct file URL (png/jpg/webp/gif/avif), not a page link',
         },
         { status: 400 },
       )

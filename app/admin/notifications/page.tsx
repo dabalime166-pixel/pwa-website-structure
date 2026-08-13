@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 type FormState = {
   title: string
@@ -79,6 +79,20 @@ function PreviewCard({ form }: { form: FormState }) {
   )
 }
 
+function loginErrorMessage(status: number, error?: string | null, code?: string | null): string {
+  if (status === 503 || code === 'missing_admin_secret' || error?.includes('ADMIN_PUSH_SECRET')) {
+    return 'На сервере не задан ADMIN_PUSH_SECRET. Добавьте переменную в Vercel → Settings → Environment Variables для Production (без кавычек) и нажмите Redeploy.'
+  }
+  if (status === 401 || code === 'unauthorized' || error === 'Unauthorized') {
+    return 'Неверный секрет. Скопируйте ADMIN_PUSH_SECRET без кавычек и пробелов. После смены переменной нужен Redeploy.'
+  }
+  if (status === 404 || status === 405) {
+    return 'Сервер ещё на старом коде. Сделайте Redeploy текущей ветки и откройте админку на www.1weapp.online/admin/notifications'
+  }
+  if (error) return error
+  return `Ошибка входа (${status})`
+}
+
 export default function AdminNotificationsPage() {
   const [secret, setSecret] = useState('')
   const [unlocked, setUnlocked] = useState(false)
@@ -88,47 +102,82 @@ export default function AdminNotificationsPage() {
   const [sending, setSending] = useState(false)
   const [authError, setAuthError] = useState<string | null>(null)
 
+  const loginWithSecret = useCallback(async (nextSecret: string) => {
+    const res = await fetch('/api/push/login', {
+      method: 'POST',
+      cache: 'no-store',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-secret': nextSecret,
+      },
+      body: JSON.stringify({ secret: nextSecret }),
+    })
+    const data = (await res.json().catch(() => null)) as
+      | { ok?: boolean; count?: number; error?: string; warning?: string; code?: string; configured?: boolean }
+      | null
+    return { res, data }
+  }, [])
+
   useEffect(() => {
     const saved = sessionStorage.getItem('admin_push_secret')
     if (saved) {
       setSecret(saved)
-      setUnlocked(true)
+      void (async () => {
+        try {
+          const { res, data } = await loginWithSecret(saved)
+          if (!res.ok) {
+            sessionStorage.removeItem('admin_push_secret')
+            setUnlocked(false)
+            setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
+            return
+          }
+          setUnlocked(true)
+          setCount(data?.count ?? 0)
+          setAuthError(null)
+          if (data?.warning) setStatus(data.warning)
+        } catch {
+          setUnlocked(false)
+          setAuthError('Ошибка сети при проверке сессии')
+        }
+      })()
+      return
     }
-  }, [])
 
-  const authHeaders = useMemo(
-    () => ({
-      Authorization: `Bearer ${secret}`,
-      'x-admin-secret': secret,
-    }),
-    [secret],
-  )
+    void (async () => {
+      try {
+        const res = await fetch('/api/push/login', { cache: 'no-store', credentials: 'same-origin' })
+        const data = (await res.json().catch(() => null)) as { configured?: boolean; error?: string; code?: string } | null
+        if (data?.configured === false) {
+          setAuthError(loginErrorMessage(503, data.error, data.code || 'missing_admin_secret'))
+        }
+      } catch {
+        /* ignore — user can still try to log in */
+      }
+    })()
+  }, [loginWithSecret])
 
   const refreshCount = useCallback(async () => {
     if (!secret) return
-    const res = await fetch('/api/push/send', {
-      headers: authHeaders,
-    })
-    const data = (await res.json().catch(() => null)) as { count?: number; error?: string } | null
-    if (res.status === 401) {
-      setUnlocked(false)
-      setAuthError(data?.error === 'Unauthorized' ? 'Неверный секрет' : data?.error || 'Неверный секрет')
-      sessionStorage.removeItem('admin_push_secret')
-      return
+    try {
+      const { res, data } = await loginWithSecret(secret)
+      if (res.status === 401) {
+        setUnlocked(false)
+        setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
+        sessionStorage.removeItem('admin_push_secret')
+        return
+      }
+      if (!res.ok) {
+        setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
+        return
+      }
+      setCount(data?.count ?? 0)
+      setAuthError(null)
+      if (data?.warning) setStatus(data.warning)
+    } catch {
+      setAuthError('Ошибка сети. Откройте админку с https://www.1weapp.online/admin/notifications')
     }
-    if (!res.ok) {
-      setAuthError(data?.error || 'Не удалось загрузить счётчик')
-      return
-    }
-    setCount(data?.count ?? 0)
-    setAuthError(null)
-  }, [secret, authHeaders])
-
-  useEffect(() => {
-    if (unlocked && secret) {
-      void refreshCount()
-    }
-  }, [unlocked, secret, refreshCount])
+  }, [secret, loginWithSecret])
 
   const unlock = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -136,30 +185,32 @@ export default function AdminNotificationsPage() {
     if (!nextSecret) return
     setAuthError(null)
     try {
-      const res = await fetch('/api/push/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ secret: nextSecret }),
-      })
-      const data = (await res.json().catch(() => null)) as
-        | { ok?: boolean; count?: number; error?: string; warning?: string }
-        | null
+      const { res, data } = await loginWithSecret(nextSecret)
       if (!res.ok) {
         setUnlocked(false)
-        setAuthError(
-          res.status === 503
-            ? data?.error || 'ADMIN_PUSH_SECRET не задан на сервере. Добавьте в Vercel env и сделайте Redeploy.'
-            : 'Неверный секрет',
-        )
+        setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
         return
       }
       sessionStorage.setItem('admin_push_secret', nextSecret)
       setSecret(nextSecret)
       setUnlocked(true)
       setCount(data?.count ?? 0)
-      if (data?.warning) setAuthError(data.warning)
+      if (data?.warning) setStatus(data.warning)
     } catch {
-      setAuthError('Ошибка сети')
+      setAuthError('Ошибка сети. Откройте админку с https://www.1weapp.online/admin/notifications')
+    }
+  }
+
+  const logout = async () => {
+    sessionStorage.removeItem('admin_push_secret')
+    setUnlocked(false)
+    setSecret('')
+    setCount(null)
+    setAuthError(null)
+    try {
+      await fetch('/api/push/login', { method: 'DELETE', cache: 'no-store', credentials: 'same-origin' })
+    } catch {
+      /* ignore */
     }
   }
 
@@ -179,12 +230,15 @@ export default function AdminNotificationsPage() {
     try {
       const res = await fetch('/api/push/send', {
         method: 'POST',
+        cache: 'no-store',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: authHeaders.Authorization,
-          'x-admin-secret': authHeaders['x-admin-secret'],
+          Authorization: `Bearer ${secret}`,
+          'x-admin-secret': secret,
         },
         body: JSON.stringify({
+          secret,
           title: form.title,
           body: form.body,
           url: form.url || '/',
@@ -254,7 +308,8 @@ export default function AdminNotificationsPage() {
         >
           <h1 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>Admin · Уведомления</h1>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
-            Введите ADMIN_PUSH_SECRET из Vercel Environment Variables (после Redeploy).
+            Введите ADMIN_PUSH_SECRET из Vercel (Production). Открывайте страницу на
+            https://www.1weapp.online/admin/notifications — после смены env нужен Redeploy.
           </p>
           <label style={labelStyle} htmlFor="secret">
             Секрет
@@ -303,9 +358,14 @@ export default function AdminNotificationsPage() {
             Локально с ПК: <code>pnpm push:export</code> и <code>pnpm push:send</code>
           </p>
         </div>
-        <button type="button" className="btn-fullscreen" onClick={() => void refreshCount()}>
-          Обновить
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <button type="button" className="btn-fullscreen" onClick={() => void refreshCount()}>
+            Обновить
+          </button>
+          <button type="button" className="btn-fullscreen" onClick={() => void logout()}>
+            Выйти
+          </button>
+        </div>
       </header>
 
       <div
