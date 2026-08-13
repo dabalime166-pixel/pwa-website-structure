@@ -96,27 +96,33 @@ export default function AdminNotificationsPage() {
     }
   }, [])
 
-  const authHeader = useMemo(() => `Bearer ${secret}`, [secret])
+  const authHeaders = useMemo(
+    () => ({
+      Authorization: `Bearer ${secret}`,
+      'x-admin-secret': secret,
+    }),
+    [secret],
+  )
 
   const refreshCount = useCallback(async () => {
     if (!secret) return
     const res = await fetch('/api/push/send', {
-      headers: { Authorization: `Bearer ${secret}` },
+      headers: authHeaders,
     })
+    const data = (await res.json().catch(() => null)) as { count?: number; error?: string } | null
     if (res.status === 401) {
       setUnlocked(false)
-      setAuthError('Неверный секрет')
+      setAuthError(data?.error === 'Unauthorized' ? 'Неверный секрет' : data?.error || 'Неверный секрет')
       sessionStorage.removeItem('admin_push_secret')
       return
     }
-    const data = (await res.json()) as { count?: number; error?: string }
-    if (res.ok) {
-      setCount(data.count ?? 0)
-      setAuthError(null)
-    } else {
-      setAuthError(data.error || 'Не удалось загрузить счётчик')
+    if (!res.ok) {
+      setAuthError(data?.error || 'Не удалось загрузить счётчик')
+      return
     }
-  }, [secret])
+    setCount(data?.count ?? 0)
+    setAuthError(null)
+  }, [secret, authHeaders])
 
   useEffect(() => {
     if (unlocked && secret) {
@@ -124,13 +130,37 @@ export default function AdminNotificationsPage() {
     }
   }, [unlocked, secret, refreshCount])
 
-  const unlock = (e: React.FormEvent) => {
+  const unlock = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!secret.trim()) return
-    sessionStorage.setItem('admin_push_secret', secret.trim())
-    setSecret(secret.trim())
-    setUnlocked(true)
+    const nextSecret = secret.trim()
+    if (!nextSecret) return
     setAuthError(null)
+    try {
+      const res = await fetch('/api/push/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ secret: nextSecret }),
+      })
+      const data = (await res.json().catch(() => null)) as
+        | { ok?: boolean; count?: number; error?: string; warning?: string }
+        | null
+      if (!res.ok) {
+        setUnlocked(false)
+        setAuthError(
+          res.status === 503
+            ? data?.error || 'ADMIN_PUSH_SECRET не задан на сервере. Добавьте в Vercel env и сделайте Redeploy.'
+            : 'Неверный секрет',
+        )
+        return
+      }
+      sessionStorage.setItem('admin_push_secret', nextSecret)
+      setSecret(nextSecret)
+      setUnlocked(true)
+      setCount(data?.count ?? 0)
+      if (data?.warning) setAuthError(data.warning)
+    } catch {
+      setAuthError('Ошибка сети')
+    }
   }
 
   const onChange = (key: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -151,7 +181,8 @@ export default function AdminNotificationsPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: authHeader,
+          Authorization: authHeaders.Authorization,
+          'x-admin-secret': authHeaders['x-admin-secret'],
         },
         body: JSON.stringify({
           title: form.title,
@@ -223,7 +254,7 @@ export default function AdminNotificationsPage() {
         >
           <h1 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>Admin · Уведомления</h1>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
-            Введите ADMIN_PUSH_SECRET из .env.local или Vercel.
+            Введите ADMIN_PUSH_SECRET из Vercel Environment Variables (после Redeploy).
           </p>
           <label style={labelStyle} htmlFor="secret">
             Секрет

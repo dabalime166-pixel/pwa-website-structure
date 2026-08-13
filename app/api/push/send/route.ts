@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { countSubscriptions, deleteSubscription, listSubscriptions } from '@/lib/db'
-import { assertAdminSecret, sendPushToSubscriptions, type PushPayload } from '@/lib/web-push-server'
+import { authorizeAdminRequest, sendPushToSubscriptions, type PushPayload } from '@/lib/web-push-server'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -25,8 +25,9 @@ function looksLikeDirectImageUrl(url: string | undefined): boolean {
 }
 
 export async function GET(request: Request) {
-  if (!assertAdminSecret(request.headers.get('authorization'))) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const auth = authorizeAdminRequest(request)
+  if (!auth.ok) {
+    return NextResponse.json({ error: auth.error }, { status: auth.status })
   }
   try {
     const count = await countSubscriptions()
@@ -38,8 +39,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  if (!assertAdminSecret(request.headers.get('authorization'))) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const auth = authorizeAdminRequest(request)
+  if (!auth.ok) {
+    return NextResponse.json({ error: auth.error }, { status: auth.status })
   }
 
   try {
