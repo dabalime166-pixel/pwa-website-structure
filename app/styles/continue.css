@@ -116,45 +116,12 @@
 }
 
 .win-logo {
-  position: relative;
-  display: inline-flex;
-  align-items: flex-end;
-  justify-content: center;
-  font-weight: 900;
-  font-style: italic;
-  font-size: clamp(2.6rem, 8vw, 3.35rem);
-  line-height: 0.78;
-  letter-spacing: -0.08em;
+  display: block;
+  width: min(100%, 14.25rem);
+  height: auto;
+  margin: 0.15rem auto 1.1rem;
   user-select: none;
-  margin: 0.15rem 0 1.05rem;
-}
-.win-logo__one {
-  color: var(--win-blue);
-  font-size: 1.12em;
-  transform: translateY(0.03em);
-  text-shadow: 0 0 22px var(--win-blue-glow);
-}
-.win-logo__w,
-.win-logo__i,
-.win-logo__n {
-  color: #fff;
-}
-.win-logo__i {
-  position: relative;
-  color: #fff;
-  display: inline-block;
-}
-.win-logo__dot {
-  position: absolute;
-  left: 46%;
-  top: 0.02em;
-  width: 0.3em;
-  height: 0.3em;
-  border-radius: 50%;
-  background: var(--win-blue);
-  box-shadow: 0 0 12px var(--win-blue-glow);
-  transform: translateX(-42%);
-  z-index: 1;
+  pointer-events: none;
 }
 
 .win-hop__title {
