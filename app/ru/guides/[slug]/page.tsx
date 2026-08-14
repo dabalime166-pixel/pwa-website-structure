@@ -29,8 +29,8 @@ function buildGuideJsonLd(guide: GuideData, slug: string): string {
     },
     inLanguage: 'ru',
     url: `${BASE}/guides/${slug}`,
-    datePublished: '2024-01-01',
-    dateModified: new Date().toISOString().split('T')[0],
+    datePublished: guide.publishedAt,
+    dateModified: guide.updatedAt,
     publisher: {
       '@type': 'Organization',
       name: '1weapp',
@@ -136,9 +136,11 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${BASE}/ru/guides/${slug}`,
+      url: `${BASE}/guides/${slug}`,
       locale: 'ru_RU',
       type: 'article',
+      publishedTime: guide.publishedAt,
+      modifiedTime: guide.updatedAt,
     },
     twitter: {
       card: 'summary_large_image',

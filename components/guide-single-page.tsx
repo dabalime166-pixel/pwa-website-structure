@@ -8,6 +8,7 @@ import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import type { Section } from '@/lib/guides-data'
 import { CTA_URL, homeHref } from '@/lib/games'
+import { formatIsoDate } from '@/lib/seo'
 
 function slugifyHeading(text: string, idx: number): string {
   const base = text
@@ -210,6 +211,15 @@ export default function GuideSinglePage({
           <span className="guide-hero__eyebrow">{tag}</span>
           <h1 className="guide-hero__title">{title}</h1>
           <p className="guide-hero__sub">{subtitle}</p>
+          <p className="guide-hero__dates">
+            {isEn ? 'Published' : 'Опубликовано'} {formatIsoDate(guide.publishedAt, lang)}
+            {guide.updatedAt !== guide.publishedAt ? (
+              <>
+                <span aria-hidden="true"> · </span>
+                {isEn ? 'Updated' : 'Обновлено'} {formatIsoDate(guide.updatedAt, lang)}
+              </>
+            ) : null}
+          </p>
 
           <div className="guide-hero__keys" aria-label={isEn ? 'Focus phrases' : 'Фокус-фразы'}>
             {keywords.map((k) => (
