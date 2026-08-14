@@ -8,6 +8,7 @@ import {
   getSeoTitle,
   getSeoDescription,
 } from '@/lib/games-content'
+import { DEFAULT_OG_IMAGE } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -45,11 +46,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: 'en_US',
       type: 'website',
       siteName: '1weapp',
+      images: [{ ...DEFAULT_OG_IMAGE, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [DEFAULT_OG_IMAGE.url],
     },
   }
 }

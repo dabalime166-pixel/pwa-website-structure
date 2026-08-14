@@ -1,6 +1,14 @@
 export const SITE_ORIGIN = 'https://www.1weapp.online'
 export const SITE_BRAND = '1weapp'
 
+/** Static social preview — avoids per-page OG serverless functions. */
+export const DEFAULT_OG_IMAGE = {
+  url: '/og-picture.jpg',
+  width: 1200,
+  height: 630,
+  alt: '1weapp — Play Free Demo Games',
+} as const
+
 /** Build an absolute URL from a site path or pass through full URLs. */
 export function absoluteUrl(path: string): string {
   if (!path) return SITE_ORIGIN
