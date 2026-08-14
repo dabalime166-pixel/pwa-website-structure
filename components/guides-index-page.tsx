@@ -9,7 +9,7 @@ import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import { REVIEWS } from '@/lib/reviews-data'
 import type { Lang } from '@/lib/games'
-import { CTA_URL } from '@/lib/games'
+import { continueHref } from '@/lib/continue'
 
 const PROMO_AVATARS = REVIEWS.filter((r) => r.avatar).slice(0, 8)
 
@@ -114,7 +114,7 @@ export default function GuidesIndexPage({ lang }: Props) {
     ctaSub: isEn
       ? 'Open the same games in demo, then continue for real if it fits your style.'
       : 'Откройте те же игры в демо — и переходите на деньги, если формат вам подходит.',
-    ctaBtn: isEn ? 'Play for real money' : 'Играть на реальные деньги',
+    ctaBtn: isEn ? 'Continue' : 'Продолжить',
     legal: isEn ? '18+ · Gamble responsibly' : '18+ · Играйте ответственно',
   }
 
@@ -286,12 +286,7 @@ export default function GuidesIndexPage({ lang }: Props) {
           <div className="guides-hub__cta-inner">
             <h2 className="guides-hub__cta-title">{ui.ctaTitle}</h2>
             <p className="guides-hub__cta-sub">{ui.ctaSub}</p>
-            <a
-              href={CTA_URL}
-              target="_blank"
-              rel="noopener noreferrer nofollow sponsored"
-              className="btn-cta"
-            >
+            <a href={continueHref(lang)} className="btn-cta">
               {ui.ctaBtn}
             </a>
             <p className="guides-hub__cta-legal">{ui.legal}</p>

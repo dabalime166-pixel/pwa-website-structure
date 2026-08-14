@@ -8,16 +8,17 @@ import { ExpertBanner } from '@/components/expert-banner'
 import { FaqAccordion } from '@/components/faq-accordion'
 import type { FaqItem } from '@/components/faq-accordion'
 import {
-  CTA_URL,
   i18n,
   getRelatedGames,
   getRelatedGuideIds,
   homeHref,
 } from '@/lib/games'
+import { continueHref } from '@/lib/continue'
 import type { Lang, GameFull } from '@/lib/games'
 import {
   getGameFull,
   getSeoText,
+  getSeoDescription,
   formatSeoText,
 } from '@/lib/games-content'
 import {
@@ -36,7 +37,7 @@ interface GamePageProps {
   lang: Lang
 }
 
-function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string): FaqItem[] {
+function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string, hopHref: string): FaqItem[] {
   const isEn = lang === 'en'
   const name = game.name
   const type = game.gameType || (isEn ? 'slots' : 'слоты')
@@ -56,7 +57,7 @@ function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string): FaqIte
       },
       {
         question: `${name} demo without registration?`,
-        answer: `No account needed. Start instantly at /${lang}/${game.slug}.`,
+        answer: `No account needed. Launch the ${name} demo on this page — virtual credits, no signup.`,
       },
       {
         question: `What is the RTP of ${name}?`,
@@ -69,7 +70,7 @@ function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string): FaqIte
       {
         question: `Can I play ${name} for real money?`,
         answer: `Yes — after the demo, continue via the button below. 18+ only; set limits first.`,
-        cta: { href: CTA_URL, label: playRealLabel },
+        cta: { href: hopHref, label: playRealLabel },
       },
     ]
   }
@@ -85,7 +86,7 @@ function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string): FaqIte
     },
     {
       question: `${name} демо без регистрации?`,
-      answer: `Аккаунт не нужен. Старт сразу на /${lang}/${game.slug}.`,
+      answer: `Аккаунт не нужен. Запустите демо ${name} на этой странице — виртуальные кредиты, без регистрации.`,
     },
     {
       question: `Какой RTP у ${name}?`,
@@ -98,18 +99,15 @@ function buildGameFaq(game: GameFull, lang: Lang, playRealLabel: string): FaqIte
     {
       question: `Можно ли играть в ${name} на деньги?`,
       answer: `Да — после демо через кнопку ниже. Только 18+; сначала задайте лимиты.`,
-      cta: { href: CTA_URL, label: playRealLabel },
+      cta: { href: hopHref, label: playRealLabel },
     },
   ]
 }
 
-function buildJsonLd(game: GameFull, lang: Lang, faqItems: FaqItem[]): string {
+function buildJsonLd(game: GameFull, lang: Lang, faqItems: FaqItem[], description: string): string {
   const isEn = lang === 'en'
   const pageUrl = absoluteUrl(`/${lang}/${game.slug}`)
   const imageUrl = absoluteUrl(game.avatar)
-  const description = isEn
-    ? `Play ${game.name} demo free — no registration needed. Developed by ${game.provider}.`
-    : `Играть в ${game.name} демо бесплатно — без регистрации. Разработчик: ${game.provider}.`
 
   // Prefer WebPage + VideoGame + FAQPage over SoftwareApplication —
   // Google rich-result checks often flag SoftwareApplication without rating/review.
@@ -180,8 +178,9 @@ export function GamePage({ slug, lang }: GamePageProps) {
   const isEn = lang === 'en'
   const seoText = getSeoText(game, lang)
   const formattedSeo = formatSeoText(seoText)
-  const faqItems = buildGameFaq(game, lang, t.playReal)
-  const jsonLd = buildJsonLd(game, lang, faqItems)
+  const hopHref = continueHref(lang, game.slug)
+  const faqItems = buildGameFaq(game, lang, t.playReal, hopHref)
+  const jsonLd = buildJsonLd(game, lang, faqItems, getSeoDescription(game, lang))
   const related = getRelatedGames(slug, 8)
   const guideIds = getRelatedGuideIds(game.gameType)
   const relatedReview = getReviewByGameSlug(game.slug)
@@ -329,13 +328,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
                   </svg>
                 </a>
               ) : null}
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="btn-cta"
-                aria-label={t.playReal}
-              >
+              <a href={hopHref} className="btn-cta" aria-label={t.playReal}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
@@ -371,29 +364,30 @@ export function GamePage({ slug, lang }: GamePageProps) {
                     ? 'Load the official demo in this window — no signup, virtual balance.'
                     : 'Загрузите официальное демо в этом окне — без регистрации, виртуальный баланс.'
                 }
+                ctaUrl={hopHref}
                 inviteCopy={
                   isEn
                     ? {
-                        eyebrow: 'Ready for the real round?',
-                        title: 'Continue {game} for real prizes',
-                        text: 'You have been exploring the free {game} demo. When you are ready, keep the same mechanics — with real stakes and real rewards.',
+                        eyebrow: 'Ready for the next step?',
+                        title: 'Continue {game} on a licensed operator',
+                        text: 'You have been exploring the free {game} demo. The next step is a licensed operator — 18+ only, set limits first. 1weapp stays a demo catalog.',
                         ctaLabel: t.playReal,
                         dismissLabel: 'Keep playing demo',
                         legal: '18+ · Gamble responsibly · T&C apply',
-                        perk1: 'Same game engine as demo',
-                        perk2: 'Fast checkout & support',
-                        perk3: 'Bonuses for new players',
+                        perk1: 'Same game title in the lobby',
+                        perk2: '18+ · set limits first',
+                        perk3: 'Demo catalog stays on 1weapp',
                       }
                     : {
-                        eyebrow: 'Готовы к реальному раунду?',
-                        title: 'Продолжите {game} на реальные призы',
-                        text: 'Вы уже изучили бесплатное демо {game}. Когда будете готовы — та же механика, но со ставками и призами на деньги.',
+                        eyebrow: 'Готовы к следующему шагу?',
+                        title: 'Продолжите {game} у лицензированного оператора',
+                        text: 'Вы уже изучили бесплатное демо {game}. Дальше — лицензированный оператор. Только 18+, сначала лимиты. 1weapp остаётся каталогом демо.',
                         ctaLabel: t.playReal,
                         dismissLabel: 'Остаться в демо',
                         legal: '18+ · Играйте ответственно · Применяются условия',
-                        perk1: 'Тот же движок, что в демо',
-                        perk2: 'Быстрый вывод и поддержка',
-                        perk3: 'Бонусы для новых игроков',
+                        perk1: 'То же название в лобби оператора',
+                        perk2: 'Только 18+ · сначала лимиты',
+                        perk3: 'Каталог демо остаётся на 1weapp',
                       }
                 }
                 notifyCopy={
@@ -454,13 +448,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
                     ? 'Meanwhile you can continue for real prizes or browse similar titles below.'
                     : 'Пока можно продолжить на реальные призы или посмотреть похожие игры ниже.'}
                 </p>
-                <a
-                  href={CTA_URL}
-                  rel="noopener noreferrer nofollow sponsored"
-                  target="_blank"
-                  className="btn-cta"
-                  aria-label={t.playReal}
-                >
+                <a href={hopHref} className="btn-cta" aria-label={t.playReal}>
                   {t.playReal}
                 </a>
               </div>
@@ -526,13 +514,7 @@ export function GamePage({ slug, lang }: GamePageProps) {
                     ? 'Liked the demo? Continue for real prizes.'
                     : 'Понравилось демо? Продолжите на реальные призы.'}
                 </p>
-                <a
-                  href={CTA_URL}
-                  rel="noopener noreferrer nofollow sponsored"
-                  target="_blank"
-                  className="btn-cta"
-                  aria-label={t.playReal}
-                >
+                <a href={hopHref} className="btn-cta" aria-label={t.playReal}>
                   {t.playReal}
                 </a>
                 <p className="gp-aside__legal">{legalLine}</p>

@@ -4,7 +4,7 @@ import { GUIDES } from '@/lib/guides-data'
 import GuideSinglePage from '@/components/guide-single-page'
 import type { GuideData } from '@/lib/guides-data'
 import { EXPERT } from '@/lib/expert'
-import { clampMetaDescription, withBrandTitle } from '@/lib/seo'
+import { clampMetaDescription, withBrandTitle, DEFAULT_OG_IMAGE, absoluteUrl } from '@/lib/seo'
 
 const BASE = 'https://www.1weapp.online/en'
 
@@ -14,7 +14,7 @@ function buildGuideJsonLd(guide: GuideData, slug: string): string {
     '@type': 'TechArticle',
     headline: guide.titleEn,
     description: guide.subtitleEn,
-    image: 'https://www.1weapp.online/og-image.jpg',
+    image: absoluteUrl(DEFAULT_OG_IMAGE.url),
     author: {
       '@type': 'Person',
       name: EXPERT.name,
@@ -141,11 +141,13 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: guide.publishedAt,
       modifiedTime: guide.updatedAt,
+      images: [{ ...DEFAULT_OG_IMAGE, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [DEFAULT_OG_IMAGE.url],
     },
   }
 }

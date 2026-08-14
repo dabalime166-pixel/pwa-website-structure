@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { ctaAnchorProps } from '@/lib/continue'
 
 export interface FaqItem {
   question: string
@@ -89,9 +90,7 @@ export function FaqAccordion({
                 {item.cta && (
                   <div className="faq__cta-wrap">
                     <a
-                      href={item.cta.href}
-                      rel="noopener noreferrer nofollow sponsored"
-                      target="_blank"
+                      {...ctaAnchorProps(item.cta.href)}
                       className="btn-cta faq__cta"
                       aria-label={item.cta.label}
                     >

@@ -3,6 +3,8 @@
 import { useEffect, useId } from 'react'
 import { createPortal } from 'react-dom'
 
+import { ctaAnchorProps } from '@/lib/continue'
+
 export interface CasinoInviteCopy {
   eyebrow: string
   title: string
@@ -99,9 +101,7 @@ export function CasinoInviteModal({
 
         <div className="casino-invite__actions">
           <a
-            href={ctaUrl}
-            rel="noopener noreferrer nofollow sponsored"
-            target="_blank"
+            {...ctaAnchorProps(ctaUrl)}
             className="btn-cta casino-invite__cta"
             onClick={onDismiss}
           >

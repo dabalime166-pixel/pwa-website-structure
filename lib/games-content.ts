@@ -56,8 +56,8 @@ export function getSeoDescription(game: GameFull, lang: Lang): string {
   const rtp = game.rtp ? ` RTP ${game.rtp}.` : ''
   const raw =
     lang === 'ru'
-      ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}, ${type}.${rtp}`
-      : `Play ${game.name} demo free — no registration needed. ${game.provider} ${type}.${rtp}`
+      ? `Играйте в ${game.name} демо бесплатно — без регистрации. ${game.provider}, ${type}.${rtp} Виртуальный баланс в браузере.`
+      : `Play ${game.name} demo free — no registration needed. ${game.provider} ${type}.${rtp} Virtual credits in your browser.`
   return clampMetaDescription(raw, lang)
 }
 
