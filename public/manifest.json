@@ -1,8 +1,8 @@
 {
-  "name": "CrashGames Demo",
-  "short_name": "CrashGames",
+  "name": "1weapp",
+  "short_name": "1weapp",
   "description": "Play crash games and slots in free demo mode — no registration needed.",
-  "start_url": "/en/",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0d0e12",

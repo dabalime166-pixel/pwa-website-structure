@@ -1,21 +1,25 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
-  display: 'swap',
-  variable: '--font-sans',
-})
-
 export const metadata: Metadata = {
-  title: {
-    default: 'CrashGames Demo — Play Free Crash & Slot Games',
-    template: '%s | CrashGames Demo',
-  },
+  // String title (no template) — child pages already include `| 1weapp` in their titles.
+  title: '1weapp — Play Free Crash & Slot Games',
   description:
-    'Play crash games and slots in free demo mode. No registration needed. Lucky Jet, Gates of Olympus, Sweet Bonanza and more.',
-  metadataBase: new URL('https://crashgames.demo'),
+    'Play free demo crash games and slots online. No registration, no deposit required. Enjoy Lucky Jet, Gates of Olympus, Sweet Bonanza, Mines and 50+ more games.',
+  keywords: [
+    'crash games',
+    'slot games',
+    'online casino',
+    'free demo games',
+    'Lucky Jet',
+    'Gates of Olympus',
+    'Sweet Bonanza',
+    'crash game demo',
+    'play for free',
+    'no registration',
+    'online gambling games',
+  ],
+  metadataBase: new URL('https://www.1weapp.online'),
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.svg',
@@ -25,7 +29,15 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     alternateLocale: 'ru_RU',
-    siteName: 'CrashGames Demo',
+    siteName: '1weapp',
+    images: [
+      {
+        url: '/og-picture.jpg',
+        width: 1200,
+        height: 630,
+        alt: '1weapp - Play Free Demo Games',
+      },
+    ],
   },
   robots: {
     index: true,
@@ -37,14 +49,14 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0a0a0b',
+  themeColor: '#0a0908',
   colorScheme: 'dark',
 }
 
+/**
+ * Passthrough root — locale / home segment layouts own <html lang>.
+ * Avoids headers() so catalog pages stay statically generable.
+ */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" className="bg-[#0a0a0b]">
-      <body className={`${inter.variable} font-sans antialiased`}>{children}</body>
-    </html>
-  )
+  return children
 }

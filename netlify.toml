@@ -1,0 +1,10 @@
+[build]
+  command = "pnpm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PNPM_VERSION = "9"
+
+# Netlify auto-detects Next.js via OpenNext adapter.
+# Do not set "output: export" in next.config.
