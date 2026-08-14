@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { REVIEWS, reviewHref } from '@/lib/reviews-data'
-import { homeHref } from '@/lib/games'
+import { homeHref, i18n } from '@/lib/games'
 import { continueHref } from '@/lib/continue'
 
 export default function ReviewsIndexPage({ lang }: { lang: 'en' | 'ru' }) {
@@ -45,7 +45,7 @@ export default function ReviewsIndexPage({ lang }: { lang: 'en' | 'ru' }) {
                   : 'Подробные тексты с ключами, RTP и редиректом в казино — без демо iframe на этих страницах.'}
               </p>
               <a href={continueHref(lang)} className="review-index__cta">
-                {isEn ? 'Continue' : 'Продолжить'}
+                {i18n[lang].playReal}
               </a>
             </div>
           </div>

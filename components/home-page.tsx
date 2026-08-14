@@ -81,7 +81,7 @@ export function HomePage({ lang }: HomePageProps) {
         {
           question: 'How do I move from demo to real money?',
           answer:
-            'Learn the mechanics in demo first, then tap Continue when ready. Stay 18+, set deposit and session limits, and never chase losses.',
+            'Learn the mechanics in demo first, then tap Play for real (18+) when ready. Stay 18+, set deposit and session limits, and never chase losses.',
         },
       ]
     : [
@@ -108,7 +108,7 @@ export function HomePage({ lang }: HomePageProps) {
         {
           question: 'Как перейти от демо к игре на деньги?',
           answer:
-            'Сначала изучите механику в демо, затем нажмите «Продолжить». Только 18+, с лимитами депозита и сессии, без догона проигрыша.',
+            'Сначала изучите механику в демо, затем нажмите «Играть на деньги (18+)». Только 18+, с лимитами депозита и сессии, без догона проигрыша.',
         },
       ]
 

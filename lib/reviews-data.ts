@@ -99,7 +99,7 @@ export const REVIEWS: ReviewData[] = [
           heading: "How a round plays",
           body: "Set the stake on the bottom bar and spin. Pickaxe symbols land on the 5×3 grid, then drop into the mine shaft. Each block has durability — stronger pickaxes dig deeper and open better ores.",
           body2: "Clear an entire column/row path to the bottom chest and unlock a multiplier (2×–100×). Open more than one chest in the same sequence and those multipliers multiply into each other. A buy-bonus control sits on the left when the casino enables feature skip.",
-          callout: "This page is a review with casino redirects — there is no free demo iframe here. Use Continue below to open Mine Slot on a real balance.",
+          callout: "This page is a review with casino redirects — there is no free demo iframe here. Use Play for real (18+) below to open Mine Slot on a real balance.",
         },
         {
           heading: "RTP, variance and bankroll fit",
@@ -124,7 +124,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Mine Slot for real money",
-          body: "For cash play use the Continue button below (#play-casino), then search Mine Slot / InOut in the casino lobby and launch on a real balance.",
+          body: "For cash play use the Play for real (18+) button below (#play-casino), then search Mine Slot / InOut in the casino lobby and launch on a real balance.",
           callout: "Affiliate links below are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a casino welcome bonus (18+, T&C apply)","Launch Mine Slot on a real balance"],
         }
@@ -165,15 +165,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Mine Slot на деньги",
-          body: "Для игры на деньги нажмите «Продолжить» ниже (#play-casino), затем найдите Mine Slot / InOut в лобби и запустите на реальном балансе.",
+          body: "Для игры на деньги нажмите «Играть на деньги (18+)» ниже (#play-casino), затем найдите Mine Slot / InOut в лобби и запустите на реальном балансе.",
           callout: "Ссылки ниже — рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Mine Slot на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Mine Slot?","a":"An InOut Games hybrid: 5×3 reels drop pickaxes into a 5×7 block mine. Clear paths to open chests with multipliers up to 100×."},{"q":"What is Mine Slot RTP?","a":"InOut lists about 96% RTP. Always confirm the live tier inside the casino client before depositing."},{"q":"Who made Mine Slot?","a":"InOut Games."},{"q":"How do chest multipliers work?","a":"Clearing a full dig path opens a bottom chest (2×–100×). Multiple chests in one sequence multiply together, not add."},{"q":"Is Mine Slot a crash game?","a":"No. It is a dig hybrid without mid-round cash-out. For cash-out crash see Lucky Jet-style titles; for the sequel see Mine Slot 2."},{"q":"Where can I play Mine Slot for real money?","a":"Use the Continue button (#play-casino), then open Mine Slot on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects. Catalog demo links (if available) are separate from this review URL."}],
-      ru: [{"q":"Что такое Mine Slot?","a":"Гибрид InOut Games: барабаны 5×3 роняют кирки в шахту 5×7. Очищайте пути, чтобы открыть сундуки с множителями до 100×."},{"q":"Какой RTP у Mine Slot?","a":"InOut указывает около 96%. Всегда сверяйте живой тир в клиенте казино до депозита."},{"q":"Кто сделал Mine Slot?","a":"InOut Games."},{"q":"Как работают множители сундуков?","a":"Полный путь копания открывает нижний сундук (2×–100×). Несколько сундуков в одной серии перемножаются, а не складываются."},{"q":"Mine Slot — это crash?","a":"Нет. Это dig-гибрид без mid-round cash-out. Для cash-out смотрите Lucky Jet; сиквел — Mine Slot 2."},{"q":"Где играть Mine Slot на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем откройте игру на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить». Демо из каталога (если есть) — отдельный URL."}],
+      en: [{"q":"What is Mine Slot?","a":"An InOut Games hybrid: 5×3 reels drop pickaxes into a 5×7 block mine. Clear paths to open chests with multipliers up to 100×."},{"q":"What is Mine Slot RTP?","a":"InOut lists about 96% RTP. Always confirm the live tier inside the casino client before depositing."},{"q":"Who made Mine Slot?","a":"InOut Games."},{"q":"How do chest multipliers work?","a":"Clearing a full dig path opens a bottom chest (2×–100×). Multiple chests in one sequence multiply together, not add."},{"q":"Is Mine Slot a crash game?","a":"No. It is a dig hybrid without mid-round cash-out. For cash-out crash see Lucky Jet-style titles; for the sequel see Mine Slot 2."},{"q":"Where can I play Mine Slot for real money?","a":"Use the Play for real (18+) button (#play-casino), then open Mine Slot on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects. Catalog demo links (if available) are separate from this review URL."}],
+      ru: [{"q":"Что такое Mine Slot?","a":"Гибрид InOut Games: барабаны 5×3 роняют кирки в шахту 5×7. Очищайте пути, чтобы открыть сундуки с множителями до 100×."},{"q":"Какой RTP у Mine Slot?","a":"InOut указывает около 96%. Всегда сверяйте живой тир в клиенте казино до депозита."},{"q":"Кто сделал Mine Slot?","a":"InOut Games."},{"q":"Как работают множители сундуков?","a":"Полный путь копания открывает нижний сундук (2×–100×). Несколько сундуков в одной серии перемножаются, а не складываются."},{"q":"Mine Slot — это crash?","a":"Нет. Это dig-гибрид без mid-round cash-out. Для cash-out смотрите Lucky Jet; сиквел — Mine Slot 2."},{"q":"Где играть Mine Slot на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем откройте игру на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)». Демо из каталога (если есть) — отдельный URL."}],
     },
     relatedIds: ["mine-slot-2","lucky-jet","gates-of-olympus"],
   },
@@ -220,7 +220,7 @@ export const REVIEWS: ReviewData[] = [
           heading: "How the sequel round works",
           body: "Set bet on the bottom bar, then spin. Pickaxes land in the inventory strip and dig through the stacked field. Stronger tools clear deeper / tougher blocks; clearing toward bottom chests is still the spike path when multipliers unlock.",
           body2: "HUD stays readable on mobile: Balance, Total Win, Spins Left, bet stepper, Spin, auto and turbo. During free-spin stretches Spins Left counts down while the mine field stays in play.",
-          callout: "No demo iframe on this review URL. Use Continue below, then launch Mine Slot 2 on a real balance.",
+          callout: "No demo iframe on this review URL. Use Play for real (18+) below, then launch Mine Slot 2 on a real balance.",
         },
         {
           heading: "Extra Chance and Block Bonus",
@@ -246,7 +246,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Mine Slot 2 for real money",
-          body: "For cash play use the Continue button below (#play-casino), then open Mine Slot 2 / Mine Slot Two in the casino lobby on a real balance.",
+          body: "For cash play use the Play for real (18+) button below (#play-casino), then open Mine Slot 2 / Mine Slot Two in the casino lobby on a real balance.",
           callout: "Sponsored affiliate links. Legal play only where permitted. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a casino welcome bonus","Launch Mine Slot 2 on a real balance"],
         }
@@ -262,7 +262,7 @@ export const REVIEWS: ReviewData[] = [
           heading: "Как устроен раунд сиквела",
           body: "Ставка на нижней панели — Spin. Кирки попадают в инвентарь и копают стек блоков. Более сильный инструмент берёт глубже / крепче; путь к нижним сундукам по-прежнему главный шип, когда открываются множители.",
           body2: "HUD читаем на мобильном: Balance, Total Win, Spins Left, степпер ставки, Spin, auto и turbo. На фриспинах Spins Left считает вниз, а шахта остаётся в игре.",
-          callout: "На этом URL обзора нет демо iframe. Нажмите «Продолжить» для редиректа и запускайте Mine Slot 2 на реальном балансе.",
+          callout: "На этом URL обзора нет демо iframe. Нажмите «Играть на деньги (18+)» для редиректа и запускайте Mine Slot 2 на реальном балансе.",
         },
         {
           heading: "Extra Chance и Block Bonus",
@@ -288,15 +288,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Mine Slot 2 на деньги",
-          body: "Для игры на деньги нажмите «Продолжить» ниже (#play-casino), затем найдите Mine Slot 2 / Mine Slot Two в лобби и запустите на реальном балансе.",
+          body: "Для игры на деньги нажмите «Играть на деньги (18+)» ниже (#play-casino), затем найдите Mine Slot 2 / Mine Slot Two в лобби и запустите на реальном балансе.",
           callout: "Рекламные affiliate-ссылки. Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус","Запустите Mine Slot 2 на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Mine Slot 2?","a":"An InOut Games dig hybrid sequel: Nether-themed mine, Extra Chance and Block Bonus feature buys, plus a scratch bonus that unlocks free spins. Listed RTP about 96%."},{"q":"What is Mine Slot 2 RTP?","a":"InOut lists about 96% RTP. Always confirm the live tier inside the casino client before depositing."},{"q":"What are Extra Chance and Block Bonus?","a":"In-game feature buys (not casino welcome offers). At a $0.2 stake example UI, Extra Chance activate is often ~$0.6 (3×) and Block Bonus buy ~$20 (100×). Prices scale with bet."},{"q":"How is Mine Slot 2 different from Mine Slot?","a":"Same dig DNA, Nether look, scratch free spins, and the Extra Chance / Block Bonus purchase panel. Read the Mine Slot review for the original loop."},{"q":"Is Mine Slot 2 the same as Mine Drop 2?","a":"No. Mine Slot 2 is InOut Games. Mine Drop 2 is Paperclip Gaming. Similar mining fantasy, different products."},{"q":"Where can I play Mine Slot 2 for real money?","a":"Use the Continue button (#play-casino), then open the game on a real balance."},{"q":"Does this page include a free demo?","a":"No. This is a text review with casino redirects only — no demo iframe."}],
-      ru: [{"q":"Что такое Mine Slot 2?","a":"Dig-гибрид-сиквел InOut Games: Nether-шахта, покупки Extra Chance и Block Bonus, scratch-бонус с фриспинами. RTP около 96%."},{"q":"Какой RTP у Mine Slot 2?","a":"InOut указывает около 96%. Всегда сверяйте живой тир в клиенте казино до депозита."},{"q":"Что такое Extra Chance и Block Bonus?","a":"Внутриигровые покупки фич (не welcome казино). На примере ставки $0.2 часто: Extra Chance ~$0.6 (3×) и Block Bonus ~$20 (100×). Цены растут со ставкой."},{"q":"Чем Mine Slot 2 отличается от Mine Slot?","a":"Та же dig-DNA, Nether-вид, scratch-фриспины и панель Extra Chance / Block Bonus. Оригинал — в обзоре Mine Slot."},{"q":"Mine Slot 2 — это то же, что Mine Drop 2?","a":"Нет. Mine Slot 2 — InOut Games. Mine Drop 2 — Paperclip Gaming. Похожий майнинг-фэнтези, разные продукты."},{"q":"Где играть Mine Slot 2 на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем откройте игру на реальном балансе."},{"q":"Есть ли на странице бесплатное демо?","a":"Нет. Это текстовый обзор только с редиректом в казино — без демо iframe."}],
+      en: [{"q":"What is Mine Slot 2?","a":"An InOut Games dig hybrid sequel: Nether-themed mine, Extra Chance and Block Bonus feature buys, plus a scratch bonus that unlocks free spins. Listed RTP about 96%."},{"q":"What is Mine Slot 2 RTP?","a":"InOut lists about 96% RTP. Always confirm the live tier inside the casino client before depositing."},{"q":"What are Extra Chance and Block Bonus?","a":"In-game feature buys (not casino welcome offers). At a $0.2 stake example UI, Extra Chance activate is often ~$0.6 (3×) and Block Bonus buy ~$20 (100×). Prices scale with bet."},{"q":"How is Mine Slot 2 different from Mine Slot?","a":"Same dig DNA, Nether look, scratch free spins, and the Extra Chance / Block Bonus purchase panel. Read the Mine Slot review for the original loop."},{"q":"Is Mine Slot 2 the same as Mine Drop 2?","a":"No. Mine Slot 2 is InOut Games. Mine Drop 2 is Paperclip Gaming. Similar mining fantasy, different products."},{"q":"Where can I play Mine Slot 2 for real money?","a":"Use the Play for real (18+) button (#play-casino), then open the game on a real balance."},{"q":"Does this page include a free demo?","a":"No. This is a text review with casino redirects only — no demo iframe."}],
+      ru: [{"q":"Что такое Mine Slot 2?","a":"Dig-гибрид-сиквел InOut Games: Nether-шахта, покупки Extra Chance и Block Bonus, scratch-бонус с фриспинами. RTP около 96%."},{"q":"Какой RTP у Mine Slot 2?","a":"InOut указывает около 96%. Всегда сверяйте живой тир в клиенте казино до депозита."},{"q":"Что такое Extra Chance и Block Bonus?","a":"Внутриигровые покупки фич (не welcome казино). На примере ставки $0.2 часто: Extra Chance ~$0.6 (3×) и Block Bonus ~$20 (100×). Цены растут со ставкой."},{"q":"Чем Mine Slot 2 отличается от Mine Slot?","a":"Та же dig-DNA, Nether-вид, scratch-фриспины и панель Extra Chance / Block Bonus. Оригинал — в обзоре Mine Slot."},{"q":"Mine Slot 2 — это то же, что Mine Drop 2?","a":"Нет. Mine Slot 2 — InOut Games. Mine Drop 2 — Paperclip Gaming. Похожий майнинг-фэнтези, разные продукты."},{"q":"Где играть Mine Slot 2 на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем откройте игру на реальном балансе."},{"q":"Есть ли на странице бесплатное демо?","a":"Нет. Это текстовый обзор только с редиректом в казино — без демо iframe."}],
     },
     relatedIds: ["mine-slot","lucky-jet","sweet-bonanza"],
   },
@@ -326,10 +326,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Lucky Jet — RTP ~97.00% и где играть | 1weapp",
     descriptionSeoEn: "Lucky Jet review (1weapp Games): RTP ~97.00%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Lucky Jet (1weapp Games): RTP ~97.00%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: 1weapp Games","Listed RTP ~97.00% · confirm live tier in-client","Type: Crash Games","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: 1weapp Games","RTP ~97.00% · сверяйте тир в клиенте","Тип: Crash Games","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: 1weapp Games","Listed RTP ~97.00% · confirm live tier in-client","Type: Crash Games","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: 1weapp Games","RTP ~97.00% · сверяйте тир в клиенте","Тип: Crash Games","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear crash games loop explained in plain language","Listed RTP ~97.00% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Crash Games)","RTP ~97.00% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Crash Games)","RTP ~97.00% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -364,7 +364,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Lucky Jet for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Lucky Jet” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Lucky Jet” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Lucky Jet on a real balance"],
         }
@@ -400,15 +400,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Lucky Jet на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Lucky Jet» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Lucky Jet» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Lucky Jet на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Lucky Jet?","a":"Lucky Jet is a 1weapp Games crash games title covered in this review. Listed RTP ~97.00% — confirm the live tier in your casino client."},{"q":"What is Lucky Jet RTP?","a":"Catalog / studio figures list ~97.00%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Lucky Jet for real money?","a":"Use the Continue button (#play-casino), then launch Lucky Jet on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Lucky Jet?","a":"1weapp Games"}],
-      ru: [{"q":"Что такое Lucky Jet?","a":"Lucky Jet — тайтл 1weapp Games (Crash Games), разобранный в этом обзоре. RTP ~97.00% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Lucky Jet?","a":"В каталоге / материалах студии указано ~97.00%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Lucky Jet на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Lucky Jet на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Lucky Jet?","a":"1weapp Games"}],
+      en: [{"q":"What is Lucky Jet?","a":"Lucky Jet is a 1weapp Games crash games title covered in this review. Listed RTP ~97.00% — confirm the live tier in your casino client."},{"q":"What is Lucky Jet RTP?","a":"Catalog / studio figures list ~97.00%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Lucky Jet for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Lucky Jet on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Lucky Jet?","a":"1weapp Games"}],
+      ru: [{"q":"Что такое Lucky Jet?","a":"Lucky Jet — тайтл 1weapp Games (Crash Games), разобранный в этом обзоре. RTP ~97.00% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Lucky Jet?","a":"В каталоге / материалах студии указано ~97.00%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Lucky Jet на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Lucky Jet на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Lucky Jet?","a":"1weapp Games"}],
     },
     relatedIds: ["gates-of-olympus","sweet-bonanza","rocket-queen"],
   },
@@ -438,10 +438,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Gates of Olympus — RTP 96.50% и где играть | 1weapp",
     descriptionSeoEn: "Gates of Olympus review (Pragmatic Play): RTP 96.50%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Gates of Olympus (Pragmatic Play): RTP 96.50%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.50% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.50% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.50% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.50% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.50% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.50% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.50% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -476,7 +476,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Gates of Olympus for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Gates of Olympus” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Gates of Olympus” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Gates of Olympus on a real balance"],
         }
@@ -512,15 +512,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Gates of Olympus на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Gates of Olympus» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Gates of Olympus» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Gates of Olympus на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Gates of Olympus?","a":"Gates of Olympus is a Pragmatic Play slots title covered in this review. Listed RTP 96.50% — confirm the live tier in your casino client."},{"q":"What is Gates of Olympus RTP?","a":"Catalog / studio figures list 96.50%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Gates of Olympus for real money?","a":"Use the Continue button (#play-casino), then launch Gates of Olympus on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Gates of Olympus?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Gates of Olympus?","a":"Gates of Olympus — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.50% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Gates of Olympus?","a":"В каталоге / материалах студии указано 96.50%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Gates of Olympus на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Gates of Olympus на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Gates of Olympus?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Gates of Olympus?","a":"Gates of Olympus is a Pragmatic Play slots title covered in this review. Listed RTP 96.50% — confirm the live tier in your casino client."},{"q":"What is Gates of Olympus RTP?","a":"Catalog / studio figures list 96.50%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Gates of Olympus for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Gates of Olympus on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Gates of Olympus?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Gates of Olympus?","a":"Gates of Olympus — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.50% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Gates of Olympus?","a":"В каталоге / материалах студии указано 96.50%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Gates of Olympus на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Gates of Olympus на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Gates of Olympus?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","sweet-bonanza","rocket-queen"],
   },
@@ -550,10 +550,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Sweet Bonanza — RTP 96.48% и где играть | 1weapp",
     descriptionSeoEn: "Sweet Bonanza review (Pragmatic Play): RTP 96.48%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Sweet Bonanza (Pragmatic Play): RTP 96.48%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.48% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.48% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.48% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.48% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.48% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.48% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.48% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -588,7 +588,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Sweet Bonanza for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Sweet Bonanza” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Sweet Bonanza” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Sweet Bonanza on a real balance"],
         }
@@ -624,15 +624,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Sweet Bonanza на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Sweet Bonanza» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Sweet Bonanza» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Sweet Bonanza на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Sweet Bonanza?","a":"Sweet Bonanza is a Pragmatic Play slots title covered in this review. Listed RTP 96.48% — confirm the live tier in your casino client."},{"q":"What is Sweet Bonanza RTP?","a":"Catalog / studio figures list 96.48%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Sweet Bonanza for real money?","a":"Use the Continue button (#play-casino), then launch Sweet Bonanza on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Sweet Bonanza?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Sweet Bonanza?","a":"Sweet Bonanza — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.48% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Sweet Bonanza?","a":"В каталоге / материалах студии указано 96.48%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Sweet Bonanza на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Sweet Bonanza на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Sweet Bonanza?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Sweet Bonanza?","a":"Sweet Bonanza is a Pragmatic Play slots title covered in this review. Listed RTP 96.48% — confirm the live tier in your casino client."},{"q":"What is Sweet Bonanza RTP?","a":"Catalog / studio figures list 96.48%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Sweet Bonanza for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Sweet Bonanza on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Sweet Bonanza?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Sweet Bonanza?","a":"Sweet Bonanza — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.48% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Sweet Bonanza?","a":"В каталоге / материалах студии указано 96.48%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Sweet Bonanza на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Sweet Bonanza на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Sweet Bonanza?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","rocket-queen"],
   },
@@ -662,10 +662,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Rocket Queen — RTP ~97.00% и где играть | 1weapp",
     descriptionSeoEn: "Rocket Queen review (1weapp Games): RTP ~97.00%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Rocket Queen (1weapp Games): RTP ~97.00%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: 1weapp Games","Listed RTP ~97.00% · confirm live tier in-client","Type: Crash Games","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: 1weapp Games","RTP ~97.00% · сверяйте тир в клиенте","Тип: Crash Games","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: 1weapp Games","Listed RTP ~97.00% · confirm live tier in-client","Type: Crash Games","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: 1weapp Games","RTP ~97.00% · сверяйте тир в клиенте","Тип: Crash Games","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear crash games loop explained in plain language","Listed RTP ~97.00% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Crash Games)","RTP ~97.00% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Crash Games)","RTP ~97.00% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -700,7 +700,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Rocket Queen for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Rocket Queen” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Rocket Queen” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Rocket Queen on a real balance"],
         }
@@ -736,15 +736,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Rocket Queen на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Rocket Queen» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Rocket Queen» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Rocket Queen на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Rocket Queen?","a":"Rocket Queen is a 1weapp Games crash games title covered in this review. Listed RTP ~97.00% — confirm the live tier in your casino client."},{"q":"What is Rocket Queen RTP?","a":"Catalog / studio figures list ~97.00%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Rocket Queen for real money?","a":"Use the Continue button (#play-casino), then launch Rocket Queen on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Rocket Queen?","a":"1weapp Games"}],
-      ru: [{"q":"Что такое Rocket Queen?","a":"Rocket Queen — тайтл 1weapp Games (Crash Games), разобранный в этом обзоре. RTP ~97.00% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Rocket Queen?","a":"В каталоге / материалах студии указано ~97.00%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Rocket Queen на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Rocket Queen на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Rocket Queen?","a":"1weapp Games"}],
+      en: [{"q":"What is Rocket Queen?","a":"Rocket Queen is a 1weapp Games crash games title covered in this review. Listed RTP ~97.00% — confirm the live tier in your casino client."},{"q":"What is Rocket Queen RTP?","a":"Catalog / studio figures list ~97.00%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Rocket Queen for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Rocket Queen on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Rocket Queen?","a":"1weapp Games"}],
+      ru: [{"q":"Что такое Rocket Queen?","a":"Rocket Queen — тайтл 1weapp Games (Crash Games), разобранный в этом обзоре. RTP ~97.00% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Rocket Queen?","a":"В каталоге / материалах студии указано ~97.00%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Rocket Queen на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Rocket Queen на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Rocket Queen?","a":"1weapp Games"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -774,10 +774,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Sugar Rush — RTP 96.50% и где играть | 1weapp",
     descriptionSeoEn: "Sugar Rush review (Pragmatic Play): RTP 96.50%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Sugar Rush (Pragmatic Play): RTP 96.50%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.50% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.50% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.50% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.50% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.50% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.50% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.50% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -812,7 +812,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Sugar Rush for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Sugar Rush” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Sugar Rush” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Sugar Rush on a real balance"],
         }
@@ -848,15 +848,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Sugar Rush на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Sugar Rush» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Sugar Rush» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Sugar Rush на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Sugar Rush?","a":"Sugar Rush is a Pragmatic Play slots title covered in this review. Listed RTP 96.50% — confirm the live tier in your casino client."},{"q":"What is Sugar Rush RTP?","a":"Catalog / studio figures list 96.50%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Sugar Rush for real money?","a":"Use the Continue button (#play-casino), then launch Sugar Rush on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Sugar Rush?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Sugar Rush?","a":"Sugar Rush — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.50% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Sugar Rush?","a":"В каталоге / материалах студии указано 96.50%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Sugar Rush на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Sugar Rush на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Sugar Rush?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Sugar Rush?","a":"Sugar Rush is a Pragmatic Play slots title covered in this review. Listed RTP 96.50% — confirm the live tier in your casino client."},{"q":"What is Sugar Rush RTP?","a":"Catalog / studio figures list 96.50%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Sugar Rush for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Sugar Rush on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Sugar Rush?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Sugar Rush?","a":"Sugar Rush — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.50% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Sugar Rush?","a":"В каталоге / материалах студии указано 96.50%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Sugar Rush на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Sugar Rush на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Sugar Rush?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -886,10 +886,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Starlight Princess — RTP 96.50% и где играть | 1weapp",
     descriptionSeoEn: "Starlight Princess review (Pragmatic Play): RTP 96.50%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Starlight Princess (Pragmatic Play): RTP 96.50%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.50% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.50% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.50% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.50% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.50% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.50% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.50% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -924,7 +924,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Starlight Princess for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Starlight Princess” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Starlight Princess” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Starlight Princess on a real balance"],
         }
@@ -960,15 +960,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Starlight Princess на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Starlight Princess» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Starlight Princess» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Starlight Princess на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Starlight Princess?","a":"Starlight Princess is a Pragmatic Play slots title covered in this review. Listed RTP 96.50% — confirm the live tier in your casino client."},{"q":"What is Starlight Princess RTP?","a":"Catalog / studio figures list 96.50%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Starlight Princess for real money?","a":"Use the Continue button (#play-casino), then launch Starlight Princess on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Starlight Princess?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Starlight Princess?","a":"Starlight Princess — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.50% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Starlight Princess?","a":"В каталоге / материалах студии указано 96.50%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Starlight Princess на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Starlight Princess на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Starlight Princess?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Starlight Princess?","a":"Starlight Princess is a Pragmatic Play slots title covered in this review. Listed RTP 96.50% — confirm the live tier in your casino client."},{"q":"What is Starlight Princess RTP?","a":"Catalog / studio figures list 96.50%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Starlight Princess for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Starlight Princess on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Starlight Princess?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Starlight Princess?","a":"Starlight Princess — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.50% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Starlight Princess?","a":"В каталоге / материалах студии указано 96.50%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Starlight Princess на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Starlight Princess на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Starlight Princess?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -998,10 +998,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Big Bass Bonanza — RTP 96.71% и где играть | 1weapp",
     descriptionSeoEn: "Big Bass Bonanza review (Pragmatic Play): RTP 96.71%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Big Bass Bonanza (Pragmatic Play): RTP 96.71%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.71% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.71% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.71% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.71% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.71% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.71% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.71% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1036,7 +1036,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Big Bass Bonanza for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Big Bass Bonanza” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Big Bass Bonanza” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Big Bass Bonanza on a real balance"],
         }
@@ -1072,15 +1072,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Big Bass Bonanza на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Big Bass Bonanza» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Big Bass Bonanza» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Big Bass Bonanza на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Big Bass Bonanza?","a":"Big Bass Bonanza is a Pragmatic Play slots title covered in this review. Listed RTP 96.71% — confirm the live tier in your casino client."},{"q":"What is Big Bass Bonanza RTP?","a":"Catalog / studio figures list 96.71%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Big Bass Bonanza for real money?","a":"Use the Continue button (#play-casino), then launch Big Bass Bonanza on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Big Bass Bonanza?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Big Bass Bonanza?","a":"Big Bass Bonanza — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.71% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Big Bass Bonanza?","a":"В каталоге / материалах студии указано 96.71%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Big Bass Bonanza на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Big Bass Bonanza на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Big Bass Bonanza?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Big Bass Bonanza?","a":"Big Bass Bonanza is a Pragmatic Play slots title covered in this review. Listed RTP 96.71% — confirm the live tier in your casino client."},{"q":"What is Big Bass Bonanza RTP?","a":"Catalog / studio figures list 96.71%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Big Bass Bonanza for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Big Bass Bonanza on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Big Bass Bonanza?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Big Bass Bonanza?","a":"Big Bass Bonanza — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.71% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Big Bass Bonanza?","a":"В каталоге / материалах студии указано 96.71%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Big Bass Bonanza на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Big Bass Bonanza на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Big Bass Bonanza?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1110,10 +1110,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор The Dog House — RTP 96.51% и где играть | 1weapp",
     descriptionSeoEn: "The Dog House review (Pragmatic Play): RTP 96.51%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор The Dog House (Pragmatic Play): RTP 96.51%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.51% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.51% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.51% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.51% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.51% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.51% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.51% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1148,7 +1148,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play The Dog House for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “The Dog House” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “The Dog House” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch The Dog House on a real balance"],
         }
@@ -1184,15 +1184,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть The Dog House на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «The Dog House» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «The Dog House» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите The Dog House на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is The Dog House?","a":"The Dog House is a Pragmatic Play slots title covered in this review. Listed RTP 96.51% — confirm the live tier in your casino client."},{"q":"What is The Dog House RTP?","a":"Catalog / studio figures list 96.51%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play The Dog House for real money?","a":"Use the Continue button (#play-casino), then launch The Dog House on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed The Dog House?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое The Dog House?","a":"The Dog House — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.51% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у The Dog House?","a":"В каталоге / материалах студии указано 96.51%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть The Dog House на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите The Dog House на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал The Dog House?","a":"Pragmatic Play"}],
+      en: [{"q":"What is The Dog House?","a":"The Dog House is a Pragmatic Play slots title covered in this review. Listed RTP 96.51% — confirm the live tier in your casino client."},{"q":"What is The Dog House RTP?","a":"Catalog / studio figures list 96.51%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play The Dog House for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch The Dog House on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed The Dog House?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое The Dog House?","a":"The Dog House — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.51% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у The Dog House?","a":"В каталоге / материалах студии указано 96.51%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть The Dog House на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите The Dog House на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал The Dog House?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1222,10 +1222,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Wolf Gold — RTP 96.01% и где играть | 1weapp",
     descriptionSeoEn: "Wolf Gold review (Pragmatic Play): RTP 96.01%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Wolf Gold (Pragmatic Play): RTP 96.01%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.01% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.01% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.01% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.01% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.01% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.01% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.01% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1260,7 +1260,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Wolf Gold for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Wolf Gold” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Wolf Gold” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Wolf Gold on a real balance"],
         }
@@ -1296,15 +1296,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Wolf Gold на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Wolf Gold» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Wolf Gold» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Wolf Gold на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Wolf Gold?","a":"Wolf Gold is a Pragmatic Play slots title covered in this review. Listed RTP 96.01% — confirm the live tier in your casino client."},{"q":"What is Wolf Gold RTP?","a":"Catalog / studio figures list 96.01%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Wolf Gold for real money?","a":"Use the Continue button (#play-casino), then launch Wolf Gold on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Wolf Gold?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Wolf Gold?","a":"Wolf Gold — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.01% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Wolf Gold?","a":"В каталоге / материалах студии указано 96.01%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Wolf Gold на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Wolf Gold на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Wolf Gold?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Wolf Gold?","a":"Wolf Gold is a Pragmatic Play slots title covered in this review. Listed RTP 96.01% — confirm the live tier in your casino client."},{"q":"What is Wolf Gold RTP?","a":"Catalog / studio figures list 96.01%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Wolf Gold for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Wolf Gold on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Wolf Gold?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Wolf Gold?","a":"Wolf Gold — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.01% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Wolf Gold?","a":"В каталоге / материалах студии указано 96.01%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Wolf Gold на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Wolf Gold на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Wolf Gold?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1334,10 +1334,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Floating Dragon — RTP 96.71% и где играть | 1weapp",
     descriptionSeoEn: "Floating Dragon review (Pragmatic Play): RTP 96.71%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Floating Dragon (Pragmatic Play): RTP 96.71%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.71% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.71% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.71% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.71% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.71% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.71% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.71% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1372,7 +1372,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Floating Dragon for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Floating Dragon” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Floating Dragon” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Floating Dragon on a real balance"],
         }
@@ -1408,15 +1408,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Floating Dragon на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Floating Dragon» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Floating Dragon» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Floating Dragon на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Floating Dragon?","a":"Floating Dragon is a Pragmatic Play slots title covered in this review. Listed RTP 96.71% — confirm the live tier in your casino client."},{"q":"What is Floating Dragon RTP?","a":"Catalog / studio figures list 96.71%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Floating Dragon for real money?","a":"Use the Continue button (#play-casino), then launch Floating Dragon on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Floating Dragon?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Floating Dragon?","a":"Floating Dragon — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.71% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Floating Dragon?","a":"В каталоге / материалах студии указано 96.71%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Floating Dragon на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Floating Dragon на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Floating Dragon?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Floating Dragon?","a":"Floating Dragon is a Pragmatic Play slots title covered in this review. Listed RTP 96.71% — confirm the live tier in your casino client."},{"q":"What is Floating Dragon RTP?","a":"Catalog / studio figures list 96.71%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Floating Dragon for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Floating Dragon on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Floating Dragon?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Floating Dragon?","a":"Floating Dragon — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.71% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Floating Dragon?","a":"В каталоге / материалах студии указано 96.71%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Floating Dragon на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Floating Dragon на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Floating Dragon?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1446,10 +1446,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Fruit Party — RTP 96.47% и где играть | 1weapp",
     descriptionSeoEn: "Fruit Party review (Pragmatic Play): RTP 96.47%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Fruit Party (Pragmatic Play): RTP 96.47%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.47% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.47% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.47% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.47% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.47% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.47% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.47% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1484,7 +1484,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Fruit Party for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Fruit Party” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Fruit Party” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Fruit Party on a real balance"],
         }
@@ -1520,15 +1520,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Fruit Party на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Fruit Party» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Fruit Party» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Fruit Party на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Fruit Party?","a":"Fruit Party is a Pragmatic Play slots title covered in this review. Listed RTP 96.47% — confirm the live tier in your casino client."},{"q":"What is Fruit Party RTP?","a":"Catalog / studio figures list 96.47%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Fruit Party for real money?","a":"Use the Continue button (#play-casino), then launch Fruit Party on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Fruit Party?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Fruit Party?","a":"Fruit Party — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.47% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Fruit Party?","a":"В каталоге / материалах студии указано 96.47%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Fruit Party на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Fruit Party на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Fruit Party?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Fruit Party?","a":"Fruit Party is a Pragmatic Play slots title covered in this review. Listed RTP 96.47% — confirm the live tier in your casino client."},{"q":"What is Fruit Party RTP?","a":"Catalog / studio figures list 96.47%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Fruit Party for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Fruit Party on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Fruit Party?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Fruit Party?","a":"Fruit Party — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.47% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Fruit Party?","a":"В каталоге / материалах студии указано 96.47%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Fruit Party на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Fruit Party на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Fruit Party?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1558,10 +1558,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Zeus vs Hades: Gods of War — RTP 96.05% и где играть | 1weapp",
     descriptionSeoEn: "Zeus vs Hades: Gods of War review (Pragmatic Play): RTP 96.05%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Zeus vs Hades: Gods of War (Pragmatic Play): RTP 96.05%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.05% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.05% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.05% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.05% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.05% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.05% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.05% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1596,7 +1596,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Zeus vs Hades: Gods of War for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Zeus vs Hades: Gods of War” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Zeus vs Hades: Gods of War” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Zeus vs Hades: Gods of War on a real balance"],
         }
@@ -1632,15 +1632,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Zeus vs Hades: Gods of War на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Zeus vs Hades: Gods of War» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Zeus vs Hades: Gods of War» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Zeus vs Hades: Gods of War на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Zeus vs Hades: Gods of War?","a":"Zeus vs Hades: Gods of War is a Pragmatic Play slots title covered in this review. Listed RTP 96.05% — confirm the live tier in your casino client."},{"q":"What is Zeus vs Hades: Gods of War RTP?","a":"Catalog / studio figures list 96.05%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Zeus vs Hades: Gods of War for real money?","a":"Use the Continue button (#play-casino), then launch Zeus vs Hades: Gods of War on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Zeus vs Hades: Gods of War?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Zeus vs Hades: Gods of War?","a":"Zeus vs Hades: Gods of War — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.05% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Zeus vs Hades: Gods of War?","a":"В каталоге / материалах студии указано 96.05%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Zeus vs Hades: Gods of War на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Zeus vs Hades: Gods of War на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Zeus vs Hades: Gods of War?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Zeus vs Hades: Gods of War?","a":"Zeus vs Hades: Gods of War is a Pragmatic Play slots title covered in this review. Listed RTP 96.05% — confirm the live tier in your casino client."},{"q":"What is Zeus vs Hades: Gods of War RTP?","a":"Catalog / studio figures list 96.05%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Zeus vs Hades: Gods of War for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Zeus vs Hades: Gods of War on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Zeus vs Hades: Gods of War?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Zeus vs Hades: Gods of War?","a":"Zeus vs Hades: Gods of War — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.05% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Zeus vs Hades: Gods of War?","a":"В каталоге / материалах студии указано 96.05%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Zeus vs Hades: Gods of War на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Zeus vs Hades: Gods of War на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Zeus vs Hades: Gods of War?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1670,10 +1670,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Buffalo King Megaways — RTP 96.52% и где играть | 1weapp",
     descriptionSeoEn: "Buffalo King Megaways review (Pragmatic Play): RTP 96.52%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Buffalo King Megaways (Pragmatic Play): RTP 96.52%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.52% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.52% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.52% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.52% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.52% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.52% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.52% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1708,7 +1708,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Buffalo King Megaways for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Buffalo King Megaways” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Buffalo King Megaways” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Buffalo King Megaways on a real balance"],
         }
@@ -1744,15 +1744,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Buffalo King Megaways на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Buffalo King Megaways» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Buffalo King Megaways» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Buffalo King Megaways на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Buffalo King Megaways?","a":"Buffalo King Megaways is a Pragmatic Play slots title covered in this review. Listed RTP 96.52% — confirm the live tier in your casino client."},{"q":"What is Buffalo King Megaways RTP?","a":"Catalog / studio figures list 96.52%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Buffalo King Megaways for real money?","a":"Use the Continue button (#play-casino), then launch Buffalo King Megaways on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Buffalo King Megaways?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Buffalo King Megaways?","a":"Buffalo King Megaways — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.52% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Buffalo King Megaways?","a":"В каталоге / материалах студии указано 96.52%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Buffalo King Megaways на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Buffalo King Megaways на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Buffalo King Megaways?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Buffalo King Megaways?","a":"Buffalo King Megaways is a Pragmatic Play slots title covered in this review. Listed RTP 96.52% — confirm the live tier in your casino client."},{"q":"What is Buffalo King Megaways RTP?","a":"Catalog / studio figures list 96.52%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Buffalo King Megaways for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Buffalo King Megaways on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Buffalo King Megaways?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Buffalo King Megaways?","a":"Buffalo King Megaways — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.52% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Buffalo King Megaways?","a":"В каталоге / материалах студии указано 96.52%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Buffalo King Megaways на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Buffalo King Megaways на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Buffalo King Megaways?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1782,10 +1782,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Madame Destiny Megaways — RTP 96.56% и где играть | 1weapp",
     descriptionSeoEn: "Madame Destiny Megaways review (Pragmatic Play): RTP 96.56%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Madame Destiny Megaways (Pragmatic Play): RTP 96.56%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.56% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.56% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.56% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.56% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.56% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.56% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.56% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1820,7 +1820,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Madame Destiny Megaways for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Madame Destiny Megaways” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Madame Destiny Megaways” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Madame Destiny Megaways on a real balance"],
         }
@@ -1856,15 +1856,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Madame Destiny Megaways на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Madame Destiny Megaways» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Madame Destiny Megaways» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Madame Destiny Megaways на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Madame Destiny Megaways?","a":"Madame Destiny Megaways is a Pragmatic Play slots title covered in this review. Listed RTP 96.56% — confirm the live tier in your casino client."},{"q":"What is Madame Destiny Megaways RTP?","a":"Catalog / studio figures list 96.56%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Madame Destiny Megaways for real money?","a":"Use the Continue button (#play-casino), then launch Madame Destiny Megaways on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Madame Destiny Megaways?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Madame Destiny Megaways?","a":"Madame Destiny Megaways — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.56% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Madame Destiny Megaways?","a":"В каталоге / материалах студии указано 96.56%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Madame Destiny Megaways на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Madame Destiny Megaways на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Madame Destiny Megaways?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Madame Destiny Megaways?","a":"Madame Destiny Megaways is a Pragmatic Play slots title covered in this review. Listed RTP 96.56% — confirm the live tier in your casino client."},{"q":"What is Madame Destiny Megaways RTP?","a":"Catalog / studio figures list 96.56%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Madame Destiny Megaways for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Madame Destiny Megaways on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Madame Destiny Megaways?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Madame Destiny Megaways?","a":"Madame Destiny Megaways — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.56% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Madame Destiny Megaways?","a":"В каталоге / материалах студии указано 96.56%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Madame Destiny Megaways на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Madame Destiny Megaways на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Madame Destiny Megaways?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -1894,10 +1894,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Mustang Gold — RTP 96.53% и где играть | 1weapp",
     descriptionSeoEn: "Mustang Gold review (Pragmatic Play): RTP 96.53%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Mustang Gold (Pragmatic Play): RTP 96.53%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.53% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.53% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.53% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.53% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.53% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.53% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.53% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -1932,7 +1932,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Mustang Gold for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Mustang Gold” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Mustang Gold” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Mustang Gold on a real balance"],
         }
@@ -1968,15 +1968,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Mustang Gold на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Mustang Gold» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Mustang Gold» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Mustang Gold на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Mustang Gold?","a":"Mustang Gold is a Pragmatic Play slots title covered in this review. Listed RTP 96.53% — confirm the live tier in your casino client."},{"q":"What is Mustang Gold RTP?","a":"Catalog / studio figures list 96.53%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Mustang Gold for real money?","a":"Use the Continue button (#play-casino), then launch Mustang Gold on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Mustang Gold?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Mustang Gold?","a":"Mustang Gold — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.53% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Mustang Gold?","a":"В каталоге / материалах студии указано 96.53%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Mustang Gold на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Mustang Gold на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Mustang Gold?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Mustang Gold?","a":"Mustang Gold is a Pragmatic Play slots title covered in this review. Listed RTP 96.53% — confirm the live tier in your casino client."},{"q":"What is Mustang Gold RTP?","a":"Catalog / studio figures list 96.53%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Mustang Gold for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Mustang Gold on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Mustang Gold?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Mustang Gold?","a":"Mustang Gold — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.53% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Mustang Gold?","a":"В каталоге / материалах студии указано 96.53%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Mustang Gold на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Mustang Gold на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Mustang Gold?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   },
@@ -2006,10 +2006,10 @@ export const REVIEWS: ReviewData[] = [
     titleSeoRu: "Обзор Wild West Gold — RTP 96.51% и где играть | 1weapp",
     descriptionSeoEn: "Wild West Gold review (Pragmatic Play): RTP 96.51%, how the round works, and where to play for real money. 18+.",
     descriptionSeoRu: "Обзор Wild West Gold (Pragmatic Play): RTP 96.51%, как устроен раунд и где играть на деньги. 18+.",
-    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.51% · confirm live tier in-client","Type: Slots","Review page · Continue step · no demo iframe"],
-    specsRu: ["Студия: Pragmatic Play","RTP 96.51% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Продолжить» · без демо iframe"],
+    specsEn: ["Studio: Pragmatic Play","Listed RTP 96.51% · confirm live tier in-client","Type: Slots","Review page · Play for real (18+) · no demo iframe"],
+    specsRu: ["Студия: Pragmatic Play","RTP 96.51% · сверяйте тир в клиенте","Тип: Slots","Страница-обзор · шаг «Играть на деньги (18+)» · без демо iframe"],
     prosEn: ["Clear slots loop explained in plain language","Listed RTP 96.51% with a reminder to confirm live tiers","Keyword-rich review for real-money search intent","Direct #play-casino CTA to launch quickly"],
-    prosRu: ["Понятный разбор механики (Slots)","RTP 96.51% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Продолжить»"],
+    prosRu: ["Понятный разбор механики (Slots)","RTP 96.51% с напоминанием сверять живой тир","SEO-обзор под запросы «на деньги»","Одна кнопка «Играть на деньги (18+)»"],
     consEn: ["Operator builds can change RTP / feature availability","High-volatility sessions can drain small bankrolls","Welcome bonuses carry wagering — read T&C","No free demo embed on this review URL"],
     consRu: ["Сборка оператора может менять RTP / фичи","Высокая волатильность быстро жжёт маленький банк","Welcome-бонусы с вейджером — читайте правила","На этом URL обзора нет демо iframe"],
     sections: {
@@ -2044,7 +2044,7 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Where to play Wild West Gold for real money",
-          body: "This page is a review with casino redirects — there is no demo iframe here. Use Continue below (#play-casino): open a licensed operator, search “Wild West Gold” in the lobby, and launch on a real balance.",
+          body: "This page is a review with casino redirects — there is no demo iframe here. Use Play for real (18+) below (#play-casino): open a licensed operator, search “Wild West Gold” in the lobby, and launch on a real balance.",
           callout: "Affiliate links are sponsored. Only play where it is legal for you. 18+ · Gamble responsibly.",
           steps: ["Open the casino via the button","Claim a welcome bonus (18+, T&C apply)","Launch Wild West Gold on a real balance"],
         }
@@ -2080,15 +2080,15 @@ export const REVIEWS: ReviewData[] = [
         },
         {
           heading: "Где играть Wild West Gold на деньги",
-          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Продолжить» (#play-casino), затем найдите «Wild West Gold» в лобби и запустите на реальном балансе.",
+          body: "Эта страница — обзор с редиректом в казино, без демо iframe. Нажмите «Играть на деньги (18+)» (#play-casino), затем найдите «Wild West Gold» в лобби и запустите на реальном балансе.",
           callout: "Ссылки рекламные (sponsored). Играйте только там, где это законно. 18+ · Играйте ответственно.",
           steps: ["Откройте казино через кнопку","Заберите welcome-бонус (18+, действуют правила)","Запустите Wild West Gold на реальном балансе"],
         }
       ],
     },
     faq: {
-      en: [{"q":"What is Wild West Gold?","a":"Wild West Gold is a Pragmatic Play slots title covered in this review. Listed RTP 96.51% — confirm the live tier in your casino client."},{"q":"What is Wild West Gold RTP?","a":"Catalog / studio figures list 96.51%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Wild West Gold for real money?","a":"Use the Continue button (#play-casino), then launch Wild West Gold on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Wild West Gold?","a":"Pragmatic Play"}],
-      ru: [{"q":"Что такое Wild West Gold?","a":"Wild West Gold — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.51% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Wild West Gold?","a":"В каталоге / материалах студии указано 96.51%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Wild West Gold на деньги?","a":"Через кнопку «Продолжить» (#play-casino), затем запустите Wild West Gold на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Продолжить» — без демо iframe."},{"q":"Кто сделал Wild West Gold?","a":"Pragmatic Play"}],
+      en: [{"q":"What is Wild West Gold?","a":"Wild West Gold is a Pragmatic Play slots title covered in this review. Listed RTP 96.51% — confirm the live tier in your casino client."},{"q":"What is Wild West Gold RTP?","a":"Catalog / studio figures list 96.51%. Always confirm the live tier inside the casino client before depositing."},{"q":"Where can I play Wild West Gold for real money?","a":"Use the Play for real (18+) button (#play-casino), then launch Wild West Gold on a real balance."},{"q":"Is there a free demo on this page?","a":"No. This review focuses on mechanics, RTP and casino redirects — no demo iframe."},{"q":"Who developed Wild West Gold?","a":"Pragmatic Play"}],
+      ru: [{"q":"Что такое Wild West Gold?","a":"Wild West Gold — тайтл Pragmatic Play (Slots), разобранный в этом обзоре. RTP 96.51% — сверяйте живой тир в клиенте казино."},{"q":"Какой RTP у Wild West Gold?","a":"В каталоге / материалах студии указано 96.51%. Всегда сверяйте живой тир в клиенте до депозита."},{"q":"Где играть Wild West Gold на деньги?","a":"Через кнопку «Играть на деньги (18+)» (#play-casino), затем запустите Wild West Gold на реальном балансе."},{"q":"Есть ли бесплатное демо на этой странице?","a":"Нет. Этот обзор про механику, RTP и шаг «Играть на деньги (18+)» — без демо iframe."},{"q":"Кто сделал Wild West Gold?","a":"Pragmatic Play"}],
     },
     relatedIds: ["lucky-jet","gates-of-olympus","sweet-bonanza"],
   }

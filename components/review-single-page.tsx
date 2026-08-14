@@ -11,7 +11,7 @@ import {
   reviewHref,
   type ReviewSection,
 } from '@/lib/reviews-data'
-import { homeHref } from '@/lib/games'
+import { homeHref, i18n } from '@/lib/games'
 import { continueHref } from '@/lib/continue'
 
 function slugifyHeading(text: string, idx: number): string {
@@ -67,6 +67,7 @@ export default function ReviewSinglePage({
   if (!review) return null
 
   const hopHref = continueHref(lang, review.relatedDemoSlug)
+  const playReal = i18n[lang].playReal
 
   const sections = isEn ? review.sections.en : review.sections.ru
   const faq = isEn ? review.faq.en : review.faq.ru
@@ -169,12 +170,12 @@ export default function ReviewSinglePage({
             </div>
             <div className="review-hero__actions">
               <a href={hopHref} className="btn-cta">
-                {isEn ? 'Continue' : 'Продолжить'}
+                {playReal}
               </a>
               <p className="review-hero__note">
                 {isEn
-                  ? 'No demo on this page · review + continue step only'
-                  : 'Без демо на этой странице · только обзор и шаг «Продолжить»'}
+                  ? 'No demo on this page · review + Play for real (18+) only'
+                  : 'Без демо на этой странице · только обзор и «Играть на деньги (18+)»'}
               </p>
             </div>
           </div>
@@ -204,7 +205,7 @@ export default function ReviewSinglePage({
             </ol>
             <div className="review-toc__cta">
               <a href={hopHref} className="btn-cta">
-                {isEn ? 'Continue' : 'Продолжить'}
+                {playReal}
               </a>
               <p className="review-toc__legal">
                 {isEn ? '18+ · Gamble responsibly' : '18+ · Играйте ответственно'}
@@ -241,7 +242,7 @@ export default function ReviewSinglePage({
 
             <section className="review-casinos" id="play-casino" aria-labelledby="casino-heading">
               <h2 id="casino-heading">
-                {isEn ? 'Continue to real play' : 'Продолжить в реальной игре'}
+                {isEn ? 'Play for real money' : 'Играть на деньги'}
               </h2>
               <p className="review-casinos__lead">
                 {isEn
@@ -249,7 +250,7 @@ export default function ReviewSinglePage({
                   : `Продолжите к лицензированному оператору, найдите «${review.titleRu.replace('Обзор ', '')}» в лобби и запустите на реальном балансе.`}
               </p>
               <a href={hopHref} className="review-casinos__single-cta">
-                {isEn ? 'Continue' : 'Продолжить'}
+                {playReal}
               </a>
               <p className="review-casinos__legal">
                 {isEn ? '18+ · Play responsibly · T&C apply' : '18+ · Играйте ответственно · Условия'}

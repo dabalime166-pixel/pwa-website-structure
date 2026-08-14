@@ -22,7 +22,7 @@ export function ctaAnchorProps(href: string): { href: string; rel?: string; targ
 
 export const CONTINUE_COPY = {
   en: {
-    playReal: 'Continue',
+    playReal: 'Play for real (18+)',
     operatorCta: 'Open operator site (18+)',
     title: 'Continue to real play',
     metaTitle: 'Continue to real play (18+) | 1weapp',
@@ -43,7 +43,7 @@ export const CONTINUE_COPY = {
     responsible: 'Responsible gaming',
   },
   ru: {
-    playReal: 'Продолжить',
+    playReal: 'Играть на деньги (18+)',
     operatorCta: 'Открыть сайт оператора (18+)',
     title: 'Продолжить в реальной игре',
     metaTitle: 'Продолжить в реальной игре (18+) | 1weapp',

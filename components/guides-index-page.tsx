@@ -8,7 +8,7 @@ import { SiteFooter } from '@/components/site-footer'
 import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import { REVIEWS } from '@/lib/reviews-data'
-import type { Lang } from '@/lib/games'
+import { i18n, type Lang } from '@/lib/games'
 import { continueHref } from '@/lib/continue'
 
 const PROMO_AVATARS = REVIEWS.filter((r) => r.avatar).slice(0, 8)
@@ -114,7 +114,7 @@ export default function GuidesIndexPage({ lang }: Props) {
     ctaSub: isEn
       ? 'Open the same games in demo, then continue for real if it fits your style.'
       : 'Откройте те же игры в демо — и переходите на деньги, если формат вам подходит.',
-    ctaBtn: isEn ? 'Continue' : 'Продолжить',
+    ctaBtn: i18n[lang].playReal,
     legal: isEn ? '18+ · Gamble responsibly' : '18+ · Играйте ответственно',
   }
 

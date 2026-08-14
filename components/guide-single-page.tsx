@@ -7,7 +7,7 @@ import { SiteFooter } from '@/components/site-footer'
 import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import type { Section } from '@/lib/guides-data'
-import { homeHref } from '@/lib/games'
+import { homeHref, i18n } from '@/lib/games'
 import { continueHref } from '@/lib/continue'
 import { formatIsoDate } from '@/lib/seo'
 
@@ -252,7 +252,7 @@ export default function GuideSinglePage({
                   : 'Сначала отработайте идею в бесплатном демо.'}
               </p>
               <a href={continueHref(lang)} className="btn-cta">
-                {isEn ? 'Continue' : 'Продолжить'}
+                {i18n[lang].playReal}
               </a>
               <p className="guide-toc__legal">
                 {isEn ? '18+ · Gamble responsibly' : '18+ · Играйте ответственно'}

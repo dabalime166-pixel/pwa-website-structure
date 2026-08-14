@@ -445,8 +445,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
                 </h2>
                 <p className="gp-coming-soon__text">
                   {isEn
-                    ? 'Meanwhile you can continue for real prizes or browse similar titles below.'
-                    : 'Пока можно продолжить на реальные призы или посмотреть похожие игры ниже.'}
+                    ? 'Meanwhile you can play for real (18+) or browse similar titles below.'
+                    : 'Пока можно играть на деньги (18+) или посмотреть похожие игры ниже.'}
                 </p>
                 <a href={hopHref} className="btn-cta" aria-label={t.playReal}>
                   {t.playReal}
@@ -511,8 +511,8 @@ export function GamePage({ slug, lang }: GamePageProps) {
               <div className="gp-aside__cta">
                 <p>
                   {isEn
-                    ? 'Liked the demo? Continue for real prizes.'
-                    : 'Понравилось демо? Продолжите на реальные призы.'}
+                    ? 'Liked the demo? Play for real at a licensed operator (18+).'
+                    : 'Понравилось демо? Дальше — игра на деньги у лицензированного оператора (18+).'}
                 </p>
                 <a href={hopHref} className="btn-cta" aria-label={t.playReal}>
                   {t.playReal}

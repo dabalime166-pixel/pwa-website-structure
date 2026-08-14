@@ -80,7 +80,7 @@ export function homeHref(lang: Lang): string {
 export const i18n = {
   en: {
     playDemo: 'Play Demo',
-    playReal: 'Continue',
+    playReal: 'Play for real (18+)',
     provider: 'Provider',
     home: 'Home',
     games: 'All Games',
@@ -95,7 +95,7 @@ export const i18n = {
   },
   ru: {
     playDemo: 'Играть Бесплатно',
-    playReal: 'Продолжить',
+    playReal: 'Играть на деньги (18+)',
     provider: 'Провайдер',
     home: 'Главная',
     games: 'Все игры',
