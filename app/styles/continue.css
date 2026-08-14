@@ -135,6 +135,7 @@
   text-shadow: 0 0 22px var(--win-blue-glow);
 }
 .win-logo__w,
+.win-logo__i,
 .win-logo__n {
   color: #fff;
 }
