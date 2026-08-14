@@ -13,6 +13,15 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/sitemaps/:chunk.xml',
+        destination: '/sitemaps/:chunk',
+      },
+    ]
+  },
+
   async redirects() {
     return [
         {
@@ -587,6 +596,24 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=86400',
+          },
+        ],
+      },
+      {
+        source: '/sitemap.xml',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+      {
+        source: '/sitemaps/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
           },
         ],
       },
