@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RuContinueRoute() {
   return (
-    <Suspense fallback={<div className="continue-page" aria-hidden="true" />}>
+    <Suspense fallback={<div className="win-hop" aria-hidden="true" />}>
       <ContinuePage lang="ru" />
     </Suspense>
   )

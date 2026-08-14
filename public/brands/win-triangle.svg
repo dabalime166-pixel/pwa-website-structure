@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" fill="none">
+  <defs>
+    <linearGradient id="winTri" x1="70" y1="8" x2="70" y2="132">
+      <stop stop-color="#5ad2ff"/>
+      <stop offset="0.55" stop-color="#00A3FF"/>
+      <stop offset="1" stop-color="#0077cc"/>
+    </linearGradient>
+    <filter id="winGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path
+    filter="url(#winGlow)"
+    fill="url(#winTri)"
+    d="M70 14c3.2 0 6.1 1.7 7.7 4.5l48 84c1.7 2.9 1.6 6.5-.2 9.3-1.7 2.7-4.7 4.3-8 4.3H22.5c-3.3 0-6.3-1.6-8-4.3-1.8-2.8-1.9-6.4-.2-9.3l48-84C63.9 15.7 66.8 14 70 14Z"
+  />
+</svg>

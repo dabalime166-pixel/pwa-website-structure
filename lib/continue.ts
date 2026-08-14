@@ -23,13 +23,13 @@ export function ctaAnchorProps(href: string): { href: string; rel?: string; targ
 export const CONTINUE_COPY = {
   en: {
     playReal: 'Play for real (18+)',
-    operatorCta: 'Open operator site (18+)',
-    title: 'Continue to real play',
-    metaTitle: 'Continue to real play (18+) | 1weapp',
+    operatorCta: 'Play at 1win (18+)',
+    title: 'Open 1win',
+    metaTitle: 'Open 1win (18+) | 1weapp',
     metaDesc:
-      'Finished the free demo? Continue to a licensed operator. 18+ only — set limits first. 1weapp stays a demo catalog.',
-    kicker: '18+ · Next step',
-    lead: '1weapp is a free demo catalog. Real-money play happens on a licensed operator, not inside this site.',
+      'Leave the 1weapp demo catalog for 1win. 18+ only — set limits first. Real-money play is on the operator, not on this site.',
+    kicker: '18+ · 1win',
+    lead: '1weapp is a free demo catalog. Real-money play continues on 1win — a licensed operator, not this site.',
     stepsTitle: 'Before you continue',
     steps: [
       'You are 18 or older in your jurisdiction.',
@@ -37,20 +37,20 @@ export const CONTINUE_COPY = {
       'Treat this as entertainment — never chase a loss.',
     ],
     gameNote: (name: string) =>
-      `You came from the ${name} demo. The operator lobby uses the same game title — search it after you open the site.`,
+      `You came from the ${name} demo. In 1win, search the same title in the lobby after you open the site.`,
     legal: '18+ · Gamble responsibly · T&C of the operator apply',
     backDemo: 'Back to demos',
     responsible: 'Responsible gaming',
   },
   ru: {
     playReal: 'Играть на деньги (18+)',
-    operatorCta: 'Открыть сайт оператора (18+)',
-    title: 'Продолжить в реальной игре',
-    metaTitle: 'Продолжить в реальной игре (18+) | 1weapp',
+    operatorCta: 'Играть в 1win (18+)',
+    title: 'Переход на 1win',
+    metaTitle: 'Переход на 1win (18+) | 1weapp',
     metaDesc:
-      'Закончили бесплатное демо? Дальше — лицензированный оператор. Только 18+, сначала лимиты. 1weapp остаётся каталогом демо.',
-    kicker: '18+ · Следующий шаг',
-    lead: '1weapp — каталог бесплатных демо. Игра на деньги проходит у лицензированного оператора, не на этом сайте.',
+      'С каталога демо 1weapp можно перейти в 1win. Только 18+, сначала лимиты. Игра на деньги — у оператора, не на этом сайте.',
+    kicker: '18+ · 1win',
+    lead: '1weapp — каталог бесплатных демо. Игра на деньги продолжается в 1win — у лицензированного оператора, не на этом сайте.',
     stepsTitle: 'Перед тем как продолжить',
     steps: [
       'Вам есть 18 лет в вашей юрисдикции.',
@@ -58,7 +58,7 @@ export const CONTINUE_COPY = {
       'Это развлечение: не отыгрывайтесь после проигрыша.',
     ],
     gameNote: (name: string) =>
-      `Вы пришли из демо ${name}. В лобби оператора ищите то же название игры после перехода.`,
+      `Вы пришли из демо ${name}. В лобби 1win ищите то же название после перехода.`,
     legal: '18+ · Играйте ответственно · Действуют правила оператора',
     backDemo: 'К демо',
     responsible: 'Ответственная игра',
