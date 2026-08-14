@@ -6,7 +6,8 @@ import { HomeLobby } from '@/components/home-lobby'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ExpertBanner } from '@/components/expert-banner'
 import { JsonLd } from '@/components/json-ld'
-import { games, i18n, CTA_URL } from '@/lib/games'
+import { games, i18n } from '@/lib/games'
+import { continueHref } from '@/lib/continue'
 import type { Game, Lang } from '@/lib/games'
 import { getPopularGamesPerProvider } from '@/lib/popular-games'
 import { PROVIDERS, getGamesByProvider } from '@/lib/providers'
@@ -80,7 +81,7 @@ export function HomePage({ lang }: HomePageProps) {
         {
           question: 'How do I move from demo to real money?',
           answer:
-            'Learn the mechanics in demo first, then use Play for Real Money when ready. Stay 18+, set deposit and session limits, and never chase losses.',
+            'Learn the mechanics in demo first, then tap Continue when ready. Stay 18+, set deposit and session limits, and never chase losses.',
         },
       ]
     : [
@@ -107,7 +108,7 @@ export function HomePage({ lang }: HomePageProps) {
         {
           question: 'Как перейти от демо к игре на деньги?',
           answer:
-            'Сначала изучите механику в демо, затем используйте «Играть на реальные деньги». Только 18+, с лимитами депозита и сессии, без догона проигрыша.',
+            'Сначала изучите механику в демо, затем нажмите «Продолжить». Только 18+, с лимитами депозита и сессии, без догона проигрыша.',
         },
       ]
 
@@ -174,12 +175,7 @@ export function HomePage({ lang }: HomePageProps) {
                 <a href="#lobby" className="btn-cta db-hero__cta">
                   {isEn ? 'Browse demos' : 'Смотреть демо'}
                 </a>
-                <a
-                  href={CTA_URL}
-                  rel="noopener noreferrer nofollow sponsored"
-                  target="_blank"
-                  className="btn-ghost"
-                >
+                <a href={continueHref(lang)} className="btn-ghost">
                   {t.playReal}
                 </a>
               </div>

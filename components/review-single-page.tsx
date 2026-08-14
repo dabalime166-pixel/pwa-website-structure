@@ -11,7 +11,8 @@ import {
   reviewHref,
   type ReviewSection,
 } from '@/lib/reviews-data'
-import { CTA_URL, homeHref } from '@/lib/games'
+import { homeHref } from '@/lib/games'
+import { continueHref } from '@/lib/continue'
 
 function slugifyHeading(text: string, idx: number): string {
   const base = text
@@ -64,6 +65,8 @@ export default function ReviewSinglePage({
   const isEn = lang === 'en'
   const review = getReviewById(slug)
   if (!review) return null
+
+  const hopHref = continueHref(lang, review.relatedDemoSlug)
 
   const sections = isEn ? review.sections.en : review.sections.ru
   const faq = isEn ? review.faq.en : review.faq.ru
@@ -165,18 +168,13 @@ export default function ReviewSinglePage({
               ))}
             </div>
             <div className="review-hero__actions">
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="btn-cta"
-              >
-                {isEn ? 'Go to casino' : 'Перейти в казино'}
+              <a href={hopHref} className="btn-cta">
+                {isEn ? 'Continue' : 'Продолжить'}
               </a>
               <p className="review-hero__note">
                 {isEn
-                  ? 'No demo on this page · review + casino redirect only'
-                  : 'Без демо на этой странице · только обзор и редирект в казино'}
+                  ? 'No demo on this page · review + continue step only'
+                  : 'Без демо на этой странице · только обзор и шаг «Продолжить»'}
               </p>
             </div>
           </div>
@@ -205,13 +203,8 @@ export default function ReviewSinglePage({
               </li>
             </ol>
             <div className="review-toc__cta">
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="btn-cta"
-              >
-                {isEn ? 'Go to casino' : 'Перейти в казино'}
+              <a href={hopHref} className="btn-cta">
+                {isEn ? 'Continue' : 'Продолжить'}
               </a>
               <p className="review-toc__legal">
                 {isEn ? '18+ · Gamble responsibly' : '18+ · Играйте ответственно'}
@@ -248,20 +241,15 @@ export default function ReviewSinglePage({
 
             <section className="review-casinos" id="play-casino" aria-labelledby="casino-heading">
               <h2 id="casino-heading">
-                {isEn ? 'Play for real money' : 'Играть на деньги'}
+                {isEn ? 'Continue to real play' : 'Продолжить в реальной игре'}
               </h2>
               <p className="review-casinos__lead">
                 {isEn
-                  ? `Open a licensed casino, find “${review.titleEn.replace(' Review', '')}” in the lobby, and launch on a real balance.`
-                  : `Откройте лицензированное казино, найдите «${review.titleRu.replace('Обзор ', '')}» в лобби и запустите на реальном балансе.`}
+                  ? `Continue to a licensed operator, find “${review.titleEn.replace(' Review', '')}” in the lobby, and launch on a real balance.`
+                  : `Продолжите к лицензированному оператору, найдите «${review.titleRu.replace('Обзор ', '')}» в лобби и запустите на реальном балансе.`}
               </p>
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="review-casinos__single-cta"
-              >
-                {isEn ? 'Go to casino' : 'Перейти в казино'}
+              <a href={hopHref} className="review-casinos__single-cta">
+                {isEn ? 'Continue' : 'Продолжить'}
               </a>
               <p className="review-casinos__legal">
                 {isEn ? '18+ · Play responsibly · T&C apply' : '18+ · Играйте ответственно · Условия'}

@@ -5,7 +5,6 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import { CasinoInviteModal } from '@/components/casino-invite-modal'
 import type { CasinoInviteCopy } from '@/components/casino-invite-modal'
 import { DemoNotifyPrompt, type DemoNotifyCopy } from '@/components/demo-notify-prompt'
-import { CTA_URL } from '@/lib/games'
 import { getNotifyUiVariant } from '@/lib/device-profile'
 import type { NotifyUiVariant } from '@/lib/device-profile'
 import {
@@ -31,6 +30,7 @@ interface GameViewerProps {
   inviteCopy: CasinoInviteCopy
   notifyCopy: DemoNotifyCopy
   lang?: 'en' | 'ru'
+  ctaUrl: string
 }
 
 function FullscreenIcon() {
@@ -114,6 +114,7 @@ export function GameViewer({
   inviteCopy,
   notifyCopy,
   lang = 'en',
+  ctaUrl,
 }: GameViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [iframeLaunched, setIframeLaunched] = useState(false)
@@ -329,7 +330,7 @@ export function GameViewer({
       <CasinoInviteModal
         open={inviteOpen}
         gameName={gameName}
-        ctaUrl={CTA_URL}
+        ctaUrl={ctaUrl}
         copy={inviteCopy}
         inline={nativeFs || cssFallback}
         onDismiss={dismissInvite}

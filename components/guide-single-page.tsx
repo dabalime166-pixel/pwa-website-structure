@@ -7,7 +7,8 @@ import { SiteFooter } from '@/components/site-footer'
 import { ExpertBanner } from '@/components/expert-banner'
 import { GUIDES } from '@/lib/guides-data'
 import type { Section } from '@/lib/guides-data'
-import { CTA_URL, homeHref } from '@/lib/games'
+import { homeHref } from '@/lib/games'
+import { continueHref } from '@/lib/continue'
 import { formatIsoDate } from '@/lib/seo'
 
 function slugifyHeading(text: string, idx: number): string {
@@ -250,13 +251,8 @@ export default function GuideSinglePage({
                   ? 'Practice the idea in a free demo first.'
                   : 'Сначала отработайте идею в бесплатном демо.'}
               </p>
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="btn-cta"
-              >
-                {isEn ? 'Play for Real Money' : 'Играть на деньги'}
+              <a href={continueHref(lang)} className="btn-cta">
+                {isEn ? 'Continue' : 'Продолжить'}
               </a>
               <p className="guide-toc__legal">
                 {isEn ? '18+ · Gamble responsibly' : '18+ · Играйте ответственно'}

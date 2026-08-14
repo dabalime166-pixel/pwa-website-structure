@@ -6,6 +6,9 @@ import { getProviderCards } from '@/lib/providers'
 
 const BASE = 'https://www.1weapp.online'
 
+/** Stable stamp — do not use `new Date()` (that fakes "updated today" on every crawl). */
+const CONTENT_STAMP = new Date('2026-08-14T00:00:00.000Z')
+
 const LEGAL_PATHS = [
   'privacy',
   'terms',
@@ -27,14 +30,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const homeEntries: MetadataRoute.Sitemap = [
     {
       url: `${BASE}/`,
-      lastModified: new Date(),
+      lastModified: CONTENT_STAMP,
       changeFrequency: 'weekly',
       priority: 1.0,
       alternates: hreflang('/', '/ru'),
     },
     {
       url: `${BASE}/ru`,
-      lastModified: new Date(),
+      lastModified: CONTENT_STAMP,
       changeFrequency: 'weekly',
       priority: 1.0,
       alternates: hreflang('/', '/ru'),
@@ -57,14 +60,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
       {
         url: `${BASE}${enPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'monthly' as const,
         priority,
         alternates: hreflang(enPath, ruPath),
       },
       {
         url: `${BASE}${ruPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'monthly' as const,
         priority,
         alternates: hreflang(enPath, ruPath),
@@ -76,14 +79,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const providerIndexEntries: MetadataRoute.Sitemap = [
     {
       url: `${BASE}/en/providers`,
-      lastModified: new Date(),
+      lastModified: CONTENT_STAMP,
       changeFrequency: 'weekly',
       priority: 0.88,
       alternates: hreflang('/en/providers', '/ru/providers'),
     },
     {
       url: `${BASE}/ru/providers`,
-      lastModified: new Date(),
+      lastModified: CONTENT_STAMP,
       changeFrequency: 'weekly',
       priority: 0.88,
       alternates: hreflang('/en/providers', '/ru/providers'),
@@ -96,14 +99,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
       {
         url: `${BASE}${enPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'weekly' as const,
         priority: 0.87,
         alternates: hreflang(enPath, ruPath),
       },
       {
         url: `${BASE}${ruPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'weekly' as const,
         priority: 0.87,
         alternates: hreflang(enPath, ruPath),
@@ -157,14 +160,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const reviewIndexEntries: MetadataRoute.Sitemap = [
     {
       url: `${BASE}/en/reviews`,
-      lastModified: new Date(),
+      lastModified: CONTENT_STAMP,
       changeFrequency: 'weekly',
       priority: 0.9,
       alternates: hreflang('/en/reviews', '/ru/reviews'),
     },
     {
       url: `${BASE}/ru/reviews`,
-      lastModified: new Date(),
+      lastModified: CONTENT_STAMP,
       changeFrequency: 'weekly',
       priority: 0.9,
       alternates: hreflang('/en/reviews', '/ru/reviews'),
@@ -177,14 +180,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
       {
         url: `${BASE}${enPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'monthly' as const,
         priority: 0.92,
         alternates: hreflang(enPath, ruPath),
       },
       {
         url: `${BASE}${ruPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'monthly' as const,
         priority: 0.92,
         alternates: hreflang(enPath, ruPath),
@@ -198,14 +201,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
       {
         url: `${BASE}${enPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'yearly' as const,
         priority: 0.3,
         alternates: hreflang(enPath, ruPath),
       },
       {
         url: `${BASE}${ruPath}`,
-        lastModified: new Date(),
+        lastModified: CONTENT_STAMP,
         changeFrequency: 'yearly' as const,
         priority: 0.3,
         alternates: hreflang(enPath, ruPath),

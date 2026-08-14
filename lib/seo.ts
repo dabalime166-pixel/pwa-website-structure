@@ -79,7 +79,9 @@ export function clampMetaDescription(
       lang === 'ru'
         ? ' Бесплатное демо в браузере на 1weapp — без регистрации и депозита.'
         : ' Free browser demo on 1weapp — no signup and no deposit required.'
-    t = `${t}${pad}`.replace(/\s+/g, ' ').trim()
+    const next = `${t}${pad}`.replace(/\s+/g, ' ').trim()
+    // Skip padding that would immediately truncate into a dangling word ("и…", "no…").
+    if (next.length <= maxLen || t.length < 110) t = next
   }
 
   if (t.length <= maxLen) return t
@@ -87,5 +89,9 @@ export function clampMetaDescription(
   let cut = t.slice(0, maxLen - 1)
   const space = cut.lastIndexOf(' ')
   if (space > 100) cut = cut.slice(0, space)
-  return `${cut.replace(/[\s.,;:!?…]+$/u, '')}…`
+  cut = cut
+    .replace(/[\s.,;:!?…]+$/u, '')
+    .replace(/\s+(?:is|the|a|an|to|for|and|of|or|no|in|on|at|и|на|в|с|по|для|без|от|до)$/iu, '')
+    .trim()
+  return `${cut}…`
 }

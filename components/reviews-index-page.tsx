@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { REVIEWS, reviewHref } from '@/lib/reviews-data'
-import { CTA_URL, homeHref } from '@/lib/games'
+import { homeHref } from '@/lib/games'
+import { continueHref } from '@/lib/continue'
 
 export default function ReviewsIndexPage({ lang }: { lang: 'en' | 'ru' }) {
   const isEn = lang === 'en'
@@ -43,13 +44,8 @@ export default function ReviewsIndexPage({ lang }: { lang: 'en' | 'ru' }) {
                   ? 'Detailed write-ups with keywords, RTP notes and casino redirects — no demo iframes on these pages.'
                   : 'Подробные тексты с ключами, RTP и редиректом в казино — без демо iframe на этих страницах.'}
               </p>
-              <a
-                href={CTA_URL}
-                rel="noopener noreferrer nofollow sponsored"
-                target="_blank"
-                className="review-index__cta"
-              >
-                {isEn ? 'Open casino' : 'Открыть казино'}
+              <a href={continueHref(lang)} className="review-index__cta">
+                {isEn ? 'Continue' : 'Продолжить'}
               </a>
             </div>
           </div>

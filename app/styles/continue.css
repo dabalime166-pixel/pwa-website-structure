@@ -1,0 +1,90 @@
+.continue-page {
+  position: relative;
+  min-height: 70dvh;
+  display: grid;
+  place-items: center;
+  padding: 2.5rem 1.25rem 4.5rem;
+  z-index: 0;
+}
+.continue-page__glow {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(46vh, 360px);
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 20%, rgba(226,184,74,0.16), transparent 65%),
+    radial-gradient(ellipse 50% 45% at 88% 8%, rgba(110,200,255,0.08), transparent 60%);
+}
+.continue-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 36rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 20px;
+  padding: 1.75rem 1.5rem 1.6rem;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+}
+.continue-card__kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.65rem;
+}
+.continue-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 4vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+.continue-card__lead,
+.continue-card__game {
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  font-size: 0.95rem;
+  margin-bottom: 0.85rem;
+}
+.continue-card__steps-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin: 1.1rem 0 0.55rem;
+}
+.continue-card__steps {
+  margin: 0 0 1.35rem;
+  padding-left: 1.15rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  font-size: 0.9rem;
+}
+.continue-card__steps li + li {
+  margin-top: 0.35rem;
+}
+.continue-card__cta {
+  width: 100%;
+  justify-content: center;
+}
+.continue-card__legal {
+  margin-top: 0.9rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.continue-card__links {
+  margin-top: 0.85rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+.continue-card__links a {
+  color: var(--color-gold-light);
+  text-decoration: none;
+}
+.continue-card__links a:hover {
+  text-decoration: underline;
+}
