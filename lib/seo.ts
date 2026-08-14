@@ -9,6 +9,18 @@ export const DEFAULT_OG_IMAGE = {
   alt: '1weapp — Play Free Demo Games',
 } as const
 
+/** Format a YYYY-MM-DD date for display without timezone drift. */
+export function formatIsoDate(iso: string, lang: 'en' | 'ru'): string {
+  const date = new Date(`${iso}T00:00:00.000Z`)
+  if (Number.isNaN(date.getTime())) return iso
+  return new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date)
+}
+
 /** Build an absolute URL from a site path or pass through full URLs. */
 export function absoluteUrl(path: string): string {
   if (!path) return SITE_ORIGIN

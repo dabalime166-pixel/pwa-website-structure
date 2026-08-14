@@ -37,8 +37,8 @@ function buildReviewJsonLd(review: ReviewData, slug: string): string {
         headline: review.titleSeoEn,
         inLanguage: 'en',
         url: `${BASE}/reviews/${slug}`,
-        datePublished: '2026-03-15',
-        dateModified: new Date().toISOString().split('T')[0],
+        datePublished: '2026-08-12',
+        dateModified: '2026-08-12',
         publisher: {
           '@type': 'Organization',
           name: '1weapp',

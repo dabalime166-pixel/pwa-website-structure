@@ -29,6 +29,10 @@ export interface GuideData {
   titleSeoEn?: string
   descriptionSeoRu?: string
   descriptionSeoEn?: string
+  /** ISO date YYYY-MM-DD — first public version */
+  publishedAt: string
+  /** ISO date YYYY-MM-DD — last substantive content edit */
+  updatedAt: string
   sections: { ru: Section[]; en: Section[] }
 }
 
@@ -39,6 +43,8 @@ export const GUIDES: GuideData[] = [
     id: 'plinko',
     slug: 'plinko',
     icon: '◉',
+    publishedAt: '2026-07-04',
+    updatedAt: '2026-07-24',
     titleRu: 'Plinko стратегия низкий риск',
     titleEn: 'Plinko Low Risk Strategy Demo',
     subtitleRu: 'Как работает Plinko демо, ряды и риск — без депозита',
@@ -170,6 +176,8 @@ export const GUIDES: GuideData[] = [
     id: 'mines',
     slug: 'mines',
     icon: '◆',
+    publishedAt: '2026-07-04',
+    updatedAt: '2026-07-24',
     titleRu: 'Mines стратегия 3 мины',
     titleEn: 'Mines 3 Bombs Strategy',
     subtitleRu: 'Когда делать кэшаут и как играть mines демо без депозита',
@@ -285,6 +293,8 @@ export const GUIDES: GuideData[] = [
     id: 'crash',
     slug: 'crash',
     icon: '▲',
+    publishedAt: '2026-07-04',
+    updatedAt: '2026-07-24',
     titleRu: 'Crash автокэшаут стратегия',
     titleEn: 'Crash Auto Cashout Strategy',
     subtitleRu: 'Когда выводить в краш-игре и тактика кэшаута в Lucky Jet демо',
@@ -406,6 +416,8 @@ export const GUIDES: GuideData[] = [
     id: 'mistakes',
     slug: 'mistakes',
     icon: '✕',
+    publishedAt: '2026-07-05',
+    updatedAt: '2026-07-24',
     titleRu: 'Ошибки новичков в онлайн казино',
     titleEn: 'Online Casino Beginner Mistakes',
     subtitleRu: 'Почему нельзя догонять проигрыш и как вести банкролл',
@@ -511,6 +523,8 @@ export const GUIDES: GuideData[] = [
     id: 'rtp',
     slug: 'rtp',
     icon: '％',
+    publishedAt: '2026-07-05',
+    updatedAt: '2026-07-24',
     titleRu: 'Что такое RTP слота простыми словами',
     titleEn: 'Slot RTP Explained Simply',
     subtitleRu: 'Волатильность слота, банкролл и выбор высокого RTP',
@@ -606,6 +620,8 @@ export const GUIDES: GuideData[] = [
     id: 'bonuses',
     slug: 'bonuses',
     icon: '★',
+    publishedAt: '2026-07-05',
+    updatedAt: '2026-07-24',
     titleRu: 'Вейджер бонуса казино как считать',
     titleEn: 'Casino Wagering Requirement Explained',
     subtitleRu: 'Фриспины с вейджером и подводные камни приветственного бонуса',
@@ -703,6 +719,8 @@ export const GUIDES: GuideData[] = [
     id: 'responsible',
     slug: 'responsible',
     icon: '◈',
+    publishedAt: '2026-07-05',
+    updatedAt: '2026-07-24',
     titleRu: 'Лимит депозита онлайн казино',
     titleEn: 'Online Casino Deposit Limit Guide',
     subtitleRu: 'Признаки проблемной игры и как ограничить время сессии',
@@ -808,6 +826,8 @@ export const GUIDES: GuideData[] = [
     id: 'myths',
     slug: 'myths',
     icon: '?',
+    publishedAt: '2026-07-05',
+    updatedAt: '2026-07-30',
     titleRu: 'Миф о горячих и холодных слотах',
     titleEn: 'Hot and Cold Slots Myth',
     subtitleRu: 'RNG, «должен отдать» после проигрышей и другие суеверия',

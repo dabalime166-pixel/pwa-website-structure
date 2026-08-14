@@ -111,17 +111,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]
   })
 
+  const guidesLastUpdated = GUIDES.reduce(
+    (max, g) => (g.updatedAt > max ? g.updatedAt : max),
+    GUIDES[0]?.updatedAt ?? '2026-07-24',
+  )
+
   const guideIndexEntries: MetadataRoute.Sitemap = [
     {
       url: `${BASE}/en/guides`,
-      lastModified: new Date(),
+      lastModified: new Date(guidesLastUpdated),
       changeFrequency: 'weekly',
       priority: 0.9,
       alternates: hreflang('/en/guides', '/ru/guides'),
     },
     {
       url: `${BASE}/ru/guides`,
-      lastModified: new Date(),
+      lastModified: new Date(guidesLastUpdated),
       changeFrequency: 'weekly',
       priority: 0.9,
       alternates: hreflang('/en/guides', '/ru/guides'),
@@ -134,14 +139,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
       {
         url: `${BASE}${enPath}`,
-        lastModified: new Date(),
+        lastModified: new Date(g.updatedAt),
         changeFrequency: 'monthly' as const,
         priority: 0.85,
         alternates: hreflang(enPath, ruPath),
       },
       {
         url: `${BASE}${ruPath}`,
-        lastModified: new Date(),
+        lastModified: new Date(g.updatedAt),
         changeFrequency: 'monthly' as const,
         priority: 0.85,
         alternates: hreflang(enPath, ruPath),
