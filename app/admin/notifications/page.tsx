@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import { useAdminAuth } from '@/components/admin/use-admin-auth'
 
 type FormState = {
   title: string
@@ -39,17 +40,7 @@ const DEFAULTS: FormState = {
 
 function PreviewCard({ form }: { form: FormState }) {
   return (
-    <div
-      aria-hidden="true"
-      style={{
-        maxWidth: 360,
-        background: 'linear-gradient(160deg, #1a1814 0%, #12110f 100%)',
-        border: '1px solid rgba(226,184,74,0.35)',
-        borderRadius: 16,
-        overflow: 'hidden',
-        boxShadow: '0 18px 40px rgba(0,0,0,0.45)',
-      }}
-    >
+    <div className="admin-card" style={{ maxWidth: 360, padding: 0, overflow: 'hidden' }}>
       {form.image ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={form.image} alt="" style={{ width: '100%', height: 140, objectFit: 'cover', display: 'block' }} />
@@ -64,155 +55,36 @@ function PreviewCard({ form }: { form: FormState }) {
           style={{ borderRadius: 10, objectFit: 'cover', flexShrink: 0, background: '#0d0d0f' }}
         />
         <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: 11, color: '#9a7420', marginBottom: 4, letterSpacing: '0.04em' }}>
-            1weapp.online
-          </div>
-          <div style={{ fontWeight: 700, color: '#f7f1e3', fontSize: 15, lineHeight: 1.3, marginBottom: 4 }}>
-            {form.title || 'Заголовок'}
-          </div>
-          <div style={{ color: '#b8a57a', fontSize: 13, lineHeight: 1.45 }}>
-            {form.body || 'Текст уведомления'}
-          </div>
+          <div style={{ fontSize: 11, color: '#9a7420', marginBottom: 4 }}>1weapp.online</div>
+          <div style={{ fontWeight: 700, fontSize: 15, lineHeight: 1.3, marginBottom: 4 }}>{form.title || 'Заголовок'}</div>
+          <div style={{ color: '#b8a57a', fontSize: 13, lineHeight: 1.45 }}>{form.body || 'Текст уведомления'}</div>
         </div>
       </div>
     </div>
   )
 }
 
-function loginErrorMessage(status: number, error?: string | null, code?: string | null): string {
-  if (status === 503 || code === 'missing_admin_secret' || error?.includes('ADMIN_PUSH_SECRET')) {
-    return 'На сервере не задан ADMIN_PUSH_SECRET. Добавьте переменную в Vercel → Settings → Environment Variables для Production (без кавычек) и нажмите Redeploy.'
-  }
-  if (status === 401 || code === 'unauthorized' || error === 'Unauthorized') {
-    return 'Неверный секрет. Скопируйте ADMIN_PUSH_SECRET без кавычек и пробелов. После смены переменной нужен Redeploy.'
-  }
-  if (status === 404 || status === 405) {
-    return 'Сервер ещё на старом коде. Сделайте Redeploy текущей ветки и откройте админку на www.1weapp.online/admin/notifications'
-  }
-  if (error) return error
-  return `Ошибка входа (${status})`
-}
-
 export default function AdminNotificationsPage() {
-  const [secret, setSecret] = useState('')
-  const [unlocked, setUnlocked] = useState(false)
+  const { secret, unlocked, adminFetch } = useAdminAuth()
   const [count, setCount] = useState<number | null>(null)
   const [form, setForm] = useState<FormState>(DEFAULTS)
   const [status, setStatus] = useState<string | null>(null)
   const [sending, setSending] = useState(false)
-  const [authError, setAuthError] = useState<string | null>(null)
-
-  const loginWithSecret = useCallback(async (nextSecret: string) => {
-    const res = await fetch('/api/push/login', {
-      method: 'POST',
-      cache: 'no-store',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-admin-secret': nextSecret,
-      },
-      body: JSON.stringify({ secret: nextSecret }),
-    })
-    const data = (await res.json().catch(() => null)) as
-      | { ok?: boolean; count?: number; error?: string; warning?: string; code?: string; configured?: boolean }
-      | null
-    return { res, data }
-  }, [])
-
-  useEffect(() => {
-    const saved = sessionStorage.getItem('admin_push_secret')
-    if (saved) {
-      setSecret(saved)
-      void (async () => {
-        try {
-          const { res, data } = await loginWithSecret(saved)
-          if (!res.ok) {
-            sessionStorage.removeItem('admin_push_secret')
-            setUnlocked(false)
-            setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
-            return
-          }
-          setUnlocked(true)
-          setCount(data?.count ?? 0)
-          setAuthError(null)
-          if (data?.warning) setStatus(data.warning)
-        } catch {
-          setUnlocked(false)
-          setAuthError('Ошибка сети при проверке сессии')
-        }
-      })()
-      return
-    }
-
-    void (async () => {
-      try {
-        const res = await fetch('/api/push/login', { cache: 'no-store', credentials: 'same-origin' })
-        const data = (await res.json().catch(() => null)) as { configured?: boolean; error?: string; code?: string } | null
-        if (data?.configured === false) {
-          setAuthError(loginErrorMessage(503, data.error, data.code || 'missing_admin_secret'))
-        }
-      } catch {
-        /* ignore — user can still try to log in */
-      }
-    })()
-  }, [loginWithSecret])
 
   const refreshCount = useCallback(async () => {
     if (!secret) return
-    try {
-      const { res, data } = await loginWithSecret(secret)
-      if (res.status === 401) {
-        setUnlocked(false)
-        setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
-        sessionStorage.removeItem('admin_push_secret')
-        return
-      }
-      if (!res.ok) {
-        setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
-        return
-      }
-      setCount(data?.count ?? 0)
-      setAuthError(null)
-      if (data?.warning) setStatus(data.warning)
-    } catch {
-      setAuthError('Ошибка сети. Откройте админку с https://www.1weapp.online/admin/notifications')
-    }
-  }, [secret, loginWithSecret])
+    const res = await adminFetch('/api/push/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret }),
+    })
+    const data = await res.json().catch(() => null)
+    if (res.ok) setCount(data?.count ?? 0)
+  }, [adminFetch, secret])
 
-  const unlock = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const nextSecret = secret.trim()
-    if (!nextSecret) return
-    setAuthError(null)
-    try {
-      const { res, data } = await loginWithSecret(nextSecret)
-      if (!res.ok) {
-        setUnlocked(false)
-        setAuthError(loginErrorMessage(res.status, data?.error, data?.code))
-        return
-      }
-      sessionStorage.setItem('admin_push_secret', nextSecret)
-      setSecret(nextSecret)
-      setUnlocked(true)
-      setCount(data?.count ?? 0)
-      if (data?.warning) setStatus(data.warning)
-    } catch {
-      setAuthError('Ошибка сети. Откройте админку с https://www.1weapp.online/admin/notifications')
-    }
-  }
-
-  const logout = async () => {
-    sessionStorage.removeItem('admin_push_secret')
-    setUnlocked(false)
-    setSecret('')
-    setCount(null)
-    setAuthError(null)
-    try {
-      await fetch('/api/push/login', { method: 'DELETE', cache: 'no-store', credentials: 'same-origin' })
-    } catch {
-      /* ignore */
-    }
-  }
+  useEffect(() => {
+    if (unlocked) void refreshCount()
+  }, [unlocked, refreshCount])
 
   const onChange = (key: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [key]: e.target.value }))
@@ -228,15 +100,9 @@ export default function AdminNotificationsPage() {
     setSending(true)
     setStatus(null)
     try {
-      const res = await fetch('/api/push/send', {
+      const res = await adminFetch('/api/push/send', {
         method: 'POST',
-        cache: 'no-store',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${secret}`,
-          'x-admin-secret': secret,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           secret,
           title: form.title,
@@ -247,14 +113,7 @@ export default function AdminNotificationsPage() {
           tag: form.tag || '1weapp-broadcast',
         }),
       })
-      const data = (await res.json()) as {
-        ok?: boolean
-        total?: number
-        sent?: number
-        failed?: number
-        removed?: number
-        error?: string
-      }
+      const data = await res.json()
       if (!res.ok) {
         setStatus(data.error || 'Ошибка отправки')
         return
@@ -272,200 +131,58 @@ export default function AdminNotificationsPage() {
     }
   }
 
-  const fieldStyle: React.CSSProperties = {
-    width: '100%',
-    background: 'var(--color-bg-card)',
-    border: '1px solid var(--color-border-gold)',
-    borderRadius: 10,
-    color: 'var(--color-text-primary)',
-    padding: '0.75rem 0.9rem',
-    fontSize: '0.9375rem',
-  }
-
-  const labelStyle: React.CSSProperties = {
-    display: 'block',
-    fontSize: '0.75rem',
-    color: 'var(--color-gold-dim)',
-    textTransform: 'uppercase',
-    letterSpacing: '0.06em',
-    marginBottom: 6,
-    fontWeight: 600,
-  }
-
-  if (!unlocked) {
-    return (
-      <main style={{ minHeight: '100dvh', display: 'grid', placeItems: 'center', padding: '1.5rem' }}>
-        <form
-          onSubmit={unlock}
-          style={{
-            width: '100%',
-            maxWidth: 400,
-            background: 'var(--color-bg-surface)',
-            border: '1px solid var(--color-border-gold)',
-            borderRadius: 16,
-            padding: '1.75rem',
-          }}
-        >
-          <h1 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>Admin · Уведомления</h1>
-          <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
-            Введите ADMIN_PUSH_SECRET из Vercel (Production). Открывайте страницу на
-            https://www.1weapp.online/admin/notifications — после смены env нужен Redeploy.
-          </p>
-          <label style={labelStyle} htmlFor="secret">
-            Секрет
-          </label>
-          <input
-            id="secret"
-            type="password"
-            value={secret}
-            onChange={(e) => setSecret(e.target.value)}
-            style={{ ...fieldStyle, marginBottom: '1rem' }}
-            autoComplete="current-password"
-            required
-          />
-          {authError ? (
-            <p style={{ color: '#e07a7a', fontSize: '0.8125rem', marginBottom: '0.75rem' }}>{authError}</p>
-          ) : null}
-          <button type="submit" className="btn-cta" style={{ width: '100%' }}>
-            Войти
-          </button>
-        </form>
-      </main>
-    )
-  }
-
   return (
-    <main style={{ maxWidth: 960, margin: '0 auto', padding: '2rem 1rem 4rem' }}>
-      <header
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '1rem',
-          alignItems: 'flex-end',
-          justifyContent: 'space-between',
-          marginBottom: '1.75rem',
-        }}
-      >
+    <div>
+      <header className="admin-toolbar" style={{ justifyContent: 'space-between', marginBottom: '1rem' }}>
         <div>
-          <h1 style={{ marginBottom: 6 }}>Рассылка уведомлений</h1>
-          <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9375rem' }}>
-            Подписчиков в базе:{' '}
-            <span style={{ color: 'var(--color-gold)', fontWeight: 700 }}>
-              {count === null ? '…' : count}
-            </span>
-          </p>
-          <p style={{ color: 'var(--color-text-muted)', fontSize: '0.8125rem', marginTop: 6 }}>
-            Локально с ПК: <code>pnpm push:export</code> и <code>pnpm push:send</code>
+          <h1 style={{ fontSize: '1.6rem', marginBottom: '0.35rem' }}>Push notifications</h1>
+          <p style={{ color: 'var(--adm-muted)', fontSize: '0.9rem' }}>
+            Подписчиков: <strong style={{ color: 'var(--adm-gold)' }}>{count === null ? '…' : count}</strong>
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <button type="button" className="btn-fullscreen" onClick={() => void refreshCount()}>
-            Обновить
-          </button>
-          <button type="button" className="btn-fullscreen" onClick={() => void logout()}>
-            Выйти
-          </button>
-        </div>
+        <button className="admin-btn" type="button" onClick={() => void refreshCount()}>
+          Refresh count
+        </button>
       </header>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.2fr) minmax(260px, 0.8fr)',
-          gap: '1.5rem',
-          alignItems: 'start',
-        }}
-        className="admin-push-grid"
-      >
-        <form
-          onSubmit={send}
-          style={{
-            background: 'var(--color-bg-surface)',
-            border: '1px solid var(--color-border-gold)',
-            borderRadius: 16,
-            padding: '1.25rem',
-            display: 'grid',
-            gap: '1rem',
-          }}
-        >
-          <div>
-            <label style={labelStyle} htmlFor="title">
-              Заголовок
+      <div className="admin-split">
+        <form className="admin-card" onSubmit={send} style={{ display: 'grid', gap: '0.75rem' }}>
+          <label className="admin-field">
+            <span className="admin-label">Заголовок</span>
+            <input className="admin-input" value={form.title} onChange={onChange('title')} required maxLength={80} />
+          </label>
+          <label className="admin-field">
+            <span className="admin-label">Текст</span>
+            <textarea className="admin-textarea" style={{ minHeight: 100 }} value={form.body} onChange={onChange('body')} required maxLength={220} />
+          </label>
+          <label className="admin-field">
+            <span className="admin-label">Ссылка</span>
+            <input className="admin-input" value={form.url} onChange={onChange('url')} placeholder="/ru/lucky-jet" />
+          </label>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+            <label className="admin-field">
+              <span className="admin-label">Иконка</span>
+              <input className="admin-input" value={form.icon} onChange={onChange('icon')} />
             </label>
-            <input id="title" value={form.title} onChange={onChange('title')} style={fieldStyle} required maxLength={80} />
-          </div>
-          <div>
-            <label style={labelStyle} htmlFor="body">
-              Текст
+            <label className="admin-field">
+              <span className="admin-label">Tag</span>
+              <input className="admin-input" value={form.tag} onChange={onChange('tag')} />
             </label>
-            <textarea
-              id="body"
-              value={form.body}
-              onChange={onChange('body')}
-              style={{ ...fieldStyle, minHeight: 110, resize: 'vertical' }}
-              required
-              maxLength={220}
-            />
           </div>
-          <div>
-            <label style={labelStyle} htmlFor="url">
-              Ссылка по клику
-            </label>
-            <input id="url" value={form.url} onChange={onChange('url')} style={fieldStyle} placeholder="/ru/lucky-jet" />
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-            <div>
-              <label style={labelStyle} htmlFor="icon">
-                Иконка
-              </label>
-              <input id="icon" value={form.icon} onChange={onChange('icon')} style={fieldStyle} />
-            </div>
-            <div>
-              <label style={labelStyle} htmlFor="tag">
-                Tag
-              </label>
-              <input id="tag" value={form.tag} onChange={onChange('tag')} style={fieldStyle} />
-            </div>
-          </div>
-          <div>
-            <label style={labelStyle} htmlFor="image">
-              Картинка (опционально)
-            </label>
-            <input
-              id="image"
-              value={form.image}
-              onChange={onChange('image')}
-              style={fieldStyle}
-              placeholder="https://... или /banners/promo.webp"
-            />
-          </div>
-
-          <button type="submit" className="btn-cta" disabled={sending || count === 0} style={{ justifySelf: 'start' }}>
+          <label className="admin-field">
+            <span className="admin-label">Картинка (опционально)</span>
+            <input className="admin-input" value={form.image} onChange={onChange('image')} placeholder="/banners/promo.webp" />
+          </label>
+          <button className="admin-btn admin-btn--primary" type="submit" disabled={sending || count === 0}>
             {sending ? 'Отправка…' : 'Отправить всем'}
           </button>
-
-          {status ? (
-            <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)' }}>{status}</p>
-          ) : null}
+          {status ? <p style={{ fontSize: '0.86rem', color: 'var(--adm-muted)' }}>{status}</p> : null}
         </form>
-
         <aside>
-          <p style={{ ...labelStyle, marginBottom: 10 }}>Превью</p>
+          <p className="admin-label">Превью</p>
           <PreviewCard form={form} />
-          <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
-            На iPhone уведомления работают только если сайт добавлен на домашний экран (PWA). Chrome/Android — сразу.
-          </p>
-          <p style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
-            Для фото используйте публичный HTTPS URL или путь вида /banners/.... Форматы: JPG/PNG/WebP.
-          </p>
         </aside>
       </div>
-
-      <style>{`
-        @media (max-width: 800px) {
-          .admin-push-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
-    </main>
+    </div>
   )
 }

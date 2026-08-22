@@ -1,4 +1,5 @@
 import { games, type Game, type Lang, homeHref } from '@/lib/games'
+import providersJson from './providers.json'
 
 /** Games per page on provider hubs (and home page chips). */
 export const PROVIDER_PAGE_SIZE = 36
@@ -12,18 +13,7 @@ export type ProviderDef = {
   titleRu: string
 }
 
-export const PROVIDERS: ProviderDef[] = [
-  { slug: 'pragmatic-play', name: 'Pragmatic Play', titleEn: 'Pragmatic Play', titleRu: 'Pragmatic Play' },
-  { slug: 'play-n-go', name: "Play'n GO", titleEn: "Play'n GO", titleRu: "Play'n GO" },
-  { slug: 'netent', name: 'NetEnt', titleEn: 'NetEnt', titleRu: 'NetEnt' },
-  { slug: 'hacksaw-gaming', name: 'Hacksaw Gaming', titleEn: 'Hacksaw Gaming', titleRu: 'Hacksaw Gaming' },
-  { slug: 'bgaming', name: 'BGaming', titleEn: 'BGaming', titleRu: 'BGaming' },
-  { slug: 'nolimit-city', name: 'Nolimit City', titleEn: 'Nolimit City', titleRu: 'Nolimit City' },
-  { slug: 'big-time-gaming', name: 'Big Time Gaming', titleEn: 'Big Time Gaming', titleRu: 'Big Time Gaming' },
-  { slug: 'red-tiger', name: 'Red Tiger', titleEn: 'Red Tiger', titleRu: 'Red Tiger' },
-  { slug: '1weapp-games', name: '1weapp Games', titleEn: '1weapp Games', titleRu: '1weapp Games' },
-  { slug: 'inout-games', name: 'InOut Games', titleEn: 'InOut Games', titleRu: 'InOut Games' },
-]
+export const PROVIDERS: ProviderDef[] = providersJson as ProviderDef[]
 
 export function getProviderBySlug(slug: string): ProviderDef | undefined {
   return PROVIDERS.find((p) => p.slug === slug)
